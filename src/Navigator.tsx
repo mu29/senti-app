@@ -4,8 +4,9 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
-import FeedScreen from './screens/FeedScreen';
-import RoomScreen from './screens/RoomScreen';
+import { BottomTabBar } from 'components'
+import FeedScreen from './screens/FeedScreen'
+import RoomScreen from './screens/RoomScreen'
 
 const MainNavigator = createBottomTabNavigator({
   Feed: {
@@ -25,6 +26,7 @@ const MainNavigator = createBottomTabNavigator({
     },
   },
 }, {
+  tabBarComponent: BottomTabBar,
   tabBarOptions: {
     activeTintColor: '#424242',
     inactiveTintColor: '#9E9E9E',
