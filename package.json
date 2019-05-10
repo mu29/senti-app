@@ -27,6 +27,7 @@
     "jest": "^24.7.1",
     "metro-react-native-babel-preset": "^0.53.1",
     "react-test-renderer": "16.8.3",
+    "tinify": "^1.6.0-beta.2",
     "typescript": "^3.4.3"
   },
   "jest": {
