@@ -691,21 +691,7 @@
 		F9DC04F2471F40C3A4624B38 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AD1718FC62D740039F22D9F4 /* AntDesign.ttf */,
-				EB7384E5C62242339E49B0CA /* Entypo.ttf */,
-				4EFB515390A741CEB8187DC7 /* EvilIcons.ttf */,
-				7592160250124D288EBD8207 /* Feather.ttf */,
-				7F57EC3F0BA84F97909E4846 /* FontAwesome.ttf */,
-				A4FD8CF68E5F47F5A50C215D /* FontAwesome5_Brands.ttf */,
-				DE082FD8ADEB4687BCF92759 /* FontAwesome5_Regular.ttf */,
-				BCE9D5A8EE2F49F79CEA5D56 /* FontAwesome5_Solid.ttf */,
-				6EF624B162174504955CD74C /* Foundation.ttf */,
 				28A995E4F756430E8F7C78AF /* Ionicons.ttf */,
-				5E22BFB9E4CD428CA7B5E764 /* MaterialCommunityIcons.ttf */,
-				0BF5125153B840B39FF32F2A /* MaterialIcons.ttf */,
-				470B9B263D9846469F4DD437 /* Octicons.ttf */,
-				9B69DB99F18249629CDC7669 /* SimpleLineIcons.ttf */,
-				6D78239F96204AB5BC735932 /* Zocial.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -796,7 +782,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = AVXKHR4MKC;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = AVXKHR4MKC;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1312,6 +1302,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1346,6 +1337,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1377,6 +1369,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1400,6 +1393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",

@@ -2,12 +2,12 @@ import React from 'react'
 import { SafeAreaView } from 'react-navigation'
 import { Text } from 'react-native';
 
-const FeedScreen = () => (
+const HomeScreen = () => (
   <SafeAreaView>
     <Text>
-      FeedScreen
+      HomeScreen
     </Text>
   </SafeAreaView>
 )
 
-export default FeedScreen
+export default HomeScreen
