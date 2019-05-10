@@ -1,5 +1,5 @@
-import React from 'react'
-import { SafeAreaView } from 'react-navigation'
+import React from 'react';
+import { SafeAreaView } from 'react-navigation';
 import { Text } from 'react-native';
 
 const ProfileScreen = () => (
@@ -8,6 +8,6 @@ const ProfileScreen = () => (
       ProfileScreen
     </Text>
   </SafeAreaView>
-)
+);
 
-export default ProfileScreen
+export default ProfileScreen;

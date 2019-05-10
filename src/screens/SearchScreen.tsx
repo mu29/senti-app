@@ -1,5 +1,5 @@
-import React from 'react'
-import { SafeAreaView } from 'react-navigation'
+import React from 'react';
+import { SafeAreaView } from 'react-navigation';
 import { Text } from 'react-native';
 
 const SearchScreen = () => (
@@ -8,6 +8,6 @@ const SearchScreen = () => (
       SearchScreen
     </Text>
   </SafeAreaView>
-)
+);
 
-export default SearchScreen
+export default SearchScreen;

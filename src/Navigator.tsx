@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 import {
   Image,
   StyleSheet,
-} from 'react-native'
+} from 'react-native';
 import {
   createAppContainer,
   createBottomTabNavigator,
   TabBarIconProps,
-} from 'react-navigation'
-import HomeScreen from './screens/HomeScreen'
-import SearchScreen from './screens/SearchScreen'
-import RoomScreen from './screens/RoomScreen'
-import ProfileScreen from './screens/ProfileScreen'
+} from 'react-navigation';
+import HomeScreen from './screens/HomeScreen';
+import SearchScreen from './screens/SearchScreen';
+import RoomScreen from './screens/RoomScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const MainNavigator = createBottomTabNavigator({
   Home: {
@@ -75,13 +75,13 @@ const MainNavigator = createBottomTabNavigator({
     inactiveTintColor: '#212121',
     showLabel: false,
   },
-})
+});
 
 const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
   },
-})
+});
 
-export default createAppContainer(MainNavigator)
+export default createAppContainer(MainNavigator);

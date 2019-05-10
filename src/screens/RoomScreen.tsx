@@ -1,5 +1,5 @@
-import React from 'react'
-import { SafeAreaView } from 'react-navigation'
+import React from 'react';
+import { SafeAreaView } from 'react-navigation';
 import { Text } from 'react-native';
 
 const RoomScreen = () => (
@@ -8,6 +8,6 @@ const RoomScreen = () => (
       RoomScreen
     </Text>
   </SafeAreaView>
-)
+);
 
-export default RoomScreen
+export default RoomScreen;

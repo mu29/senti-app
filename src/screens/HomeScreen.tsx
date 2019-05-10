@@ -1,13 +1,12 @@
-import React from 'react'
-import { SafeAreaView } from 'react-navigation'
+import React from 'react';
+import { SafeAreaView } from 'react-navigation';
 import { Text } from 'react-native';
+import { Header } from 'components';
 
 const HomeScreen = () => (
   <SafeAreaView>
-    <Text>
-      HomeScreen
-    </Text>
+    <Header />
   </SafeAreaView>
-)
+);
 
-export default HomeScreen
+export default HomeScreen;
