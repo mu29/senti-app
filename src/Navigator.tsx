@@ -8,7 +8,7 @@ import {
   createBottomTabNavigator,
   TabBarIconProps,
 } from 'react-navigation';
-import { BottomTabBar } from 'components'
+import { BottomTabBar } from 'components';
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import RoomScreen from './screens/RoomScreen';

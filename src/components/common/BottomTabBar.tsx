@@ -1,21 +1,21 @@
-import React from 'react'
+import React from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
-} from 'react-native'
+} from 'react-native';
 import {
   SafeAreaView,
   BottomTabBarProps as NavigationBottomTabBarProps,
-} from 'react-navigation'
+} from 'react-navigation';
 
 interface BottomTabBarProps extends NavigationBottomTabBarProps {
-  jumpTo: (key: string) => void
+  jumpTo: (key: string) => void;
 }
 
 class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
   private onJumpToHandlers: {
     [key: string]: () => void;
-  } = {}
+  } = {};
 
   public render() {
     const {
@@ -23,13 +23,13 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
         state: {
           index: navigationIndex,
           routes,
-        }, 
+        },
       },
       activeTintColor,
       inactiveTintColor,
       renderIcon,
       style,
-    } = this.props
+    } = this.props;
 
     return (
       <SafeAreaView
@@ -50,20 +50,20 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
               route,
               index: index,
               focused: navigationIndex === index,
-              tintColor: navigationIndex === index ? activeTintColor : inactiveTintColor
+              tintColor: navigationIndex === index ? activeTintColor : inactiveTintColor,
             })}
           </TouchableOpacity>
         ))}
       </SafeAreaView>
-    )
+    );
   }
 
   private getOnJumpToHandler = (key: string) => {
     if (!Object.prototype.hasOwnProperty.call(this.onJumpToHandlers, key)) {
-      this.onJumpToHandlers[key] = () => this.props.jumpTo(key)
+      this.onJumpToHandlers[key] = () => this.props.jumpTo(key);
     }
 
-    return this.onJumpToHandlers[key]
+    return this.onJumpToHandlers[key];
   }
 }
 
@@ -82,6 +82,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-})
+});
 
-export default BottomTabBar
+export default BottomTabBar;

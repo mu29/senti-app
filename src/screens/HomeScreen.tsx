@@ -12,6 +12,7 @@ import {
 } from 'react-native-parallax-swiper';
 
 const { width, height } = Dimensions.get('window');
+
 const swiperAnimation = new Animated.Value(0);
 
 const HomeScreen = () => (
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
-  }
+  },
 });
 
 export default HomeScreen;
