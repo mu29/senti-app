@@ -8,6 +8,7 @@ import {
   createBottomTabNavigator,
   TabBarIconProps,
 } from 'react-navigation';
+import { BottomTabBar } from 'components'
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import RoomScreen from './screens/RoomScreen';
@@ -20,7 +21,7 @@ const MainNavigator = createBottomTabNavigator({
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
           source={{ uri: `home${options.focused ? '_active' : ''}` }}
-          style={styles.icon}
+          style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
     },
@@ -31,7 +32,7 @@ const MainNavigator = createBottomTabNavigator({
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
           source={{ uri: `search${options.focused ? '_active' : ''}` }}
-          style={styles.icon}
+          style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
     },
@@ -39,10 +40,10 @@ const MainNavigator = createBottomTabNavigator({
   Add: {
     screen: () => null,
     navigationOptions: {
-      tabBarIcon: (options: TabBarIconProps) => (
+      tabBarIcon: () => (
         <Image
-          source={{ uri: `add${options.focused ? '_active' : ''}` }}
-          style={styles.icon}
+          source={{ uri: 'add_active' }}
+          style={[styles.icon, { tintColor: '#FFFFFF' }]}
         />
       ),
     },
@@ -53,7 +54,7 @@ const MainNavigator = createBottomTabNavigator({
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
           source={{ uri: `chat${options.focused ? '_active' : ''}` }}
-          style={styles.icon}
+          style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
     },
@@ -64,15 +65,16 @@ const MainNavigator = createBottomTabNavigator({
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
           source={{ uri: `profile${options.focused ? '_active' : ''}` }}
-          style={styles.icon}
+          style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
     },
   },
 }, {
+  tabBarComponent: BottomTabBar,
   tabBarOptions: {
-    activeTintColor: '#212121',
-    inactiveTintColor: '#212121',
+    activeTintColor: '#FFFFFF',
+    inactiveTintColor: '#A2A2A2',
     showLabel: false,
   },
 });

@@ -1,13 +1,16 @@
 import React from 'react';
 import { SafeAreaView } from 'react-navigation';
-import { Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const RoomScreen = () => (
-  <SafeAreaView>
-    <Text>
-      RoomScreen
-    </Text>
-  </SafeAreaView>
+  <SafeAreaView style={styles.container} />
 );
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1A1A1A',
+  },
+});
 
 export default RoomScreen;
