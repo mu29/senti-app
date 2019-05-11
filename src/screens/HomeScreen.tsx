@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   Dimensions,
@@ -38,7 +37,7 @@ const HomeScreen = () => (
       <ParallaxSwiperPage
         BackgroundComponent={(
           <Image
-            source={{ uri: 'https://cdn.pixabay.com/photo/2019/05/06/15/56/cream-4183408_1280.jpg' }}
+            source={{ uri: 'https://cdn.pixabay.com/photo/2019/05/08/10/09/city-4188256_1280.jpg' }}
             style={styles.background}
             blurRadius={0.5}
           />
