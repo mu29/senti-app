@@ -9,6 +9,8 @@ import {
   TabBarIconProps,
 } from 'react-navigation';
 import { BottomTabBar } from 'components';
+import { palette } from 'services/style';
+
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import RoomScreen from './screens/RoomScreen';
@@ -43,7 +45,7 @@ const MainNavigator = createBottomTabNavigator({
       tabBarIcon: () => (
         <Image
           source={{ uri: 'add_active' }}
-          style={[styles.icon, { tintColor: '#FFFFFF' }]}
+          style={[styles.icon, { tintColor: palette.gray[10] }]}
         />
       ),
     },
@@ -73,8 +75,8 @@ const MainNavigator = createBottomTabNavigator({
 }, {
   tabBarComponent: BottomTabBar,
   tabBarOptions: {
-    activeTintColor: '#FFFFFF',
-    inactiveTintColor: '#A2A2A2',
+    activeTintColor: palette.gray[10],
+    inactiveTintColor: palette.gray[40],
     showLabel: false,
   },
 });

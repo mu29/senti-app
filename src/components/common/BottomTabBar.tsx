@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   BottomTabBarProps as NavigationBottomTabBarProps,
 } from 'react-navigation';
+import { palette } from 'services/style';
 
 interface BottomTabBarProps extends NavigationBottomTabBarProps {
   jumpTo: (key: string) => void;
@@ -36,7 +37,7 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
         style={[
           styles.container,
           style,
-          { backgroundColor: navigationIndex === 0 ? 'rgba(0, 0, 0, 0.6)' : '#1A1A1A' },
+          { backgroundColor: navigationIndex === 0 ? 'rgba(0, 0, 0, 0.6)' : palette.gray[100] },
         ]}
       >
         {routes.map((route, index) => (

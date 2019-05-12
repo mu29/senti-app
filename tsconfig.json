@@ -12,7 +12,8 @@
     "target": "esnext",
     "baseUrl": "./src",
     "paths": {
-      "components": ["components"]
+      "components": ["components"],
+      "services/*": ["services/*"],
     }
   },
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
