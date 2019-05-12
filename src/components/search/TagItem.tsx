@@ -2,11 +2,14 @@ import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
+  Image,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 import { palette } from 'services/style';
 import { withComma } from 'services/utils';
+
+const TAG_ICON = { uri: 'ic_tag' };
 
 export interface TagItemProps {
   tag: Tag;
@@ -21,9 +24,7 @@ const TagItem: React.FunctionComponent<TagItemProps> = ({
 }) => (
   <View style={styles.container}>
     <View style={styles.tag}>
-      <Text style={styles.sharp}>
-        #
-      </Text>
+      <Image source={TAG_ICON} style={styles.icon} />
     </View>
     <View>
       <Text style={styles.name}>
@@ -57,10 +58,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: palette.gray[90],
   },
-  sharp: {
-    color: palette.yellow.default,
-    fontSize: 18,
-    fontWeight: '600',
+  icon: {
+    width: 14,
+    height: 14,
+    tintColor: palette.yellow.default,
   },
   name: {
     marginBottom: 4,

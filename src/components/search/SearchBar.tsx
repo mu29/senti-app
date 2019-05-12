@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     borderBottomColor: palette.gray[90],
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
   },
   bar: {
     flexDirection: 'row',
