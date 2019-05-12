@@ -79,6 +79,7 @@ const MainNavigator = createBottomTabNavigator({
     inactiveTintColor: palette.gray[40],
     showLabel: false,
   },
+  initialRouteName: 'Search',
 });
 
 const styles = StyleSheet.create({

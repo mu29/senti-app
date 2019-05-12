@@ -11,4 +11,10 @@ export const palette = {
     20: '#E0E0E0',
     10: '#EEEEEE',
   },
+  yellow: {
+    default: '#F9D14C',
+  },
+  orange: {
+    default: '#F28523',
+  },
 };
