@@ -1,9 +1,12 @@
 import React from 'react';
-import { SafeAreaView } from 'react-navigation';
 import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
+import { SearchBar } from 'components';
 
 const SearchScreen = () => (
-  <SafeAreaView style={styles.container} />
+  <SafeAreaView style={styles.container}>
+    <SearchBar />
+  </SafeAreaView>
 );
 
 const styles = StyleSheet.create({
