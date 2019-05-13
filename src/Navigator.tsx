@@ -13,7 +13,7 @@ import { palette } from 'services/style';
 
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
-import RoomScreen from './screens/RoomScreen';
+import ChattingScreen from './screens/ChattingScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
 const MainNavigator = createBottomTabNavigator({
@@ -50,8 +50,8 @@ const MainNavigator = createBottomTabNavigator({
       ),
     },
   },
-  Room: {
-    screen: RoomScreen,
+  Chatting: {
+    screen: ChattingScreen,
     navigationOptions: {
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
