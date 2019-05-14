@@ -1,6 +1,10 @@
 import React from 'react';
-import Navigator from './Navigator';
 import { StatusBar } from 'react-native';
+import moment from 'moment';
+import 'moment/locale/ko';
+import Navigator from './Navigator';
+
+moment.locale('ko');
 
 export default class App extends React.Component {
   render() {

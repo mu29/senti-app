@@ -13,7 +13,7 @@ const ChattingScreen = () => (
       lastMessage={{
         audioUrl: '',
         duration: 29,
-        createdAt: '2019-05-14 12:01:00',
+        createdAt: '2019-05-14 08:01:00',
       }}
       messageCount={2}
     />

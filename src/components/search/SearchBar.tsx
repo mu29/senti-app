@@ -31,14 +31,14 @@ class SearchBar extends React.PureComponent<SearchBarProps> {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    borderBottomColor: palette.gray[90],
+    borderBottomColor: palette.gray[80],
     borderBottomWidth: 0.5,
   },
   bar: {
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 4,
-    backgroundColor: palette.gray[90],
+    backgroundColor: palette.gray[80],
   },
   icon: {
     width: 12,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     padding: 8,
-    fontSize: 14,
+    fontSize: 15,
     color: palette.gray[20],
   },
 });

@@ -11,6 +11,13 @@ import { withComma } from 'services/utils';
 
 const TAG_ICON = { uri: 'ic_tag' };
 
+const TAG_HITSLOP = {
+  top: 16,
+  bottom: 16,
+  left: 10,
+  right: 10,
+};
+
 export interface TagItemProps {
   tag: Tag;
 }
@@ -22,24 +29,30 @@ const TagItem: React.FunctionComponent<TagItemProps> = ({
     isSubscribed,
   },
 }) => (
-  <View style={styles.container}>
-    <View style={styles.tag}>
-      <Image source={TAG_ICON} style={styles.icon} />
+  <TouchableOpacity activeOpacity={0.8}>
+    <View style={styles.container}>
+      <View style={styles.tag}>
+        <Image source={TAG_ICON} style={styles.icon} />
+      </View>
+      <View>
+        <Text style={styles.name}>
+          {name}
+        </Text>
+        <Text style={styles.count}>
+          이야기 {withComma(count)}개
+        </Text>
+      </View>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        hitSlop={TAG_HITSLOP}
+        style={styles.button}
+      >
+        <Text style={[styles.normalText, isSubscribed && styles.subscribedText]}>
+          구독
+        </Text>
+      </TouchableOpacity>
     </View>
-    <View>
-      <Text style={styles.name}>
-        {name}
-      </Text>
-      <Text style={styles.count}>
-        이야기 {withComma(count)}개
-      </Text>
-    </View>
-    <TouchableOpacity style={styles.button}>
-      <Text style={[styles.normalText, isSubscribed && styles.subscribedText]}>
-        구독
-      </Text>
-    </TouchableOpacity>
-  </View>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
@@ -47,16 +60,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 8,
   },
   tag: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 32,
-    height: 32,
-    marginRight: 8,
+    width: 36,
+    height: 36,
+    marginRight: 12,
     borderRadius: 16,
-    backgroundColor: palette.gray[90],
+    backgroundColor: palette.gray[80],
   },
   icon: {
     width: 14,
@@ -64,13 +77,13 @@ const styles = StyleSheet.create({
     tintColor: palette.yellow.default,
   },
   name: {
-    marginBottom: 4,
-    color: palette.gray[20],
-    fontSize: 14,
+    marginVertical: 4,
+    color: palette.gray[10],
+    fontSize: 15,
   },
   count: {
     color: palette.gray[50],
-    fontSize: 12,
+    fontSize: 13,
   },
   button: {
     marginLeft: 'auto',
@@ -80,7 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: palette.gray[90],
   },
   normalText: {
-    color: palette.gray[20],
+    color: palette.gray[10],
     fontSize: 14,
   },
   subscribedText: {
