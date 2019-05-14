@@ -1,4 +1,5 @@
 export { default as BottomTabBar } from './common/BottomTabBar';
+export { default as Header } from './common/Header';
 
 export { default as ChattingItem } from './chatting/ChattingItem';
 export { default as ChattingList } from './chatting/ChattingList';

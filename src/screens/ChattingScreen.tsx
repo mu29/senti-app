@@ -1,20 +1,16 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import { Text } from 'bootstrap';
-import { ChattingList } from 'components';
-import { palette } from 'services/style';
+import {
+  Header,
+  ChattingList,
+} from 'components';
 
 const ChattingScreen = () => (
   <SafeAreaView style={styles.container}>
-    <View style={styles.header}>
-      <Text style={styles.title}>
-        대화
-      </Text>
-    </View>
+    <Header>
+      대화
+    </Header>
     <ChattingList
       data={[{
         id: 1,
@@ -52,18 +48,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1A1A1A',
-  },
-  header: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 12,
-    borderBottomColor: palette.gray[80],
-    borderBottomWidth: 0.5,
-  },
-  title: {
-    color: palette.gray[10],
-    fontSize: 18,
-    fontWeight: '600',
   },
 });
 
