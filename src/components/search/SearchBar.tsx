@@ -4,10 +4,11 @@ import {
   Image,
   TextInput,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import { palette } from 'services/style';
 
-const SEARCH_ICON = { uri: 'search' };
+const SEARCH_ICON = { uri: 'search_active' };
 
 export interface SearchBarProps {}
 
@@ -20,6 +21,17 @@ class SearchBar extends React.PureComponent<SearchBarProps> {
           <TextInput
             placeholder="검색"
             placeholderTextColor={palette.gray[50]}
+            spellCheck={false}
+            autoCorrect={false}
+            autoCapitalize="none"
+            dataDetectorTypes="none"
+            keyboardType="default"
+            returnKeyType="search"
+            underlineColorAndroid="transparent"
+            multiline={false}
+            maxLength={40}
+            blurOnSubmit
+            enablesReturnKeyAutomatically
             style={styles.input}
           />
         </View>
@@ -37,18 +49,23 @@ const styles = StyleSheet.create({
   bar: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: Platform.select({
+      ios: 4,
+      android: 0,
+    }),
+    paddingHorizontal: 4,
     borderRadius: 4,
     backgroundColor: palette.gray[80],
   },
   icon: {
-    width: 12,
-    height: 12,
+    width: 14,
+    height: 14,
     marginLeft: 8,
     tintColor: palette.gray[50],
   },
   input: {
     flex: 1,
-    padding: 8,
+    padding: 6,
     fontSize: 15,
     color: palette.gray[20],
   },

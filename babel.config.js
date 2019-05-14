@@ -4,6 +4,7 @@ module.exports = {
     ["module-resolver", {
       root: ["./src"],
       alias: {
+        "bootstrap": "./src/bootstrap",
         "components": "./src/components",
         "services": "./src/services"
       },

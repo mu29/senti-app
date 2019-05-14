@@ -28,7 +28,6 @@ const HomeScreen = () => (
           <Image
             source={{ uri: 'https://cdn.pixabay.com/photo/2019/05/07/03/33/night-4184916_1280.jpg' }}
             style={styles.background}
-            blurRadius={0.5}
           />
         )}
         ForegroundComponent={(
@@ -40,7 +39,6 @@ const HomeScreen = () => (
           <Image
             source={{ uri: 'https://cdn.pixabay.com/photo/2019/05/08/10/09/city-4188256_1280.jpg' }}
             style={styles.background}
-            blurRadius={0.5}
           />
         )}
         ForegroundComponent={(

@@ -2,6 +2,9 @@ import React from 'react';
 import {
   TouchableOpacity,
   StyleSheet,
+  Platform,
+  Keyboard,
+  EmitterSubscription,
 } from 'react-native';
 import {
   SafeAreaView,
@@ -14,11 +17,46 @@ interface BottomTabBarProps extends NavigationBottomTabBarProps {
 }
 
 class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
+  public state = {
+    isVisible: true,
+  };
+
   private onJumpToHandlers: {
     [key: string]: () => void;
   } = {};
 
+  private keyboardDidShowListener?: EmitterSubscription;
+
+  private keyboardDidHideListener?: EmitterSubscription;
+
+  public componentDidMount() {
+    if (Platform.OS === 'android') {
+      this.keyboardDidShowListener = Keyboard.addListener(
+        'keyboardDidShow',
+        this.onKeyboardDidShow,
+      );
+
+      this.keyboardDidHideListener = Keyboard.addListener(
+        'keyboardDidHide',
+        this.onKeyboardDidHide,
+      );
+    }
+  }
+
+  public componentWillUnmount() {
+    if (this.keyboardDidShowListener) {
+      this.keyboardDidShowListener.remove();
+    }
+    if (this.keyboardDidHideListener) {
+      this.keyboardDidHideListener.remove();
+    }
+  }
+
   public render() {
+    if (!this.state.isVisible) {
+      return null;
+    }
+
     const {
       navigation: {
         state: {
@@ -66,6 +104,10 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
 
     return this.onJumpToHandlers[key];
   }
+
+  private onKeyboardDidShow = () => this.setState({ isVisible: false });
+
+  private onKeyboardDidHide = () => this.setState({ isVisible: true });
 }
 
 const styles = StyleSheet.create({

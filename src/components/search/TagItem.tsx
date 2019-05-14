@@ -1,11 +1,12 @@
 import React from 'react';
 import {
   View,
-  Text,
   Image,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
+import { Text } from 'bootstrap';
 import { palette } from 'services/style';
 import { withComma } from 'services/utils';
 
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 12,
   },
   tag: {
     justifyContent: 'center',
@@ -77,7 +78,11 @@ const styles = StyleSheet.create({
     tintColor: palette.yellow.default,
   },
   name: {
-    marginVertical: 4,
+    marginTop: Platform.select({
+      ios: 4,
+      android: 0,
+    }),
+    marginBottom: 4,
     color: palette.gray[10],
     fontSize: 15,
   },

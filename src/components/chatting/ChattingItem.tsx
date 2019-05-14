@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
 } from 'react-native';
 import moment from 'moment';
+import { Text } from 'bootstrap';
 import { palette } from 'services/style';
 import { withComma } from 'services/utils';
 

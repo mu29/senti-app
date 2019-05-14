@@ -12,6 +12,7 @@
     "target": "esnext",
     "baseUrl": "./src",
     "paths": {
+      "bootstrap": ["bootstrap"],
       "components": ["components"],
       "services/*": ["services/*"],
     }
