@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     marginRight: 12,
-    borderRadius: 20,
+    borderRadius: 24,
   },
   name: {
     marginTop: Platform.select({
@@ -83,11 +83,12 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 2,
-    backgroundColor: palette.gray[90],
+    backgroundColor: palette.gray[70],
   },
   edit: {
     color: palette.gray[10],
     fontSize: 14,
+    fontWeight: '600',
   },
 });
 
