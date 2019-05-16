@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import {
   createAppContainer,
+  createStackNavigator,
   createBottomTabNavigator,
   TabBarIconProps,
 } from 'react-navigation';
@@ -14,9 +15,10 @@ import { palette } from 'services/style';
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import ChattingScreen from './screens/ChattingScreen';
+import RecordScreen from './screens/RecordScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
-const MainNavigator = createBottomTabNavigator({
+const MainTabNavigator = createBottomTabNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
@@ -48,6 +50,7 @@ const MainNavigator = createBottomTabNavigator({
           style={[styles.icon, { tintColor: palette.gray[10] }]}
         />
       ),
+      tabBarOnPress: ({ navigation }: { navigation: any }) => navigation.navigate('Record'),
     },
   },
   Chatting: {
@@ -82,6 +85,17 @@ const MainNavigator = createBottomTabNavigator({
   initialRouteName: 'Profile',
 });
 
+const ModalNavigator = createStackNavigator({
+  MainTab: MainTabNavigator,
+  Record: {
+    screen: RecordScreen,
+  },
+}, {
+  headerMode: 'none',
+  mode: 'modal',
+  initialRouteName: 'MainTab',
+});
+
 const styles = StyleSheet.create({
   icon: {
     width: 24,
@@ -89,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default createAppContainer(MainNavigator);
+export default createAppContainer(ModalNavigator);

@@ -9,11 +9,13 @@ import {
 import {
   SafeAreaView,
   BottomTabBarProps as NavigationBottomTabBarProps,
+  NavigationRoute,
+  NavigationParams,
 } from 'react-navigation';
 import { palette } from 'services/style';
 
 interface BottomTabBarProps extends NavigationBottomTabBarProps {
-  jumpTo: (key: string) => void;
+  onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
 }
 
 class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
@@ -21,7 +23,7 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
     isVisible: true,
   };
 
-  private onJumpToHandlers: {
+  private onPressHandlers: {
     [key: string]: () => void;
   } = {};
 
@@ -64,9 +66,6 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
           routes,
         },
       },
-      activeTintColor,
-      inactiveTintColor,
-      renderIcon,
       style,
     } = this.props;
 
@@ -78,31 +77,46 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
           { backgroundColor: navigationIndex === 0 ? 'rgba(0, 0, 0, 0.6)' : palette.gray[100] },
         ]}
       >
-        {routes.map((route, index) => (
-          <TouchableOpacity
-            key={route.key}
-            style={styles.menu}
-            activeOpacity={1}
-            onPress={this.getOnJumpToHandler(route.key)}
-          >
-            {renderIcon({
-              route,
-              index: index,
-              focused: navigationIndex === index,
-              tintColor: navigationIndex === index ? activeTintColor : inactiveTintColor,
-            })}
-          </TouchableOpacity>
-        ))}
+        {routes.map(this.renderTabItem)}
       </SafeAreaView>
     );
   }
 
-  private getOnJumpToHandler = (key: string) => {
-    if (!Object.prototype.hasOwnProperty.call(this.onJumpToHandlers, key)) {
-      this.onJumpToHandlers[key] = () => this.props.jumpTo(key);
+  private renderTabItem = (route: NavigationRoute<NavigationParams>, index: number) => {
+    const {
+      navigation: {
+        state: {
+          index: navigationIndex,
+        },
+      },
+      activeTintColor,
+      inactiveTintColor,
+      renderIcon,
+    } = this.props;
+
+    return (
+      <TouchableOpacity
+        key={route.key}
+        style={styles.menu}
+        activeOpacity={1}
+        onPress={this.getOnPressHandler(route)}
+      >
+        {renderIcon({
+          route,
+          index: index,
+          focused: navigationIndex === index,
+          tintColor: navigationIndex === index ? activeTintColor : inactiveTintColor,
+        })}
+      </TouchableOpacity>
+    );
+  }
+
+  private getOnPressHandler = (route: NavigationRoute<NavigationParams>) => {
+    if (!Object.prototype.hasOwnProperty.call(this.onPressHandlers, route.key)) {
+      this.onPressHandlers[route.key] = () => this.props.onTabPress({ route });
     }
 
-    return this.onJumpToHandlers[key];
+    return this.onPressHandlers[route.key];
   }
 
   private onKeyboardDidShow = () => this.setState({ isVisible: false });
