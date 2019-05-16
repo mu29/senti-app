@@ -17,4 +17,7 @@ export const palette = {
   orange: {
     default: '#F28523',
   },
+  red: {
+    default: '#CA392E',
+  },
 };

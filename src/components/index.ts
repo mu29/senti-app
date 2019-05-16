@@ -7,6 +7,8 @@ export { default as CoinInventory } from './chatting/CoinInventory';
 
 export { default as UserInfo } from './profile/UserInfo';
 
+export { default as Recorder } from './record/Recorder';
+
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
 export { default as TagList } from './search/TagList';
