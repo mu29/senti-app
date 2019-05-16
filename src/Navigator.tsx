@@ -93,7 +93,7 @@ const ModalNavigator = createStackNavigator({
 }, {
   headerMode: 'none',
   mode: 'modal',
-  initialRouteName: 'MainTab',
+  initialRouteName: 'Record',
 });
 
 const styles = StyleSheet.create({

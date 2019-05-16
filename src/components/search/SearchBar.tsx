@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { palette } from 'services/style';
 
-const SEARCH_ICON = { uri: 'search_active' };
+const SEARCH_ICON = { uri: 'ic_search_active' };
 
 export interface SearchBarProps {}
 
