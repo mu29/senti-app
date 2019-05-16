@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+// @ts-ignore
 const tinify = require('tinify');
 const fs = require('fs');
 const path = require('path');
@@ -36,7 +36,7 @@ const copyAsset = (folder, file) => {
   fs.copyFileSync(src, dest);
 
   // ios
-  const imageSetDir = path.join(__dirname, `../ios/About/Images.xcassets/${fileName}.imageset`)
+  const imageSetDir = path.join(__dirname, `../ios/Senti/Images.xcassets/${fileName}.imageset`)
 
   // imageset 폴더 생성
   if (!fs.existsSync(imageSetDir)) {

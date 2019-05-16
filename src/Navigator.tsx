@@ -24,7 +24,7 @@ const MainTabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
-          source={{ uri: `home${options.focused ? '_active' : ''}` }}
+          source={{ uri: `ic_home${options.focused ? '_active' : ''}` }}
           style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
@@ -35,7 +35,7 @@ const MainTabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
-          source={{ uri: `search${options.focused ? '_active' : ''}` }}
+          source={{ uri: `ic_search${options.focused ? '_active' : ''}` }}
           style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
@@ -46,7 +46,7 @@ const MainTabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarIcon: () => (
         <Image
-          source={{ uri: 'add_active' }}
+          source={{ uri: 'ic_add_active' }}
           style={[styles.icon, { tintColor: palette.gray[10] }]}
         />
       ),
@@ -58,7 +58,7 @@ const MainTabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
-          source={{ uri: `chat${options.focused ? '_active' : ''}` }}
+          source={{ uri: `ic_chat${options.focused ? '_active' : ''}` }}
           style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
@@ -69,7 +69,7 @@ const MainTabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarIcon: (options: TabBarIconProps) => (
         <Image
-          source={{ uri: `profile${options.focused ? '_active' : ''}` }}
+          source={{ uri: `ic_profile${options.focused ? '_active' : ''}` }}
           style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
