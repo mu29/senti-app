@@ -11,6 +11,8 @@
     "moment": "^2.24.0",
     "react": "16.8.3",
     "react-native": "0.59.4",
+    "react-native-audio-toolkit": "^1.0.6",
+    "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-linear-gradient": "^2.5.4",
     "react-native-parallax-swiper": "^1.1.7",

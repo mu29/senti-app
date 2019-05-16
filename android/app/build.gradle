@@ -138,6 +138,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-audio-toolkit')
+    implementation project(':react-native-fs')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')

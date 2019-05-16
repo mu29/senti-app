@@ -3,6 +3,8 @@ package net.yeoubi.senti;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.futurice.rctaudiotoolkit.AudioPackage;
+import com.rnfs.RNFSPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -26,6 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AudioPackage(),
+            new RNFSPackage(),
             new LinearGradientPackage(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage()
