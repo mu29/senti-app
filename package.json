@@ -8,6 +8,8 @@
     "lint:fix": "tslint --fix --project ."
   },
   "dependencies": {
+    "mobx": "^5.9.4",
+    "mobx-react": "^5.4.4",
     "moment": "^2.24.0",
     "react": "16.8.3",
     "react-native": "0.59.4",
@@ -15,12 +17,14 @@
     "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-linear-gradient": "^2.5.4",
+    "react-native-modal": "^11.0.1",
     "react-native-parallax-swiper": "^1.1.7",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/runtime": "^7.4.3",
     "@types/jest": "^24.0.11",
     "@types/moment": "^2.13.0",
