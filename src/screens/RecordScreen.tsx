@@ -23,6 +23,10 @@ const RecordScreen = () => (
   </SafeAreaView>
 );
 
+RecordScreen.navigationOptions = {
+  gesturesEnabled: false,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
