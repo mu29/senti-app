@@ -11,7 +11,7 @@ import {
 export interface RecordViewProps {}
 
 class RecordView extends React.PureComponent<RecordViewProps> {
-  render() {
+  public render() {
     return (
       <View style={styles.container}>
         <RecordHeader />

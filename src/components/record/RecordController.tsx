@@ -1,45 +1,73 @@
 import React from 'react';
 import {
   View,
-  Image,
   TouchableOpacity,
   StyleSheet,
+  Animated,
 } from 'react-native';
+import {
+  inject,
+  observer,
+} from 'mobx-react/native';
 import { Text } from 'bootstrap';
+import { RecordStore } from 'stores';
 import { palette } from 'services/style';
+
+const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const REDO_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
 
-export interface RecordControllerProps {}
+export interface RecordControllerProps {
+  recordStore?: RecordStore;
+}
 
-class RecordController extends React.PureComponent<RecordControllerProps> {
-  render() {
+@inject('recordStore')
+@observer
+class RecordController extends React.Component<RecordControllerProps> {
+  public render() {
+    const {
+      progressStyle,
+      fadeStyle,
+    } = this.props.recordStore!;
+
     return (
       <View style={styles.container}>
         <View style={styles.controller}>
           <TouchableOpacity
             style={styles.button}
           >
-            <Image source={REDO_ICON} style={styles.icon} />
+            <Animated.Image
+              source={REDO_ICON}
+              style={[styles.icon, fadeStyle]}
+            />
           </TouchableOpacity>
-          <View style={styles.progress}>
+          <View style={styles.recordContainer}>
+            <Animated.View style={[styles.progress, progressStyle]} />
             <TouchableOpacity
               activeOpacity={0.6}
+              onPress={this.onPressRecord}
               style={styles.record}
             />
           </View>
           <TouchableOpacity
             style={styles.button}
           >
-            <Image source={DONE_ICON} style={styles.icon} />
+            <Animated.Image
+              source={DONE_ICON}
+              style={[styles.icon, fadeStyle]}
+            />
           </TouchableOpacity>
         </View>
-        <Text style={styles.hint}>
+        <AnimatedText style={[styles.hint, fadeStyle]}>
           눌러서 녹음
-        </Text>
+        </AnimatedText>
       </View>
     );
+  }
+
+  private onPressRecord = () => {
+    this.props.recordStore!.toggleRecording();
   }
 }
 
@@ -58,12 +86,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   hint: {
-    margin: 16,
+    marginTop: 32,
+    marginBottom: 16,
     color: palette.white.default,
     fontSize: 14,
     fontWeight: '600',
   },
+  recordContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   progress: {
+    position: 'absolute',
     width: 72,
     height: 72,
     justifyContent: 'center',
@@ -73,6 +107,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(202, 57, 46, 0.5)',
   },
   record: {
+    position: 'absolute',
     width: 58,
     height: 58,
     borderRadius: 29,

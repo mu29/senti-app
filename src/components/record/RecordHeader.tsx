@@ -1,13 +1,18 @@
 import React from 'react';
 import {
-  Image,
   TouchableOpacity,
   StyleSheet,
+  Animated,
 } from 'react-native';
 import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
+import {
+  inject,
+  observer,
+} from 'mobx-react/native';
+import { RecordStore } from 'stores';
 import { palette } from 'services/style';
 
 const ALBUM_ICON = { uri: 'ic_grid' };
@@ -19,19 +24,25 @@ const TOUCH_HITSLOP = {
   right: 32,
 };
 
-export interface RecordHeaderProps {}
+export interface RecordHeaderProps {
+  recordStore?: RecordStore;
+}
 
-class RecordHeader extends React.PureComponent<RecordHeaderProps & NavigationInjectedProps> {
+@inject('recordStore')
+@observer
+class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjectedProps> {
   public render() {
+    const { fadeStyle } = this.props.recordStore!;
+
     return (
       <React.Fragment>
         <TouchableOpacity
           hitSlop={TOUCH_HITSLOP}
           style={styles.album}
         >
-          <Image
+          <Animated.Image
             source={ALBUM_ICON}
-            style={styles.icon}
+            style={[styles.icon, fadeStyle]}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -39,9 +50,9 @@ class RecordHeader extends React.PureComponent<RecordHeaderProps & NavigationInj
           hitSlop={TOUCH_HITSLOP}
           style={styles.close}
         >
-          <Image
+          <Animated.Image
             source={CLOSE_ICON}
-            style={styles.icon}
+            style={[styles.icon, fadeStyle]}
           />
         </TouchableOpacity>
       </React.Fragment>

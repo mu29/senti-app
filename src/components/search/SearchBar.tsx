@@ -13,7 +13,7 @@ const SEARCH_ICON = { uri: 'ic_search_active' };
 export interface SearchBarProps {}
 
 class SearchBar extends React.PureComponent<SearchBarProps> {
-  render() {
+  public render() {
     return (
       <View style={styles.container}>
         <View style={styles.bar}>

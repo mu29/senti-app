@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Image,
-  StatusBar,
   StyleSheet,
   Dimensions,
   Animated,
@@ -18,7 +17,6 @@ const swiperAnimation = new Animated.Value(0);
 
 const HomeScreen = () => (
   <React.Fragment>
-    <StatusBar hidden />
     <ParallaxSwiper
       speed={0.5}
       vertical

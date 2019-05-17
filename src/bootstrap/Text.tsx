@@ -19,18 +19,24 @@ export interface TextProps extends TextNativeProps {
   children: React.ReactNode;
 }
 
-const Text: React.FunctionComponent<TextProps> = ({
-  children,
-  style,
-  ...props
-}) => (
-  <TextNative
-    allowFontScaling={false}
-    style={[defaultStyle, style]}
-    {...props}
-  >
-    {children}
-  </TextNative>
-);
+class Text extends React.PureComponent<TextProps> {
+  public render() {
+    const {
+      children,
+      style,
+      ...props
+    } = this.props;
 
-export default React.memo(Text);
+    return (
+      <TextNative
+        allowFontScaling={false}
+        style={[defaultStyle, style]}
+        {...props}
+      >
+        {children}
+      </TextNative>
+    );
+  }
+}
+
+export default Text;
