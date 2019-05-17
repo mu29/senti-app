@@ -8,6 +8,7 @@ import {
 import { palette } from 'services/style';
 import { Text } from 'bootstrap';
 
+const ALBUM_ICON = { uri: 'ic_grid' };
 const CLOSE_ICON = { uri: 'ic_close' };
 const REDO_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
@@ -25,6 +26,9 @@ class Recorder extends React.PureComponent<RecorderProps> {
   render() {
     return (
       <React.Fragment>
+        <TouchableOpacity hitSlop={CLOSE_HITSLOP} style={styles.album}>
+          <Image source={ALBUM_ICON} style={styles.smallIcon} />
+        </TouchableOpacity>
         <TouchableOpacity hitSlop={CLOSE_HITSLOP} style={styles.close}>
           <Image source={CLOSE_ICON} style={styles.smallIcon} />
         </TouchableOpacity>
@@ -91,6 +95,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 8,
     right: 24,
+  },
+  album: {
+    position: 'absolute',
+    top: 8,
+    left: 24,
   },
   button: {
     justifyContent: 'center',
