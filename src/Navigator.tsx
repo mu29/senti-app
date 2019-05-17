@@ -82,7 +82,7 @@ const MainTabNavigator = createBottomTabNavigator({
     inactiveTintColor: palette.gray[40],
     showLabel: false,
   },
-  initialRouteName: 'Profile',
+  initialRouteName: 'Home',
 });
 
 const ModalNavigator = createStackNavigator({
@@ -93,7 +93,7 @@ const ModalNavigator = createStackNavigator({
 }, {
   headerMode: 'none',
   mode: 'modal',
-  initialRouteName: 'Record',
+  initialRouteName: 'MainTab',
 });
 
 const styles = StyleSheet.create({
