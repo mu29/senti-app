@@ -2,17 +2,28 @@ import React from 'react';
 import {
   View,
   Image,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import {
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
+} from 'react-navigation';
 import { RecordContainer } from 'containers';
 
 const { width, height } = Dimensions.get('window');
 
+const SAFE_AREA_INSET: {
+  top: SafeAreaViewForceInsetValue;
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  top: 'always',
+  bottom: 'always',
+};
+
 const RecordScreen = () => (
-  <SafeAreaView style={styles.container}>
+  <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
     <StatusBar hidden />
     <Image
       source={{ uri: 'https://cdn.pixabay.com/photo/2019/05/07/03/33/night-4184916_1280.jpg' }}
