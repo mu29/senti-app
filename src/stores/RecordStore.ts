@@ -1,76 +1,57 @@
-import { Animated } from 'react-native';
-import { observable, action } from 'mobx';
+import {
+  observable,
+  computed,
+} from 'mobx';
+import SoundRecorder from 'react-native-sound-recorder';
+import Sound from 'react-native-sound';
 
 class RecordStore {
-  @observable
-  public isAlbumVisible: boolean = false;
+  private recorded?: Sound;
 
   @observable
-  public isRecording: boolean = false;
+  private duration: number = 0;
 
-  private progressAnimation = new Animated.Value(1);
-
-  private fadeAnimation = new Animated.Value(1);
-
-  public get progressStyle() {
-    return {
-      transform: [{
-        scale: this.progressAnimation,
-      }],
-    };
+  @computed
+  public get isRecorded() {
+    return this.duration > 0;
   }
 
-  public get fadeStyle() {
-    return {
-      opacity: this.fadeAnimation,
-    };
+  public startRecord = () => {
+    return SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
   }
 
-  @action
-  public toggleAlbum = () => {
-    this.isAlbumVisible = !this.isAlbumVisible;
+  public stopRecord = async () => {
+    const {
+      path,
+      duration,
+    } = await SoundRecorder.stop();
+
+    this.recorded = new Sound('temp.aac', path.replace('/temp.aac', ''), (error) => {
+      if (error) {
+        return;
+      }
+
+      this.duration = duration;
+    });
   }
 
-  @action
-  public toggleRecording = () => {
-    this.isRecording = !this.isRecording;
+  public startPlay = () => {
+    return new Promise((resolve, reject) => {
+      if (!this.recorded || !this.recorded.isLoaded() || this.recorded.isPlaying()) {
+        reject();
+        return;
+      }
 
-    this.animateFade();
-    this.animateProgress();
+      this.recorded.play(() => resolve());
+    });
   }
 
-  private animateFade = () => {
-    Animated.timing(this.fadeAnimation, {
-      toValue: Number(!this.isRecording),
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  }
-
-  private animateProgress = () => {
-    if (this.isRecording) {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(this.progressAnimation, {
-            toValue: 1.3,
-            duration: 600,
-            useNativeDriver: true,
-          }),
-          Animated.timing(this.progressAnimation, {
-            toValue: 1,
-            duration: 600,
-            useNativeDriver: true,
-          }),
-        ]),
-      ).start();
-    } else {
-      this.progressAnimation.stopAnimation();
-      Animated.timing(this.progressAnimation, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+  public stopPlay = () => {
+    if (!this.recorded || !this.recorded.isLoaded() || !this.recorded.isPlaying()) {
+      return;
     }
+
+    this.recorded.stop();
   }
 }
 

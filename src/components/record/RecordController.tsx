@@ -27,6 +27,7 @@ export interface RecordControllerProps {
 class RecordController extends React.Component<RecordControllerProps> {
   public render() {
     const {
+      isRecorded,
       progressStyle,
       fadeStyle,
     } = this.props.viewModel!;
@@ -50,14 +51,14 @@ class RecordController extends React.Component<RecordControllerProps> {
           </TouchableOpacity>
         </View>
         <AnimatedText style={[styles.hint, fadeStyle]}>
-          눌러서 녹음
+          눌러서 {isRecorded ? '듣기' : '녹음'}
         </AnimatedText>
       </View>
     );
   }
 
   private onPressRecord = () => {
-    this.props.viewModel!.toggleRecording();
+    this.props.viewModel!.toggle();
   }
 }
 

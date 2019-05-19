@@ -3,9 +3,9 @@ package net.yeoubi.senti;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.futurice.rctaudiotoolkit.AudioPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.kevinresol.react_native_sound_recorder.RNSoundRecorderPackage;
 import com.rnfs.RNFSPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactNativeHost;
@@ -28,9 +28,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new AudioPackage(),
+            new RNSoundPackage(),
+            new RNSoundRecorderPackage(),
             new RNFSPackage(),
-            new LinearGradientPackage(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage()
       );

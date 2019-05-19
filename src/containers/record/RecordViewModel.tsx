@@ -7,7 +7,7 @@ class RecordViewModel {
   public isAlbumVisible: boolean = false;
 
   @observable
-  public isRecording: boolean = false;
+  public isEntered: boolean = false;
 
   private store: RecordStore;
 
@@ -17,6 +17,10 @@ class RecordViewModel {
 
   constructor(store: RecordStore) {
     this.store = store;
+  }
+
+  public get isRecorded() {
+    return this.store.isRecorded;
   }
 
   public get progressStyle() {
@@ -39,44 +43,65 @@ class RecordViewModel {
   }
 
   @action
-  public toggleRecording = () => {
-    this.isRecording = !this.isRecording;
-
-    this.animateFade();
-    this.animateProgress();
+  public toggle = () => {
+    if (this.isEntered) {
+      this.stop();
+    } else {
+      this.start();
+    }
   }
 
-  private animateFade = () => {
+  private start = async () => {
     Animated.timing(this.fadeAnimation, {
-      toValue: Number(!this.isRecording),
+      toValue: 0,
       duration: 200,
       useNativeDriver: true,
     }).start();
+
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.progressAnimation, {
+          toValue: 1.3,
+          duration: 600,
+          useNativeDriver: true,
+        }),
+        Animated.timing(this.progressAnimation, {
+          toValue: 1,
+          duration: 600,
+          useNativeDriver: true,
+        }),
+      ]),
+    ).start();
+
+    if (this.store.isRecorded) {
+      this.store.startPlay().then(this.stop);
+    } else {
+      await this.store.startRecord();
+    }
+
+    this.isEntered = true;
   }
 
-  private animateProgress = () => {
-    if (this.isRecording) {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(this.progressAnimation, {
-            toValue: 1.3,
-            duration: 600,
-            useNativeDriver: true,
-          }),
-          Animated.timing(this.progressAnimation, {
-            toValue: 1,
-            duration: 600,
-            useNativeDriver: true,
-          }),
-        ]),
-      ).start();
+  private stop = async () => {
+    if (this.store.isRecorded) {
+      this.store.stopPlay();
     } else {
-      Animated.timing(this.progressAnimation, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+      await this.store.stopRecord();
     }
+
+    this.isEntered = false;
+
+    Animated.timing(this.fadeAnimation, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(this.progressAnimation, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
   }
 }
 
