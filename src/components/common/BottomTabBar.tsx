@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  View,
   TouchableOpacity,
   StyleSheet,
   Platform,
@@ -8,11 +9,20 @@ import {
 } from 'react-native';
 import {
   SafeAreaView,
+  SafeAreaViewForceInsetValue,
   BottomTabBarProps as NavigationBottomTabBarProps,
   NavigationRoute,
   NavigationParams,
 } from 'react-navigation';
 import { palette } from 'services/style';
+
+const SAFE_AREA_INSET: {
+  top: SafeAreaViewForceInsetValue;
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  top: 'never',
+  bottom: 'always',
+};
 
 interface BottomTabBarProps extends NavigationBottomTabBarProps {
   onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
@@ -70,15 +80,20 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
     } = this.props;
 
     return (
-      <SafeAreaView
+      <View
         style={[
           styles.container,
           style,
           { backgroundColor: navigationIndex === 0 ? 'rgba(0, 0, 0, 0.6)' : palette.gray[100] },
         ]}
       >
-        {routes.map(this.renderTabItem)}
-      </SafeAreaView>
+        <SafeAreaView
+          style={styles.container}
+          forceInset={SAFE_AREA_INSET}
+        >
+          {routes.map(this.renderTabItem)}
+        </SafeAreaView>
+      </View>
     );
   }
 
