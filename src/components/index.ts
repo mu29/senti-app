@@ -7,6 +7,7 @@ export { default as CoinInventory } from './chatting/CoinInventory';
 
 export { default as UserInfo } from './profile/UserInfo';
 
+export { default as ImagePickerModal } from './record/ImagePickerModal';
 export { default as RecordController } from './record/RecordController';
 export { default as RecordHeader } from './record/RecordHeader';
 

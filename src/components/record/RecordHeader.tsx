@@ -32,11 +32,15 @@ export interface RecordHeaderProps {
 @observer
 class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjectedProps> {
   public render() {
-    const { fadeStyle } = this.props.viewModel!;
+    const {
+      fadeStyle,
+      toggleAlbum,
+    } = this.props.viewModel!;
 
     return (
       <React.Fragment>
         <TouchableOpacity
+          onPress={toggleAlbum}
           hitSlop={TOUCH_HITSLOP}
           style={styles.album}
         >

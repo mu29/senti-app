@@ -8,6 +8,7 @@ import {
   inject,
 } from 'mobx-react/native';
 import {
+  ImagePickerModal,
   RecordHeader,
   RecordController,
 } from 'components';
@@ -28,6 +29,7 @@ class RecordContainer extends React.Component<RecordContainerProps> {
         <View style={styles.container}>
           <RecordHeader />
           <RecordController />
+          <ImagePickerModal />
         </View>
       </Provider>
     );

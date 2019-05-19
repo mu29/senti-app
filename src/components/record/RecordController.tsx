@@ -31,10 +31,11 @@ class RecordController extends React.Component<RecordControllerProps> {
       isRecorded,
       progressStyle,
       fadeStyle,
+      albumFadeStyle,
     } = this.props.viewModel!;
 
     return (
-      <View style={styles.container}>
+      <Animated.View style={[styles.container, albumFadeStyle]}>
         <View style={styles.controller}>
           <TouchableOpacity
             onPress={reset}
@@ -57,7 +58,7 @@ class RecordController extends React.Component<RecordControllerProps> {
         <AnimatedText style={[styles.hint, fadeStyle]}>
           눌러서 {isRecorded ? '듣기' : '녹음'}
         </AnimatedText>
-      </View>
+      </Animated.View>
     );
   }
 

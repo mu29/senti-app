@@ -17,6 +17,8 @@ class RecordViewModel {
 
   private fadeAnimation = new Animated.Value(1);
 
+  private albumFadeAnimation = new Animated.Value(1);
+
   constructor(store: RecordStore) {
     this.store = store;
   }
@@ -39,6 +41,12 @@ class RecordViewModel {
     };
   }
 
+  public get albumFadeStyle() {
+    return {
+      opacity: this.albumFadeAnimation,
+    };
+  }
+
   public reset = () => {
     this.store.reset();
   }
@@ -46,6 +54,12 @@ class RecordViewModel {
   @action
   public toggleAlbum = () => {
     this.isAlbumVisible = !this.isAlbumVisible;
+
+    Animated.timing(this.albumFadeAnimation, {
+      toValue: Number(!this.isAlbumVisible),
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
   }
 
   @action
