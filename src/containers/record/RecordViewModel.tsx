@@ -1,13 +1,15 @@
-import { Animated } from 'react-native';
+import { Animated, InteractionManager } from 'react-native';
 import { observable, action } from 'mobx';
 import { RecordStore } from 'stores';
 
 class RecordViewModel {
   @observable
-  public isAlbumVisible: boolean = false;
+  public isAlbumVisible = false;
 
   @observable
-  public isEntered: boolean = false;
+  public isEntered = false;
+
+  private isBusy = false;
 
   private store: RecordStore;
 
@@ -48,6 +50,10 @@ class RecordViewModel {
 
   @action
   public toggle = () => {
+    if (this.isBusy) {
+      return;
+    }
+
     if (this.isEntered) {
       this.stop();
     } else {
@@ -55,7 +61,9 @@ class RecordViewModel {
     }
   }
 
-  private start = async () => {
+  private start = () => {
+    this.isRecorded ? this.startPlay() : this.startRecord();
+
     Animated.timing(this.fadeAnimation, {
       toValue: 0,
       duration: 200,
@@ -76,25 +84,22 @@ class RecordViewModel {
         }),
       ]),
     ).start();
+  }
 
-    if (this.store.isRecorded) {
-      this.store.startPlay().then(this.stop);
-    } else {
+  private startRecord = () => {
+    requestAnimationFrame(async () => {
       await this.store.startRecord();
-    }
+      this.isEntered = true;
+    });
+  }
 
+  private startPlay = () => {
+    this.store.startPlay(this.stop);
     this.isEntered = true;
   }
 
-  private stop = async () => {
-    if (this.store.isRecorded) {
-      this.store.stopPlay();
-    } else {
-      await this.store.stopRecord();
-    }
-
-    this.isEntered = false;
-
+  private stop = () => {
+    this.isRecorded ? this.stopPlay() : this.stopRecord();
     Animated.timing(this.fadeAnimation, {
       toValue: 1,
       duration: 200,
@@ -106,6 +111,20 @@ class RecordViewModel {
       duration: 200,
       useNativeDriver: true,
     }).start();
+  }
+
+  private stopRecord = () => {
+    this.isBusy = true;
+    InteractionManager.runAfterInteractions(async () => {
+      await this.store.stopRecord();
+      this.isEntered = false;
+      this.isBusy = false;
+    });
+  }
+
+  private stopPlay = () => {
+    this.store.stopPlay();
+    this.isEntered = false;
   }
 }
 

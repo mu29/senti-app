@@ -571,9 +571,9 @@
 				770CBC4005274C42A411D8F3 /* libRNGestureHandler-tvOS.a */,
 				3866BD4E3D20487989BA6204 /* libRNVectorIcons-tvOS.a */,
 				E6B514B2F1CD4B1E90F8FA75 /* libRNFS.a */,
-				D6D79723D52847B4AD3A3284 /* libRNAudioRecorderPlayer.a */,
 				7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */,
 				65C35A4E59B14E1CBD3A519A /* libRNSound.a */,
+				734D44495A6C424FBBC6CE27 /* libRNSoundPlayer.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
