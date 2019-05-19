@@ -7,6 +7,7 @@ module.exports = {
       alias: {
         'bootstrap': './src/bootstrap',
         'components': './src/components',
+        'containers': './src/containers',
         'services': './src/services'
       },
     }],

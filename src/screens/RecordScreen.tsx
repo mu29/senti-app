@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-import { RecordView } from 'components';
+import { RecordContainer } from 'containers';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,7 +19,7 @@ const RecordScreen = () => (
       style={styles.background}
     />
     <View style={styles.filter} />
-    <RecordView />
+    <RecordContainer />
   </SafeAreaView>
 );
 

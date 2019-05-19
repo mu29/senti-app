@@ -12,7 +12,7 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
-import { RecordStore } from 'stores';
+import { RecordViewModel } from 'containers';
 import { palette } from 'services/style';
 
 const ALBUM_ICON = { uri: 'ic_grid' };
@@ -25,14 +25,14 @@ const TOUCH_HITSLOP = {
 };
 
 export interface RecordHeaderProps {
-  recordStore?: RecordStore;
+  viewModel?: RecordViewModel;
 }
 
-@inject('recordStore')
+@inject('viewModel')
 @observer
 class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjectedProps> {
   public render() {
-    const { fadeStyle } = this.props.recordStore!;
+    const { fadeStyle } = this.props.viewModel!;
 
     return (
       <React.Fragment>

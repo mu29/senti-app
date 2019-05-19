@@ -10,7 +10,7 @@ import {
   observer,
 } from 'mobx-react/native';
 import { Text } from 'bootstrap';
-import { RecordStore } from 'stores';
+import { RecordViewModel } from 'containers';
 import { palette } from 'services/style';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
@@ -19,28 +19,23 @@ const REDO_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
 
 export interface RecordControllerProps {
-  recordStore?: RecordStore;
+  viewModel?: RecordViewModel;
 }
 
-@inject('recordStore')
+@inject('viewModel')
 @observer
 class RecordController extends React.Component<RecordControllerProps> {
   public render() {
     const {
       progressStyle,
       fadeStyle,
-    } = this.props.recordStore!;
+    } = this.props.viewModel!;
 
     return (
       <View style={styles.container}>
         <View style={styles.controller}>
-          <TouchableOpacity
-            style={styles.button}
-          >
-            <Animated.Image
-              source={REDO_ICON}
-              style={[styles.icon, fadeStyle]}
-            />
+          <TouchableOpacity style={styles.button}>
+            <Animated.Image source={REDO_ICON} style={[styles.icon, fadeStyle]} />
           </TouchableOpacity>
           <View style={styles.recordContainer}>
             <Animated.View style={[styles.progress, progressStyle]} />
@@ -50,13 +45,8 @@ class RecordController extends React.Component<RecordControllerProps> {
               style={styles.record}
             />
           </View>
-          <TouchableOpacity
-            style={styles.button}
-          >
-            <Animated.Image
-              source={DONE_ICON}
-              style={[styles.icon, fadeStyle]}
-            />
+          <TouchableOpacity style={styles.button}>
+            <Animated.Image source={DONE_ICON} style={[styles.icon, fadeStyle]} />
           </TouchableOpacity>
         </View>
         <AnimatedText style={[styles.hint, fadeStyle]}>
@@ -67,7 +57,7 @@ class RecordController extends React.Component<RecordControllerProps> {
   }
 
   private onPressRecord = () => {
-    this.props.recordStore!.toggleRecording();
+    this.props.viewModel!.toggleRecording();
   }
 }
 

@@ -15,6 +15,7 @@
     "paths": {
       "bootstrap": ["bootstrap"],
       "components": ["components"],
+      "containers": ["containers"],
       "services/*": ["services/*"],
     }
   },
