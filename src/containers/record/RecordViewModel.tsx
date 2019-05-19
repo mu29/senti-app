@@ -37,6 +37,10 @@ class RecordViewModel {
     };
   }
 
+  public reset = () => {
+    this.store.reset();
+  }
+
   @action
   public toggleAlbum = () => {
     this.isAlbumVisible = !this.isAlbumVisible;

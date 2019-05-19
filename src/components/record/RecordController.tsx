@@ -15,7 +15,7 @@ import { palette } from 'services/style';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
-const REDO_ICON = { uri: 'ic_replay' };
+const RESET_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
 
 export interface RecordControllerProps {
@@ -27,6 +27,7 @@ export interface RecordControllerProps {
 class RecordController extends React.Component<RecordControllerProps> {
   public render() {
     const {
+      reset,
       isRecorded,
       progressStyle,
       fadeStyle,
@@ -35,8 +36,11 @@ class RecordController extends React.Component<RecordControllerProps> {
     return (
       <View style={styles.container}>
         <View style={styles.controller}>
-          <TouchableOpacity style={styles.button}>
-            <Animated.Image source={REDO_ICON} style={[styles.icon, fadeStyle]} />
+          <TouchableOpacity
+            onPress={reset}
+            style={styles.button}
+          >
+            <Animated.Image source={RESET_ICON} style={[styles.icon, fadeStyle]} />
           </TouchableOpacity>
           <View style={styles.recordContainer}>
             <Animated.View style={[styles.progress, progressStyle]} />

@@ -16,6 +16,14 @@ class RecordStore {
     return this.duration > 0;
   }
 
+  public reset = () => {
+    if (this.recorded) {
+      this.recorded.release();
+      this.recorded = undefined;
+      this.duration = 0;
+    }
+  }
+
   public startRecord = () => {
     return SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
   }

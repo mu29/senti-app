@@ -2,11 +2,11 @@ import React from 'react';
 import {
   View,
   Image,
+  SafeAreaView,
   StatusBar,
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
 import { RecordContainer } from 'containers';
 
 const { width, height } = Dimensions.get('window');
