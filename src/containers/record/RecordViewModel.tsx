@@ -1,4 +1,4 @@
-import { Animated, InteractionManager } from 'react-native';
+import { Animated, InteractionManager, PermissionsAndroid } from 'react-native';
 import { observable, action } from 'mobx';
 import { RecordStore } from 'stores';
 

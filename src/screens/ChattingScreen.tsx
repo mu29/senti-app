@@ -1,13 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
 import {
   Header,
   ChattingList,
+  withSafeArea,
 } from 'components';
 
 const ChattingScreen = () => (
-  <SafeAreaView style={styles.container}>
+  <React.Fragment>
     <Header>
       대화
     </Header>
@@ -41,14 +40,7 @@ const ChattingScreen = () => (
         messageCount: 8,
       }]}
     />
-  </SafeAreaView>
+  </React.Fragment>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-  },
-});
-
-export default ChattingScreen;
+export default withSafeArea(ChattingScreen);

@@ -3,7 +3,6 @@ import { StatusBar } from 'react-native';
 import { Provider } from 'mobx-react/native';
 import moment from 'moment';
 import 'moment/locale/ko';
-import { palette } from 'services/style';
 import stores from './stores';
 import Navigator from './Navigator';
 
@@ -13,7 +12,7 @@ export default class App extends React.Component {
   public render() {
     return (
       <React.Fragment>
-        <StatusBar barStyle="light-content" backgroundColor={palette.gray[100]} />
+        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
         <Provider {...stores}>
           <Navigator />
         </Provider>

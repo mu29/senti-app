@@ -3,16 +3,16 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
 import {
   Header,
   UserInfo,
   CoinInventory,
+  withSafeArea,
 } from 'components';
 import { palette } from 'services/style';
 
 const ProfileScreen = () => (
-  <SafeAreaView style={styles.container}>
+  <React.Fragment>
     <Header>
       프로필
     </Header>
@@ -27,14 +27,10 @@ const ProfileScreen = () => (
       <View style={styles.divider} />
       <CoinInventory />
     </View>
-  </SafeAreaView>
+  </React.Fragment>
 );
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-  },
   info: {
     backgroundColor: palette.gray[90],
   },
@@ -45,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default withSafeArea(ProfileScreen);

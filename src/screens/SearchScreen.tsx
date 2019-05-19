@@ -1,13 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
 import {
   SearchBar,
   TagList,
+  withSafeArea,
 } from 'components';
 
 const SearchScreen = () => (
-  <SafeAreaView style={styles.container}>
+  <React.Fragment>
     <SearchBar />
     <TagList
       data={[{
@@ -27,14 +26,7 @@ const SearchScreen = () => (
         isSubscribed: false,
       }]}
     />
-  </SafeAreaView>
+  </React.Fragment>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-  },
-});
-
-export default SearchScreen;
+export default withSafeArea(SearchScreen);

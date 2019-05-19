@@ -1,5 +1,6 @@
 export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as Header } from './common/Header';
+export { default as withSafeArea } from './common/withSafeArea';
 
 export { default as ChattingItem } from './chatting/ChattingItem';
 export { default as ChattingList } from './chatting/ChattingList';
