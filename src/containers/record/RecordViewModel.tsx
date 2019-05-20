@@ -24,7 +24,11 @@ class RecordViewModel {
   }
 
   public get isRecorded() {
-    return this.store.isRecorded;
+    return this.store.duration > 0;
+  }
+
+  public get backgroundResource() {
+    return this.store.backgroundResource;
   }
 
   public get progressStyle() {
@@ -73,6 +77,10 @@ class RecordViewModel {
     } else {
       this.start();
     }
+  }
+
+  public changeBackgroundResource = (url: string) => {
+    this.store.changeBackgroundResource(url);
   }
 
   private start = async () => {

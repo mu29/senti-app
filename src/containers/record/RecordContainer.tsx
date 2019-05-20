@@ -11,6 +11,7 @@ import {
   ImagePickerModal,
   RecordHeader,
   RecordController,
+  RecordImageBackground,
 } from 'components';
 import { RecordStore } from 'stores';
 import RecordViewModel from './RecordViewModel';
@@ -30,11 +31,14 @@ class RecordContainer extends React.Component<RecordContainerProps> {
   render() {
     return (
       <Provider viewModel={this.recordViewModel}>
-        <View style={styles.container}>
-          <RecordHeader />
-          <RecordController />
-          <ImagePickerModal />
-        </View>
+        <React.Fragment>
+          <RecordImageBackground />
+          <View style={styles.container}>
+            <RecordHeader />
+            <RecordController />
+            <ImagePickerModal />
+          </View>
+        </React.Fragment>
       </Provider>
     );
   }

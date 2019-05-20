@@ -26,6 +26,8 @@ interface ImagePickerModalProps {
 @inject('viewModel')
 @observer
 class ImagePickerModal extends React.Component<ImagePickerModalProps> {
+  private pressHandlers: { [key: string]: () => void } = {};
+
   public render() {
     const {
       toggleAlbum,
@@ -77,10 +79,30 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
   }
 
   private renderItem = ({ item }: { item: string }) => (
-    <TouchableOpacity activeOpacity={0.6} style={styles.item}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      onPress={this.getPressHandler(item)}
+      style={styles.item}
+    >
       <Image source={{ uri: item }} style={styles.image} />
     </TouchableOpacity>
   )
+
+  private getPressHandler = (url: string) => {
+    const {
+      toggleAlbum,
+      changeBackgroundResource,
+    } = this.props.viewModel!;
+
+    if (!Object.prototype.hasOwnProperty.call(this.pressHandlers, url)) {
+      this.pressHandlers[url] = () => {
+        changeBackgroundResource(url);
+        toggleAlbum();
+      };
+    }
+
+    return this.pressHandlers[url];
+  }
 }
 
 const styles = StyleSheet.create({
@@ -99,7 +121,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 14,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
