@@ -12,6 +12,7 @@ import {
 } from 'mobx-react/native';
 import Modal from 'react-native-modal';
 import { FlatGrid } from 'react-native-super-grid';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Text } from 'bootstrap';
 import { RecordViewModel } from 'containers';
 import { palette } from 'services/style';
@@ -43,6 +44,7 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
       >
         <View style={styles.container}>
           <View style={styles.header}>
+            <Icon name="md-images" size={18} color={palette.white.default} />
             <Text style={styles.title}>
               배경 이미지
             </Text>
@@ -93,14 +95,16 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
   },
   header: {
-    padding: 14,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 14,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
   title: {
+    marginLeft: 8,
     color: palette.white.default,
     fontSize: 14,
     fontWeight: '600',
@@ -110,7 +114,6 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    // borderRadius: 8,
   },
 });
 
