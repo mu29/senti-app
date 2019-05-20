@@ -1,4 +1,4 @@
-import { Animated, InteractionManager, PermissionsAndroid } from 'react-native';
+import { Animated, InteractionManager, PermissionsAndroid, Platform } from 'react-native';
 import { observable, action } from 'mobx';
 import { RecordStore } from 'stores';
 
@@ -152,6 +152,10 @@ class RecordViewModel {
   }
 
   private requestMicrophonePermission = async () => {
+    if (Platform.OS !== 'android') {
+      return true;
+    }
+
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
