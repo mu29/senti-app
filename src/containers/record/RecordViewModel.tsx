@@ -75,8 +75,18 @@ class RecordViewModel {
     }
   }
 
-  private start = () => {
-    this.isRecorded ? this.startPlay() : this.startRecord();
+  private start = async () => {
+    if (this.isRecorded) {
+      this.startPlay();
+    } else {
+      const granted = await this.requestMicrophonePermission();
+
+      if (!granted) {
+        return;
+      }
+
+      this.startRecord();
+    }
 
     Animated.timing(this.fadeAnimation, {
       toValue: 0,
@@ -139,6 +149,20 @@ class RecordViewModel {
   private stopPlay = () => {
     this.store.stopPlay();
     this.isEntered = false;
+  }
+
+  private requestMicrophonePermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      );
+
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+    } catch (err) {
+      console.error(err);
+    }
+
+    return false;
   }
 }
 
