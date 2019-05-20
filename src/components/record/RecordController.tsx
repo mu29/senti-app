@@ -39,9 +39,13 @@ class RecordController extends React.Component<RecordControllerProps> {
         <View style={styles.controller}>
           <TouchableOpacity
             onPress={reset}
+            disabled={!isRecorded}
             style={styles.button}
           >
-            <Animated.Image source={RESET_ICON} style={[styles.icon, fadeStyle]} />
+            <Animated.Image
+              source={RESET_ICON}
+              style={[styles.icon, fadeStyle, isRecorded && styles.enabled]}
+            />
           </TouchableOpacity>
           <View style={styles.recordContainer}>
             <Animated.View style={[styles.progress, progressStyle]} />
@@ -51,8 +55,14 @@ class RecordController extends React.Component<RecordControllerProps> {
               style={styles.record}
             />
           </View>
-          <TouchableOpacity style={styles.button}>
-            <Animated.Image source={DONE_ICON} style={[styles.icon, fadeStyle]} />
+          <TouchableOpacity
+            disabled={!isRecorded}
+            style={styles.button}
+          >
+            <Animated.Image
+              source={DONE_ICON}
+              style={[styles.icon, fadeStyle, isRecorded && styles.enabled]}
+            />
           </TouchableOpacity>
         </View>
         <AnimatedText style={[styles.hint, fadeStyle]}>
@@ -69,10 +79,6 @@ class RecordController extends React.Component<RecordControllerProps> {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
@@ -120,6 +126,9 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
+    tintColor: palette.gray[40],
+  },
+  enabled: {
     tintColor: palette.gray[10],
   },
 });
