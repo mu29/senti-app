@@ -80,15 +80,13 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
     } = this.props;
 
     return (
-      <View
-        style={[
-          styles.container,
-          style,
-          { backgroundColor: navigationIndex === 0 ? 'rgba(0, 0, 0, 0.6)' : palette.gray[100] },
-        ]}
-      >
+      <View>
         <SafeAreaView
-          style={styles.container}
+          style={[
+            styles.container,
+            style,
+            { backgroundColor: navigationIndex === 0 ? 'rgba(0, 0, 0, 0.6)' : palette.gray[100] },
+          ]}
           forceInset={SAFE_AREA_INSET}
         >
           {routes.map(this.renderTabItem)}
