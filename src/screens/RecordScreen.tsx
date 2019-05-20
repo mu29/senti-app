@@ -6,8 +6,4 @@ const RecordScreen = () => (
   <RecordContainer />
 );
 
-RecordScreen.navigationOptions = {
-  gesturesEnabled: false,
-};
-
 export default withSafeArea(RecordScreen);

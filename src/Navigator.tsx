@@ -89,6 +89,9 @@ const ModalNavigator = createStackNavigator({
   MainTab: MainTabNavigator,
   Record: {
     screen: RecordScreen,
+    navigationOptions: {
+      gesturesEnabled: false,
+    },
   },
 }, {
   headerMode: 'none',
