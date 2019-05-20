@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  View,
   TouchableOpacity,
   StyleSheet,
   Animated,
@@ -38,11 +39,10 @@ class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjecte
     } = this.props.viewModel!;
 
     return (
-      <React.Fragment>
+      <View style={styles.container}>
         <TouchableOpacity
           onPress={toggleAlbum}
           hitSlop={TOUCH_HITSLOP}
-          style={styles.album}
         >
           <Animated.Image
             source={ALBUM_ICON}
@@ -52,14 +52,13 @@ class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjecte
         <TouchableOpacity
           onPress={this.goBack}
           hitSlop={TOUCH_HITSLOP}
-          style={styles.close}
         >
           <Animated.Image
             source={CLOSE_ICON}
             style={[styles.icon, fadeStyle]}
           />
         </TouchableOpacity>
-      </React.Fragment>
+      </View>
     );
   }
 
@@ -67,15 +66,12 @@ class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjecte
 }
 
 const styles = StyleSheet.create({
-  album: {
-    position: 'absolute',
-    top: 8,
-    left: 24,
-  },
-  close: {
-    position: 'absolute',
-    top: 8,
-    right: 24,
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+    paddingHorizontal: 24,
   },
   icon: {
     width: 16,
