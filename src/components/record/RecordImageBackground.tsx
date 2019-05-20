@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   filter: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
 });
 
