@@ -10,6 +10,7 @@ import {
 import {
   ImagePickerModal,
   RecordHeader,
+  RecordDescription,
   RecordController,
   RecordImageBackground,
 } from 'components';
@@ -35,9 +36,10 @@ class RecordContainer extends React.Component<RecordContainerProps> {
           <RecordImageBackground />
           <View style={styles.container}>
             <RecordHeader />
+            <RecordDescription />
             <RecordController />
-            <ImagePickerModal />
           </View>
+          <ImagePickerModal />
         </React.Fragment>
       </Provider>
     );

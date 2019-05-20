@@ -1,6 +1,5 @@
 import {
   observable,
-  computed,
   action,
 } from 'mobx';
 import SoundRecorder from 'react-native-sound-recorder';
@@ -8,7 +7,10 @@ import Sound from 'react-native-sound';
 
 class RecordStore {
   @observable
-  public backgroundResource: string = 'https://cdn.pixabay.com/photo/2019/02/12/11/25/cruise-3991937__480.jpg';
+  public backgroundResource = 'https://cdn.pixabay.com/photo/2019/02/12/11/25/cruise-3991937__480.jpg';
+
+  @observable
+  public description = '';
 
   @observable
   public duration = 0;
@@ -65,6 +67,11 @@ class RecordStore {
   @action
   public changeBackgroundResource = (url: string) => {
     this.backgroundResource = url;
+  }
+
+  @action
+  public changeDescription = (text: string) => {
+    this.description = text;
   }
 }
 

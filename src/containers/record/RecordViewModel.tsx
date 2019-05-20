@@ -83,6 +83,10 @@ class RecordViewModel {
     this.store.changeBackgroundResource(url);
   }
 
+  public changeDescription = (text: string) => {
+    this.store.changeDescription(text);
+  }
+
   private start = async () => {
     if (this.isRecorded) {
       this.startPlay();
