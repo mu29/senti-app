@@ -32,6 +32,7 @@ class RecordDescription extends React.Component<RecordDescriptionProps> {
           multiline={true}
           placeholder="덧붙이고 싶은 말이 있나요?"
           placeholderTextColor={palette.white.default}
+          selectionColor={palette.white.default}
           onChangeText={this.onChangeText}
           style={[styles.input, fadeStyle]}
         />
