@@ -9,31 +9,30 @@ import {
 } from 'mobx-react/native';
 import Modal from 'react-native-modal';
 import { Text } from 'components';
-import { LoginViewModel } from 'containers';
+import { UiStore } from 'stores';
 import { palette } from 'services/style';
 
-interface LoginModalProps {
-  viewModel?: LoginViewModel;
+interface AuthModalProps {
+  uiStore?: UiStore;
 }
 
-@inject('viewModel')
+@inject('uiStore')
 @observer
-class LoginModal extends React.Component<LoginModalProps> {
+class AuthModal extends React.Component<AuthModalProps> {
   render() {
     const {
-      toggleModal,
-      isModalVisible,
-    } = this.props.viewModel!;
+      toggleAuthModal,
+      isAuthModalVisible,
+    } = this.props.uiStore!;
 
     return (
       <Modal
-        isVisible={isModalVisible}
-        onBackdropPress={toggleModal}
-        onBackButtonPress={toggleModal}
+        isVisible={isAuthModalVisible}
+        onBackdropPress={toggleAuthModal}
+        onBackButtonPress={toggleAuthModal}
         style={styles.modal}
         backdropOpacity={0}
         useNativeDriver
-        hideModalContentWhileAnimating
       >
         <View style={styles.container} />
       </Modal>
@@ -47,11 +46,11 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   container: {
-    padding: 32,
-    backgroundColor: palette.gray[10],
+    padding: 64,
+    backgroundColor: palette.white.default,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
 });
 
-export default LoginModal;
+export default AuthModal;

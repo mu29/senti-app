@@ -8,12 +8,20 @@ import {
   EmitterSubscription,
 } from 'react-native';
 import {
+  inject,
+  observer,
+} from 'mobx-react/native';
+import {
   SafeAreaView,
   SafeAreaViewForceInsetValue,
   BottomTabBarProps as NavigationBottomTabBarProps,
   NavigationRoute,
   NavigationParams,
 } from 'react-navigation';
+import {
+  AuthStore,
+  UiStore,
+} from 'stores';
 import { palette } from 'services/style';
 
 const SAFE_AREA_INSET: {
@@ -26,9 +34,13 @@ const SAFE_AREA_INSET: {
 
 interface BottomTabBarProps extends NavigationBottomTabBarProps {
   onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
+  authStore?: AuthStore;
+  uiStore?: UiStore;
 }
 
-class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
+@inject('authStore', 'uiStore')
+@observer
+class BottomTabBar extends React.Component<BottomTabBarProps> {
   public state = {
     isVisible: true,
   };
@@ -126,7 +138,21 @@ class BottomTabBar extends React.PureComponent<BottomTabBarProps> {
 
   private getOnPressHandler = (route: NavigationRoute<NavigationParams>) => {
     if (!Object.prototype.hasOwnProperty.call(this.onPressHandlers, route.key)) {
-      this.onPressHandlers[route.key] = () => this.props.onTabPress({ route });
+      this.onPressHandlers[route.key] = () => {
+        const { params = {} } = route;
+        const {
+          authStore,
+          uiStore,
+          onTabPress,
+        } = this.props;
+
+        if (params.private && !authStore!.isLoggedIn) {
+          uiStore!.toggleAuthModal();
+          return;
+        }
+
+        onTabPress({ route });
+      };
     }
 
     return this.onPressHandlers[route.key];

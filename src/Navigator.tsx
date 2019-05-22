@@ -63,6 +63,9 @@ const MainTabNavigator = createBottomTabNavigator({
         />
       ),
     },
+    params: {
+      private: true,
+    },
   },
   Profile: {
     screen: ProfileScreen,
@@ -73,6 +76,9 @@ const MainTabNavigator = createBottomTabNavigator({
           style={[styles.icon, { tintColor: options.tintColor! }]}
         />
       ),
+    },
+    params: {
+      private: true,
     },
   },
 }, {
