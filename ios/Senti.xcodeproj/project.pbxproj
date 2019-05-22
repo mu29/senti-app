@@ -23,9 +23,12 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		1836D44F117A4F6CBBAEC715 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B70E6BC99A4E8A9538C4B1 /* libRNFirebase.a */; };
 		222D895FFDE94929937459F3 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EEBB0AEB234603A058473D /* libRNGestureHandler.a */; };
 		3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28A995E4F756430E8F7C78AF /* Ionicons.ttf */; };
 		44B06AA06BC14F67AD74D80B /* libRNSoundRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */; };
+		5B4D58802294E93D00853F25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */; };
+		71E5A1F89EF8805C255CF4FB /* libPods-Senti.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7B50EB5DBCB9E16F3C81C4 /* libPods-Senti.a */; };
 		766822CC7CDA4E30B31562A4 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C35A4E59B14E1CBD3A519A /* libRNSound.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -308,6 +311,13 @@
 			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
 			remoteInfo = RNSound;
 		};
+		5BE1DE552294EE850074AA60 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84CAF578246341E199CFA6A5 /* RNFirebase.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNFirebase;
+		};
 		5BE54AFB228CDB740059DA64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A0B28EB6819E4F1084CADD67 /* RNFS.xcodeproj */;
@@ -383,17 +393,24 @@
 		28A995E4F756430E8F7C78AF /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3866BD4E3D20487989BA6204 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
+		3DCC5514457B5C7B35392B63 /* libPods-SentiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SentiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EEBB0AEB234603A058473D /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
+		5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		65C35A4E59B14E1CBD3A519A /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
 		770CBC4005274C42A411D8F3 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSoundRecorder.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		84B70E6BC99A4E8A9538C4B1 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
+		84CAF578246341E199CFA6A5 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
+		876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Senti.release.xcconfig"; path = "Pods/Target Support Files/Pods-Senti/Pods-Senti.release.xcconfig"; sourceTree = "<group>"; };
+		A00FF6EA33CE2A7E5AB3DABC /* Pods-Senti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Senti.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Senti/Pods-Senti.debug.xcconfig"; sourceTree = "<group>"; };
 		A0B28EB6819E4F1084CADD67 /* RNFS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		A2EE5F444706405887D488EA /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C295EB3F04AE41439F9879F9 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
+		DB7B50EB5DBCB9E16F3C81C4 /* libPods-Senti.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Senti.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6B514B2F1CD4B1E90F8FA75 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -432,6 +449,8 @@
 				E946112723AD4D408FB70B5A /* libRNFS.a in Frameworks */,
 				44B06AA06BC14F67AD74D80B /* libRNSoundRecorder.a in Frameworks */,
 				766822CC7CDA4E30B31562A4 /* libRNSound.a in Frameworks */,
+				71E5A1F89EF8805C255CF4FB /* libPods-Senti.a in Frameworks */,
+				1836D44F117A4F6CBBAEC715 /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +516,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0BF6A17389DB344E487B6D2E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A00FF6EA33CE2A7E5AB3DABC /* Pods-Senti.debug.xcconfig */,
+				876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,6 +553,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -560,6 +589,8 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				DB7B50EB5DBCB9E16F3C81C4 /* libPods-Senti.a */,
+				3DCC5514457B5C7B35392B63 /* libPods-SentiTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -574,6 +605,7 @@
 				E6B514B2F1CD4B1E90F8FA75 /* libRNFS.a */,
 				7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */,
 				65C35A4E59B14E1CBD3A519A /* libRNSound.a */,
+				84B70E6BC99A4E8A9538C4B1 /* libRNFirebase.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -608,6 +640,14 @@
 			isa = PBXGroup;
 			children = (
 				5BC63BF82290EF0700598A2D /* libRNSound.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5BE1DE522294EE850074AA60 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5BE1DE562294EE850074AA60 /* libRNFirebase.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -659,6 +699,7 @@
 				A0B28EB6819E4F1084CADD67 /* RNFS.xcodeproj */,
 				FFE1610CCF804C74BA520053 /* RNSoundRecorder.xcodeproj */,
 				17EA6FC13253451AA1A729E1 /* RNSound.xcodeproj */,
+				84CAF578246341E199CFA6A5 /* RNFirebase.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -682,6 +723,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				F9DC04F2471F40C3A4624B38 /* Resources */,
 				5B937D5B227C0D5B00C26AB4 /* Recovered References */,
+				0BF6A17389DB344E487B6D2E /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -739,6 +781,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Senti" */;
 			buildPhases = (
+				34DE5C8210219023A8327336 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -832,6 +875,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 5BE1DE522294EE850074AA60 /* Products */;
+					ProjectRef = 84CAF578246341E199CFA6A5 /* RNFirebase.xcodeproj */;
 				},
 				{
 					ProductGroup = 5BE54AF7228CDB740059DA64 /* Products */;
@@ -1129,6 +1176,13 @@
 			remoteRef = 5BC63BF72290EF0700598A2D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		5BE1DE562294EE850074AA60 /* libRNFirebase.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFirebase.a;
+			remoteRef = 5BE1DE552294EE850074AA60 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5BE54AFC228CDB740059DA64 /* libRNFS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1193,6 +1247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				5B4D58802294E93D00853F25 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */,
 			);
@@ -1214,6 +1269,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		34DE5C8210219023A8327336 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Senti-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1274,11 +1351,15 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = SentiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1302,11 +1383,15 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = SentiTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1319,6 +1404,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A00FF6EA33CE2A7E5AB3DABC /* Pods-Senti.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1331,6 +1417,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = Senti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1339,7 +1426,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.yeoubi.senti;
 				PRODUCT_NAME = Senti;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1347,6 +1434,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1358,6 +1446,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = Senti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1366,7 +1455,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.yeoubi.senti;
 				PRODUCT_NAME = Senti;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

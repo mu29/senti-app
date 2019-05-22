@@ -1,3 +1,7 @@
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
@@ -86,15 +90,16 @@ apply from: "../../node_modules/react-native/react.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
-def enableSeparateBuildPerCPUArchitecture = false
+def enableSeparateBuildPerCPUArchitecture = true
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion safeExtGet('compileSdkVersion', 28)
+    buildToolsVersion safeExtGet('buildToolsVersion', '28.0.3')
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -103,25 +108,28 @@ android {
 
     defaultConfig {
         applicationId "net.yeoubi.senti"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion safeExtGet('minSdkVersion', 19)
+        targetSdkVersion safeExtGet('targetSdkVersion', 28)
         versionCode 1
         versionName "1.0"
     }
+
     splits {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            universalApk true  // If true, also generate a universal APK
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
+
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -138,13 +146,17 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-firebase')
     implementation project(':react-native-sound')
     implementation project(':react-native-sound-recorder')
     implementation project(':react-native-fs')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')
+
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '28.0.0')}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 
@@ -154,3 +166,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'

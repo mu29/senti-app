@@ -1,5 +1,13 @@
-import { Animated, InteractionManager, PermissionsAndroid, Platform } from 'react-native';
-import { observable, action } from 'mobx';
+import {
+  Animated,
+  InteractionManager,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native';
+import {
+  observable,
+  action,
+} from 'mobx';
 import { RecordStore } from 'stores';
 
 class RecordViewModel {

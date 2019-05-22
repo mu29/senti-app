@@ -3,6 +3,7 @@ package net.yeoubi.senti;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.kevinresol.react_native_sound_recorder.RNSoundRecorderPackage;
 import com.rnfs.RNFSPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
             new RNSoundPackage(),
             new RNSoundRecorderPackage(),
             new RNFSPackage(),
