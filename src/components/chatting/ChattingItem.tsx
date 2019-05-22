@@ -7,7 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import moment from 'moment';
-import { Text } from 'bootstrap';
+import { Text } from 'components';
 import { palette } from 'services/style';
 import { withComma } from 'services/utils';
 

@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { Text } from 'bootstrap';
+import { Text } from 'components';
 import { palette } from 'services/style';
 
 const COIN_ICON = { uri: 'ic_coin' };

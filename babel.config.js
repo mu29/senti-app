@@ -5,7 +5,6 @@ module.exports = {
     ['module-resolver', {
       root: ['./src'],
       alias: {
-        'bootstrap': './src/bootstrap',
         'components': './src/components',
         'containers': './src/containers',
         'services': './src/services'

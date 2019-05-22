@@ -9,7 +9,7 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
-import { Text } from 'bootstrap';
+import { Text } from 'components';
 import { RecordViewModel } from 'containers';
 import { palette } from 'services/style';
 

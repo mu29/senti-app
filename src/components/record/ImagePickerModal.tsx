@@ -13,7 +13,7 @@ import {
 import Modal from 'react-native-modal';
 import { FlatGrid } from 'react-native-super-grid';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Text } from 'bootstrap';
+import { Text } from 'components';
 import { RecordViewModel } from 'containers';
 import { palette } from 'services/style';
 

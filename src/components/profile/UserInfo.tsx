@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import { Text } from 'bootstrap';
+import { Text } from 'components';
 import { palette } from 'services/style';
 
 export interface UserInfoProps {

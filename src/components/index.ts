@@ -1,3 +1,5 @@
+export { default as Text } from './bootstrap/Text';
+
 export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as Header } from './common/Header';
 export { default as withSafeArea } from './common/withSafeArea';
