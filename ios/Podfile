@@ -6,6 +6,7 @@ target 'Senti' do
 
   pod 'Firebase/Core', '5.20.1'
   pod 'Firebase/Auth', '5.20.1'
+  pod 'Firebase/Firestore', '~> 5.20.1'
   pod 'GoogleSignIn', '4.4.0'
   pod 'FBSDKCoreKit', '4.40.0'
   pod 'FBSDKLoginKit', '4.40.0'
