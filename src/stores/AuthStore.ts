@@ -6,6 +6,10 @@ import {
 import firebase from 'react-native-firebase';
 import { GoogleSignin } from 'react-native-google-signin';
 import {
+  AccessToken,
+  LoginManager,
+} from 'react-native-fbsdk';
+import {
   FIREBASE_IOS_CLIENT_ID,
   FIREBASE_WEB_CLIENT_ID,
 } from 'constants/env';
@@ -56,6 +60,22 @@ class AuthStore {
     return GoogleSignin.signIn()
       // @ts-ignore
       .then(data => firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken))
+      .then(credential => firebase.auth().signInWithCredential(credential))
+      .catch(() => {
+        throw new Error('사용자가 로그인을 취소했습니다.');
+      });
+  }
+
+  public signInWithFacebook = async () => {
+    return LoginManager.logInWithReadPermissions(['public_profile', 'email'])
+      .then((result) => {
+        if (result.isCancelled) {
+          return Promise.reject(new Error('사용자가 로그인을 취소했습니다.'));
+        }
+        return AccessToken.getCurrentAccessToken();
+      })
+      // @ts-ignore
+      .then(data => firebase.auth.FacebookAuthProvider.credential(data.accessToken))
       .then(credential => firebase.auth().signInWithCredential(credential));
   }
 

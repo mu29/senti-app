@@ -14,11 +14,13 @@
 
 #import <Firebase.h>
 #import <RNGoogleSignin/RNGoogleSignin.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // firebase
   [FIRApp configure];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
@@ -32,6 +34,10 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+  // facebook
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                           didFinishLaunchingWithOptions:launchOptions];
   return YES;
 }
 
@@ -40,10 +46,16 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-  return [RNGoogleSignin application:application
-                             openURL:url
-                   sourceApplication:sourceApplication
-                          annotation:annotation
+  return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                        openURL:url
+                                              sourceApplication:sourceApplication
+                                                     annotation:annotation
+          ]
+          ||
+          [RNGoogleSignin application:application
+                              openURL:url
+                    sourceApplication:sourceApplication
+                           annotation:annotation
           ];
 }
 
@@ -51,6 +63,15 @@
             openURL:(NSURL *)url
             options:(NSDictionary *)options
 {
+  
+  if ([[FBSDKApplicationDelegate sharedInstance] application:application
+                                                     openURL:url
+                                           sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                  annotation:options[UIApplicationOpenURLOptionsAnnotationKey]])
+  {
+    return YES;
+  }
+
   if ([RNGoogleSignin application:application
                           openURL:url
                 sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]

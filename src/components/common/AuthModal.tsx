@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import {
   inject,
   observer,
@@ -47,6 +47,7 @@ class AuthModal extends React.Component<AuthModalProps> {
           <SocialProviderButton
             icon="facebook"
             backgroundColor={palette.brand.facebook}
+            onPress={this.signInWithFacebook}
           >
             페이스북으로 시작하기
           </SocialProviderButton>
@@ -69,7 +70,18 @@ class AuthModal extends React.Component<AuthModalProps> {
     try {
       await this.props.authStore!.signInWithGoogle();
       this.finishLogin();
-    } catch {}
+    } catch (error) {
+      Alert.alert('로그인', `구글 로그인에 실패했습니다.\n${error.message}`);
+    }
+  }
+
+  private signInWithFacebook = async () => {
+    try {
+      await this.props.authStore!.signInWithFacebook();
+      this.finishLogin();
+    } catch (error) {
+      Alert.alert('로그인', `페이스북 로그인에 실패했습니다.\n${error.message}`);
+    }
   }
 
   private finishLogin = () => {

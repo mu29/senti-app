@@ -4,7 +4,10 @@ target 'Senti' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
 
-  pod 'Firebase/Core', '~> 5.20.1'
-  pod 'Firebase/Auth', '~> 5.20.1'
-  pod 'GoogleSignIn', '~> 4.4.0'
+  pod 'Firebase/Core', '5.20.1'
+  pod 'Firebase/Auth', '5.20.1'
+  pod 'GoogleSignIn', '4.4.0'
+  pod 'FBSDKCoreKit', '4.40.0'
+  pod 'FBSDKLoginKit', '4.40.0'
+  pod 'FBSDKShareKit', '4.40.0'
 end
