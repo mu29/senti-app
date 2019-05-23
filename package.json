@@ -16,6 +16,7 @@
     "react-native-firebase": "^5.3.1",
     "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-google-signin": "^2.0.0",
     "react-native-modal": "^11.0.1",
     "react-native-parallax-swiper": "^1.1.7",
     "react-native-sound": "^0.10.12",

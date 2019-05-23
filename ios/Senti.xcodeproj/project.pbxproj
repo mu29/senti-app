@@ -28,6 +28,11 @@
 		3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28A995E4F756430E8F7C78AF /* Ionicons.ttf */; };
 		44B06AA06BC14F67AD74D80B /* libRNSoundRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */; };
 		5B4D58802294E93D00853F25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */; };
+		5B52F92D22963C5F00E2B39A /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F92822963C4900E2B39A /* libRNGoogleSignin.a */; };
+		5B52F94322963CEA00E2B39A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94222963CEA00E2B39A /* AddressBook.framework */; };
+		5B52F94522963CF100E2B39A /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94422963CF100E2B39A /* SafariServices.framework */; };
+		5B52F94722963CF700E2B39A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94622963CF700E2B39A /* SystemConfiguration.framework */; };
+		5B52F94922963D0900E2B39A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94822963D0800E2B39A /* libz.tbd */; };
 		71E5A1F89EF8805C255CF4FB /* libPods-Senti.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7B50EB5DBCB9E16F3C81C4 /* libPods-Senti.a */; };
 		766822CC7CDA4E30B31562A4 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C35A4E59B14E1CBD3A519A /* libRNSound.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -241,6 +246,13 @@
 			remoteGlobalIDString = 3D3CD9321DE5FBEE00167DC4;
 			remoteInfo = "cxxreact-tvOS";
 		};
+		5B52F92722963C4900E2B39A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FD355121D3E4A2900D06170;
+			remoteInfo = RNGoogleSignin;
+		};
 		5B937D81227C0D5D00C26AB4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -396,6 +408,11 @@
 		3DCC5514457B5C7B35392B63 /* libPods-SentiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SentiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EEBB0AEB234603A058473D /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
+		5B52F94222963CEA00E2B39A /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		5B52F94422963CF100E2B39A /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		5B52F94622963CF700E2B39A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5B52F94822963D0800E2B39A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		65C35A4E59B14E1CBD3A519A /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
 		770CBC4005274C42A411D8F3 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
@@ -431,6 +448,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B52F94922963D0900E2B39A /* libz.tbd in Frameworks */,
+				5B52F94722963CF700E2B39A /* SystemConfiguration.framework in Frameworks */,
+				5B52F94522963CF100E2B39A /* SafariServices.framework in Frameworks */,
+				5B52F94322963CEA00E2B39A /* AddressBook.framework in Frameworks */,
+				5B52F92D22963C5F00E2B39A /* libRNGoogleSignin.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
@@ -586,6 +608,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B52F94822963D0800E2B39A /* libz.tbd */,
+				5B52F94622963CF700E2B39A /* SystemConfiguration.framework */,
+				5B52F94422963CF100E2B39A /* SafariServices.framework */,
+				5B52F94222963CEA00E2B39A /* AddressBook.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
@@ -593,6 +619,14 @@
 				3DCC5514457B5C7B35392B63 /* libPods-SentiTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5B52F8FA22963C4900E2B39A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5B52F92822963C4900E2B39A /* libRNGoogleSignin.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5B937D5B227C0D5B00C26AB4 /* Recovered References */ = {
@@ -682,6 +716,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -786,6 +821,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				86A84353DB08EFCE6F40EDA1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -887,6 +923,10 @@
 				{
 					ProductGroup = 5B937D89227C0D5F00C26AB4 /* Products */;
 					ProjectRef = C295EB3F04AE41439F9879F9 /* RNGestureHandler.xcodeproj */;
+				},
+				{
+					ProductGroup = 5B52F8FA22963C4900E2B39A /* Products */;
+					ProjectRef = 5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */;
 				},
 				{
 					ProductGroup = 5BC63BF42290EF0700598A2D /* Products */;
@@ -1106,6 +1146,13 @@
 			remoteRef = 3DAD3EAA1DF850E9000B6D8A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		5B52F92822963C4900E2B39A /* libRNGoogleSignin.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNGoogleSignin.a;
+			remoteRef = 5B52F92722963C4900E2B39A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5B937D82227C0D5D00C26AB4 /* libjsi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1290,6 +1337,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86A84353DB08EFCE6F40EDA1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Senti/Pods-Senti-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Senti/Pods-Senti-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

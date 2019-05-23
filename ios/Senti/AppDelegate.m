@@ -6,11 +6,14 @@
  */
 
 #import "AppDelegate.h"
-#import <Firebase.h>
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <React/RCTLinkingManager.h>
+
+#import <Firebase.h>
+#import <RNGoogleSignin/RNGoogleSignin.h>
 
 @implementation AppDelegate
 
@@ -30,6 +33,42 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+  return [RNGoogleSignin application:application
+                             openURL:url
+                   sourceApplication:sourceApplication
+                          annotation:annotation
+          ];
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary *)options
+{
+  if ([RNGoogleSignin application:application
+                          openURL:url
+                sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                       annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
+    return YES;
+  }
+  
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
+
+
+- (BOOL)application:(UIApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray *_Nullable))restorationHandler
+{
+  return [RCTLinkingManager application:application
+                   continueUserActivity:userActivity
+                     restorationHandler:restorationHandler];;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

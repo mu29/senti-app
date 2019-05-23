@@ -10,14 +10,18 @@ import {
   Text,
   SocialProviderButton,
 } from 'components';
-import { UiStore } from 'stores';
+import {
+  UiStore,
+  AuthStore,
+} from 'stores';
 import { palette } from 'services/style';
 
 interface AuthModalProps {
   uiStore?: UiStore;
+  authStore?: AuthStore;
 }
 
-@inject('uiStore')
+@inject('uiStore', 'authStore')
 @observer
 class AuthModal extends React.Component<AuthModalProps> {
   public render() {
@@ -39,10 +43,17 @@ class AuthModal extends React.Component<AuthModalProps> {
           <Text style={styles.title}>
             로그인하고 모든 기능을 사용하세요!
           </Text>
-          <SocialProviderButton icon="facebook" backgroundColor={palette.brand.facebook}>
+          <SocialProviderButton
+            icon="facebook"
+            backgroundColor={palette.brand.facebook}
+          >
             페이스북으로 시작하기
           </SocialProviderButton>
-          <SocialProviderButton icon="google" backgroundColor={palette.brand.google}>
+          <SocialProviderButton
+            icon="google"
+            backgroundColor={palette.brand.google}
+            onPress={this.signInWithGoogle}
+          >
             구글 계정으로 시작하기
           </SocialProviderButton>
           <Text style={styles.description}>
@@ -51,6 +62,10 @@ class AuthModal extends React.Component<AuthModalProps> {
         </SafeAreaView>
       </Modal>
     );
+  }
+
+  private signInWithGoogle = () => {
+    this.props.authStore!.signInWithGoogle();
   }
 
   private hide = () => {
