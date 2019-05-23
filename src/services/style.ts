@@ -23,4 +23,8 @@ export const palette = {
   red: {
     default: '#CA392E',
   },
+  brand: {
+    facebook: '#4B68AD',
+    google: '#D55040',
+  },
 };

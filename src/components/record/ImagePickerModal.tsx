@@ -41,6 +41,8 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
         onBackButtonPress={toggleAlbum}
         style={styles.modal}
         backdropOpacity={0}
+        animationInTiming={400}
+        animationOutTiming={1000}
         useNativeDriver
         hideModalContentWhileAnimating
       >
