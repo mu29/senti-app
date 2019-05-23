@@ -73,8 +73,10 @@ class AuthModal extends React.Component<AuthModalProps> {
 
   private signInWithGoogle = async () => {
     try {
-      await this.props.authStore!.signInWithGoogle();
-      this.finishLogin();
+      const isSuccessful = await this.props.authStore!.signInWithGoogle();
+      if (isSuccessful) {
+        this.finishLogin();
+      }
     } catch (error) {
       Alert.alert('로그인', `구글 로그인에 실패했습니다.\n${error.message}`);
     }
@@ -82,8 +84,10 @@ class AuthModal extends React.Component<AuthModalProps> {
 
   private signInWithFacebook = async () => {
     try {
-      await this.props.authStore!.signInWithFacebook();
-      this.finishLogin();
+      const isSuccessful = await this.props.authStore!.signInWithFacebook();
+      if (isSuccessful) {
+        this.finishLogin();
+      }
     } catch (error) {
       Alert.alert('로그인', `페이스북 로그인에 실패했습니다.\n${error.message}`);
     }

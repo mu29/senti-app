@@ -54,6 +54,9 @@ class AuthStore {
   }
 
   public signInWithGoogle = async () => {
+    if (this.currentProvider) {
+      return;
+    }
     this.currentProvider = 'google';
 
     const configureResult = await this.initGoogleSignin();
@@ -70,18 +73,25 @@ class AuthStore {
       .then(this.createUser)
       .catch((error) => {
         this.currentProvider = undefined;
-        throw error;
+        if (error.code === '-5') {
+          return false;
+        } else {
+          throw error;
+        }
       });
   }
 
   public signInWithFacebook = async () => {
+    if (this.currentProvider) {
+      return;
+    }
     this.currentProvider = 'facebook';
 
     return LoginManager.logInWithReadPermissions(['public_profile', 'email'])
       .then((result) => {
         if (result.isCancelled) {
           this.currentProvider = undefined;
-          return Promise.reject(new Error('사용자가 로그인을 취소했습니다.'));
+          return Promise.reject({ code: 'user_cancel' });
         }
         return AccessToken.getCurrentAccessToken();
       })
@@ -91,7 +101,11 @@ class AuthStore {
       .then(this.createUser)
       .catch((error) => {
         this.currentProvider = undefined;
-        throw error;
+        if (error.code === 'user_cancel') {
+          return false;
+        } else {
+          throw error;
+        }
       });
   }
 
@@ -122,6 +136,7 @@ class AuthStore {
     const user = firebase.auth().currentUser;
 
     if (!user) {
+      firebase.auth().signOut();
       this.currentProvider = undefined;
       throw new Error('로그인 중 오류가 발생했습니다.');
     }
@@ -141,6 +156,8 @@ class AuthStore {
     }
 
     this.currentProvider = undefined;
+
+    return true;
   }
 }
 
