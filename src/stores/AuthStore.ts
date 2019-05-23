@@ -14,6 +14,8 @@ class AuthStore {
   @observable
   public user?: User;
 
+  private nextRoute?: string;
+
   private authStateUnsubscriber?: () => void;
 
   @computed
@@ -22,6 +24,7 @@ class AuthStore {
   }
 
   public subscribe = () => {
+    this.signOut();
     this.authStateUnsubscriber = firebase.auth().onAuthStateChanged((user) => {
       this.user = user || undefined;
     });
@@ -31,6 +34,16 @@ class AuthStore {
     if (this.authStateUnsubscriber) {
       this.authStateUnsubscriber();
     }
+  }
+
+  public setNextRoute = (key: string) => {
+    this.nextRoute = key;
+  }
+
+  public popNextRoute = () => {
+    const route = `${this.nextRoute}`;
+    this.nextRoute = undefined;
+    return route;
   }
 
   public signInWithGoogle = async () => {

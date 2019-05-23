@@ -6,6 +6,7 @@ import 'moment/locale/ko';
 import { AuthModal } from 'components';
 import stores from './stores';
 import Navigator from './Navigator';
+import NavigationService from './NavigationService';
 
 moment.locale('ko');
 
@@ -25,10 +26,14 @@ export default class App extends React.Component {
         <Provider {...stores}>
           <React.Fragment>
             <AuthModal />
-            <Navigator />
+            <Navigator ref={this.setNavigationRef} />
           </React.Fragment>
         </Provider>
       </React.Fragment>
     );
+  }
+
+  private setNavigationRef = (ref: any) => {
+    NavigationService.setTopLevelNavigator(ref);
   }
 }

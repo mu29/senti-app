@@ -147,6 +147,7 @@ class BottomTabBar extends React.Component<BottomTabBarProps> {
         } = this.props;
 
         if (params.private && !authStore!.isLoggedIn) {
+          authStore!.setNextRoute(route.key);
           uiStore!.toggleAuthModal();
           return;
         }

@@ -15,6 +15,7 @@ import {
   AuthStore,
 } from 'stores';
 import { palette } from 'services/style';
+import NavigationService from '../../NavigationService';
 
 interface AuthModalProps {
   uiStore?: UiStore;
@@ -64,8 +65,22 @@ class AuthModal extends React.Component<AuthModalProps> {
     );
   }
 
-  private signInWithGoogle = () => {
-    this.props.authStore!.signInWithGoogle();
+  private signInWithGoogle = async () => {
+    try {
+      await this.props.authStore!.signInWithGoogle();
+      this.finishLogin();
+    } catch {}
+  }
+
+  private finishLogin = () => {
+    const { authStore } = this.props;
+    const nextRoute = authStore!.popNextRoute();
+
+    this.hide();
+
+    if (nextRoute) {
+      NavigationService.navigate(nextRoute);
+    }
   }
 
   private hide = () => {
