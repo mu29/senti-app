@@ -27,6 +27,7 @@ interface AuthModalProps {
 class AuthModal extends React.Component<AuthModalProps> {
   public render() {
     const { isAuthModalVisible } = this.props.uiStore!;
+    const { currentProvider } = this.props.authStore!;
 
     return (
       <Modal
@@ -48,6 +49,8 @@ class AuthModal extends React.Component<AuthModalProps> {
             icon="facebook"
             backgroundColor={palette.brand.facebook}
             onPress={this.signInWithFacebook}
+            isLoading={currentProvider === 'facebook'}
+            indicatorSize={26}
           >
             페이스북으로 시작하기
           </SocialProviderButton>
@@ -55,6 +58,8 @@ class AuthModal extends React.Component<AuthModalProps> {
             icon="google"
             backgroundColor={palette.brand.google}
             onPress={this.signInWithGoogle}
+            isLoading={currentProvider === 'google'}
+            indicatorSize={26}
           >
             구글 계정으로 시작하기
           </SocialProviderButton>
@@ -100,8 +105,9 @@ class AuthModal extends React.Component<AuthModalProps> {
       toggleAuthModal,
       isAuthModalVisible,
     } = this.props.uiStore!;
+    const { currentProvider } = this.props.authStore!;
 
-    if (!isAuthModalVisible) {
+    if (!isAuthModalVisible || currentProvider) {
       return;
     }
 

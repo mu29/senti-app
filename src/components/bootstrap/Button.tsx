@@ -15,6 +15,7 @@ import { palette } from 'services/style';
 export interface ButtonProps extends TouchableOpacityProps, TouchableNativeFeedbackProps {
   isCircle?: boolean;
   isLoading?: boolean;
+  indicatorSize?: number;
   style?: StyleProp<ViewStyle>;
   children: React.ReactElement<any>;
 }
@@ -22,11 +23,16 @@ export interface ButtonProps extends TouchableOpacityProps, TouchableNativeFeedb
 const Button: React.FunctionComponent<ButtonProps> = ({
   isCircle,
   isLoading,
+  indicatorSize,
   style,
   children,
   ...props
 }) => {
-  const loadableChildren = isLoading ? <ActivityIndicator color={palette.white.default} /> : children;
+  const loadableChildren = isLoading ? (
+    <View style={{ justifyContent: 'center', height: indicatorSize || 24 }}>
+      <ActivityIndicator color={palette.white.default} />
+    </View>
+  ) : children;
 
   return Platform.select({
     ios: (

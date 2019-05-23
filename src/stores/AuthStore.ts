@@ -3,6 +3,7 @@ import {
   observable,
   computed,
 } from 'mobx';
+import moment from 'moment';
 import firebase from 'react-native-firebase';
 import { GoogleSignin } from 'react-native-google-signin';
 import {
@@ -17,6 +18,9 @@ import {
 class AuthStore {
   @observable
   public user?: User;
+
+  @observable
+  public currentProvider?: string;
 
   private nextRoute?: string;
 
@@ -51,9 +55,12 @@ class AuthStore {
   }
 
   public signInWithGoogle = async () => {
+    this.currentProvider = 'google';
+
     const configureResult = await this.initGoogleSignin();
     if (!configureResult) {
       Alert.alert('로그인', '구글 플레이 서비스 초기화에 실패했습니다.');
+      this.currentProvider = undefined;
       return;
     }
 
@@ -61,22 +68,32 @@ class AuthStore {
       // @ts-ignore
       .then(data => firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken))
       .then(credential => firebase.auth().signInWithCredential(credential))
-      .catch(() => {
-        throw new Error('사용자가 로그인을 취소했습니다.');
+      .then(this.createOrUpdateUserInfo)
+      .catch((error) => {
+        this.currentProvider = undefined;
+        throw error;
       });
   }
 
   public signInWithFacebook = async () => {
+    this.currentProvider = 'facebook';
+
     return LoginManager.logInWithReadPermissions(['public_profile', 'email'])
       .then((result) => {
         if (result.isCancelled) {
+          this.currentProvider = undefined;
           return Promise.reject(new Error('사용자가 로그인을 취소했습니다.'));
         }
         return AccessToken.getCurrentAccessToken();
       })
       // @ts-ignore
       .then(data => firebase.auth.FacebookAuthProvider.credential(data.accessToken))
-      .then(credential => firebase.auth().signInWithCredential(credential));
+      .then(credential => firebase.auth().signInWithCredential(credential))
+      .then(this.createOrUpdateUserInfo)
+      .catch((error) => {
+        this.currentProvider = undefined;
+        throw error;
+      });
   }
 
   public signOut = () => {
@@ -100,6 +117,34 @@ class AuthStore {
     }
 
     return true;
+  }
+
+  private createOrUpdateUserInfo = async () => {
+    const user = firebase.auth().currentUser;
+
+    if (!user) {
+      this.currentProvider = undefined;
+      throw new Error('로그인 중 오류가 발생했습니다.');
+    }
+
+    const userData = {
+      id: user.uid,
+      name: user.displayName,
+      email: user.email || (user.providerData && user.providerData[0] && user.providerData[0].email),
+      photoUrl: user.photoURL,
+      createdAt: moment(user.metadata.creationTime).valueOf(),
+    };
+
+    const userRef = firebase.firestore().collection('users').doc(user.uid);
+    const storedUser = await userRef.get();
+
+    if (storedUser.exists) {
+      await userRef.update(userData);
+    } else {
+      await userRef.set(userData);
+    }
+
+    this.currentProvider = undefined;
   }
 }
 
