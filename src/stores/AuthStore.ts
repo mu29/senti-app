@@ -32,7 +32,6 @@ class AuthStore {
   }
 
   public subscribe = () => {
-    this.signOut();
     this.authStateUnsubscriber = firebase.auth().onAuthStateChanged((user) => {
       this.user = user || undefined;
     });
@@ -68,7 +67,7 @@ class AuthStore {
       // @ts-ignore
       .then(data => firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken))
       .then(credential => firebase.auth().signInWithCredential(credential))
-      .then(this.createOrUpdateUserInfo)
+      .then(this.createUser)
       .catch((error) => {
         this.currentProvider = undefined;
         throw error;
@@ -89,7 +88,7 @@ class AuthStore {
       // @ts-ignore
       .then(data => firebase.auth.FacebookAuthProvider.credential(data.accessToken))
       .then(credential => firebase.auth().signInWithCredential(credential))
-      .then(this.createOrUpdateUserInfo)
+      .then(this.createUser)
       .catch((error) => {
         this.currentProvider = undefined;
         throw error;
@@ -119,7 +118,7 @@ class AuthStore {
     return true;
   }
 
-  private createOrUpdateUserInfo = async () => {
+  private createUser = async () => {
     const user = firebase.auth().currentUser;
 
     if (!user) {
@@ -127,21 +126,18 @@ class AuthStore {
       throw new Error('로그인 중 오류가 발생했습니다.');
     }
 
-    const userData = {
-      id: user.uid,
-      name: user.displayName,
-      email: user.email || (user.providerData && user.providerData[0] && user.providerData[0].email),
-      photoUrl: user.photoURL,
-      createdAt: moment(user.metadata.creationTime).valueOf(),
-    };
-
     const userRef = firebase.firestore().collection('users').doc(user.uid);
     const storedUser = await userRef.get();
 
-    if (storedUser.exists) {
-      await userRef.update(userData);
-    } else {
-      await userRef.set(userData);
+    if (!storedUser.exists) {
+      await userRef.set({
+        id: user.uid,
+        email: user.email || (user.providerData && user.providerData[0] && user.providerData[0].email),
+        name: user.displayName,
+        photoUrl: user.photoURL,
+        lastSignInAt: moment(user.metadata.lastSignInTime).valueOf(),
+        createdAt: moment(user.metadata.creationTime).valueOf(),
+      });
     }
 
     this.currentProvider = undefined;
