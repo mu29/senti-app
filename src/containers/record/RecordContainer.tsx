@@ -25,6 +25,10 @@ interface RecordContainerProps {
 class RecordContainer extends React.Component<RecordContainerProps> {
   private recordViewModel = new RecordViewModel(this.props.recordStore!);
 
+  componentDidMount() {
+    this.recordViewModel.init();
+  }
+
   componentWillUnmount() {
     this.recordViewModel.reset();
   }

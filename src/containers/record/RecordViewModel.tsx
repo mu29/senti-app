@@ -59,8 +59,12 @@ class RecordViewModel {
     };
   }
 
-  public reset = () => {
+  public init = () => {
     this.store.reset();
+  }
+
+  public reset = () => {
+    this.store.resetRecord();
   }
 
   @action

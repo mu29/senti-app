@@ -26,12 +26,16 @@ class RecordStore {
   }
 
   public reset = () => {
+    this.shuffleCover();
+    this.resetRecord();
+  }
+
+  public resetRecord = () => {
     if (this.recorded) {
       this.recorded.release();
       this.recorded = undefined;
       this.duration = 0;
     }
-    this.shuffleCover();
   }
 
   public startRecord = () => {
