@@ -27,6 +27,7 @@
 		222D895FFDE94929937459F3 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EEBB0AEB234603A058473D /* libRNGestureHandler.a */; };
 		3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28A995E4F756430E8F7C78AF /* Ionicons.ttf */; };
 		44B06AA06BC14F67AD74D80B /* libRNSoundRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */; };
+		5B468A1222991F1E00B7D83B /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B468A0722991F1100B7D83B /* libRNFetchBlob.a */; };
 		5B4D58802294E93D00853F25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */; };
 		5B52F92D22963C5F00E2B39A /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F92822963C4900E2B39A /* libRNGoogleSignin.a */; };
 		5B52F94322963CEA00E2B39A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94222963CEA00E2B39A /* AddressBook.framework */; };
@@ -247,6 +248,13 @@
 			remoteGlobalIDString = 3D3CD9321DE5FBEE00167DC4;
 			remoteInfo = "cxxreact-tvOS";
 		};
+		5B468A0622991F1100B7D83B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B4689DC22991F1100B7D83B /* RNFetchBlob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A15C300E1CD25C330074CB35;
+			remoteInfo = RNFetchBlob;
+		};
 		5B52F92722963C4900E2B39A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */;
@@ -415,6 +423,7 @@
 		3866BD4E3D20487989BA6204 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
 		3DCC5514457B5C7B35392B63 /* libPods-SentiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SentiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EEBB0AEB234603A058473D /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
+		5B4689DC22991F1100B7D83B /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
 		5B52F94222963CEA00E2B39A /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -457,6 +466,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B468A1222991F1E00B7D83B /* libRNFetchBlob.a in Frameworks */,
 				5B52F9922296689500E2B39A /* libRCTFBSDK.a in Frameworks */,
 				5B52F94922963D0900E2B39A /* libz.tbd in Frameworks */,
 				5B52F94722963CF700E2B39A /* SystemConfiguration.framework in Frameworks */,
@@ -631,6 +641,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5B4689DD22991F1100B7D83B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5B468A0722991F1100B7D83B /* libRNFetchBlob.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5B52F8FA22963C4900E2B39A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,6 +752,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5B4689DC22991F1100B7D83B /* RNFetchBlob.xcodeproj */,
 				5B52F98C2296688C00E2B39A /* RCTFBSDK.xcodeproj */,
 				5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
@@ -934,6 +953,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 5B4689DD22991F1100B7D83B /* Products */;
+					ProjectRef = 5B4689DC22991F1100B7D83B /* RNFetchBlob.xcodeproj */;
 				},
 				{
 					ProductGroup = 5BE1DE522294EE850074AA60 /* Products */;
@@ -1167,6 +1190,13 @@
 			fileType = archive.ar;
 			path = libcxxreact.a;
 			remoteRef = 3DAD3EAA1DF850E9000B6D8A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5B468A0722991F1100B7D83B /* libRNFetchBlob.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFetchBlob.a;
+			remoteRef = 5B468A0622991F1100B7D83B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5B52F92822963C4900E2B39A /* libRNGoogleSignin.a */ = {

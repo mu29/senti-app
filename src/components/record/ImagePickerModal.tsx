@@ -10,6 +10,7 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
+import imageCacheHoc from 'react-native-image-cache-hoc';
 import Modal from 'react-native-modal';
 import { FlatGrid } from 'react-native-super-grid';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -19,6 +20,11 @@ import { RecordStore } from 'stores';
 import { palette } from 'services/style';
 
 const ITEM_SIZE = Dimensions.get('window').width / 5;
+
+const CachableImage = imageCacheHoc(Image, {
+  fileDirName: 'covers',
+  cachePruneTriggerLimit: 1024 * 1024 * 50,
+});
 
 interface ImagePickerModalProps {
   recordStore?: RecordStore;
@@ -70,7 +76,7 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
       onPress={this.getPressHandler(item)}
       style={styles.item}
     >
-      <Image source={{ uri: item }} style={styles.image} />
+      <CachableImage source={{ uri: item }} style={styles.image} permanent />
     </TouchableOpacity>
   )
 
