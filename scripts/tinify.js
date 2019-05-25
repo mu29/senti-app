@@ -4,7 +4,7 @@ const tinify = require('tinify');
 const fs = require('fs');
 const path = require('path');
 
-tinify.key = 'Rj4V2CbknwPR6xNJ6y7FC5XrjY9bx6Yz';
+tinify.key = 'nBOpq1cyCZDwDPjZVTfUGphdaVe5NxH8';
 
 const folders = [
   'drawable-hdpi',
