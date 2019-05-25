@@ -4,10 +4,14 @@ import {
 } from 'mobx';
 import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
+import firebase from 'react-native-firebase';
 
 class RecordStore {
   @observable
-  public backgroundResource = 'https://cdn.pixabay.com/photo/2019/02/12/11/25/cruise-3991937__480.jpg';
+  public backgroundResource = '';
+
+  @observable
+  public coverUrls: string[] = [];
 
   @observable
   public description = '';
@@ -62,6 +66,16 @@ class RecordStore {
     }
 
     this.recorded.stop();
+  }
+
+  @action
+  public loadCovers = () => {
+    firebase.firestore().collection('covers').get()
+      .then(snapShot => snapShot.docs.map(doc => doc.get('fileName')))
+      .then(files => Promise.all(files.map(file => firebase.storage().ref(`covers/${file}`).getDownloadURL())))
+      .then(urls => this.coverUrls = urls)
+      .then(urls => this.changeBackgroundResource(urls[Math.floor(Math.random() * urls.length)]))
+      .catch(e => console.error(e));
   }
 
   @action
