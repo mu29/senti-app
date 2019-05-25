@@ -31,17 +31,14 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
   private pressHandlers: { [key: string]: () => void } = {};
 
   public render() {
-    const {
-      toggleAlbum,
-      isAlbumVisible,
-    } = this.props.viewModel!;
-    const { coverUrls } = this.props.recordStore!;
+    const { isAlbumVisible } = this.props.viewModel!;
+    const { covers } = this.props.recordStore!;
 
     return (
       <Modal
         isVisible={isAlbumVisible}
-        onBackdropPress={toggleAlbum}
-        onBackButtonPress={toggleAlbum}
+        onBackdropPress={this.hide}
+        onBackButtonPress={this.hide}
         style={styles.modal}
         backdropOpacity={0}
         animationInTiming={400}
@@ -59,7 +56,7 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
           <FlatGrid
             itemDimension={ITEM_SIZE}
             spacing={0}
-            items={coverUrls}
+            items={covers}
             renderItem={this.renderItem}
           />
         </View>
@@ -80,17 +77,30 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
   private getPressHandler = (url: string) => {
     const {
       toggleAlbum,
-      changeBackgroundResource,
+      updateCover,
     } = this.props.viewModel!;
 
     if (!Object.prototype.hasOwnProperty.call(this.pressHandlers, url)) {
       this.pressHandlers[url] = () => {
-        changeBackgroundResource(url);
+        updateCover(url);
         toggleAlbum();
       };
     }
 
     return this.pressHandlers[url];
+  }
+
+  private hide = () => {
+    const {
+      toggleAlbum,
+      isAlbumVisible,
+    } = this.props.viewModel!!;
+
+    if (!isAlbumVisible) {
+      return;
+    }
+
+    toggleAlbum();
   }
 }
 

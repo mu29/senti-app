@@ -8,10 +8,10 @@ import firebase from 'react-native-firebase';
 
 class RecordStore {
   @observable
-  public backgroundResource = '';
+  public cover = '';
 
   @observable
-  public coverUrls: string[] = [];
+  public covers: string[] = [];
 
   @observable
   public description = '';
@@ -21,12 +21,17 @@ class RecordStore {
 
   private recorded?: Sound;
 
+  constructor() {
+    this.loadCovers();
+  }
+
   public reset = () => {
     if (this.recorded) {
       this.recorded.release();
       this.recorded = undefined;
       this.duration = 0;
     }
+    this.shuffleCover();
   }
 
   public startRecord = () => {
@@ -70,22 +75,29 @@ class RecordStore {
 
   @action
   public loadCovers = () => {
-    firebase.firestore().collection('covers').get()
-      .then(snapShot => snapShot.docs.map(doc => doc.get('fileName')))
-      .then(files => Promise.all(files.map(file => firebase.storage().ref(`covers/${file}`).getDownloadURL())))
-      .then(urls => this.coverUrls = urls)
-      .then(urls => this.changeBackgroundResource(urls[Math.floor(Math.random() * urls.length)]))
-      .catch(e => console.error(e));
+    if (this.covers.length > 0) {
+      return;
+    }
+
+    firebase.firestore().collection('extras').doc('covers').get()
+      .then(snapShot => this.covers = snapShot.get('urls'))
+      .then(this.shuffleCover)
+      .catch(console.error);
   }
 
   @action
-  public changeBackgroundResource = (url: string) => {
-    this.backgroundResource = url;
+  public updateCover = (cover: string) => {
+    this.cover = cover;
   }
 
   @action
   public changeDescription = (text: string) => {
     this.description = text;
+  }
+
+  private shuffleCover = () => {
+    const index = Math.floor(Math.random() * this.covers.length);
+    this.updateCover(this.covers[index]);
   }
 }
 

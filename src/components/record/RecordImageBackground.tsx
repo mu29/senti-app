@@ -22,7 +22,7 @@ const RecordImageBackground: React.FunctionComponent<RecordImageBackgroundProps>
 }) => (
   <React.Fragment>
     <Image
-      source={{ uri: viewModel!.backgroundResource }}
+      source={{ uri: viewModel!.cover }}
       style={styles.background}
     />
     <View style={styles.filter} />

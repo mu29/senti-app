@@ -35,8 +35,8 @@ class RecordViewModel {
     return this.store.duration > 0;
   }
 
-  public get backgroundResource() {
-    return this.store.backgroundResource;
+  public get cover() {
+    return this.store.cover;
   }
 
   public get progressStyle() {
@@ -87,8 +87,8 @@ class RecordViewModel {
     }
   }
 
-  public changeBackgroundResource = (url: string) => {
-    this.store.changeBackgroundResource(url);
+  public updateCover = (cover: string) => {
+    this.store.updateCover(cover);
   }
 
   public changeDescription = (text: string) => {
