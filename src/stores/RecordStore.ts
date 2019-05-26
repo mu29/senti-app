@@ -1,7 +1,4 @@
-import {
-  observable,
-  action,
-} from 'mobx';
+import { observable } from 'mobx';
 import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
 

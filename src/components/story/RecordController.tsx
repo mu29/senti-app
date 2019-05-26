@@ -10,7 +10,7 @@ import {
   observer,
 } from 'mobx-react/native';
 import { Text } from 'components';
-import { RecordViewModel } from 'containers';
+import { CreateStoryViewModel } from 'containers';
 import { palette } from 'services/style';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
@@ -19,7 +19,7 @@ const RESET_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
 
 export interface RecordControllerProps {
-  viewModel?: RecordViewModel;
+  viewModel?: CreateStoryViewModel;
 }
 
 @inject('viewModel')
@@ -27,25 +27,22 @@ export interface RecordControllerProps {
 class RecordController extends React.Component<RecordControllerProps> {
   public render() {
     const {
-      reset,
+      clear,
       isRecorded,
-      progressStyle,
-      fadeStyle,
-      albumFadeStyle,
     } = this.props.viewModel!;
 
     return (
-      <Animated.View style={[styles.container, albumFadeStyle]}>
+      <Animated.View style={[styles.container, this.albumFadeStyle]}>
         <View style={styles.controller}>
           <TouchableOpacity
-            onPress={reset}
+            onPress={clear}
             disabled={!isRecorded}
             style={[styles.button, isRecorded && styles.enabled]}
           >
-            <Animated.Image source={RESET_ICON} style={[styles.icon, fadeStyle]} />
+            <Animated.Image source={RESET_ICON} style={[styles.icon, this.fadeStyle]} />
           </TouchableOpacity>
           <View style={styles.recordContainer}>
-            <Animated.View style={[styles.progress, progressStyle]} />
+            <Animated.View style={[styles.progress, this.progressStyle]} />
             <TouchableOpacity
               activeOpacity={0.6}
               onPress={this.onPressRecord}
@@ -56,14 +53,34 @@ class RecordController extends React.Component<RecordControllerProps> {
             disabled={!isRecorded}
             style={[styles.button, isRecorded && styles.enabled]}
           >
-            <Animated.Image source={DONE_ICON} style={[styles.icon, fadeStyle]} />
+            <Animated.Image source={DONE_ICON} style={[styles.icon, this.fadeStyle]} />
           </TouchableOpacity>
         </View>
-        <AnimatedText style={[styles.hint, fadeStyle]}>
+        <AnimatedText style={[styles.hint, this.fadeStyle]}>
           눌러서 {isRecorded ? '듣기' : '녹음'}
         </AnimatedText>
       </Animated.View>
     );
+  }
+
+  private get progressStyle() {
+    return {
+      transform: [{
+        scale: this.props.viewModel!.progressAnimation,
+      }],
+    };
+  }
+
+  private get fadeStyle() {
+    return {
+      opacity: this.props.viewModel!.fadeAnimation,
+    };
+  }
+
+  private get albumFadeStyle() {
+    return {
+      opacity: this.props.viewModel!.albumFadeAnimation,
+    };
   }
 
   private onPressRecord = () => {

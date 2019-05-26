@@ -13,7 +13,7 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
-import { RecordViewModel } from 'containers';
+import { CreateStoryViewModel } from 'containers';
 import { palette } from 'services/style';
 
 const ALBUM_ICON = { uri: 'ic_grid' };
@@ -25,18 +25,15 @@ const TOUCH_HITSLOP = {
   right: 32,
 };
 
-export interface RecordHeaderProps {
-  viewModel?: RecordViewModel;
+export interface CreateStoryHeaderProps {
+  viewModel?: CreateStoryViewModel;
 }
 
 @inject('viewModel')
 @observer
-class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjectedProps> {
+class CreateStoryHeader extends React.Component<CreateStoryHeaderProps & NavigationInjectedProps> {
   public render() {
-    const {
-      fadeStyle,
-      toggleAlbum,
-    } = this.props.viewModel!;
+    const { toggleAlbum } = this.props.viewModel!;
 
     return (
       <View style={styles.container}>
@@ -46,7 +43,7 @@ class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjecte
         >
           <Animated.Image
             source={ALBUM_ICON}
-            style={[styles.icon, fadeStyle]}
+            style={[styles.icon, this.fadeStyle]}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -55,11 +52,17 @@ class RecordHeader extends React.Component<RecordHeaderProps & NavigationInjecte
         >
           <Animated.Image
             source={CLOSE_ICON}
-            style={[styles.icon, fadeStyle]}
+            style={[styles.icon, this.fadeStyle]}
           />
         </TouchableOpacity>
       </View>
     );
+  }
+
+  private get fadeStyle() {
+    return {
+      opacity: this.props.viewModel!.fadeAnimation,
+    };
   }
 
   private goBack = () => this.props.navigation.goBack();
@@ -79,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(RecordHeader);
+export default withNavigation(CreateStoryHeader);

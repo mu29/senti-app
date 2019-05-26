@@ -15,8 +15,7 @@ import Modal from 'react-native-modal';
 import { FlatGrid } from 'react-native-super-grid';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Text } from 'components';
-import { RecordViewModel } from 'containers';
-import { RecordStore } from 'stores';
+import { CreateStoryViewModel } from 'containers';
 import { palette } from 'services/style';
 
 const ITEM_SIZE = Dimensions.get('window').width / 5;
@@ -27,18 +26,19 @@ const CachableImage = imageCacheHoc(Image, {
 });
 
 interface ImagePickerModalProps {
-  recordStore?: RecordStore;
-  viewModel?: RecordViewModel;
+  viewModel?: CreateStoryViewModel;
 }
 
-@inject('recordStore', 'viewModel')
+@inject('viewModel')
 @observer
 class ImagePickerModal extends React.Component<ImagePickerModalProps> {
   private pressHandlers: { [key: string]: () => void } = {};
 
   public render() {
-    const { isAlbumVisible } = this.props.viewModel!;
-    const { covers } = this.props.recordStore!;
+    const {
+      covers,
+      isAlbumVisible,
+    } = this.props.viewModel!;
 
     return (
       <Modal

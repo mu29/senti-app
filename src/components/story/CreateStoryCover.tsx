@@ -10,7 +10,7 @@ import {
   observer,
 } from 'mobx-react/native';
 import imageCacheHoc from 'react-native-image-cache-hoc';
-import { RecordViewModel } from 'containers';
+import { CreateStoryViewModel } from 'containers';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,11 +19,11 @@ const CachableImage = imageCacheHoc(Image, {
   cachePruneTriggerLimit: 1024 * 1024 * 50,
 });
 
-interface RecordImageBackgroundProps {
-  viewModel?: RecordViewModel;
+interface CreateStoryCoverProps {
+  viewModel?: CreateStoryViewModel;
 }
 
-const RecordImageBackground: React.FunctionComponent<RecordImageBackgroundProps> = ({
+const CreateStoryCover: React.FunctionComponent<CreateStoryCoverProps> = ({
   viewModel,
 }) => (
   <React.Fragment>
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default inject('viewModel')(observer(RecordImageBackground));
+export default inject('viewModel')(observer(CreateStoryCover));

@@ -6,7 +6,7 @@ import firebase from 'react-native-firebase';
 
 class CoverStore {
   @observable
-  public cover = '';
+  public current = '';
 
   @observable
   public covers: string[] = [];
@@ -15,13 +15,14 @@ class CoverStore {
     this.load();
   }
 
-  public reset = () => {
-    this.shuffleCover();
+  public shuffle = () => {
+    const index = Math.floor(Math.random() * this.covers.length);
+    this.update(this.covers[index]);
   }
 
   @action
   public update = (cover: string) => {
-    this.cover = cover;
+    this.current = cover;
   }
 
   @action
@@ -32,13 +33,8 @@ class CoverStore {
 
     firebase.firestore().collection('extras').doc('covers').get()
       .then(snapShot => this.covers = snapShot.get('urls'))
-      .then(this.shuffleCover)
+      .then(this.shuffle)
       .catch(console.error);
-  }
-
-  private shuffleCover = () => {
-    const index = Math.floor(Math.random() * this.covers.length);
-    this.update(this.covers[index]);
   }
 }
 

@@ -9,21 +9,19 @@ import {
   observer,
   inject,
 } from 'mobx-react/native';
-import { RecordViewModel } from 'containers';
+import { CreateStoryViewModel } from 'containers';
 import { palette } from 'services/style';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-interface RecordDescriptionProps {
-  viewModel?: RecordViewModel;
+interface StoryDescriptionProps {
+  viewModel?: CreateStoryViewModel;
 }
 
 @inject('viewModel')
 @observer
-class RecordDescription extends React.Component<RecordDescriptionProps> {
+class StoryDescription extends React.Component<StoryDescriptionProps> {
   public render() {
-    const { fadeStyle } = this.props.viewModel!;
-
     return (
       <View style={styles.container}>
         <AnimatedTextInput
@@ -34,14 +32,20 @@ class RecordDescription extends React.Component<RecordDescriptionProps> {
           placeholderTextColor={palette.white.default}
           selectionColor={palette.white.default}
           onChangeText={this.onChangeText}
-          style={[styles.input, fadeStyle]}
+          style={[styles.input, this.fadeStyle]}
         />
       </View>
     );
   }
 
+  private get fadeStyle() {
+    return {
+      opacity: this.props.viewModel!.fadeAnimation,
+    };
+  }
+
   private onChangeText = (text: string) => {
-    this.props.viewModel!.changeDescription(text);
+    this.props.viewModel!.updateDescription(text);
   }
 }
 
@@ -59,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecordDescription;
+export default StoryDescription;

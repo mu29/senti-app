@@ -1,2 +1,2 @@
-export { default as RecordContainer } from './record/RecordContainer';
-export { default as RecordViewModel } from './record/RecordViewModel';
+export { default as CreateStoryContainer } from './story/CreateStoryContainer';
+export { default as CreateStoryViewModel } from './story/CreateStoryViewModel';

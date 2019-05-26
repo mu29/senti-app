@@ -15,7 +15,7 @@ import { palette } from 'services/style';
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import ChattingScreen from './screens/ChattingScreen';
-import RecordScreen from './screens/RecordScreen';
+import CreateStoryScreen from './screens/CreateStoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
 const MainTabNavigator = createBottomTabNavigator({
@@ -50,7 +50,7 @@ const MainTabNavigator = createBottomTabNavigator({
           style={[styles.icon, { tintColor: palette.gray[10] }]}
         />
       ),
-      tabBarOnPress: ({ navigation }: { navigation: any }) => navigation.navigate('Record'),
+      tabBarOnPress: ({ navigation }: { navigation: any }) => navigation.navigate('CreateStory'),
     },
   },
   Chatting: {
@@ -93,8 +93,8 @@ const MainTabNavigator = createBottomTabNavigator({
 
 const ModalNavigator = createStackNavigator({
   MainTab: MainTabNavigator,
-  Record: {
-    screen: RecordScreen,
+  CreateStory: {
+    screen: CreateStoryScreen,
     navigationOptions: {
       gesturesEnabled: false,
     },

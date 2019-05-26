@@ -14,11 +14,11 @@ export { default as CoinInventory } from './chatting/CoinInventory';
 
 export { default as UserInfo } from './profile/UserInfo';
 
-export { default as ImagePickerModal } from './record/ImagePickerModal';
-export { default as RecordDescription } from './record/RecordDescription';
-export { default as RecordController } from './record/RecordController';
-export { default as RecordHeader } from './record/RecordHeader';
-export { default as RecordImageBackground } from './record/RecordImageBackground';
+export { default as CreateStoryCover } from './story/CreateStoryCover';
+export { default as CreateStoryHeader } from './story/CreateStoryHeader';
+export { default as ImagePickerModal } from './story/ImagePickerModal';
+export { default as RecordController } from './story/RecordController';
+export { default as StoryDescription } from './story/StoryDescription';
 
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';

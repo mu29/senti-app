@@ -8,63 +8,51 @@ import {
   observable,
   action,
 } from 'mobx';
-import { RecordStore } from 'stores';
+import {
+  CoverStore,
+  RecordStore,
+  StoryStore,
+} from 'stores';
 
-class RecordViewModel {
+class CreateStoryViewModel {
   @observable
   public isAlbumVisible = false;
 
-  @observable
   public isEntered = false;
+
+  public progressAnimation = new Animated.Value(1);
+
+  public fadeAnimation = new Animated.Value(1);
+
+  public albumFadeAnimation = new Animated.Value(1);
 
   private isBusy = false;
 
-  private store: RecordStore;
+  constructor(
+    private coverStore: CoverStore,
+    private recordStore: RecordStore,
+    private storyStore: StoryStore,
+  ) {}
 
-  private progressAnimation = new Animated.Value(1);
+  public get cover() {
+    return this.coverStore.current;
+  }
 
-  private fadeAnimation = new Animated.Value(1);
-
-  private albumFadeAnimation = new Animated.Value(1);
-
-  constructor(store: RecordStore) {
-    this.store = store;
+  public get covers() {
+    return this.coverStore.covers;
   }
 
   public get isRecorded() {
-    return this.store.duration > 0;
-  }
-
-  public get cover() {
-    return this.store.cover;
-  }
-
-  public get progressStyle() {
-    return {
-      transform: [{
-        scale: this.progressAnimation,
-      }],
-    };
-  }
-
-  public get fadeStyle() {
-    return {
-      opacity: this.fadeAnimation,
-    };
-  }
-
-  public get albumFadeStyle() {
-    return {
-      opacity: this.albumFadeAnimation,
-    };
+    return this.recordStore.duration > 0;
   }
 
   public init = () => {
-    this.store.reset();
+    this.coverStore.shuffle();
+    this.recordStore.reset();
   }
 
-  public reset = () => {
-    this.store.resetRecord();
+  public clear = () => {
+    this.recordStore.reset();
   }
 
   @action
@@ -92,11 +80,11 @@ class RecordViewModel {
   }
 
   public updateCover = (cover: string) => {
-    this.store.updateCover(cover);
+    this.coverStore.update(cover);
   }
 
-  public changeDescription = (text: string) => {
-    this.store.changeDescription(text);
+  public updateDescription = (text: string) => {
+    this.storyStore.updateDescription(text);
   }
 
   private start = async () => {
@@ -136,13 +124,13 @@ class RecordViewModel {
 
   private startRecord = () => {
     requestAnimationFrame(async () => {
-      await this.store.startRecord();
+      await this.recordStore.startRecord();
       this.isEntered = true;
     });
   }
 
   private startPlay = () => {
-    this.store.startPlay(this.stop);
+    this.recordStore.startPlay(this.stop);
     this.isEntered = true;
   }
 
@@ -164,14 +152,14 @@ class RecordViewModel {
   private stopRecord = () => {
     this.isBusy = true;
     InteractionManager.runAfterInteractions(async () => {
-      await this.store.stopRecord();
+      await this.recordStore.stopRecord();
       this.isEntered = false;
       this.isBusy = false;
     });
   }
 
   private stopPlay = () => {
-    this.store.stopPlay();
+    this.recordStore.stopPlay();
     this.isEntered = false;
   }
 
@@ -194,4 +182,4 @@ class RecordViewModel {
   }
 }
 
-export default RecordViewModel;
+export default CreateStoryViewModel;
