@@ -28,6 +28,7 @@ class RecordController extends React.Component<RecordControllerProps> {
   public render() {
     const {
       clear,
+      create,
       isRecorded,
     } = this.props.viewModel!;
 
@@ -50,6 +51,7 @@ class RecordController extends React.Component<RecordControllerProps> {
             />
           </View>
           <TouchableOpacity
+            onPress={create}
             disabled={!isRecorded}
             style={[styles.button, isRecorded && styles.enabled]}
           >

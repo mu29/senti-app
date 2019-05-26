@@ -17,7 +17,7 @@ class StoryStore {
   public create = async (audioPath: string) => {
     const id = uuidv4();
     const snapshot = await firebase.storage()
-      .ref(`audios/${id}`)
+      .ref(`audios/${id}.aac`)
       .putFile(audioPath);
 
     return {

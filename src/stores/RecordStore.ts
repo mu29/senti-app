@@ -4,15 +4,16 @@ import Sound from 'react-native-sound';
 
 class RecordStore {
   @observable
-  public duration = 0;
-
-  private recorded?: Sound;
+  public data?: {
+    audio: Sound;
+    path: string;
+    duration: number;
+  };
 
   public reset = () => {
-    if (this.recorded) {
-      this.recorded.release();
-      this.recorded = undefined;
-      this.duration = 0;
+    if (this.data) {
+      this.data.audio.release();
+      this.data = undefined;
     }
   }
 
@@ -27,32 +28,44 @@ class RecordStore {
     } = await SoundRecorder.stop();
 
     return new Promise((resolve, reject) => {
-      this.recorded = new Sound('temp.aac', path.replace('/temp.aac', ''), (error) => {
+      const audio = new Sound('temp.aac', path.replace('/temp.aac', ''), (error) => {
         if (error) {
           reject(error);
           return;
         }
 
-        this.duration = duration;
+        this.data = {
+          audio,
+          path,
+          duration,
+        };
         resolve();
       });
     });
   }
 
   public startPlay = (onEnd: () => void) => {
-    if (!this.recorded || !this.recorded.isLoaded() || this.recorded.isPlaying()) {
+    if (!this.data) {
       return;
     }
 
-    this.recorded.play(onEnd);
+    const { audio } = this.data;
+
+    if (audio.isLoaded() && !audio.isPlaying()) {
+      audio.play(onEnd);
+    }
   }
 
   public stopPlay = () => {
-    if (!this.recorded || !this.recorded.isLoaded() || !this.recorded.isPlaying()) {
+    if (!this.data) {
       return;
     }
 
-    this.recorded.stop();
+    const { audio } = this.data;
+
+    if (audio.isLoaded() && audio.isPlaying()) {
+      audio.stop();
+    }
   }
 }
 

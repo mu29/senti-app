@@ -43,7 +43,7 @@ class CreateStoryViewModel {
   }
 
   public get isRecorded() {
-    return this.recordStore.duration > 0;
+    return !!this.recordStore.data;
   }
 
   public init = () => {
@@ -85,6 +85,16 @@ class CreateStoryViewModel {
 
   public updateDescription = (text: string) => {
     this.storyStore.updateDescription(text);
+  }
+
+  public create = () => {
+    const { data } = this.recordStore;
+
+    if (!data) {
+      return;
+    }
+
+    this.storyStore.create(data.path);
   }
 
   private start = async () => {
