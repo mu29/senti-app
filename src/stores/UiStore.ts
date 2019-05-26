@@ -5,11 +5,19 @@ import {
 
 class UiStore {
   @observable
-  isAuthModalVisible = false;
+  public isAuthModalVisible = false;
+
+  @observable
+  public isImagePickerModalVisible = false;
 
   @action
   public toggleAuthModal = () => {
     this.isAuthModalVisible = !this.isAuthModalVisible;
+  }
+
+  @action
+  public toggleImagePickerModal = () => {
+    this.isImagePickerModalVisible = !this.isImagePickerModalVisible;
   }
 }
 

@@ -13,7 +13,7 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
-import { CreateStoryViewModel } from 'containers';
+import { UiStore } from 'stores';
 import { palette } from 'services/style';
 
 const ALBUM_ICON = { uri: 'ic_grid' };
@@ -26,24 +26,24 @@ const TOUCH_HITSLOP = {
 };
 
 export interface CreateStoryHeaderProps {
-  viewModel?: CreateStoryViewModel;
+  uiStore?: UiStore;
 }
 
-@inject('viewModel')
+@inject('uiStore')
 @observer
 class CreateStoryHeader extends React.Component<CreateStoryHeaderProps & NavigationInjectedProps> {
   public render() {
-    const { toggleAlbum } = this.props.viewModel!;
+    const { toggleImagePickerModal } = this.props.uiStore!;
 
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={toggleAlbum}
+          onPress={toggleImagePickerModal}
           hitSlop={TOUCH_HITSLOP}
         >
           <Animated.Image
             source={ALBUM_ICON}
-            style={[styles.icon, this.fadeStyle]}
+            style={styles.icon}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -52,17 +52,11 @@ class CreateStoryHeader extends React.Component<CreateStoryHeaderProps & Navigat
         >
           <Animated.Image
             source={CLOSE_ICON}
-            style={[styles.icon, this.fadeStyle]}
+            style={styles.icon}
           />
         </TouchableOpacity>
       </View>
     );
-  }
-
-  private get fadeStyle() {
-    return {
-      opacity: this.props.viewModel!.fadeAnimation,
-    };
   }
 
   private goBack = () => this.props.navigation.goBack();

@@ -9,16 +9,16 @@ import {
   observer,
   inject,
 } from 'mobx-react/native';
-import { CreateStoryViewModel } from 'containers';
+import { StoryStore } from 'stores';
 import { palette } from 'services/style';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
 interface StoryDescriptionProps {
-  viewModel?: CreateStoryViewModel;
+  storyStore?: StoryStore;
 }
 
-@inject('viewModel')
+@inject('storyStore')
 @observer
 class StoryDescription extends React.Component<StoryDescriptionProps> {
   public render() {
@@ -32,20 +32,14 @@ class StoryDescription extends React.Component<StoryDescriptionProps> {
           placeholderTextColor={palette.white.default}
           selectionColor={palette.white.default}
           onChangeText={this.onChangeText}
-          style={[styles.input, this.fadeStyle]}
+          style={styles.input}
         />
       </View>
     );
   }
 
-  private get fadeStyle() {
-    return {
-      opacity: this.props.viewModel!.fadeAnimation,
-    };
-  }
-
   private onChangeText = (text: string) => {
-    this.props.viewModel!.updateDescription(text);
+    this.props.storyStore!.updateDescription(text);
   }
 }
 

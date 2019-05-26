@@ -10,7 +10,7 @@ import {
   observer,
 } from 'mobx-react/native';
 import imageCacheHoc from 'react-native-image-cache-hoc';
-import { CreateStoryViewModel } from 'containers';
+import { CoverStore } from 'stores';
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,15 +20,15 @@ const CachableImage = imageCacheHoc(Image, {
 });
 
 interface CreateStoryCoverProps {
-  viewModel?: CreateStoryViewModel;
+  coverStore?: CoverStore;
 }
 
 const CreateStoryCover: React.FunctionComponent<CreateStoryCoverProps> = ({
-  viewModel,
+  coverStore,
 }) => (
   <React.Fragment>
     <CachableImage
-      source={{ uri: viewModel!.cover }}
+      source={{ uri: coverStore!.current }}
       style={styles.background}
       permanent
     />
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default inject('viewModel')(observer(CreateStoryCover));
+export default inject('coverStore')(observer(CreateStoryCover));

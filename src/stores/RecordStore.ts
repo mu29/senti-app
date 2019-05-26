@@ -1,4 +1,7 @@
-import { observable } from 'mobx';
+import {
+  observable,
+  computed,
+} from 'mobx';
 import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
 
@@ -9,6 +12,11 @@ class RecordStore {
     path: string;
     duration: number;
   };
+
+  @computed
+  public get isRecorded() {
+    return !!this.data;
+  }
 
   public reset = () => {
     if (this.data) {

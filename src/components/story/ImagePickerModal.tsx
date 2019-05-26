@@ -15,7 +15,10 @@ import Modal from 'react-native-modal';
 import { FlatGrid } from 'react-native-super-grid';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Text } from 'components';
-import { CreateStoryViewModel } from 'containers';
+import {
+  CoverStore,
+  UiStore,
+} from 'stores';
 import { palette } from 'services/style';
 
 const ITEM_SIZE = Dimensions.get('window').width / 5;
@@ -26,29 +29,26 @@ const CachableImage = imageCacheHoc(Image, {
 });
 
 interface ImagePickerModalProps {
-  viewModel?: CreateStoryViewModel;
+  coverStore?: CoverStore;
+  uiStore?: UiStore;
 }
 
-@inject('viewModel')
+@inject('coverStore', 'uiStore')
 @observer
 class ImagePickerModal extends React.Component<ImagePickerModalProps> {
   private pressHandlers: { [key: string]: () => void } = {};
 
   public render() {
-    const {
-      covers,
-      isAlbumVisible,
-    } = this.props.viewModel!;
+    const { covers } = this.props.coverStore!;
+    const { isImagePickerModalVisible } = this.props.uiStore!;
 
     return (
       <Modal
-        isVisible={isAlbumVisible}
+        isVisible={isImagePickerModalVisible}
         onBackdropPress={this.hide}
         onBackButtonPress={this.hide}
         style={styles.modal}
         backdropOpacity={0}
-        animationInTiming={400}
-        animationOutTiming={1000}
         useNativeDriver
         hideModalContentWhileAnimating
       >
@@ -81,16 +81,8 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
   )
 
   private getPressHandler = (url: string) => {
-    const {
-      toggleAlbum,
-      updateCover,
-    } = this.props.viewModel!;
-
     if (!Object.prototype.hasOwnProperty.call(this.pressHandlers, url)) {
-      this.pressHandlers[url] = () => {
-        updateCover(url);
-        toggleAlbum();
-      };
+      this.pressHandlers[url] = () => this.props.coverStore!.update(url);
     }
 
     return this.pressHandlers[url];
@@ -98,15 +90,15 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
 
   private hide = () => {
     const {
-      toggleAlbum,
-      isAlbumVisible,
-    } = this.props.viewModel!!;
+      isImagePickerModalVisible,
+      toggleImagePickerModal,
+    } = this.props.uiStore!;
 
-    if (!isAlbumVisible) {
+    if (!isImagePickerModalVisible) {
       return;
     }
 
-    toggleAlbum();
+    toggleImagePickerModal();
   }
 }
 
