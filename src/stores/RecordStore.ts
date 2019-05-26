@@ -4,33 +4,14 @@ import {
 } from 'mobx';
 import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
-import firebase from 'react-native-firebase';
 
 class RecordStore {
-  @observable
-  public cover = '';
-
-  @observable
-  public covers: string[] = [];
-
-  @observable
-  public description = '';
-
   @observable
   public duration = 0;
 
   private recorded?: Sound;
 
-  constructor() {
-    this.loadCovers();
-  }
-
   public reset = () => {
-    this.shuffleCover();
-    this.resetRecord();
-  }
-
-  public resetRecord = () => {
     if (this.recorded) {
       this.recorded.release();
       this.recorded = undefined;
@@ -75,33 +56,6 @@ class RecordStore {
     }
 
     this.recorded.stop();
-  }
-
-  @action
-  public loadCovers = () => {
-    if (this.covers.length > 0) {
-      return;
-    }
-
-    firebase.firestore().collection('extras').doc('covers').get()
-      .then(snapShot => this.covers = snapShot.get('urls'))
-      .then(this.shuffleCover)
-      .catch(console.error);
-  }
-
-  @action
-  public updateCover = (cover: string) => {
-    this.cover = cover;
-  }
-
-  @action
-  public changeDescription = (text: string) => {
-    this.description = text;
-  }
-
-  private shuffleCover = () => {
-    const index = Math.floor(Math.random() * this.covers.length);
-    this.updateCover(this.covers[index]);
   }
 }
 
