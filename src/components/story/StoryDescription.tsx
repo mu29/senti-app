@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
+    padding: 24,
     textAlign: 'center',
     color: palette.white.default,
     fontSize: 18,

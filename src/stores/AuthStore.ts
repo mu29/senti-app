@@ -14,6 +14,7 @@ import {
   FIREBASE_IOS_CLIENT_ID,
   FIREBASE_WEB_CLIENT_ID,
 } from 'constants/env';
+import RootStore from './RootStore';
 
 class AuthStore {
   @observable
@@ -25,6 +26,8 @@ class AuthStore {
   private nextRoute?: string;
 
   private authStateUnsubscriber?: () => void;
+
+  constructor(private rootStore: RootStore) {}
 
   @computed
   public get isLoggedIn() {

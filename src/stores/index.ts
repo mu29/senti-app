@@ -1,21 +1,11 @@
-import AuthStore from './AuthStore';
-import CoverStore from './CoverStore';
-import RecordStore from './RecordStore';
-import StoryStore from './StoryStore';
-import UiStore from './UiStore';
+import RootStore from './RootStore';
 
-export {
-  AuthStore,
-  CoverStore,
-  RecordStore,
-  StoryStore,
-  UiStore,
-};
+const rootStore = new RootStore();
 
-export default {
-  authStore: new AuthStore(),
-  coverStore: new CoverStore(),
-  recordStore: new RecordStore(),
-  storyStore: new StoryStore(),
-  uiStore: new UiStore(),
-};
+export { default as AuthStore } from './AuthStore';
+export { default as CoverStore } from './CoverStore';
+export { default as RecordStore } from './RecordStore';
+export { default as StoryStore } from './StoryStore';
+export { default as UiStore } from './UiStore';
+
+export default rootStore;

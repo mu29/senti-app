@@ -3,6 +3,7 @@ import {
   action,
 } from 'mobx';
 import firebase from 'react-native-firebase';
+import RootStore from './RootStore';
 
 class CoverStore {
   @observable
@@ -11,7 +12,7 @@ class CoverStore {
   @observable
   public covers: string[] = [];
 
-  constructor() {
+  constructor(private rootStore: RootStore) {
     this.load();
   }
 

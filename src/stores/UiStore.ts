@@ -2,6 +2,7 @@ import {
   observable,
   action,
 } from 'mobx';
+import RootStore from './RootStore';
 
 class UiStore {
   @observable
@@ -9,6 +10,8 @@ class UiStore {
 
   @observable
   public isImagePickerModalVisible = false;
+
+  constructor(private rootStore: RootStore) {}
 
   @action
   public toggleAuthModal = () => {

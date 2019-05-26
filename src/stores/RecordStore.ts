@@ -4,6 +4,7 @@ import {
 } from 'mobx';
 import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
+import RootStore from './RootStore';
 
 class RecordStore {
   @observable
@@ -12,6 +13,8 @@ class RecordStore {
     path: string;
     duration: number;
   };
+
+  constructor(private rootStore: RootStore) {}
 
   @computed
   public get isRecorded() {
