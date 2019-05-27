@@ -1,8 +1,25 @@
 interface User {
-  uid: string;
+  id: string;
   email: string | null;
   displayName: string | null;
   photoURL: string | null;
+}
+
+interface Audio {
+  id: string;
+  url: string;
+}
+
+interface Story {
+  cover: string;
+  description: string;
+  tags: {
+    [key: string]: boolean;
+  };
+  audio: Audio;
+  user: Partial<User>;
+  createdAt: number;
+  updatedAt: number;
 }
 
 interface Message {

@@ -4,7 +4,7 @@ import {
   computed,
 } from 'mobx';
 import moment from 'moment';
-import firebase from 'react-native-firebase';
+import firebase, { RNFirebase } from 'react-native-firebase';
 import { GoogleSignin } from 'react-native-google-signin';
 import {
   AccessToken,
@@ -18,7 +18,7 @@ import RootStore from './RootStore';
 
 class AuthStore {
   @observable
-  public user?: User;
+  public user?: RNFirebase.User;
 
   @observable
   public currentProvider?: string;

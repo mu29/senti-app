@@ -3,6 +3,7 @@ import {
   action,
 } from 'mobx';
 import firebase from 'react-native-firebase';
+import { DocumentSnapshot } from 'react-native-firebase/firestore';
 import uuidv4 from 'uuid/v4';
 import RootStore from './RootStore';
 
@@ -10,11 +11,35 @@ class StoryStore {
   @observable
   public description = '';
 
+  @observable
+  public stories: Story[] = [];
+
+  @observable
+  public isLoading = false;
+
+  private cursor?: DocumentSnapshot;
+
   constructor(private rootStore: RootStore) {}
 
   @action
   public updateDescription = (text: string) => {
     this.description = text;
+  }
+
+  public readStories = async () => {
+    this.isLoading = true;
+
+    let query = firebase.firestore().collection('stories').orderBy('createdAt');
+    if (this.cursor) {
+      query = query.startAfter(this.cursor);
+    }
+
+    const stories = await query.get();
+
+    this.stories.push(...stories.docs.map(doc => doc.data() as Story));
+    this.cursor = stories.docs.slice(-1)[0];
+    this.isLoading = false;
+    console.log(this)
   }
 
   public create = async (audioPath: string) => {
@@ -40,6 +65,8 @@ class StoryStore {
         name: user.displayName,
         photoUrl: user.photoURL,
       },
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
   }
 

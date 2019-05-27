@@ -10,6 +10,7 @@ import {
   ParallaxSwiper,
   ParallaxSwiperPage
 } from 'react-native-parallax-swiper';
+import { StoryList } from 'components';
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,6 +18,7 @@ const swiperAnimation = new Animated.Value(0);
 
 const HomeScreen = () => (
   <React.Fragment>
+    <StoryList />
     <ParallaxSwiper
       speed={0.5}
       vertical
