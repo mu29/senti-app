@@ -70,7 +70,7 @@ class StoryList extends React.Component<StoryListProps> {
   }
 
   private renderItem = ({ item, index }: { item: Story; index: number }) => (
-    <StoryItem item={item} index={index} animatedValue={this.swiperAnimation} />
+    <StoryItem story={item} index={index} animatedValue={this.swiperAnimation} />
   )
 
   private keyExtractor = (item: Story) => item.id;

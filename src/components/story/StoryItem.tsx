@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import { Text } from 'components';
+import { palette } from 'services/style';
 
 const {
   width: deviceWidth,
@@ -13,7 +15,7 @@ const {
 } = Dimensions.get('window');
 
 interface StoryItemProps {
-  item: Story;
+  story: Story;
   index: number;
   animatedValue: Animated.Value;
 }
@@ -22,31 +24,39 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
   public render() {
     const {
       index,
-      item,
+      story,
     } = this.props;
 
     return (
       <View style={styles.container}>
         <Animated.View style={this.getParallaxStyles(index)}>
           <Image
-            source={{ uri: item.cover }}
+            source={{ uri: story.cover }}
             style={styles.background}
           />
         </Animated.View>
-        <View pointerEvents="box-none" style={styles.filter} />
+        <View pointerEvents="box-none" style={styles.filter}>
+          <View style={styles.descriptions}>
+            {story.description.split(' ').map((word, i) => (
+              <Text key={i} style={[styles.description, word.startsWith('#') && styles.tag]}>
+                {word}
+              </Text>
+            ))}
+          </View>
+        </View>
       </View>
     );
   }
 
-  private getParallaxStyles(i: number) {
+  private getParallaxStyles(index: number) {
     return {
       transform: [
         {
           translateY: this.props.animatedValue!.interpolate({
             inputRange: [
-              (i - 1) * deviceHeight,
-              i * deviceHeight,
-              (i + 1) * deviceHeight,
+              (index - 1) * deviceHeight,
+              index * deviceHeight,
+              (index + 1) * deviceHeight,
             ],
             outputRange: [-deviceHeight * 0.5, 0, deviceHeight * 0.5],
             extrapolate: 'clamp',
@@ -69,7 +79,24 @@ const styles = StyleSheet.create({
   },
   filter: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
+  descriptions: {
+    flexDirection: 'row',
+    padding: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  description: {
+    marginHorizontal: 2,
+    color: palette.white.default,
+    fontSize: 18,
+  },
+  tag: {
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 
