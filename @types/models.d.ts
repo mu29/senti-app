@@ -8,6 +8,7 @@ interface User {
 interface Audio {
   id: string;
   url: string;
+  duration: number;
 }
 
 interface Story {

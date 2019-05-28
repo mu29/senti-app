@@ -19,25 +19,7 @@ interface StoryItemProps {
 }
 
 class StoryItem extends React.PureComponent<StoryItemProps> {
-  getParallaxStyles(i: number) {
-    return {
-      transform: [
-        {
-          translateY: this.props.animatedValue!.interpolate({
-            inputRange: [
-              (i - 1) * deviceHeight,
-              i * deviceHeight,
-              (i + 1) * deviceHeight,
-            ],
-            outputRange: [-deviceHeight * 0.5, 0, deviceHeight * 0.5],
-            extrapolate: 'clamp',
-          }),
-        },
-      ],
-    };
-  }
-
-  render() {
+  public render() {
     const {
       index,
       item,
@@ -54,6 +36,24 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
         <View pointerEvents="box-none" style={styles.filter} />
       </View>
     );
+  }
+
+  private getParallaxStyles(i: number) {
+    return {
+      transform: [
+        {
+          translateY: this.props.animatedValue!.interpolate({
+            inputRange: [
+              (i - 1) * deviceHeight,
+              i * deviceHeight,
+              (i + 1) * deviceHeight,
+            ],
+            outputRange: [-deviceHeight * 0.5, 0, deviceHeight * 0.5],
+            extrapolate: 'clamp',
+          }),
+        },
+      ],
+    };
   }
 }
 

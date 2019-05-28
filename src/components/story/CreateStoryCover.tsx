@@ -23,18 +23,26 @@ interface CreateStoryCoverProps {
   coverStore?: CoverStore;
 }
 
-const CreateStoryCover: React.FunctionComponent<CreateStoryCoverProps> = ({
-  coverStore,
-}) => (
-  <React.Fragment>
-    <CachableImage
-      source={{ uri: coverStore!.current }}
-      style={styles.background}
-      permanent
-    />
-    <View style={styles.filter} />
-  </React.Fragment>
-);
+@inject('coverStore')
+@observer
+class CreateStoryCover extends React.Component<CreateStoryCoverProps> {
+  public componentDidMount() {
+    this.props.coverStore!.shuffle();
+  }
+
+  public render() {
+    return (
+      <React.Fragment>
+        <CachableImage
+          source={{ uri: this.props.coverStore!.current }}
+          style={styles.background}
+          permanent
+        />
+        <View style={styles.filter} />
+      </React.Fragment>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   background: {
@@ -49,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default inject('coverStore')(observer(CreateStoryCover));
+export default CreateStoryCover;

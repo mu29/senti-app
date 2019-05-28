@@ -40,6 +40,14 @@ class RecordController extends React.Component<RecordControllerProps> {
 
   private fadeAnimation = new Animated.Value(1);
 
+  public componentDidMount() {
+    this.props.recordStore!.reset();
+  }
+
+  public componentWillUnmount() {
+    this.props.recordStore!.reset();
+  }
+
   public render() {
     const {
       isRecorded,
@@ -98,7 +106,7 @@ class RecordController extends React.Component<RecordControllerProps> {
     const { create } = this.props.storyStore!;
 
     if (data) {
-      create(data.path);
+      create(data);
     }
   }
 

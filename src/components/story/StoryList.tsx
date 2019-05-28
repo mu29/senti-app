@@ -19,6 +19,8 @@ const {
   height: deviceHeight,
 } = Dimensions.get('window');
 
+const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 interface StoryListProps {
@@ -30,8 +32,14 @@ interface StoryListProps {
 class StoryList extends React.Component<StoryListProps> {
   private swiperAnimation = new Animated.Value(0);
 
+  private previousItem?: Story;
+
   public componentDidMount() {
     this.props.storyStore!.readStories();
+  }
+
+  public componentWillUnmount() {
+    this.props.storyStore!.pause();
   }
 
   public render() {
@@ -47,6 +55,8 @@ class StoryList extends React.Component<StoryListProps> {
             [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
             { useNativeDriver: true },
           )}
+          onViewableItemsChanged={this.onViewableItemsChanged}
+          viewabilityConfig={VIEWABILITY_CONFIG}
           style={styles.container}
           scrollEnabled
           pagingEnabled
@@ -64,6 +74,16 @@ class StoryList extends React.Component<StoryListProps> {
   )
 
   private keyExtractor = (item: Story) => item.id;
+
+  private onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ item: Story }> }) => {
+    if (viewableItems.length > 0) {
+      const currentItem = { ...viewableItems[0].item };
+      if (!this.previousItem || this.previousItem.id !== currentItem.id) {
+        this.props.storyStore!.play(currentItem.audio.url, currentItem.audio.duration);
+        this.previousItem = currentItem;
+      }
+    }
+  }
 }
 
 const styles = StyleSheet.create({
