@@ -6,6 +6,7 @@ import firebase from 'react-native-firebase';
 import { DocumentSnapshot } from 'react-native-firebase/firestore';
 import Sound from 'react-native-sound';
 import uuidv4 from 'uuid/v4';
+import { LoadingType } from 'constants/enums';
 import RootStore from './RootStore';
 
 class StoryStore {
@@ -16,7 +17,7 @@ class StoryStore {
   public stories: Story[] = [];
 
   @observable
-  public isLoading = false;
+  public isLoading: LoadingType = LoadingType.NONE;
 
   @observable
   public current?: {
@@ -35,7 +36,7 @@ class StoryStore {
   }
 
   public readStories = async () => {
-    this.isLoading = true;
+    this.isLoading = LoadingType.LIST;
 
     let query = firebase.firestore().collection('stories').orderBy('createdAt', 'desc');
     if (this.cursor) {
@@ -46,7 +47,7 @@ class StoryStore {
 
     this.stories.push(...stories.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Story));
     this.cursor = stories.docs.slice(-1)[0];
-    this.isLoading = false;
+    this.isLoading = LoadingType.NONE;
   }
 
   public create = async ({
@@ -62,7 +63,7 @@ class StoryStore {
       return;
     }
 
-    this.isLoading = true;
+    this.isLoading = LoadingType.CREATE;
 
     const cover = this.rootStore.coverStore.current;
     const audio = await this.upload(path);
@@ -97,7 +98,7 @@ class StoryStore {
     });
 
     await batch.commit();
-    this.isLoading = false;
+    this.isLoading = LoadingType.NONE;
   }
 
   public play = (path: string, duration: number) => {
@@ -113,6 +114,7 @@ class StoryStore {
       }
     }
 
+    this.isLoading = LoadingType.READ;
     const audio = new Sound(path, '', (error) => {
       if (error) {
         return;
@@ -131,7 +133,9 @@ class StoryStore {
         path,
         duration,
       };
+      this.isLoading = LoadingType.NONE;
 
+      audio.setVolume(1);
       audio.play();
     });
   }

@@ -3,6 +3,7 @@ import {
   action,
 } from 'mobx';
 import firebase from 'react-native-firebase';
+import { LoadingType } from 'constants/enums';
 import RootStore from './RootStore';
 
 class CoverStore {
@@ -11,6 +12,9 @@ class CoverStore {
 
   @observable
   public covers: string[] = [];
+
+  @observable
+  public isLoading: LoadingType = LoadingType.NONE;
 
   constructor(private rootStore: RootStore) {
     this.load();
@@ -32,9 +36,12 @@ class CoverStore {
       return;
     }
 
+    this.isLoading = LoadingType.LIST;
+
     firebase.firestore().collection('extras').doc('covers').get()
       .then(snapShot => this.covers = snapShot.get('urls'))
       .then(this.shuffle)
+      .then(() => this.isLoading = LoadingType.NONE)
       .catch(console.error);
   }
 }

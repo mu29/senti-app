@@ -27,6 +27,10 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
       story,
     } = this.props;
 
+    if (!story) {
+      return null;
+    }
+
     return (
       <View style={styles.container}>
         <Animated.View style={this.getParallaxStyles(index)}>
