@@ -11,6 +11,7 @@ interface Audio {
 }
 
 interface Story {
+  id: string;
   cover: string;
   description: string;
   tags: {

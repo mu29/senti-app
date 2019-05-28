@@ -36,10 +36,9 @@ class StoryStore {
 
     const stories = await query.get();
 
-    this.stories.push(...stories.docs.map(doc => doc.data() as Story));
+    this.stories.push(...stories.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Story));
     this.cursor = stories.docs.slice(-1)[0];
     this.isLoading = false;
-    console.log(this)
   }
 
   public create = async (audioPath: string) => {
