@@ -111,17 +111,19 @@ class StoryStore {
         currentAudio.play();
         return;
       }
-
-      if (currentAudio.isLoaded() && currentAudio.isPlaying()) {
-        currentAudio.stop();
-      }
-      this.current.audio.release();
-      this.current = undefined;
     }
 
     const audio = new Sound(path, '', (error) => {
       if (error) {
         return;
+      }
+
+      if (this.current) {
+        const { audio: currentAudio } = this.current;
+        if (currentAudio.isLoaded() && currentAudio.isPlaying()) {
+          currentAudio.stop();
+        }
+        currentAudio.release();
       }
 
       this.current = {
