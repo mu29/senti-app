@@ -7,6 +7,7 @@ import { DocumentSnapshot } from 'react-native-firebase/firestore';
 import Sound from 'react-native-sound';
 import uuidv4 from 'uuid/v4';
 import { LoadingType } from 'constants/enums';
+import NavigationService from '../NavigationService';
 import RootStore from './RootStore';
 
 class StoryStore {
@@ -99,6 +100,7 @@ class StoryStore {
 
     await batch.commit();
     this.isLoading = LoadingType.NONE;
+    NavigationService.goBack();
   }
 
   public play = (path: string, duration: number) => {

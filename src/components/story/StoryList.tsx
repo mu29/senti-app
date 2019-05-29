@@ -92,15 +92,6 @@ const styles = StyleSheet.create({
     height: deviceHeight,
     backgroundColor: palette.gray[100],
   },
-  background: {
-    width: deviceWidth,
-    height: deviceHeight,
-    // backgroundColor: '#1A1A1A',
-  },
-  filter: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.15)',
-  },
 });
 
 export default StoryList;

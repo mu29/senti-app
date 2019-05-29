@@ -6,6 +6,7 @@ export { default as SocialProviderButton } from './auth/SocialProviderButton';
 export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as Header } from './common/Header';
 export { default as AuthModal } from './common/AuthModal';
+export { default as LoadingView } from './common/LoadingView';
 export { default as withSafeArea } from './common/withSafeArea';
 
 export { default as ChattingItem } from './chatting/ChattingItem';

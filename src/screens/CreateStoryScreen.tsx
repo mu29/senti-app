@@ -4,16 +4,30 @@ import {
   StyleSheet,
 } from 'react-native';
 import {
+  inject,
+  observer,
+} from 'mobx-react/native';
+import {
   CreateStoryCover,
   CreateStoryHeader,
   ImagePickerModal,
   RecordController,
   StoryDescription,
+  LoadingView,
   withSafeArea,
 } from 'components';
+import { StoryStore } from 'stores';
+import { LoadingType } from 'constants/enums';
 
-const CreateStoryScreen = () => (
+interface CreateStoryScreenProps {
+  storyStore?: StoryStore;
+}
+
+const CreateStoryScreen: React.FunctionComponent<CreateStoryScreenProps> = ({
+  storyStore,
+}) => (
   <React.Fragment>
+    {storyStore!.isLoading === LoadingType.CREATE && <LoadingView />}
     <CreateStoryCover />
     <View style={styles.container}>
       <CreateStoryHeader />
@@ -30,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(CreateStoryScreen);
+export default withSafeArea(inject('storyStore')(observer(CreateStoryScreen)));
