@@ -115,19 +115,14 @@ class StoryStore {
     }
 
     this.isLoading = LoadingType.READ;
+    this.stop();
+
     const audio = new Sound(path, '', (error) => {
       if (error) {
         return;
       }
 
-      if (this.current) {
-        const { audio: currentAudio } = this.current;
-        if (currentAudio.isLoaded() && currentAudio.isPlaying()) {
-          currentAudio.stop();
-        }
-        currentAudio.release();
-      }
-
+      this.stop();
       this.current = {
         audio,
         path,
@@ -149,6 +144,16 @@ class StoryStore {
 
     if (audio.isLoaded() && audio.isPlaying()) {
       audio.pause();
+    }
+  }
+
+  public stop = () => {
+    if (this.current) {
+      const { audio } = this.current;
+      if (audio.isLoaded() && audio.isPlaying()) {
+        audio.stop();
+      }
+      audio.release();
     }
   }
 
