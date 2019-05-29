@@ -6,7 +6,10 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { Text } from 'components';
+import {
+  Text,
+  StoryController,
+} from 'components';
 import { palette } from 'constants/style';
 
 const {
@@ -40,9 +43,11 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
           />
         </Animated.View>
         <View pointerEvents="box-none" style={styles.filter}>
+          <View />
           <Text style={styles.description}>
             {story.description.replace(/#[^ ]+/g, '').trim()}
           </Text>
+          <StoryController story={story} />
         </View>
       </View>
     );
@@ -79,7 +84,7 @@ const styles = StyleSheet.create({
   },
   filter: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: palette.transparent.black[40],
   },

@@ -1,8 +1,13 @@
+interface Timestamp {
+  nanoseconds: number;
+  seconds: number;
+}
+
 interface User {
   id: string;
   email: string | null;
-  displayName: string | null;
-  photoURL: string | null;
+  name: string | null;
+  photoUrl: string | null;
 }
 
 interface Audio {
@@ -20,14 +25,14 @@ interface Story {
   };
   audio: Audio;
   user: Partial<User>;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 
 interface Message {
   audioUrl: string;
   duration: number;
-  createdAt: string;
+  createdAt: Timestamp;
 }
 
 interface Chatting {
