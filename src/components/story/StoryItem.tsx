@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const {
   width: deviceWidth,
@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
   background: {
     width: deviceWidth,
     height: deviceHeight,
-    backgroundColor: '#1A1A1A',
+    backgroundColor: palette.gray[100],
   },
   filter: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: palette.transparent.black[40],
   },
   description: {
     color: palette.white.default,

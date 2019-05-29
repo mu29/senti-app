@@ -11,7 +11,7 @@ import {
   inject,
 } from 'mobx-react/native';
 import { StoryStore } from 'stores';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 

@@ -8,7 +8,7 @@ import {
   SafeAreaViewProps,
   SafeAreaViewForceInsetValue,
 } from 'react-navigation';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const styles = StyleSheet.create({
   container: {

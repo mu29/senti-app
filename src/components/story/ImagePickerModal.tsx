@@ -19,7 +19,7 @@ import {
   CoverStore,
   UiStore,
 } from 'stores';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const ITEM_SIZE = Dimensions.get('window').width / 5;
 
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   container: {
     height: 256,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: palette.transparent.black[40],
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 14,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: palette.transparent.black[40],
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },

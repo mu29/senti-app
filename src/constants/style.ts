@@ -23,6 +23,17 @@ export const palette = {
   red: {
     default: '#CA392E',
   },
+  transparent: {
+    black: {
+      20: 'rgba(0, 0, 0, 0.2)',
+      40: 'rgba(0, 0, 0, 0.4)',
+      60: 'rgba(0, 0, 0, 0.6)',
+      80: 'rgba(0, 0, 0, 0.8)',
+    },
+    red: {
+      default: 'rgba(202, 57, 46, 0.5)',
+    },
+  },
   brand: {
     facebook: '#4B68AD',
     google: '#D55040',

@@ -11,6 +11,7 @@ import {
 } from 'mobx-react/native';
 import imageCacheHoc from 'react-native-image-cache-hoc';
 import { CoverStore } from 'stores';
+import { palette } from 'constants/style';
 
 const { width, height } = Dimensions.get('window');
 
@@ -49,11 +50,11 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     width,
     height,
-    backgroundColor: '#1A1A1A',
+    backgroundColor: palette.gray[100],
   },
   filter: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: palette.transparent.black[40],
   },
 });
 

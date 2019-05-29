@@ -14,7 +14,7 @@ import {
   observer,
 } from 'mobx-react/native';
 import { UiStore } from 'stores';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const ALBUM_ICON = { uri: 'ic_grid' };
 const CLOSE_ICON = { uri: 'ic_close' };

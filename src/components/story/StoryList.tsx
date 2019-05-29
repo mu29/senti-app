@@ -12,7 +12,7 @@ import {
 } from 'mobx-react/native';
 import { StoryItem } from 'components';
 import { StoryStore } from 'stores';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const {
   width: deviceWidth,

@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const SEARCH_ICON = { uri: 'ic_search_active' };
 

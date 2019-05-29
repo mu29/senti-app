@@ -6,7 +6,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const COIN_ICON = { uri: 'ic_coin' };
 

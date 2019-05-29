@@ -22,7 +22,7 @@ import {
   AuthStore,
   UiStore,
 } from 'stores';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const SAFE_AREA_INSET: {
   top: SafeAreaViewForceInsetValue;
@@ -97,7 +97,7 @@ class BottomTabBar extends React.Component<BottomTabBarProps> {
           style={[
             styles.container,
             style,
-            { backgroundColor: navigationIndex === 0 ? 'rgba(0, 0, 0, 0.6)' : palette.gray[100] },
+            { backgroundColor: navigationIndex === 0 ? palette.transparent.black[60] : palette.gray[100] },
           ]}
           forceInset={SAFE_AREA_INSET}
         >
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     right: 0,
     height: 50,
     flexDirection: 'row',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: palette.transparent.black[60],
   },
   menu: {
     flex: 1,

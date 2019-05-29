@@ -10,7 +10,7 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 export interface ButtonProps extends TouchableOpacityProps, TouchableNativeFeedbackProps {
   isCircle?: boolean;

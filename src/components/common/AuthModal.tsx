@@ -14,7 +14,7 @@ import {
   UiStore,
   AuthStore,
 } from 'stores';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 import NavigationService from '../../NavigationService';
 
 interface AuthModalProps {

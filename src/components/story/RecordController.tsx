@@ -17,7 +17,7 @@ import {
   RecordStore,
   StoryStore,
 } from 'stores';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 36,
     borderWidth: 5,
-    borderColor: 'rgba(202, 57, 46, 0.5)',
+    borderColor: palette.transparent.red.default,
   },
   record: {
     position: 'absolute',

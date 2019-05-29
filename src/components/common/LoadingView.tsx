@@ -6,7 +6,7 @@ import {
   Animated,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 class LoadingView extends React.PureComponent<{}> {
   private fadeAnimation = new Animated.Value(0);
@@ -46,14 +46,14 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: palette.transparent.black[20],
     zIndex: 999,
   },
   content: {
     padding: 24,
     paddingBottom: 16,
     borderRadius: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    backgroundColor: palette.transparent.black[80],
   },
   text: {
     marginTop: 16,

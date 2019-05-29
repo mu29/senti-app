@@ -8,7 +8,7 @@ import {
   Text,
 } from 'components';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 import { ButtonProps } from '../bootstrap/Button';
 
 interface SocialProviderButtonProps extends ButtonProps {

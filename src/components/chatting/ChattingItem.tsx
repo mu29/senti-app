@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import { Text } from 'components';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 import { withComma } from 'services/utils';
 
 export interface ChattingItemProps {
@@ -25,7 +25,7 @@ const ChattingItem: React.FunctionComponent<ChattingItemProps> = ({
   <TouchableOpacity activeOpacity={0.8}>
     <View style={[styles.row, styles.container]}>
       <Image
-        source={{ uri: partner.photoURL }}
+        source={{ uri: partner.photoURL || '' }}
         style={styles.profile}
       />
       <View style={styles.content}>

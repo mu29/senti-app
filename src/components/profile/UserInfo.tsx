@@ -7,7 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 export interface UserInfoProps {
   user: User;
@@ -29,7 +29,7 @@ const UserInfo: React.FunctionComponent<UserInfoProps> = ({
 }) => (
   <View style={styles.container}>
     <Image
-      source={{ uri: photoURL }}
+      source={{ uri: photoURL || '' }}
       style={styles.profile}
     />
     <View>

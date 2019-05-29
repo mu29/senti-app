@@ -5,7 +5,7 @@ import {
   Platform,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 export interface HeaderProps {
   children: React.ReactNode;

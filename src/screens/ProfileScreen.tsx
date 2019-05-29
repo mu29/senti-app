@@ -9,7 +9,7 @@ import {
   CoinInventory,
   withSafeArea,
 } from 'components';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 const ProfileScreen = () => (
   <React.Fragment>
@@ -19,6 +19,7 @@ const ProfileScreen = () => (
     <View style={styles.info}>
       <UserInfo
         user={{
+          id: '1',
           displayName: '뮤바보',
           email: 'mu29@yeoubi.net',
           photoURL: 'https://avatars3.githubusercontent.com/u/8934513?s=460&v=4',

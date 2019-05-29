@@ -10,7 +10,7 @@ import {
   TabBarIconProps,
 } from 'react-navigation';
 import { BottomTabBar } from 'components';
-import { palette } from 'services/style';
+import { palette } from 'constants/style';
 
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
