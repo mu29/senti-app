@@ -4,6 +4,7 @@ import {
   TextInput,
   Animated,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import {
   observer,
@@ -27,7 +28,8 @@ class StoryDescription extends React.Component<StoryDescriptionProps> {
         <AnimatedTextInput
           autoCapitalize="none"
           autoCorrect={false}
-          multiline={true}
+          numberOfLines={5}
+          multiline
           placeholder="덧붙이고 싶은 말이 있나요?"
           placeholderTextColor={palette.white.default}
           selectionColor={palette.white.default}
@@ -51,7 +53,12 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
+    maxHeight: Platform.select({
+      ios: undefined,
+      android: 164,
+    }),
     padding: 24,
+    marginBottom: 72,
     textAlign: 'center',
     color: palette.white.default,
     fontSize: 18,
