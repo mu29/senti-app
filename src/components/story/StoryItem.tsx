@@ -40,13 +40,9 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
           />
         </Animated.View>
         <View pointerEvents="box-none" style={styles.filter}>
-          <View style={styles.descriptions}>
-            {story.description.split(' ').map((word, i) => (
-              <Text key={i} style={[styles.description, word.startsWith('#') && styles.tag]}>
-                {word}
-              </Text>
-            ))}
-          </View>
+          <Text style={styles.description}>
+            {story.description.replace(/#[^ ]+/g, '').trim()}
+          </Text>
         </View>
       </View>
     );
@@ -87,20 +83,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
-  descriptions: {
-    flexDirection: 'row',
-    padding: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   description: {
-    marginHorizontal: 2,
     color: palette.white.default,
     fontSize: 18,
-  },
-  tag: {
-    fontSize: 16,
-    fontWeight: '600',
   },
 });
 
