@@ -11,6 +11,7 @@ import {
   StoryController,
 } from 'components';
 import { palette } from 'constants/style';
+import { SafeAreaView } from 'react-navigation';
 
 const {
   width: deviceWidth,
@@ -43,11 +44,13 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
           />
         </Animated.View>
         <View pointerEvents="box-none" style={styles.filter}>
-          <View />
-          <Text style={styles.description}>
-            {story.description.replace(/#[^ ]+/g, '').trim()}
-          </Text>
-          <StoryController story={story} />
+          <SafeAreaView style={styles.content}>
+            <View />
+            <Text style={styles.description}>
+              {story.description.replace(/#[^ ]+/g, '').trim()}
+            </Text>
+            <StoryController story={story} />
+          </SafeAreaView>
         </View>
       </View>
     );
@@ -84,9 +87,12 @@ const styles = StyleSheet.create({
   },
   filter: {
     ...StyleSheet.absoluteFillObject,
+    backgroundColor: palette.transparent.black[40],
+  },
+  content: {
+    flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: palette.transparent.black[40],
   },
   description: {
     color: palette.white.default,

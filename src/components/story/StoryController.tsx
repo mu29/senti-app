@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 24,
-    marginBottom: 80,
+    marginBottom: 48,
   },
   photo: {
     width: 40,
