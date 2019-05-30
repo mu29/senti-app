@@ -27,9 +27,12 @@ class StoryStore {
     duration: number;
   };
 
+  @observable
+  public paused?: string;
+
   private cursor?: DocumentSnapshot;
 
-  constructor(private rootStore: RootStore) {}
+  constructor(private rootStore: RootStore) { }
 
   @action
   public updateDescription = (text: string) => {
@@ -104,6 +107,8 @@ class StoryStore {
   }
 
   public play = (path: string, duration: number) => {
+    this.paused = undefined;
+
     if (this.current) {
       const {
         audio: currentAudio,
@@ -147,6 +152,19 @@ class StoryStore {
     }
   }
 
+  public pause = () => {
+    if (!this.current) {
+      return;
+    }
+
+    const { audio } = this.current;
+
+    if (audio.isLoaded() && audio.isPlaying()) {
+      audio.pause();
+      this.paused = this.current.path;
+    }
+  }
+
   public toggle = () => {
     if (!this.current) {
       return;
@@ -160,8 +178,10 @@ class StoryStore {
 
     if (audio.isPlaying()) {
       audio.pause();
+      this.paused = this.current.path;
     } else {
       audio.play();
+      this.paused = undefined;
     }
   }
 
@@ -172,7 +192,10 @@ class StoryStore {
 
     const { audio } = this.current;
     if (audio.isLoaded()) {
-      audio.stop(() => audio.play());
+      audio.stop(() => {
+        audio.play();
+        this.paused = undefined;
+      });
     }
   }
 

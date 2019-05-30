@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  View,
   FlatList,
   Animated,
   StyleSheet,
@@ -46,26 +45,24 @@ class StoryList extends React.Component<StoryListProps> {
     const { stories } = this.props.storyStore!;
 
     return (
-      <View pointerEvents="box-none">
-        <AnimatedFlatList
-          data={stories.slice()}
-          renderItem={this.renderItem}
-          keyExtractor={this.keyExtractor}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
-            { useNativeDriver: true },
-          )}
-          onViewableItemsChanged={this.onViewableItemsChanged}
-          viewabilityConfig={VIEWABILITY_CONFIG}
-          style={styles.container}
-          scrollEnabled
-          pagingEnabled
-          horizontal={false}
-          scrollEventThrottle={1}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+      <AnimatedFlatList
+        data={stories.slice()}
+        renderItem={this.renderItem}
+        keyExtractor={this.keyExtractor}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
+          { useNativeDriver: true },
+        )}
+        onViewableItemsChanged={this.onViewableItemsChanged}
+        viewabilityConfig={VIEWABILITY_CONFIG}
+        style={styles.container}
+        scrollEnabled
+        pagingEnabled
+        horizontal={false}
+        scrollEventThrottle={1}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      />
     );
   }
 

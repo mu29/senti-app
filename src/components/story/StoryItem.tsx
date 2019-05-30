@@ -7,7 +7,14 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { inject } from 'mobx-react/native';
+import {
+  autorun,
+  IReactionDisposer,
+} from 'mobx';
+import {
+  inject,
+  observer,
+} from 'mobx-react/native';
 import {
   Text,
   StoryController,
@@ -21,6 +28,8 @@ const {
   height: deviceHeight,
 } = Dimensions.get('window');
 
+const PLAY_ICON = { uri: 'ic_play_active' };
+
 interface StoryItemProps {
   story: Story;
   index: number;
@@ -29,14 +38,41 @@ interface StoryItemProps {
 }
 
 @inject('storyStore')
-class StoryItem extends React.PureComponent<StoryItemProps> {
+@observer
+class StoryItem extends React.Component<StoryItemProps> {
+  private pauseAnimation = new Animated.Value(0);
+
+  private iconStyle = { opacity: this.pauseAnimation };
+
+  private animationReactionDisposer?: IReactionDisposer;
+
+  public componentDidMount() {
+    this.animationReactionDisposer = autorun(() => {
+      const {
+        story,
+        storyStore,
+      } = this.props;
+
+      Animated.timing(this.pauseAnimation, {
+        toValue: Number(storyStore!.paused === story.audio.url),
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    });
+  }
+
+  public componentWillUnmount() {
+    if (this.animationReactionDisposer) {
+      this.animationReactionDisposer();
+    }
+  }
+
   public render() {
     const {
       index,
       story,
       storyStore,
     } = this.props;
-    const { toggle } = storyStore!;
 
     if (!story) {
       return null;
@@ -54,7 +90,7 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
           <SafeAreaView style={styles.content}>
             <TouchableOpacity
               activeOpacity={1}
-              onPress={toggle}
+              onPress={storyStore!.toggle}
               style={styles.button}
             >
               <Text style={styles.description}>
@@ -62,6 +98,12 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
               </Text>
             </TouchableOpacity>
             <StoryController story={story} />
+            <Animated.View pointerEvents="none" style={[styles.iconContainer, this.iconStyle]}>
+              <Image
+                source={PLAY_ICON}
+                style={styles.icon}
+              />
+            </Animated.View>
           </SafeAreaView>
         </View>
       </View>
@@ -103,16 +145,28 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   button: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'stretch',
+    paddingTop: 56,
   },
   description: {
     color: palette.white.default,
     fontSize: 18,
+  },
+  iconContainer: {
+    position: 'absolute',
+    paddingBottom: 72,
+  },
+  icon: {
+    width: 48,
+    height: 48,
+    tintColor: 'rgba(255, 255, 255, 0.5)',
   },
 });
 
