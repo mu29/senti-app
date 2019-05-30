@@ -2,16 +2,19 @@ import React from 'react';
 import {
   View,
   Image,
+  TouchableOpacity,
   Animated,
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import { inject } from 'mobx-react/native';
 import {
   Text,
   StoryController,
 } from 'components';
 import { palette } from 'constants/style';
 import { SafeAreaView } from 'react-navigation';
+import { StoryStore } from 'stores';
 
 const {
   width: deviceWidth,
@@ -22,14 +25,18 @@ interface StoryItemProps {
   story: Story;
   index: number;
   animatedValue: Animated.Value;
+  storyStore?: StoryStore;
 }
 
+@inject('storyStore')
 class StoryItem extends React.PureComponent<StoryItemProps> {
   public render() {
     const {
       index,
       story,
+      storyStore,
     } = this.props;
+    const { toggle } = storyStore!;
 
     if (!story) {
       return null;
@@ -43,12 +50,17 @@ class StoryItem extends React.PureComponent<StoryItemProps> {
             style={styles.background}
           />
         </Animated.View>
-        <View pointerEvents="box-none" style={styles.filter}>
+        <View style={styles.filter}>
           <SafeAreaView style={styles.content}>
-            <View />
-            <Text style={styles.description}>
-              {story.description.replace(/#[^ ]+/g, '').trim()}
-            </Text>
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={toggle}
+              style={styles.button}
+            >
+              <Text style={styles.description}>
+                {story.description.replace(/#[^ ]+/g, '').trim()}
+              </Text>
+            </TouchableOpacity>
             <StoryController story={story} />
           </SafeAreaView>
         </View>
@@ -91,7 +103,11 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  button: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   description: {

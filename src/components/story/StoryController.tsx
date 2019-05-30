@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import { inject } from 'mobx-react/native';
 import moment from 'moment';
 import { Text } from 'components';
 import { StoryStore } from 'stores';
@@ -18,9 +19,14 @@ interface StoryControllerProps {
   storyStore?: StoryStore;
 }
 
+@inject('storyStore')
 class StoryController extends React.Component<StoryControllerProps> {
   public render() {
-    const { story } = this.props;
+    const {
+      story,
+      storyStore,
+    } = this.props;
+    const { replay } = storyStore!;
 
     return (
       <View style={styles.container}>
@@ -36,7 +42,10 @@ class StoryController extends React.Component<StoryControllerProps> {
             {moment(story.createdAt.seconds * 1000).fromNow()}
           </Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={replay}
+        >
           <Image source={{ uri: 'ic_replay' }} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity>

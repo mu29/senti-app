@@ -137,18 +137,6 @@ class StoryStore {
     });
   }
 
-  public pause = () => {
-    if (!this.current) {
-      return;
-    }
-
-    const { audio } = this.current;
-
-    if (audio.isLoaded() && audio.isPlaying()) {
-      audio.pause();
-    }
-  }
-
   public stop = () => {
     if (this.current) {
       const { audio } = this.current;
@@ -156,6 +144,35 @@ class StoryStore {
         audio.stop();
       }
       audio.release();
+    }
+  }
+
+  public toggle = () => {
+    if (!this.current) {
+      return;
+    }
+
+    const { audio } = this.current;
+
+    if (!audio.isLoaded()) {
+      return;
+    }
+
+    if (audio.isPlaying()) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+  }
+
+  public replay = () => {
+    if (!this.current) {
+      return;
+    }
+
+    const { audio } = this.current;
+    if (audio.isLoaded()) {
+      audio.stop(() => audio.play());
     }
   }
 
