@@ -8,7 +8,10 @@ import {
   Text,
 } from 'components';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 import { ButtonProps } from '../bootstrap/Button';
 
 interface SocialProviderButtonProps extends ButtonProps {
@@ -26,7 +29,7 @@ const SocialProviderButton: React.FunctionComponent<SocialProviderButtonProps> =
   <Button style={[styles.container, { backgroundColor }]} {...props}>
     <View style={styles.content}>
       <Icon name={`logo-${icon}`} color={palette.gray[10]} size={24} />
-      <Text style={styles.text}>
+      <Text style={[typography.heading4, styles.text]}>
         {children}
       </Text>
     </View>
@@ -49,8 +52,6 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 8,
-    fontSize: 14,
-    fontWeight: '600',
     color: palette.gray[10],
   },
 });

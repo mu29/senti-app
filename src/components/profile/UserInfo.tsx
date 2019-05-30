@@ -7,7 +7,10 @@ import {
   Platform,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 export interface UserInfoProps {
   user: User;
@@ -22,19 +25,19 @@ const BUTTON_HITSLOP = {
 
 const UserInfo: React.FunctionComponent<UserInfoProps> = ({
   user: {
-    photoURL,
-    displayName,
+    photoUrl,
+    name,
     email,
   },
 }) => (
   <View style={styles.container}>
     <Image
-      source={{ uri: photoURL || '' }}
+      source={{ uri: photoUrl || '' }}
       style={styles.profile}
     />
     <View>
-      <Text style={styles.name}>
-        {displayName}
+      <Text style={[typography.heading2, styles.name]}>
+        {name}
       </Text>
       <Text style={styles.email}>
         {email}
@@ -45,7 +48,7 @@ const UserInfo: React.FunctionComponent<UserInfoProps> = ({
       hitSlop={BUTTON_HITSLOP}
       style={styles.button}
     >
-      <Text style={styles.edit}>
+      <Text style={typography.heading4}>
         정보 관리
       </Text>
     </TouchableOpacity>
@@ -70,9 +73,6 @@ const styles = StyleSheet.create({
       android: 0,
     }),
     marginBottom: 4,
-    color: palette.gray[20],
-    fontSize: 16,
-    fontWeight: '600',
   },
   email: {
     color: palette.gray[50],
@@ -84,11 +84,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 2,
     backgroundColor: palette.gray[70],
-  },
-  edit: {
-    color: palette.gray[10],
-    fontSize: 14,
-    fontWeight: '600',
   },
 });
 

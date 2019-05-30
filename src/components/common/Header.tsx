@@ -5,7 +5,10 @@ import {
   Platform,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 export interface HeaderProps {
   children: React.ReactNode;
@@ -15,7 +18,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
   children,
 }) => (
   <View style={styles.container}>
-    <Text style={styles.title}>
+    <Text style={typography.heading1}>
       {children}
     </Text>
   </View>
@@ -31,11 +34,6 @@ const styles = StyleSheet.create({
     }),
     borderBottomColor: palette.gray[80],
     borderBottomWidth: 0.5,
-  },
-  title: {
-    color: palette.gray[10],
-    fontSize: 18,
-    fontWeight: '600',
   },
 });
 

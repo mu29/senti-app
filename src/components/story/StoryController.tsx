@@ -8,7 +8,10 @@ import {
 import moment from 'moment';
 import { Text } from 'components';
 import { StoryStore } from 'stores';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 interface StoryControllerProps {
   story: Story;
@@ -26,7 +29,7 @@ class StoryController extends React.Component<StoryControllerProps> {
           style={styles.photo}
         />
         <View style={styles.profile}>
-          <Text style={styles.name}>
+          <Text style={[typography.heading3, styles.name]}>
             {story.user.name}
           </Text>
           <Text style={styles.date}>
@@ -64,9 +67,6 @@ const styles = StyleSheet.create({
   },
   name: {
     marginBottom: 2,
-    color: palette.gray[10],
-    fontSize: 15,
-    fontWeight: '600',
   },
   date: {
     color: palette.gray[30],

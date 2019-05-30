@@ -8,7 +8,10 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import { Text } from 'components';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 import { withComma } from 'services/utils';
 
 export interface ChattingItemProps {
@@ -25,16 +28,16 @@ const ChattingItem: React.FunctionComponent<ChattingItemProps> = ({
   <TouchableOpacity activeOpacity={0.8}>
     <View style={[styles.row, styles.container]}>
       <Image
-        source={{ uri: partner.photoURL || '' }}
+        source={{ uri: partner.photoUrl || '' }}
         style={styles.profile}
       />
       <View style={styles.content}>
         <View style={styles.row}>
-          <Text style={styles.partner}>
-            {partner.displayName}
+          <Text style={[typography.heading3, styles.partner]}>
+            {partner.name}
           </Text>
           <Text style={styles.date}>
-            {moment(lastMessage.createdAt).fromNow()}
+            {moment(lastMessage.createdAt.seconds * 1000).fromNow()}
           </Text>
         </View>
         <View style={styles.row}>
@@ -73,9 +76,6 @@ const styles = StyleSheet.create({
       android: 0,
     }),
     marginBottom: 4,
-    color: palette.gray[20],
-    fontSize: 15,
-    fontWeight: '600',
   },
   messageCount: {
     color: palette.gray[50],

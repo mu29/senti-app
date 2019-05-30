@@ -6,7 +6,10 @@ import {
   Animated,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 class LoadingView extends React.PureComponent<{}> {
   private fadeAnimation = new Animated.Value(0);
@@ -32,7 +35,7 @@ class LoadingView extends React.PureComponent<{}> {
       <Animated.View style={[styles.container, this.opacityStyle]}>
         <View style={styles.content}>
           <ActivityIndicator color={palette.yellow.default} size="large" />
-          <Text style={styles.text}>
+          <Text style={[typography.heading4, styles.text]}>
             로딩 중..
           </Text>
         </View>
@@ -57,9 +60,6 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 16,
-    fontSize: 14,
-    fontWeight: '600',
-    color: palette.gray[10],
   },
 });
 

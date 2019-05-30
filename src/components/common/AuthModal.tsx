@@ -14,7 +14,10 @@ import {
   UiStore,
   AuthStore,
 } from 'stores';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 import NavigationService from '../../NavigationService';
 
 interface AuthModalProps {
@@ -42,7 +45,7 @@ class AuthModal extends React.Component<AuthModalProps> {
         useNativeDriver
       >
         <SafeAreaView style={styles.container} pointerEvents="auto">
-          <Text style={styles.title}>
+          <Text style={[typography.heading1 , styles.title]}>
             로그인하고 모든 기능을 사용하세요!
           </Text>
           <SocialProviderButton
@@ -135,8 +138,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 32,
     marginBottom: 24,
-    fontSize: 18,
-    fontWeight: '600',
     textAlign: 'center',
     color: palette.gray[100],
   },

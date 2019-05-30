@@ -4,9 +4,13 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import { Text } from 'components';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 const COIN_ICON = { uri: 'ic_coin' };
 
@@ -19,9 +23,9 @@ const HITSLOP = {
 
 const CoinInventory: React.FunctionComponent<{}> = () => (
   <View style={styles.container}>
-    <Image source={COIN_ICON} style={styles.coin} />
+    <Image source={COIN_ICON} style={styles.icon} />
     <View style={styles.divider} />
-    <Text style={styles.amount}>
+    <Text style={[typography.heading3, styles.amount]}>
       16코인
     </Text>
     <TouchableOpacity
@@ -45,22 +49,22 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: palette.gray[100],
   },
-  coin: {
+  icon: {
     width: 18,
     height: 18,
     tintColor: palette.yellow.default,
+  },
+  amount: {
+    marginTop: Platform.select({
+      ios: 2,
+      android: 0,
+    }),
   },
   divider: {
     width: 1,
     height: '100%',
     marginHorizontal: 14,
     backgroundColor: palette.gray[90],
-  },
-  amount: {
-    marginTop: 2,
-    color: palette.gray[20],
-    fontSize: 15,
-    fontWeight: '600',
   },
   button: {
     marginLeft: 'auto',

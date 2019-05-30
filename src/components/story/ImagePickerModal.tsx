@@ -19,7 +19,10 @@ import {
   CoverStore,
   UiStore,
 } from 'stores';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 const ITEM_SIZE = Dimensions.get('window').width / 5;
 
@@ -55,7 +58,7 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
         <View style={styles.container}>
           <View style={styles.header}>
             <Icon name="md-images" size={18} color={palette.white.default} />
-            <Text style={styles.title}>
+            <Text style={[typography.heading4, styles.title]}>
               배경 이미지
             </Text>
           </View>
@@ -125,8 +128,6 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: 8,
     color: palette.white.default,
-    fontSize: 14,
-    fontWeight: '600',
   },
   item: {
     height: 96,

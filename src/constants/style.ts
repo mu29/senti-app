@@ -1,3 +1,5 @@
+import { TextStyle } from 'react-native';
+
 export const palette = {
   gray: {
     100: '#1A1A1A',
@@ -37,5 +39,30 @@ export const palette = {
   brand: {
     facebook: '#4B68AD',
     google: '#D55040',
+  },
+};
+
+export const typography: {
+  [key: string]: TextStyle;
+} = {
+  heading1: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: palette.gray[10],
+  },
+  heading2: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: palette.gray[20],
+  },
+  heading3: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: palette.gray[20],
+  },
+  heading4: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: palette.gray[20],
   },
 };

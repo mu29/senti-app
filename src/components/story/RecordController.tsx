@@ -17,7 +17,10 @@ import {
   RecordStore,
   StoryStore,
 } from 'stores';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -80,7 +83,7 @@ class RecordController extends React.Component<RecordControllerProps> {
             <Animated.Image source={DONE_ICON} style={[styles.icon, this.fadeStyle]} />
           </TouchableOpacity>
         </View>
-        <AnimatedText style={[styles.hint, this.fadeStyle]}>
+        <AnimatedText style={[typography.heading4, styles.hint, this.fadeStyle]}>
           눌러서 {isRecorded ? '듣기' : '녹음'}
         </AnimatedText>
       </Animated.View>
@@ -231,8 +234,6 @@ const styles = StyleSheet.create({
     marginTop: 32,
     marginBottom: 16,
     color: palette.white.default,
-    fontSize: 14,
-    fontWeight: '600',
   },
   recordContainer: {
     justifyContent: 'center',
