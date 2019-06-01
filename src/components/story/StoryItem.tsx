@@ -96,6 +96,9 @@ class StoryItem extends React.Component<StoryItemProps> {
               <Text style={styles.description}>
                 {story.description.replace(/#[^ ]+/g, '').trim()}
               </Text>
+              <View style={styles.tags}>
+                {Object.keys(story.tags).map(tag => `#${tag}`).reverse().map(this.renderTag)}
+              </View>
             </TouchableOpacity>
             <StoryController story={story} />
             <Animated.View pointerEvents="none" style={[styles.iconContainer, this.iconStyle]}>
@@ -109,6 +112,12 @@ class StoryItem extends React.Component<StoryItemProps> {
       </View>
     );
   }
+
+  private renderTag = (tag: string, index: number) => (
+    <Text key={`${tag}-${index}`} style={styles.tag}>
+      {tag}
+    </Text>
+  )
 
   private getParallaxStyles(index: number) {
     return {
@@ -153,11 +162,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'stretch',
-    paddingTop: 56,
   },
   description: {
-    color: palette.white.default,
+    marginTop: 32,
+    color: palette.gray[10],
     fontSize: 18,
+  },
+  tags: {
+    flexDirection: 'row',
+    marginVertical: 8,
+    marginHorizontal: 64,
+  },
+  tag: {
+    margin: 4,
+    color: palette.gray[30],
+    fontSize: 16,
+    fontWeight: '600',
   },
   iconContainer: {
     position: 'absolute',
