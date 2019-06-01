@@ -27,7 +27,7 @@ class AuthStore {
 
   private authStateUnsubscriber?: () => void;
 
-  constructor(private rootStore: RootStore) {}
+  constructor(private rootStore: RootStore) { }
 
   @computed
   public get isLoggedIn() {

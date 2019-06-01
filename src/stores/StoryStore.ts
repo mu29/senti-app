@@ -64,6 +64,7 @@ class StoryStore {
     const user = this.rootStore.authStore.user;
 
     if (!user) {
+      this.rootStore.uiStore.toggleAuthModal();
       return;
     }
 
