@@ -20,7 +20,10 @@ import {
   StoryController,
 } from 'components';
 import { palette } from 'constants/style';
-import { SafeAreaView } from 'react-navigation';
+import {
+  SafeAreaView,
+  NavigationEvents,
+} from 'react-navigation';
 import { StoryStore } from 'stores';
 
 const {
@@ -80,6 +83,7 @@ class StoryItem extends React.Component<StoryItemProps> {
 
     return (
       <View style={styles.container}>
+        <NavigationEvents onWillBlur={storyStore!.pause} />
         <Animated.View style={this.getParallaxStyles(index)}>
           <Image
             source={{ uri: story.cover }}
@@ -181,7 +185,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     position: 'absolute',
-    paddingBottom: 72,
+    paddingBottom: 112,
   },
   icon: {
     width: 48,
