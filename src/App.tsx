@@ -1,5 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
+import Sound from 'react-native-sound';
 import { Provider } from 'mobx-react/native';
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -7,6 +8,10 @@ import { AuthModal } from 'components';
 import stores from './stores';
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
+
+// @ts-ignore
+Sound.enableInSilenceMode(true);
+Sound.setActive(true);
 
 moment.locale('ko');
 
