@@ -8,25 +8,34 @@ import {
 import { inject } from 'mobx-react/native';
 import moment from 'moment';
 import { Text } from 'components';
-import { StoryStore } from 'stores';
+import {
+  StoryStore,
+  UiStore,
+} from 'stores';
 import {
   palette,
   typography,
 } from 'constants/style';
 
+const HIT_SLOP = {
+  top: 16,
+  bottom: 16,
+};
+
 interface StoryControllerProps {
   story: Story;
   storyStore?: StoryStore;
+  uiStore?: UiStore;
 }
 
-@inject('storyStore')
+@inject('storyStore', 'uiStore')
 class StoryController extends React.Component<StoryControllerProps> {
   public render() {
     const {
       story,
       storyStore,
+      uiStore,
     } = this.props;
-    const { replay } = storyStore!;
 
     return (
       <View style={styles.container}>
@@ -44,11 +53,16 @@ class StoryController extends React.Component<StoryControllerProps> {
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
-          onPress={replay}
+          hitSlop={HIT_SLOP}
+          onPress={storyStore!.replay}
         >
           <Image source={{ uri: 'ic_replay' }} style={styles.icon} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          hitSlop={HIT_SLOP}
+          onPress={uiStore!.toggleReplyModal}
+        >
           <Image source={{ uri: 'ic_chat_active' }} style={styles.icon} />
         </TouchableOpacity>
       </View>
@@ -61,6 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 24,
+    paddingRight: 8,
     marginBottom: 48,
   },
   photo: {
@@ -84,7 +99,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 28,
     height: 28,
-    marginLeft: 24,
+    marginHorizontal: 16,
     tintColor: palette.gray[10],
   },
 });

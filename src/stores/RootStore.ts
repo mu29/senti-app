@@ -1,5 +1,6 @@
 import {
   AuthStore,
+  ChatStore,
   CoverStore,
   RecordStore,
   StoryStore,
@@ -8,6 +9,8 @@ import {
 
 class RootStore {
   public authStore = new AuthStore(this);
+
+  public chatStore = new ChatStore(this);
 
   public coverStore = new CoverStore(this);
 

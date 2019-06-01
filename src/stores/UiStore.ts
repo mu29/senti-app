@@ -9,13 +9,22 @@ class UiStore {
   public isAuthModalVisible = false;
 
   @observable
+  public isReplyModalVisible = false;
+
+  @observable
   public isImagePickerModalVisible = false;
 
-  constructor(private rootStore: RootStore) {}
+  constructor(private rootStore: RootStore) { }
 
   @action
   public toggleAuthModal = () => {
     this.isAuthModalVisible = !this.isAuthModalVisible;
+  }
+
+  @action
+  public toggleReplyModal = () => {
+    this.rootStore.storyStore.pause();
+    this.isReplyModalVisible = !this.isReplyModalVisible;
   }
 
   @action

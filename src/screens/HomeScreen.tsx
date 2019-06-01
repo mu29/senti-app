@@ -1,8 +1,11 @@
 import React from 'react';
-import { StoryList } from 'components';
+import { StoryList, ReplyModal } from 'components';
 
 const HomeScreen = () => (
-  <StoryList />
+  <React.Fragment>
+    <StoryList />
+    <ReplyModal />
+  </React.Fragment>
 );
 
 export default HomeScreen;

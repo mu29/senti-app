@@ -16,6 +16,9 @@ export const palette = {
   white: {
     default: '#FFFFFF',
   },
+  black: {
+    default: '#000000',
+  },
   yellow: {
     default: '#F9D14C',
   },

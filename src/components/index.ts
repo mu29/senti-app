@@ -11,8 +11,9 @@ export { default as withSafeArea } from './common/withSafeArea';
 
 export { default as ChattingItem } from './chatting/ChattingItem';
 export { default as ChattingList } from './chatting/ChattingList';
-export { default as CoinInventory } from './chatting/CoinInventory';
+export { default as ReplyModal } from './chatting/ReplyModal';
 
+export { default as CoinInventory } from './profile/CoinInventory';
 export { default as UserInfo } from './profile/UserInfo';
 
 export { default as CreateStoryCover } from './story/CreateStoryCover';
