@@ -5,9 +5,11 @@ interface Timestamp {
 
 interface User {
   id: string;
-  email: string | null;
+  email?: string;
   name: string | null;
   photoUrl: string | null;
+  lastSignInAt: Timestamp;
+  createdAt: Timestamp;
 }
 
 interface Audio {
@@ -29,17 +31,19 @@ interface Story {
   updatedAt: Timestamp;
 }
 
-interface Message {
-  audioUrl: string;
-  duration: number;
+interface Chatting {
+  id: string;
+  participantIds: string[];
+  messageCount: number;
   createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 
-interface Chatting {
-  id: number;
-  partner: User;
-  lastMessage: Message;
-  messageCount: number;
+interface Message {
+  id: string;
+  audio: Audio;
+  user: Partial<User>;
+  createdAt: Timestamp;
 }
 
 interface Tag {

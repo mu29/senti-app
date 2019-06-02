@@ -4,7 +4,7 @@ import {
   computed,
 } from 'mobx';
 import moment from 'moment';
-import firebase, { RNFirebase } from 'react-native-firebase';
+import firebase from 'react-native-firebase';
 import { GoogleSignin } from 'react-native-google-signin';
 import {
   AccessToken,
@@ -18,7 +18,7 @@ import RootStore from './RootStore';
 
 class AuthStore {
   @observable
-  public user?: RNFirebase.User;
+  public user?: User;
 
   @observable
   public currentProvider?: string;
@@ -35,8 +35,18 @@ class AuthStore {
   }
 
   public subscribe = () => {
-    this.authStateUnsubscriber = firebase.auth().onAuthStateChanged((user) => {
-      this.user = user || undefined;
+    this.authStateUnsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        const userRef = firebase.firestore().collection('users').doc(user.uid);
+        const snapShot = await userRef.get();
+        if (snapShot.exists) {
+          this.user = snapShot.data() as User;
+        } else {
+          this.user = undefined;
+        }
+      } else {
+        this.user = undefined;
+      }
     });
   }
 
@@ -146,18 +156,26 @@ class AuthStore {
 
     const userRef = firebase.firestore().collection('users').doc(user.uid);
     const storedUser = await userRef.get();
+    const userData = {
+      id: user.uid,
+      email: user.email || (user.providerData && user.providerData[0] && user.providerData[0].email),
+      name: user.displayName,
+      photoUrl: user.photoURL,
+      lastSignInAt: {
+        seconds: moment(user.metadata.lastSignInTime).valueOf(),
+        nanoseconds: 0,
+      },
+      createdAt: {
+        seconds: moment(user.metadata.creationTime).valueOf(),
+        nanoseconds: 0,
+      },
+    };
 
     if (!storedUser.exists) {
-      await userRef.set({
-        id: user.uid,
-        email: user.email || (user.providerData && user.providerData[0] && user.providerData[0].email),
-        name: user.displayName,
-        photoUrl: user.photoURL,
-        lastSignInAt: moment(user.metadata.lastSignInTime).valueOf(),
-        createdAt: moment(user.metadata.creationTime).valueOf(),
-      });
+      await userRef.set(userData);
     }
 
+    this.user = userData;
     this.currentProvider = undefined;
 
     return true;

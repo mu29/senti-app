@@ -10,7 +10,7 @@ import {
   inject,
 } from 'mobx-react/native';
 import { StoryItem } from 'components';
-import { StoryStore } from 'stores';
+import { StoryStore, ChatStore } from 'stores';
 import { palette } from 'constants/style';
 
 const {
@@ -23,10 +23,11 @@ const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 interface StoryListProps {
+  chatStore?: ChatStore;
   storyStore?: StoryStore;
 }
 
-@inject('storyStore')
+@inject('chatStore', 'storyStore')
 @observer
 class StoryList extends React.Component<StoryListProps> {
   private swiperAnimation = new Animated.Value(0);
@@ -76,6 +77,7 @@ class StoryList extends React.Component<StoryListProps> {
     if (viewableItems.length > 0) {
       const currentItem = { ...viewableItems[0].item };
       if (!this.previousItem || this.previousItem.id !== currentItem.id) {
+        this.props.chatStore!.story = currentItem;
         this.props.storyStore!.play(currentItem.audio.url, currentItem.audio.duration);
         this.previousItem = currentItem;
       }

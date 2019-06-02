@@ -6,12 +6,16 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
-import { RecordController } from 'components';
+import {
+  RecordController,
+  LoadingView,
+} from 'components';
 import {
   ChatStore,
   UiStore,
 } from 'stores';
 import { palette } from 'constants/style';
+import { LoadingType } from 'constants/enums';
 
 interface ReplyModalProps {
   chatStore?: ChatStore;
@@ -28,21 +32,24 @@ class ReplyModal extends React.Component<ReplyModalProps> {
     } = this.props;
 
     return (
-      <Modal
-        isVisible={uiStore!.isReplyModalVisible}
-        onBackdropPress={this.hide}
-        onBackButtonPress={this.hide}
-        style={styles.modal}
-        backdropOpacity={0}
-        animationInTiming={400}
-        animationOutTiming={600}
-        hideModalContentWhileAnimating={true}
-        useNativeDriver
-      >
-        <SafeAreaView style={styles.container} pointerEvents="auto">
-          <RecordController create={chatStore!.create} />
-        </SafeAreaView>
-      </Modal>
+      <React.Fragment>
+        {chatStore!.isLoading === LoadingType.CREATE && <LoadingView />}
+        <Modal
+          isVisible={uiStore!.isReplyModalVisible}
+          onBackdropPress={this.hide}
+          onBackButtonPress={this.hide}
+          style={styles.modal}
+          backdropOpacity={0}
+          animationInTiming={400}
+          animationOutTiming={600}
+          hideModalContentWhileAnimating={true}
+          useNativeDriver
+        >
+          <SafeAreaView style={styles.container} pointerEvents="auto">
+            <RecordController create={chatStore!.create} />
+          </SafeAreaView>
+        </Modal>
+      </React.Fragment>
     );
   }
 

@@ -11,6 +11,7 @@ import { Text } from 'components';
 import {
   StoryStore,
   UiStore,
+  AuthStore,
 } from 'stores';
 import {
   palette,
@@ -24,11 +25,12 @@ const HIT_SLOP = {
 
 interface StoryControllerProps {
   story: Story;
+  authStore?: AuthStore;
   storyStore?: StoryStore;
   uiStore?: UiStore;
 }
 
-@inject('storyStore', 'uiStore')
+@inject('authStore', 'storyStore', 'uiStore')
 class StoryController extends React.Component<StoryControllerProps> {
   public render() {
     const {
@@ -61,12 +63,26 @@ class StoryController extends React.Component<StoryControllerProps> {
         <TouchableOpacity
           activeOpacity={0.6}
           hitSlop={HIT_SLOP}
-          onPress={uiStore!.toggleReplyModal}
+          onPress={this.openReplyModal}
         >
           <Image source={{ uri: 'ic_chat_active' }} style={styles.icon} />
         </TouchableOpacity>
       </View>
     );
+  }
+
+  private openReplyModal = () => {
+    const {
+      authStore,
+      uiStore,
+    } = this.props;
+
+    if (!authStore!.isLoggedIn) {
+      uiStore!.toggleAuthModal();
+      return;
+    }
+
+    uiStore!.toggleReplyModal();
   }
 }
 
