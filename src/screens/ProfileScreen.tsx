@@ -17,14 +17,7 @@ const ProfileScreen = () => (
       프로필
     </Header>
     <View style={styles.info}>
-      <UserInfo
-        user={{
-          id: '1',
-          name: '뮤바보',
-          email: 'mu29@yeoubi.net',
-          photoUrl: 'https://avatars3.githubusercontent.com/u/8934513?s=460&v=4',
-        }}
-      />
+      <UserInfo />
       <View style={styles.divider} />
       <CoinInventory />
     </View>

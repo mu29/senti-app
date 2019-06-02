@@ -6,15 +6,16 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import {
+  inject,
+  observer,
+} from 'mobx-react/native';
 import { Text } from 'components';
+import { AuthStore } from 'stores';
 import {
   palette,
   typography,
 } from 'constants/style';
-
-export interface UserInfoProps {
-  user: User;
-}
 
 const BUTTON_HITSLOP = {
   top: 16,
@@ -23,37 +24,47 @@ const BUTTON_HITSLOP = {
   right: 10,
 };
 
-const UserInfo: React.FunctionComponent<UserInfoProps> = ({
-  user: {
-    photoUrl,
-    name,
-    email,
-  },
-}) => (
-  <View style={styles.container}>
-    <Image
-      source={{ uri: photoUrl || '' }}
-      style={styles.profile}
-    />
-    <View>
-      <Text style={[typography.heading2, styles.name]}>
-        {name}
-      </Text>
-      <Text style={styles.email}>
-        {email}
-      </Text>
-    </View>
-    <TouchableOpacity
-      activeOpacity={0.8}
-      hitSlop={BUTTON_HITSLOP}
-      style={styles.button}
-    >
-      <Text style={typography.heading4}>
-        정보 관리
-      </Text>
-    </TouchableOpacity>
-  </View>
-);
+interface UserInfoProps {
+  authStore?: AuthStore;
+}
+
+@inject('authStore')
+@observer
+class UserInfo extends React.Component<UserInfoProps> {
+  public render() {
+    const { user } = this.props.authStore!;
+
+    if (!user) {
+      return null;
+    }
+
+    return (
+      <View style={styles.container}>
+        <Image
+          source={{ uri: user.photoUrl || '' }}
+          style={styles.profile}
+        />
+        <View>
+          <Text style={[typography.heading2, styles.name]}>
+            {user.name}
+          </Text>
+          <Text style={styles.email}>
+            {user.email}
+          </Text>
+        </View>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          hitSlop={BUTTON_HITSLOP}
+          style={styles.button}
+        >
+          <Text style={typography.heading4}>
+            정보 관리
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
