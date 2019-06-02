@@ -8,13 +8,19 @@ import {
   PermissionsAndroid,
   Platform,
 } from 'react-native';
-import Sound from 'react-native-sound';
 import {
   inject,
   observer,
 } from 'mobx-react/native';
 import { Text } from 'components';
-import { RecordStore } from 'stores';
+import { RecordState } from 'stores/states';
+import {
+  resetRecordAction,
+  startRecordAction,
+  stopRecordAction,
+  startPlayRecordAction,
+  stopPlayRecordAction,
+} from 'stores/actions';
 import {
   palette,
   typography,
@@ -26,15 +32,11 @@ const RESET_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
 
 export interface RecordControllerProps {
-  recordStore?: RecordStore;
-  create: (data: {
-    audio: Sound;
-    path: string;
-    duration: number;
-  }) => Promise<void>;
+  recordState?: RecordState;
+  create: (path: string, duration: number) => Promise<void>;
 }
 
-@inject('recordStore')
+@inject('recordState')
 @observer
 class RecordController extends React.Component<RecordControllerProps> {
   private isEntered = false;
@@ -46,24 +48,21 @@ class RecordController extends React.Component<RecordControllerProps> {
   private fadeAnimation = new Animated.Value(1);
 
   public componentDidMount() {
-    this.props.recordStore!.reset();
+    resetRecordAction();
   }
 
   public componentWillUnmount() {
-    this.props.recordStore!.reset();
+    resetRecordAction();
   }
 
   public render() {
-    const {
-      isRecorded,
-      reset,
-    } = this.props.recordStore!;
+    const { isRecorded } = this.props.recordState!;
 
     return (
       <Animated.View style={styles.container}>
         <View style={styles.controller}>
           <TouchableOpacity
-            onPress={reset}
+            onPress={resetRecordAction}
             disabled={!isRecorded}
             style={[styles.button, isRecorded && styles.enabled]}
           >
@@ -109,11 +108,16 @@ class RecordController extends React.Component<RecordControllerProps> {
   private create = () => {
     const {
       create,
-      recordStore,
+      recordState,
     } = this.props;
 
-    if (recordStore!.data) {
-      create(recordStore!.data);
+    if (recordState!.data) {
+      const {
+        path,
+        duration,
+      } = recordState!.data;
+
+      create(path, duration);
     }
   }
 
@@ -130,7 +134,7 @@ class RecordController extends React.Component<RecordControllerProps> {
   }
 
   private start = async () => {
-    if (this.props.recordStore!.isRecorded) {
+    if (this.props.recordState!.isRecorded) {
       this.startPlay();
     } else {
       if (!await this.requestMicrophonePermission()) {
@@ -164,18 +168,18 @@ class RecordController extends React.Component<RecordControllerProps> {
 
   private startRecord = () => {
     requestAnimationFrame(async () => {
-      await this.props.recordStore!.startRecord();
+      await startRecordAction();
       this.isEntered = true;
     });
   }
 
   private startPlay = () => {
-    this.props.recordStore!.startPlay(this.stop);
+    startPlayRecordAction(this.stop);
     this.isEntered = true;
   }
 
   private stop = () => {
-    this.props.recordStore!.isRecorded ? this.stopPlay() : this.stopRecord();
+    this.props.recordState!.isRecorded ? this.stopPlay() : this.stopRecord();
 
     Animated.timing(this.fadeAnimation, {
       toValue: 1,
@@ -193,14 +197,14 @@ class RecordController extends React.Component<RecordControllerProps> {
   private stopRecord = () => {
     this.isBusy = true;
     InteractionManager.runAfterInteractions(async () => {
-      await this.props.recordStore!.stopRecord();
+      await stopRecordAction();
       this.isEntered = false;
       this.isBusy = false;
     });
   }
 
   private stopPlay = () => {
-    this.props.recordStore!.stopPlay();
+    stopPlayRecordAction();
     this.isEntered = false;
   }
 

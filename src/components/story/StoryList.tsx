@@ -10,7 +10,13 @@ import {
   inject,
 } from 'mobx-react/native';
 import { StoryItem } from 'components';
-import { StoryStore, ChatStore } from 'stores';
+import { StoryState } from 'stores/states';
+import {
+  readStoriesAction,
+  playStoryAction,
+  pauseStoryAction,
+  setCurrentStoryAction,
+} from 'stores/actions';
 import { palette } from 'constants/style';
 
 const {
@@ -23,11 +29,10 @@ const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 interface StoryListProps {
-  chatStore?: ChatStore;
-  storyStore?: StoryStore;
+  storyState?: StoryState;
 }
 
-@inject('chatStore', 'storyStore')
+@inject('storyState')
 @observer
 class StoryList extends React.Component<StoryListProps> {
   private swiperAnimation = new Animated.Value(0);
@@ -35,25 +40,20 @@ class StoryList extends React.Component<StoryListProps> {
   private previousItem?: Story;
 
   public componentDidMount() {
-    this.props.storyStore!.readStories();
+    readStoriesAction();
   }
 
   public componentWillUnmount() {
-    this.props.storyStore!.pause();
+    pauseStoryAction();
   }
 
   public render() {
-    const {
-      stories,
-      readStories,
-    } = this.props.storyStore!;
-
     return (
       <AnimatedFlatList
-        data={stories.slice()}
+        data={this.props.storyState!.stories.slice()}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
-        onEndReached={readStories}
+        onEndReached={readStoriesAction}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
           { useNativeDriver: true },
@@ -81,8 +81,8 @@ class StoryList extends React.Component<StoryListProps> {
     if (viewableItems.length > 0) {
       const currentItem = { ...viewableItems[0].item };
       if (!this.previousItem || this.previousItem.id !== currentItem.id) {
-        this.props.chatStore!.story = currentItem;
-        this.props.storyStore!.play(currentItem.audio.url, currentItem.audio.duration);
+        setCurrentStoryAction(currentItem);
+        playStoryAction(currentItem.index);
         this.previousItem = currentItem;
       }
     }

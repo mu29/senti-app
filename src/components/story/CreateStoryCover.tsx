@@ -10,7 +10,8 @@ import {
   observer,
 } from 'mobx-react/native';
 import imageCacheHoc from 'react-native-image-cache-hoc';
-import { CoverStore } from 'stores';
+import { CoverState } from 'stores/states';
+import { shuffleCoverAction } from 'stores/actions';
 import { palette } from 'constants/style';
 
 const { width, height } = Dimensions.get('window');
@@ -21,21 +22,21 @@ const CachableImage = imageCacheHoc(Image, {
 });
 
 interface CreateStoryCoverProps {
-  coverStore?: CoverStore;
+  coverState?: CoverState;
 }
 
-@inject('coverStore')
+@inject('coverState')
 @observer
 class CreateStoryCover extends React.Component<CreateStoryCoverProps> {
   public componentDidMount() {
-    this.props.coverStore!.shuffle();
+    shuffleCoverAction();
   }
 
   public render() {
     return (
       <React.Fragment>
         <CachableImage
-          source={{ uri: this.props.coverStore!.current }}
+          source={{ uri: this.props.coverState!.current }}
           style={styles.background}
           permanent
         />

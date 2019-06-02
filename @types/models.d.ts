@@ -1,9 +1,3 @@
-interface Timestamp {
-  nanoseconds: number;
-  seconds: number;
-  toMillis: () => number;
-}
-
 interface UserEssential {
   id: string;
   name: string | null;
@@ -12,8 +6,8 @@ interface UserEssential {
 
 interface User extends UserEssential {
   email?: string;
-  lastSignInAt: Timestamp;
-  createdAt: Timestamp;
+  lastSignInAt: number;
+  createdAt: number;
 }
 
 interface Audio {
@@ -24,6 +18,7 @@ interface Audio {
 
 interface Story {
   id: string;
+  index: number;
   cover: string;
   description: string;
   tags: {
@@ -31,8 +26,8 @@ interface Story {
   };
   audio: Audio;
   user: UserEssential;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: number;
+  updatedAt: number;
 }
 
 interface Chatting {
@@ -41,18 +36,18 @@ interface Chatting {
     [key: string]: UserEssential;
   };
   userIds: {
-    [key: string]: Timestamp;
+    [key: string]: number;
   },
   messageCount: number;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: number;
+  updatedAt: number;
 }
 
 interface Message {
   id: string;
   audio: Audio;
   user: UserEssential;
-  createdAt: Timestamp;
+  createdAt: number;
 }
 
 interface Tag {

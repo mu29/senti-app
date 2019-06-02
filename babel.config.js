@@ -8,7 +8,8 @@ module.exports = {
         'components': './src/components',
         'constants': './src/constants',
         'containers': './src/containers',
-        'services': './src/services'
+        'services': './src/services',
+        'stores': './src/stores'
       },
     }],
   ],

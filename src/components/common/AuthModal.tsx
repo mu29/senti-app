@@ -10,31 +10,33 @@ import {
   Text,
   SocialProviderButton,
 } from 'components';
+import { AuthState } from 'stores/states';
 import {
-  UiStore,
-  AuthStore,
-} from 'stores';
+  signInWithGoogleAction,
+  signInWithFacebookAction,
+  hideAuthModalAction,
+} from 'stores/actions';
 import {
   palette,
   typography,
 } from 'constants/style';
-import NavigationService from '../../NavigationService';
 
 interface AuthModalProps {
-  uiStore?: UiStore;
-  authStore?: AuthStore;
+  authState?: AuthState;
 }
 
-@inject('uiStore', 'authStore')
+@inject('authState')
 @observer
 class AuthModal extends React.Component<AuthModalProps> {
   public render() {
-    const { isAuthModalVisible } = this.props.uiStore!;
-    const { currentProvider } = this.props.authStore!;
+    const {
+      isModalVisible,
+      currentProvider,
+    } = this.props.authState!;
 
     return (
       <Modal
-        isVisible={isAuthModalVisible}
+        isVisible={isModalVisible}
         onBackdropPress={this.hide}
         onBackButtonPress={this.hide}
         style={styles.modal}
@@ -76,9 +78,9 @@ class AuthModal extends React.Component<AuthModalProps> {
 
   private signInWithGoogle = async () => {
     try {
-      const isSuccessful = await this.props.authStore!.signInWithGoogle();
+      const isSuccessful = await signInWithGoogleAction();
       if (isSuccessful) {
-        this.finishLogin();
+        this.hide();
       }
     } catch (error) {
       Alert.alert('로그인', `구글 로그인에 실패했습니다.\n${error.message}`);
@@ -87,38 +89,26 @@ class AuthModal extends React.Component<AuthModalProps> {
 
   private signInWithFacebook = async () => {
     try {
-      const isSuccessful = await this.props.authStore!.signInWithFacebook();
+      const isSuccessful = await signInWithFacebookAction();
       if (isSuccessful) {
-        this.finishLogin();
+        this.hide();
       }
     } catch (error) {
       Alert.alert('로그인', `페이스북 로그인에 실패했습니다.\n${error.message}`);
     }
   }
 
-  private finishLogin = () => {
-    const { authStore } = this.props;
-    const nextRoute = authStore!.popNextRoute();
-
-    this.hide();
-
-    if (nextRoute) {
-      NavigationService.navigate(nextRoute);
-    }
-  }
-
   private hide = () => {
     const {
-      toggleAuthModal,
-      isAuthModalVisible,
-    } = this.props.uiStore!;
-    const { currentProvider } = this.props.authStore!;
+      isModalVisible,
+      currentProvider,
+    } = this.props.authState!;
 
-    if (!isAuthModalVisible || currentProvider) {
+    if (!isModalVisible || currentProvider) {
       return;
     }
 
-    toggleAuthModal();
+    hideAuthModalAction();
   }
 }
 

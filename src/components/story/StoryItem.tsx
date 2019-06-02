@@ -8,6 +8,10 @@ import {
   Dimensions,
 } from 'react-native';
 import {
+  SafeAreaView,
+  NavigationEvents,
+} from 'react-navigation';
+import {
   autorun,
   IReactionDisposer,
 } from 'mobx';
@@ -19,12 +23,9 @@ import {
   Text,
   StoryController,
 } from 'components';
+import { StoryState } from 'stores/states';
 import { palette } from 'constants/style';
-import {
-  SafeAreaView,
-  NavigationEvents,
-} from 'react-navigation';
-import { StoryStore } from 'stores';
+import { pauseStoryAction, playStoryAction } from 'stores/actions';
 
 const {
   width: deviceWidth,
@@ -37,10 +38,10 @@ interface StoryItemProps {
   story: Story;
   index: number;
   animatedValue: Animated.Value;
-  storyStore?: StoryStore;
+  storyState?: StoryState;
 }
 
-@inject('storyStore')
+@inject('storyState')
 @observer
 class StoryItem extends React.Component<StoryItemProps> {
   private pauseAnimation = new Animated.Value(0);
@@ -52,12 +53,12 @@ class StoryItem extends React.Component<StoryItemProps> {
   public componentDidMount() {
     this.animationReactionDisposer = autorun(() => {
       const {
-        story,
-        storyStore,
+        index,
+        storyState,
       } = this.props;
 
       Animated.timing(this.pauseAnimation, {
-        toValue: Number(storyStore!.paused === story.audio.url),
+        toValue: Number(storyState!.paused === index),
         duration: 200,
         useNativeDriver: true,
       }).start();
@@ -74,7 +75,6 @@ class StoryItem extends React.Component<StoryItemProps> {
     const {
       index,
       story,
-      storyStore,
     } = this.props;
 
     if (!story) {
@@ -83,7 +83,7 @@ class StoryItem extends React.Component<StoryItemProps> {
 
     return (
       <View style={styles.container}>
-        <NavigationEvents onWillBlur={storyStore!.pause} />
+        <NavigationEvents onWillBlur={pauseStoryAction} />
         <Animated.View style={this.getParallaxStyles(index)}>
           <Image
             source={{ uri: story.cover }}
@@ -94,7 +94,7 @@ class StoryItem extends React.Component<StoryItemProps> {
           <SafeAreaView style={styles.content}>
             <TouchableOpacity
               activeOpacity={1}
-              onPress={storyStore!.toggle}
+              onPress={this.toggle}
               style={styles.button}
             >
               <Text style={styles.description}>
@@ -122,6 +122,19 @@ class StoryItem extends React.Component<StoryItemProps> {
       {tag}
     </Text>
   )
+
+  private toggle = () => {
+    const {
+      index,
+      storyState,
+    } = this.props;
+
+    if (storyState!.paused === undefined) {
+      pauseStoryAction();
+    } else {
+      playStoryAction(index);
+    }
+  }
 
   private getParallaxStyles(index: number) {
     return {

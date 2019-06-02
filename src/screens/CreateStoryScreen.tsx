@@ -16,23 +16,24 @@ import {
   LoadingView,
   withSafeArea,
 } from 'components';
-import { StoryStore } from 'stores';
+import { StoryState } from 'stores/states';
+import { createStoryAction } from 'stores/actions';
 import { LoadingType } from 'constants/enums';
 
 interface CreateStoryScreenProps {
-  storyStore?: StoryStore;
+  storyState?: StoryState;
 }
 
 const CreateStoryScreen: React.FunctionComponent<CreateStoryScreenProps> = ({
-  storyStore,
+  storyState,
 }) => (
   <React.Fragment>
-    {storyStore!.isLoading === LoadingType.CREATE && <LoadingView />}
+    {storyState!.isLoading === LoadingType.CREATE && <LoadingView />}
     <CreateStoryCover />
     <View style={styles.container}>
       <CreateStoryHeader />
       <StoryDescription />
-      <RecordController create={storyStore!.create} />
+      <RecordController create={createStoryAction} />
     </View>
     <ImagePickerModal />
   </React.Fragment>
@@ -44,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(inject('storyStore')(observer(CreateStoryScreen)));
+export default withSafeArea(inject('storyState')(observer(CreateStoryScreen)));

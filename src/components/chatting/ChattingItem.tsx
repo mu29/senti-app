@@ -16,15 +16,15 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { AuthStore } from 'stores';
+import { AuthState } from 'stores/states';
 import { withComma } from 'services/utils';
 
 export interface ChattingItemProps {
   chatting: Chatting;
-  authStore?: AuthStore;
+  authState?: AuthState;
 }
 
-@inject('authStore')
+@inject('authState')
 @observer
 class ChattingItem extends React.Component<ChattingItemProps> {
   public render() {
@@ -62,7 +62,7 @@ class ChattingItem extends React.Component<ChattingItemProps> {
   }
 
   private get partner() {
-    const { user } = this.props.authStore!;
+    const { user } = this.props.authState!;
     const partnerId = Object.keys(this.props.chatting.userIds).filter(id => id !== user!.id)[0];
 
     return this.props.chatting.users[partnerId];

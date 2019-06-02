@@ -6,22 +6,12 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import {
-  observer,
-  inject,
-} from 'mobx-react/native';
-import { StoryStore } from 'stores';
 import { palette } from 'constants/style';
+import { updateDescriptionAction } from 'stores/actions';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-interface StoryDescriptionProps {
-  storyStore?: StoryStore;
-}
-
-@inject('storyStore')
-@observer
-class StoryDescription extends React.Component<StoryDescriptionProps> {
+class StoryDescription extends React.Component<{}> {
   public render() {
     return (
       <View style={styles.container}>
@@ -41,7 +31,7 @@ class StoryDescription extends React.Component<StoryDescriptionProps> {
   }
 
   private onChangeText = (text: string) => {
-    this.props.storyStore!.updateDescription(text);
+    updateDescriptionAction(text);
   }
 }
 

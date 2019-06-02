@@ -17,6 +17,7 @@
       "constants/*": ["constants/*"],
       "containers": ["containers"],
       "services/*": ["services/*"],
+      "stores/*": ["stores/*"],
     }
   },
   "include": ["src/**/*", "@types/*"],

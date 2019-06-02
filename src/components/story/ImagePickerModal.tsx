@@ -16,9 +16,13 @@ import { FlatGrid } from 'react-native-super-grid';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Text } from 'components';
 import {
-  CoverStore,
-  UiStore,
-} from 'stores';
+  CoverState,
+  StoryState,
+} from 'stores/states';
+import {
+  updateCoverAction,
+  hideImagePickerModalAction,
+} from 'stores/actions';
 import {
   palette,
   typography,
@@ -32,22 +36,22 @@ const CachableImage = imageCacheHoc(Image, {
 });
 
 interface ImagePickerModalProps {
-  coverStore?: CoverStore;
-  uiStore?: UiStore;
+  coverState?: CoverState;
+  storyState?: StoryState;
 }
 
-@inject('coverStore', 'uiStore')
+@inject('coverState', 'storyState')
 @observer
 class ImagePickerModal extends React.Component<ImagePickerModalProps> {
   private pressHandlers: { [key: string]: () => void } = {};
 
   public render() {
-    const { covers } = this.props.coverStore!;
-    const { isImagePickerModalVisible } = this.props.uiStore!;
+    const { covers } = this.props.coverState!;
+    const { isModalVisible } = this.props.storyState!;
 
     return (
       <Modal
-        isVisible={isImagePickerModalVisible}
+        isVisible={isModalVisible}
         onBackdropPress={this.hide}
         onBackButtonPress={this.hide}
         style={styles.modal}
@@ -85,23 +89,16 @@ class ImagePickerModal extends React.Component<ImagePickerModalProps> {
 
   private getPressHandler = (url: string) => {
     if (!Object.prototype.hasOwnProperty.call(this.pressHandlers, url)) {
-      this.pressHandlers[url] = () => this.props.coverStore!.update(url);
+      this.pressHandlers[url] = () => updateCoverAction(url);
     }
 
     return this.pressHandlers[url];
   }
 
   private hide = () => {
-    const {
-      isImagePickerModalVisible,
-      toggleImagePickerModal,
-    } = this.props.uiStore!;
-
-    if (!isImagePickerModalVisible) {
-      return;
+    if (this.props.storyState!.isModalVisible) {
+      hideImagePickerModalAction();
     }
-
-    toggleImagePickerModal();
   }
 }
 

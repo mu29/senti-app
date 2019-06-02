@@ -18,10 +18,11 @@ import {
   NavigationRoute,
   NavigationParams,
 } from 'react-navigation';
+import { AuthState } from 'stores/states';
 import {
-  AuthStore,
-  UiStore,
-} from 'stores';
+  setNextRouteAction,
+  showAuthModalAction,
+} from 'stores/actions';
 import { palette } from 'constants/style';
 
 const SAFE_AREA_INSET: {
@@ -34,11 +35,10 @@ const SAFE_AREA_INSET: {
 
 interface BottomTabBarProps extends NavigationBottomTabBarProps {
   onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
-  authStore?: AuthStore;
-  uiStore?: UiStore;
+  authState?: AuthState;
 }
 
-@inject('authStore', 'uiStore')
+@inject('authState')
 @observer
 class BottomTabBar extends React.Component<BottomTabBarProps> {
   public state = {
@@ -141,14 +141,13 @@ class BottomTabBar extends React.Component<BottomTabBarProps> {
       this.onPressHandlers[route.key] = () => {
         const { params = {} } = route;
         const {
-          authStore,
-          uiStore,
+          authState,
           onTabPress,
         } = this.props;
 
-        if (params.private && !authStore!.isLoggedIn) {
-          authStore!.setNextRoute(route.key);
-          uiStore!.toggleAuthModal();
+        if (params.private && !authState!.isLoggedIn) {
+          setNextRouteAction(route.key);
+          showAuthModalAction();
           return;
         }
 

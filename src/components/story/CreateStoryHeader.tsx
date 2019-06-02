@@ -9,11 +9,7 @@ import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import { UiStore } from 'stores';
+import { showImagePickerModalAction } from 'stores/actions';
 import { palette } from 'constants/style';
 
 const ALBUM_ICON = { uri: 'ic_grid' };
@@ -25,20 +21,12 @@ const TOUCH_HITSLOP = {
   right: 32,
 };
 
-export interface CreateStoryHeaderProps {
-  uiStore?: UiStore;
-}
-
-@inject('uiStore')
-@observer
-class CreateStoryHeader extends React.Component<CreateStoryHeaderProps & NavigationInjectedProps> {
+class CreateStoryHeader extends React.Component<NavigationInjectedProps> {
   public render() {
-    const { toggleImagePickerModal } = this.props.uiStore!;
-
     return (
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={toggleImagePickerModal}
+          onPress={showImagePickerModalAction}
           hitSlop={TOUCH_HITSLOP}
         >
           <Animated.Image

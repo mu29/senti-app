@@ -8,31 +8,29 @@ import {
   observer,
 } from 'mobx-react/native';
 import { ChattingItem } from 'components';
-import { ChatStore } from 'stores';
+import { ChattingState } from 'stores/states';
+import { readChattingsAction } from 'stores/actions';
 
 export interface ChattingListProps {
-  chatStore?: ChatStore;
+  chattingState?: ChattingState;
 }
 
-@inject('chatStore')
+@inject('chattingState')
 @observer
 class ChattingList extends React.Component<ChattingListProps> {
   public componentDidMount() {
-    this.props.chatStore!.readChattings();
+    readChattingsAction();
   }
 
   public render() {
-    const {
-      chattings,
-      readChattings,
-    } = this.props.chatStore!;
+    const { chattings } = this.props.chattingState!;
 
     return (
       <FlatList
         data={chattings.slice()}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
-        onEndReached={readChattings}
+        onEndReached={readChattingsAction}
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}

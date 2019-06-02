@@ -9,10 +9,14 @@ import { inject } from 'mobx-react/native';
 import moment from 'moment';
 import { Text } from 'components';
 import {
-  StoryStore,
-  UiStore,
-  AuthStore,
-} from 'stores';
+  AuthState,
+  StoryState,
+} from 'stores/states';
+import {
+  replayStoryAction,
+  showAuthModalAction,
+  showReplyModalAction,
+} from 'stores/actions';
 import {
   palette,
   typography,
@@ -25,19 +29,14 @@ const HIT_SLOP = {
 
 interface StoryControllerProps {
   story: Story;
-  authStore?: AuthStore;
-  storyStore?: StoryStore;
-  uiStore?: UiStore;
+  authState?: AuthState;
+  storyState?: StoryState;
 }
 
-@inject('authStore', 'storyStore', 'uiStore')
+@inject('authState', 'storyState')
 class StoryController extends React.Component<StoryControllerProps> {
   public render() {
-    const {
-      story,
-      storyStore,
-      uiStore,
-    } = this.props;
+    const { story } = this.props;
 
     return (
       <View style={styles.container}>
@@ -50,13 +49,13 @@ class StoryController extends React.Component<StoryControllerProps> {
             {story.user.name}
           </Text>
           <Text style={styles.date}>
-            {moment(story.createdAt.seconds * 1000).fromNow()}
+            {moment(story.createdAt).fromNow()}
           </Text>
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
           hitSlop={HIT_SLOP}
-          onPress={storyStore!.replay}
+          onPress={replayStoryAction}
         >
           <Image source={{ uri: 'ic_replay' }} style={styles.icon} />
         </TouchableOpacity>
@@ -72,17 +71,14 @@ class StoryController extends React.Component<StoryControllerProps> {
   }
 
   private openReplyModal = () => {
-    const {
-      authStore,
-      uiStore,
-    } = this.props;
+    const { authState } = this.props;
 
-    if (!authStore!.isLoggedIn) {
-      uiStore!.toggleAuthModal();
+    if (!authState!.isLoggedIn) {
+      showAuthModalAction();
       return;
     }
 
-    uiStore!.toggleReplyModal();
+    showReplyModalAction();
   }
 }
 

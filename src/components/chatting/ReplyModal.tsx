@@ -10,32 +10,29 @@ import {
   RecordController,
   LoadingView,
 } from 'components';
+import { ChattingState } from 'stores/states';
 import {
-  ChatStore,
-  UiStore,
-} from 'stores';
+  createChattingAction,
+  hideReplyModalAction,
+} from 'stores/actions';
 import { palette } from 'constants/style';
 import { LoadingType } from 'constants/enums';
 
 interface ReplyModalProps {
-  chatStore?: ChatStore;
-  uiStore?: UiStore;
+  chattingState?: ChattingState;
 }
 
-@inject('chatStore', 'uiStore')
+@inject('chattingState')
 @observer
 class ReplyModal extends React.Component<ReplyModalProps> {
   public render() {
-    const {
-      chatStore,
-      uiStore,
-    } = this.props;
+    const { chattingState } = this.props;
 
     return (
       <React.Fragment>
-        {chatStore!.isLoading === LoadingType.CREATE && <LoadingView />}
+        {chattingState!.isLoading === LoadingType.CREATE && <LoadingView />}
         <Modal
-          isVisible={uiStore!.isReplyModalVisible}
+          isVisible={chattingState!.isModalVisible}
           onBackdropPress={this.hide}
           onBackButtonPress={this.hide}
           style={styles.modal}
@@ -46,7 +43,7 @@ class ReplyModal extends React.Component<ReplyModalProps> {
           useNativeDriver
         >
           <SafeAreaView style={styles.container} pointerEvents="auto">
-            <RecordController create={chatStore!.create} />
+            <RecordController create={createChattingAction} />
           </SafeAreaView>
         </Modal>
       </React.Fragment>
@@ -54,16 +51,9 @@ class ReplyModal extends React.Component<ReplyModalProps> {
   }
 
   private hide = () => {
-    const {
-      toggleReplyModal,
-      isReplyModalVisible,
-    } = this.props.uiStore!;
-
-    if (!isReplyModalVisible) {
-      return;
+    if (this.props.chattingState!.isModalVisible) {
+      hideReplyModalAction();
     }
-
-    toggleReplyModal();
   }
 }
 

@@ -11,7 +11,7 @@ import {
   observer,
 } from 'mobx-react/native';
 import { Text } from 'components';
-import { AuthStore } from 'stores';
+import { AuthState } from 'stores/states';
 import {
   palette,
   typography,
@@ -25,14 +25,14 @@ const BUTTON_HITSLOP = {
 };
 
 interface UserInfoProps {
-  authStore?: AuthStore;
+  authState?: AuthState;
 }
 
-@inject('authStore')
+@inject('authState')
 @observer
 class UserInfo extends React.Component<UserInfoProps> {
   public render() {
-    const { user } = this.props.authStore!;
+    const { user } = this.props.authState!;
 
     if (!user) {
       return null;
