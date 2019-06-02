@@ -8,15 +8,13 @@ import {
   PermissionsAndroid,
   Platform,
 } from 'react-native';
+import Sound from 'react-native-sound';
 import {
   inject,
   observer,
 } from 'mobx-react/native';
 import { Text } from 'components';
-import {
-  RecordStore,
-  StoryStore,
-} from 'stores';
+import { RecordStore } from 'stores';
 import {
   palette,
   typography,
@@ -29,10 +27,14 @@ const DONE_ICON = { uri: 'ic_check' };
 
 export interface RecordControllerProps {
   recordStore?: RecordStore;
-  storyStore?: StoryStore;
+  create: (data: {
+    audio: Sound;
+    path: string;
+    duration: number;
+  }) => Promise<void>;
 }
 
-@inject('recordStore', 'storyStore')
+@inject('recordStore')
 @observer
 class RecordController extends React.Component<RecordControllerProps> {
   private isEntered = false;
@@ -105,11 +107,13 @@ class RecordController extends React.Component<RecordControllerProps> {
   }
 
   private create = () => {
-    const { data } = this.props.recordStore!;
-    const { create } = this.props.storyStore!;
+    const {
+      create,
+      recordStore,
+    } = this.props;
 
-    if (data) {
-      create(data);
+    if (recordStore!.data) {
+      create(recordStore!.data);
     }
   }
 

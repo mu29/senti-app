@@ -9,26 +9,27 @@ import {
 import { RecordController } from 'components';
 import {
   ChatStore,
-  RecordStore,
   UiStore,
 } from 'stores';
 import { palette } from 'constants/style';
 
 interface ReplyModalProps {
   chatStore?: ChatStore;
-  recordStore?: RecordStore;
   uiStore?: UiStore;
 }
 
-@inject('chatStore', 'recordStore', 'uiStore')
+@inject('chatStore', 'uiStore')
 @observer
 class ReplyModal extends React.Component<ReplyModalProps> {
   public render() {
-    const { isReplyModalVisible } = this.props.uiStore!;
+    const {
+      chatStore,
+      uiStore,
+    } = this.props;
 
     return (
       <Modal
-        isVisible={isReplyModalVisible}
+        isVisible={uiStore!.isReplyModalVisible}
         onBackdropPress={this.hide}
         onBackButtonPress={this.hide}
         style={styles.modal}
@@ -39,7 +40,7 @@ class ReplyModal extends React.Component<ReplyModalProps> {
         useNativeDriver
       >
         <SafeAreaView style={styles.container} pointerEvents="auto">
-          <RecordController />
+          <RecordController create={chatStore!.create} />
         </SafeAreaView>
       </Modal>
     );

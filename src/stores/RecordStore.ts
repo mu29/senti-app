@@ -14,7 +14,7 @@ class RecordStore {
     duration: number;
   };
 
-  constructor(private rootStore: RootStore) {}
+  constructor(private rootStore: RootStore) { }
 
   @computed
   public get isRecorded() {

@@ -32,7 +32,7 @@ const CreateStoryScreen: React.FunctionComponent<CreateStoryScreenProps> = ({
     <View style={styles.container}>
       <CreateStoryHeader />
       <StoryDescription />
-      <RecordController />
+      <RecordController create={storyStore!.create} />
     </View>
     <ImagePickerModal />
   </React.Fragment>
