@@ -70,7 +70,7 @@ class StoryStore {
     path: string;
     duration: number;
   }) => {
-    const user = this.rootStore.authStore.user;
+    const { user } = this.rootStore.authStore;
 
     if (!user) {
       this.rootStore.uiStore.toggleAuthModal();

@@ -1,5 +1,7 @@
 import { observable } from 'mobx';
 import firebase from 'react-native-firebase';
+import { DocumentSnapshot } from 'react-native-firebase/firestore';
+import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import { LoadingType } from 'constants/enums';
 import RootStore from './RootStore';
@@ -8,9 +10,46 @@ class ChatStore {
   @observable
   public isLoading: LoadingType = LoadingType.NONE;
 
+  @observable
+  public chattings: Chatting[] = [];
+
   public story?: Story;
 
+  private cursor?: DocumentSnapshot;
+
   constructor(private rootStore: RootStore) { }
+
+  public readChattings = async () => {
+    if (this.isLoading === LoadingType.LIST) {
+      return;
+    }
+
+    if (!this.cursor && this.chattings.length > 0) {
+      return;
+    }
+
+    const { user } = this.rootStore.authStore;
+
+    if (!user) {
+      this.rootStore.uiStore.toggleAuthModal();
+      return;
+    }
+
+    this.isLoading = LoadingType.LIST;
+
+    const key = `userIds.${user.id}`;
+    let query = firebase.firestore().collection('chattings').where(key, '>', 0).orderBy(key, 'desc');
+    if (this.cursor) {
+      query = query.startAfter(this.cursor);
+    }
+    query = query.limit(20);
+
+    const chattings = await query.get();
+
+    this.chattings.push(...chattings.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Chatting));
+    this.cursor = chattings.docs.slice(-1)[0];
+    this.isLoading = LoadingType.NONE;
+  }
 
   public create = async (data: { path: string; duration: number }) => {
     const { path, duration } = data;
@@ -38,7 +77,22 @@ class ChatStore {
     });
 
     batch.set(chattingRef, {
-      participantIds: [this.story.user.id, user.id],
+      users: {
+        [this.story.user.id]: {
+          id: this.story.user.id,
+          name: this.story.user.name,
+          photoUrl: this.story.user.photoUrl,
+        },
+        [user.id]: {
+          id: user.id,
+          name: user.name,
+          photoUrl: user.photoUrl,
+        },
+      },
+      userIds: {
+        [this.story.user.id]: this.story.createdAt.seconds * 1000,
+        [user.id]: moment().valueOf(),
+      },
       messageCount: 1,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),

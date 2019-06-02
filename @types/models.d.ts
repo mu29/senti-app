@@ -1,13 +1,17 @@
 interface Timestamp {
   nanoseconds: number;
   seconds: number;
+  toMillis: () => number;
 }
 
-interface User {
+interface UserEssential {
   id: string;
-  email?: string;
   name: string | null;
   photoUrl: string | null;
+}
+
+interface User extends UserEssential {
+  email?: string;
   lastSignInAt: Timestamp;
   createdAt: Timestamp;
 }
@@ -26,14 +30,19 @@ interface Story {
     [key: string]: boolean;
   };
   audio: Audio;
-  user: Partial<User>;
+  user: UserEssential;
   createdAt: Timestamp;
   updatedAt: Timestamp;
 }
 
 interface Chatting {
   id: string;
-  participantIds: string[];
+  users: {
+    [key: string]: UserEssential;
+  };
+  userIds: {
+    [key: string]: Timestamp;
+  },
   messageCount: number;
   createdAt: Timestamp;
   updatedAt: Timestamp;
@@ -42,7 +51,7 @@ interface Chatting {
 interface Message {
   id: string;
   audio: Audio;
-  user: Partial<User>;
+  user: UserEssential;
   createdAt: Timestamp;
 }
 

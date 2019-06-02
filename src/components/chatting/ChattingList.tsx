@@ -3,22 +3,39 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
+import {
+  inject,
+  observer,
+} from 'mobx-react/native';
 import { ChattingItem } from 'components';
+import { ChatStore } from 'stores';
 
 export interface ChattingListProps {
-  data: Chatting[];
+  chatStore?: ChatStore;
 }
 
-class ChattingList extends React.PureComponent<ChattingListProps> {
+@inject('chatStore')
+@observer
+class ChattingList extends React.Component<ChattingListProps> {
+  public componentDidMount() {
+    this.props.chatStore!.readChattings();
+  }
+
   public render() {
-    const { data } = this.props;
+    const {
+      chattings,
+      readChattings,
+    } = this.props.chatStore!;
 
     return (
       <FlatList
-        data={data}
+        data={chattings.slice()}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
+        onEndReached={readChattings}
         contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
       />
     );
   }
