@@ -43,13 +43,17 @@ class StoryList extends React.Component<StoryListProps> {
   }
 
   public render() {
-    const { stories } = this.props.storyStore!;
+    const {
+      stories,
+      readStories,
+    } = this.props.storyStore!;
 
     return (
       <AnimatedFlatList
         data={stories.slice()}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
+        onEndReached={readStories}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
           { useNativeDriver: true },

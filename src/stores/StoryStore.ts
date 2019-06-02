@@ -40,12 +40,21 @@ class StoryStore {
   }
 
   public readStories = async () => {
+    if (this.isLoading === LoadingType.LIST) {
+      return;
+    }
+
+    if (!this.cursor && this.stories.length > 0) {
+      return;
+    }
+
     this.isLoading = LoadingType.LIST;
 
     let query = firebase.firestore().collection('stories').orderBy('createdAt', 'desc');
     if (this.cursor) {
       query = query.startAfter(this.cursor);
     }
+    query = query.limit(10);
 
     const stories = await query.get();
 
