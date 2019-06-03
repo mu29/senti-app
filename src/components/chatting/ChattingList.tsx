@@ -7,7 +7,10 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
-import { ChattingItem } from 'components';
+import {
+  ChattingItem,
+  ChattingEmptyList,
+} from 'components';
 import { ChattingState } from 'stores/states';
 import { readChattingsAction } from 'stores/actions';
 
@@ -25,9 +28,13 @@ class ChattingList extends React.Component<ChattingListProps> {
   public render() {
     const { chattings } = this.props.chattingState!;
 
+    if (chattings.length === 0) {
+      return <ChattingEmptyList />;
+    }
+
     return (
       <FlatList
-        data={chattings.slice()}
+        data={chattings}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
         onEndReached={readChattingsAction}

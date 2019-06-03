@@ -9,6 +9,7 @@ export { default as AuthModal } from './common/AuthModal';
 export { default as LoadingView } from './common/LoadingView';
 export { default as withSafeArea } from './common/withSafeArea';
 
+export { default as ChattingEmptyList } from './chatting/ChattingEmptyList';
 export { default as ChattingItem } from './chatting/ChattingItem';
 export { default as ChattingList } from './chatting/ChattingList';
 export { default as ReplyModal } from './chatting/ReplyModal';

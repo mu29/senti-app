@@ -46,7 +46,7 @@ class ChattingItem extends React.Component<ChattingItemProps> {
                 {this.partner.name}
               </Text>
               <Text style={styles.date}>
-                {moment(updatedAt.toMillis()).fromNow()}
+                {moment(updatedAt).fromNow()}
               </Text>
             </View>
             <View style={styles.row}>

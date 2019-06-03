@@ -68,4 +68,8 @@ export const typography: {
     fontWeight: '600',
     color: palette.gray[20],
   },
+  body1: {
+    fontSize: 16,
+    color: palette.gray[30],
+  },
 };
