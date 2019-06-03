@@ -13,26 +13,20 @@ import {
 import { palette } from 'constants/style';
 
 export interface ButtonProps extends TouchableOpacityProps, TouchableNativeFeedbackProps {
-  isCircle?: boolean;
+  round?: boolean;
   isLoading?: boolean;
-  indicatorSize?: number;
   style?: StyleProp<ViewStyle>;
-  children: React.ReactElement<any>;
+  children: React.ReactNode;
 }
 
 const Button: React.FunctionComponent<ButtonProps> = ({
-  isCircle,
+  round,
   isLoading,
-  indicatorSize,
   style,
   children,
   ...props
 }) => {
-  const loadableChildren = isLoading ? (
-    <View style={{ justifyContent: 'center', height: indicatorSize || 24 }}>
-      <ActivityIndicator color={palette.white.default} />
-    </View>
-  ) : children;
+  const loadableChildren = isLoading ? <ActivityIndicator color={palette.white.default} /> : children;
 
   return Platform.select({
     ios: (
@@ -49,7 +43,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
     android: (
       <TouchableNativeFeedback
         disabled={isLoading}
-        background={isCircle
+        background={round
           ? TouchableNativeFeedback.SelectableBackgroundBorderless()
           : TouchableNativeFeedback.SelectableBackground()
         }

@@ -17,6 +17,7 @@ import SearchScreen from './screens/SearchScreen';
 import ChattingScreen from './screens/ChattingScreen';
 import CreateStoryScreen from './screens/CreateStoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import MessageScreen from './screens/MessageScreen';
 
 const MainTabNavigator = createBottomTabNavigator({
   Home: {
@@ -91,8 +92,16 @@ const MainTabNavigator = createBottomTabNavigator({
   initialRouteName: 'Home',
 });
 
-const ModalNavigator = createStackNavigator({
+const MainStackNavigator = createStackNavigator({
   MainTab: MainTabNavigator,
+  Message: MessageScreen,
+}, {
+  headerMode: 'none',
+  initialRouteName: 'MainTab',
+});
+
+const ModalNavigator = createStackNavigator({
+  MainStack: MainStackNavigator,
   CreateStory: {
     screen: CreateStoryScreen,
     navigationOptions: {
@@ -102,7 +111,7 @@ const ModalNavigator = createStackNavigator({
 }, {
   headerMode: 'none',
   mode: 'modal',
-  initialRouteName: 'MainTab',
+  initialRouteName: 'MainStack',
 });
 
 const styles = StyleSheet.create({

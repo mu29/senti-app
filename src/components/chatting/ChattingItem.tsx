@@ -2,16 +2,22 @@ import React from 'react';
 import {
   View,
   Image,
-  TouchableOpacity,
   StyleSheet,
   Platform,
 } from 'react-native';
+import {
+  withNavigation,
+  NavigationInjectedProps,
+} from 'react-navigation';
 import {
   inject,
   observer,
 } from 'mobx-react/native';
 import moment from 'moment';
-import { Text } from 'components';
+import {
+  Text,
+  Button,
+} from 'components';
 import {
   palette,
   typography,
@@ -26,7 +32,7 @@ export interface ChattingItemProps {
 
 @inject('authState')
 @observer
-class ChattingItem extends React.Component<ChattingItemProps> {
+class ChattingItem extends React.Component<ChattingItemProps & NavigationInjectedProps> {
   public render() {
     const {
       messageCount,
@@ -34,7 +40,7 @@ class ChattingItem extends React.Component<ChattingItemProps> {
     } = this.props.chatting;
 
     return (
-      <TouchableOpacity activeOpacity={0.8}>
+      <Button onPress={this.openMessageScreen}>
         <View style={[styles.row, styles.container]}>
           <Image
             source={{ uri: this.partner.photoUrl || '' }}
@@ -57,7 +63,7 @@ class ChattingItem extends React.Component<ChattingItemProps> {
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </Button>
     );
   }
 
@@ -66,6 +72,15 @@ class ChattingItem extends React.Component<ChattingItemProps> {
     const partnerId = Object.keys(this.props.chatting.userIds).filter(id => id !== user!.id)[0];
 
     return this.props.chatting.users[partnerId];
+  }
+
+  private openMessageScreen = () => {
+    const {
+      navigation,
+      chatting,
+    } = this.props;
+
+    navigation.navigate('Message', { id: chatting.id });
   }
 }
 
@@ -113,4 +128,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChattingItem;
+export default withNavigation(ChattingItem);

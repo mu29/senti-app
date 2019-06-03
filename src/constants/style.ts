@@ -72,4 +72,16 @@ export const typography: {
     fontSize: 16,
     color: palette.gray[30],
   },
+  body2: {
+    fontSize: 14,
+    color: palette.gray[30],
+  },
+  tiny2: {
+    fontSize: 14,
+    color: palette.gray[50],
+  },
+  tiny3: {
+    fontSize: 12,
+    color: palette.gray[50],
+  },
 };
