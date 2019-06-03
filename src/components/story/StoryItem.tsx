@@ -7,10 +7,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import {
-  SafeAreaView,
-  NavigationEvents,
-} from 'react-navigation';
+import { SafeAreaView } from 'react-navigation';
 import {
   autorun,
   IReactionDisposer,
@@ -24,8 +21,11 @@ import {
   StoryController,
 } from 'components';
 import { StoryState } from 'stores/states';
+import {
+  pauseStoryAction,
+  playStoryAction,
+} from 'stores/actions';
 import { palette } from 'constants/style';
-import { pauseStoryAction, playStoryAction } from 'stores/actions';
 
 const {
   width: deviceWidth,
@@ -83,7 +83,6 @@ class StoryItem extends React.Component<StoryItemProps> {
 
     return (
       <View style={styles.container}>
-        <NavigationEvents onWillBlur={pauseStoryAction} />
         <Animated.View style={this.getParallaxStyles(index)}>
           <Image
             source={{ uri: story.cover }}
