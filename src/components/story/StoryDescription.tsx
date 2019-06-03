@@ -5,6 +5,7 @@ import {
   Animated,
   StyleSheet,
   Platform,
+  Keyboard,
 } from 'react-native';
 import { palette } from 'constants/style';
 import { updateDescriptionAction } from 'stores/actions';
@@ -14,7 +15,10 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 class StoryDescription extends React.Component<{}> {
   public render() {
     return (
-      <View style={styles.container}>
+      <View
+        onStartShouldSetResponder={this.dismissKeyboard}
+        style={styles.container}
+      >
         <AnimatedTextInput
           autoCapitalize="none"
           autoCorrect={false}
@@ -33,6 +37,11 @@ class StoryDescription extends React.Component<{}> {
   private onChangeText = (text: string) => {
     updateDescriptionAction(text);
   }
+
+  private dismissKeyboard = () => {
+    Keyboard.dismiss();
+    return false;
+  }
 }
 
 const styles = StyleSheet.create({
@@ -48,7 +57,7 @@ const styles = StyleSheet.create({
       android: 164,
     }),
     padding: 24,
-    marginBottom: 72,
+    marginBottom: 48,
     textAlign: 'center',
     color: palette.white.default,
     fontSize: 18,
