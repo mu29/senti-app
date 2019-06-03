@@ -29,10 +29,6 @@ export interface ChattingListProps {
 @inject('chattingState')
 @observer
 class ChattingList extends React.Component<ChattingListProps> {
-  public componentDidMount() {
-    readChattingsAction();
-  }
-
   public render() {
     const {
       chattings,

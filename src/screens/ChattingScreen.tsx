@@ -11,7 +11,7 @@ class ChattingScreen extends React.Component<{}> {
   public render() {
     return (
       <React.Fragment>
-        <NavigationEvents onWillBlur={this.refresh} />
+        <NavigationEvents onWillFocus={this.refresh} />
         <Header>
           대화
         </Header>

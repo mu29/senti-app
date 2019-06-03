@@ -19,7 +19,8 @@ export function hideReplyModalAction() {
 }
 
 export async function refreshChattingsAction(showRefreshing: boolean = true) {
-  if (chattingState.isLoading === LoadingType.REFRESH) {
+  if (chattingState.isLoading === LoadingType.REFRESH
+    || chattingState.isLoading === LoadingType.LIST) {
     return;
   }
 
@@ -30,6 +31,7 @@ export async function refreshChattingsAction(showRefreshing: boolean = true) {
     return;
   }
 
+  chattingState.cursor = undefined;
   if (showRefreshing) {
     chattingState.isLoading = LoadingType.REFRESH;
   }
@@ -51,7 +53,8 @@ export async function refreshChattingsAction(showRefreshing: boolean = true) {
 }
 
 export async function readChattingsAction() {
-  if (chattingState.isLoading === LoadingType.LIST) {
+  if (chattingState.isLoading === LoadingType.REFRESH
+    || chattingState.isLoading === LoadingType.LIST) {
     return;
   }
 
