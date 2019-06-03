@@ -16,6 +16,7 @@ import {
   replayStoryAction,
   showAuthModalAction,
   showReplyModalAction,
+  pauseStoryAction,
 } from 'stores/actions';
 import {
   palette,
@@ -78,6 +79,7 @@ class StoryController extends React.Component<StoryControllerProps> {
       return;
     }
 
+    pauseStoryAction();
     showReplyModalAction();
   }
 }
