@@ -18,13 +18,8 @@ export function hideReplyModalAction() {
   chattingState.isModalVisible = false;
 }
 
-export async function readChattingsAction() {
-  if (chattingState.isLoading === LoadingType.LIST) {
-    return;
-  }
-
-  // 커서가 없고 데이터가 있는 경우 = 모든 데이터를 읽음
-  if (!chattingState.cursor && chattingState.chattings.length > 0) {
+export async function refreshChattingsAction(showRefreshing: boolean = true) {
+  if (chattingState.isLoading === LoadingType.REFRESH) {
     return;
   }
 
@@ -35,20 +30,46 @@ export async function readChattingsAction() {
     return;
   }
 
-  chattingState.isLoading = LoadingType.LIST;
-
-  const key = `userIds.${user.id}`;
-  let query = firebase.firestore().collection('chattings').where(key, '>', 0).orderBy(key, 'desc').limit(10);
-  if (chattingState.cursor) {
-    query = query.startAfter(chattingState.cursor);
+  if (showRefreshing) {
+    chattingState.isLoading = LoadingType.REFRESH;
   }
 
-  const snapShot = await query.get();
-  const chattings = snapShot.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Chatting);
+  const {
+    chattings,
+    cursor,
+  } = await readChattings();
+
+  runInAction(() => {
+    chattingState.chattings = chattings;
+    chattingState.cursor = cursor;
+    chattingState.isLoading = LoadingType.NONE;
+
+    if (!chattingState.isInitialLoaded) {
+      chattingState.isInitialLoaded = true;
+    }
+  });
+}
+
+export async function readChattingsAction() {
+  if (chattingState.isLoading === LoadingType.LIST) {
+    return;
+  }
+
+  // 커서가 없고 데이터가 있는 경우 = 모든 데이터를 읽음
+  if (!chattingState.cursor && chattingState.chattings.length > 0) {
+    return;
+  }
+
+  chattingState.isLoading = LoadingType.LIST;
+
+  const {
+    chattings,
+    cursor,
+  } = await readChattings();
 
   runInAction(() => {
     chattingState.chattings.push(...chattings);
-    chattingState.cursor = snapShot.docs.slice(-1)[0];
+    chattingState.cursor = cursor;
     chattingState.isLoading = LoadingType.NONE;
   });
 }
@@ -129,4 +150,29 @@ export async function createChattingAction(path: string, duration: number) {
 
 export function setCurrentStoryAction(story: Story) {
   chattingState.story = story;
+}
+
+async function readChattings() {
+  const { user } = authState;
+
+  if (!user) {
+    return {
+      chattings: [],
+      cursor: undefined,
+    };
+  }
+
+  const key = `userIds.${user.id}`;
+  let query = firebase.firestore().collection('chattings').where(key, '>', 0).orderBy(key, 'desc').limit(10);
+  if (chattingState.cursor) {
+    query = query.startAfter(chattingState.cursor);
+  }
+
+  const snapShot = await query.get();
+  const chattings = snapShot.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Chatting);
+
+  return {
+    chattings,
+    cursor: snapShot.docs.slice(-1)[0],
+  };
 }

@@ -1,17 +1,28 @@
 import React from 'react';
+import { NavigationEvents } from 'react-navigation';
 import {
   Header,
   ChattingList,
   withSafeArea,
 } from 'components';
+import { refreshChattingsAction } from 'stores/actions';
 
-const ChattingScreen = () => (
-  <React.Fragment>
-    <Header>
-      대화
-    </Header>
-    <ChattingList />
-  </React.Fragment>
-);
+class ChattingScreen extends React.Component<{}> {
+  public render() {
+    return (
+      <React.Fragment>
+        <NavigationEvents onWillBlur={this.refresh} />
+        <Header>
+          대화
+        </Header>
+        <ChattingList />
+      </React.Fragment>
+    );
+  }
+
+  private refresh = () => {
+    refreshChattingsAction(false);
+  }
+}
 
 export default withSafeArea(ChattingScreen);

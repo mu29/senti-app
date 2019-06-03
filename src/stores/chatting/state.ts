@@ -7,7 +7,10 @@ export class ChattingState {
   public isModalVisible = false;
 
   @observable
-  public isLoading: LoadingType = LoadingType.NONE;
+  public isLoading = LoadingType.NONE;
+
+  @observable
+  public isInitialLoaded = false;
 
   @observable
   public chattings: Chatting[] = [];
