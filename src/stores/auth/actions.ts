@@ -144,6 +144,8 @@ function handleNextRoute() {
     NavigationService.navigate(authState.nextRoute);
     authState.nextRoute = undefined;
   }
+
+  return true;
 }
 
 async function initGoogleSignin() {
