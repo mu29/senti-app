@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 16,
     height: 16,
-    tintColor: palette.gray[20],
+    tintColor: palette.gray[50],
   },
 });
 

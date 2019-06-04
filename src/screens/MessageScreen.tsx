@@ -7,7 +7,7 @@ import {
 
 const MessageScreen: React.FunctionComponent<{}> = () => (
   <React.Fragment>
-    <Header>
+    <Header canGoBack>
       정인중
     </Header>
     <MessageList />
