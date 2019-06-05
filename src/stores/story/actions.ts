@@ -78,6 +78,9 @@ export async function createStoryAction(path: string, duration: number) {
   batch.set(audioRef, {
     duration,
     url: audio.url,
+    user: {
+      id: user.id,
+    },
     createdAt: now,
     updatedAt: now,
   });
