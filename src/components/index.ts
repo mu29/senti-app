@@ -12,9 +12,10 @@ export { default as withSafeArea } from './common/withSafeArea';
 export { default as ChattingEmptyList } from './chatting/ChattingEmptyList';
 export { default as ChattingItem } from './chatting/ChattingItem';
 export { default as ChattingList } from './chatting/ChattingList';
-export { default as MessageItem } from './chatting/MessageItem';
-export { default as MessageList } from './chatting/MessageList';
 export { default as ReplyModal } from './chatting/ReplyModal';
+
+export { default as MessageItem } from './message/MessageItem';
+export { default as MessageList } from './message/MessageList';
 
 export { default as CoinInventory } from './profile/CoinInventory';
 export { default as UserInfo } from './profile/UserInfo';
