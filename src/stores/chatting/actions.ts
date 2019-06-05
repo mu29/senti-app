@@ -9,6 +9,7 @@ import {
   uploadAudioAction,
 } from 'stores/actions';
 import { LoadingType } from 'constants/enums';
+import NavigationService from '../../NavigationService';
 
 export function showReplyModalAction() {
   chattingState.isModalVisible = true;
@@ -120,7 +121,7 @@ export async function createChattingAction(path: string, duration: number) {
       },
     },
     userIds: {
-      [story.user.id]: story.createdAt,
+      [story.user.id]: now,
       [user.id]: now,
     },
     messageCount: 2,
@@ -137,7 +138,6 @@ export async function createChattingAction(path: string, duration: number) {
   batch.set(messageRef, {
     audio: {
       id: audioRef.id,
-      url: audio.url,
       duration,
     },
     user: {
@@ -174,11 +174,11 @@ async function readChattings() {
     query = query.startAfter(chattingState.cursor);
   }
 
-  const snapShot = await query.get();
-  const chattings = snapShot.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Chatting);
+  const snapshot = await query.get();
+  const chattings = snapshot.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Chatting);
 
   return {
     chattings,
-    cursor: snapShot.docs.slice(-1)[0],
+    cursor: snapshot.docs.slice(-1)[0],
   };
 }

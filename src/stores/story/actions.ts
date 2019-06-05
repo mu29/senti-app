@@ -42,8 +42,8 @@ export async function readStoriesAction() {
     query = query.startAfter(storyState.cursor);
   }
 
-  const snapShot = await query.get();
-  const stories = snapShot.docs.map((doc, index) => {
+  const snapshot = await query.get();
+  const stories = snapshot.docs.map((doc, index) => {
     return Object.assign(doc.data(), {
       id: doc.id,
       index: index + storyState.stories.length,
@@ -52,7 +52,7 @@ export async function readStoriesAction() {
 
   runInAction(() => {
     storyState.stories.push(...stories);
-    storyState.cursor = snapShot.docs.slice(-1)[0];
+    storyState.cursor = snapshot.docs.slice(-1)[0];
     storyState.isLoading = LoadingType.NONE;
   });
 }

@@ -20,8 +20,8 @@ export const readCoversAction = async () => {
 
   coverState.isLoading = LoadingType.LIST;
 
-  const snapShot = await firebase.firestore().collection('extras').doc('covers').get();
-  const covers = snapShot.get('urls') as string[];
+  const snapshot = await firebase.firestore().collection('extras').doc('covers').get();
+  const covers = snapshot.get('urls') as string[];
 
   runInAction(() => {
     coverState.covers = covers;

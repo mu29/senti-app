@@ -28,10 +28,10 @@ export async function readUserInfoAction(user: RNFirebase.User | null) {
     return;
   }
 
-  const snapShot = await firebase.firestore().collection('users').doc(user.uid).get();
+  const snapshot = await firebase.firestore().collection('users').doc(user.uid).get();
 
-  if (snapShot.exists) {
-    authState.user = snapShot.data() as User;
+  if (snapshot.exists) {
+    authState.user = snapshot.data() as User;
   } else {
     createUserInfo();
   }
@@ -115,7 +115,7 @@ async function createUserInfo() {
   }
 
   const userRef = firebase.firestore().collection('users').doc(user.uid);
-  const snapShot = await userRef.get();
+  const snapshot = await userRef.get();
 
   const now = new Date().getTime();
   const userData = {
@@ -127,7 +127,7 @@ async function createUserInfo() {
     createdAt: now,
   };
 
-  if (!snapShot.exists) {
+  if (!snapshot.exists) {
     await userRef.set(userData);
   }
 
