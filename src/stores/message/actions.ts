@@ -7,6 +7,7 @@ import NavigationService from '../../NavigationService';
 export function subscribeMessagesAction(chattingId: string) {
   runInAction(() => {
     messageState.isLoading = LoadingType.LIST;
+    messageState.messages = [];
   });
 
   const observer = firebase.firestore()

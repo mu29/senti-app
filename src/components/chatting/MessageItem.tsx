@@ -10,6 +10,7 @@ import {
   Button,
 } from 'components';
 import { typography, palette } from 'constants/style';
+import { toTimeText } from 'services/utils';
 
 const PLAY_ICON = { uri: 'ic_play_active' };
 
@@ -30,7 +31,7 @@ class MessageItem extends React.PureComponent<MessageItemProps> {
           </View>
           <View style={styles.content}>
             <Text style={[typography.body1, styles.duration]}>
-              0:00 / 0:17
+              0:00 / {toTimeText(message.audio.duration)}
             </Text>
             <Text style={typography.tiny3}>
               {moment(message.createdAt).fromNow()}

@@ -1,17 +1,27 @@
 import React from 'react';
 import {
+  withNavigation,
+  NavigationScreenProps,
+} from 'react-navigation';
+import {
   Header,
   MessageList,
   withSafeArea,
 } from 'components';
 
-const MessageScreen: React.FunctionComponent<{}> = () => (
-  <React.Fragment>
-    <Header canGoBack>
-      정인중
-    </Header>
-    <MessageList />
-  </React.Fragment>
-);
+const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
+  navigation,
+}) => {
+  const chattingId = navigation.getParam('chattingId', '');
 
-export default withSafeArea(MessageScreen);
+  return (
+    <React.Fragment>
+      <Header canGoBack>
+        정인중
+      </Header>
+      <MessageList chattingId={chattingId} />
+    </React.Fragment>
+  );
+};
+
+export default withSafeArea(withNavigation(MessageScreen));

@@ -80,7 +80,7 @@ class ChattingItem extends React.Component<ChattingItemProps & NavigationInjecte
       chatting,
     } = this.props;
 
-    navigation.navigate('Message', { id: chatting.id });
+    navigation.navigate('Message', { chattingId: chatting.id });
   }
 }
 
