@@ -158,9 +158,10 @@ dependencies {
     implementation project(':react-native-gesture-handler')
 
     implementation 'com.google.firebase:firebase-core:16.0.9'
-    implementation 'com.google.firebase:firebase-auth:16.2.1'
-    implementation "com.google.firebase:firebase-firestore:18.2.0"
-    implementation "com.google.firebase:firebase-storage:16.1.0"
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation "com.google.firebase:firebase-firestore:19.0.0"
+    implementation "com.google.firebase:firebase-storage:17.0.0"
+    implementation "com.google.firebase:firebase-functions:17.0.0"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '28.0.0')}"
