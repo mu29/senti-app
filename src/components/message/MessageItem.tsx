@@ -71,19 +71,19 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
           </View>
           <View style={styles.content}>
             <View onLayout={this.onTimeLayout} style={[styles.time, this.timeLayout]}>
-              <Text style={[typography.body1, styles.duration]}>
+              <Text style={[typography.body2, styles.duration]}>
                 {this.isActivated ? toTimeText(current!.duration) : '0:00'}
               </Text>
               <View style={styles.divider}>
-                <Text style={typography.body1}>
+                <Text style={typography.body2}>
                   /
                 </Text>
               </View>
-              <Text style={[typography.body1, styles.duration]}>
+              <Text style={[typography.body2, styles.duration]}>
                 {toTimeText(message.audio.duration)}
               </Text>
             </View>
-            <Text style={[typography.tiny3, styles.duration]}>
+            <Text style={[typography.tiny4, styles.duration]}>
               {moment(message.createdAt).fromNow()}
             </Text>
           </View>
@@ -149,33 +149,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 8,
     marginRight: 4,
-    borderRadius: 32,
+    borderRadius: 16,
     backgroundColor: palette.gray[90],
   },
   iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: palette.gray[80],
   },
   icon: {
-    width: 18,
-    height: 18,
+    width: 14,
+    height: 14,
     marginLeft: 2,
     tintColor: palette.yellow.default,
   },
   content: {
-    marginHorizontal: 6,
+    marginLeft: 4,
   },
   time: {
     flexDirection: 'row',
-    marginBottom: 2,
     justifyContent: 'space-between',
   },
   duration: {
-    marginHorizontal: 6,
+    marginHorizontal: 4,
   },
   divider: {
     position: 'absolute',
@@ -185,10 +184,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dot: {
-    width: 8,
-    height: 8,
-    marginLeft: 4,
-    borderRadius: 4,
+    width: 6,
+    height: 6,
+    marginLeft: 3,
+    borderRadius: 3,
     backgroundColor: palette.yellow.default,
   },
 });
