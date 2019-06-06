@@ -92,7 +92,7 @@ export function replayAudioAction() {
 
   if (audio.isLoaded()) {
     audio.stop(() => {
-      audioState.duration = 0;
+      audioState.current!.duration = 0;
       audio.play();
     });
   }
