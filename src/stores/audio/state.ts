@@ -10,13 +10,11 @@ export class AudioState {
   public isLoading = LoadingType.NONE;
 
   @observable
-  public audio?: Sound;
-
-  @observable
-  public path?: string;
-
-  @observable
-  public duration = 0;
+  public current?: {
+    audio: Sound;
+    path: string;
+    duration: number;
+  };
 
   @observable
   public timer?: NodeJS.Timeout;
@@ -26,8 +24,8 @@ export class AudioState {
     return !this.timer;
   }
 
-  public isPlaying = (path: string) => {
-    return this.path === path;
+  public isActivated = (path: string) => {
+    return this.current && this.current.path === path;
   }
 }
 

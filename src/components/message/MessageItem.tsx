@@ -39,27 +39,34 @@ interface MessageItemProps {
   messageState?: MessageState;
 }
 
+interface MessageItemState {
+  isLoading: boolean;
+}
+
 @inject('authState', 'audioState', 'messageState')
 @observer
-class MessageItem extends React.Component<MessageItemProps> {
+class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
+  public state = {
+    isLoading: false,
+  };
+
   public render() {
-    const {
-      message,
-      audioState,
-    } = this.props;
+    const { message } = this.props;
+    const { current } = this.props.audioState!;
+    const { isLoading } = this.state;
 
     return (
       <View style={[styles.container, this.isMyMessage && styles.myMessage]}>
         <Button onPress={this.toggle} style={styles.message}>
           <View style={styles.iconContainer}>
-            {this.isLoading
+            {isLoading
               ? (<ActivityIndicator color={palette.yellow.default} size="small" />)
               : (<Image source={this.isPlaying ? PAUSE_ICON : PLAY_ICON} style={styles.icon} />)
             }
           </View>
           <View style={styles.content}>
             <Text style={[typography.body1, styles.duration]}>
-              {this.isPlaying ? toTimeText(audioState!.duration) : '0:00'}
+              {this.isActivated ? toTimeText(current!.duration) : '0:00'}
               &nbsp;/&nbsp;
               {toTimeText(message.audio.duration)}
             </Text>
@@ -68,24 +75,22 @@ class MessageItem extends React.Component<MessageItemProps> {
             </Text>
           </View>
         </Button>
-        <View style={styles.dot} />
+        {!this.isMyMessage && (
+          <View style={styles.dot} />
+        )}
       </View>
     );
   }
 
-  private get isLoading() {
+  private get isActivated() {
     const { message } = this.props;
-    const { isPlaying } = this.props.audioState!;
-    const { isLoading } = this.props.messageState!;
+    const { isActivated } = this.props.audioState!;
 
-    return isPlaying(message.audio.url) && isLoading === LoadingType.READ;
+    return isActivated(message.audio.url);
   }
 
   private get isPlaying() {
-    const { message } = this.props;
-    const { isPaused, isPlaying } = this.props.audioState!;
-
-    return !isPaused && isPlaying(message.audio.url);
+    return this.isActivated && !this.props.audioState!.isPaused;
   }
 
   private get isMyMessage() {
@@ -101,7 +106,12 @@ class MessageItem extends React.Component<MessageItemProps> {
     if (this.isPlaying) {
       pauseAudioAction();
     } else {
-      playMessageAction(index);
+      this.setState({
+        isLoading: true,
+      }, async () => {
+        await playMessageAction(index);
+        this.setState({ isLoading: false });
+      });
     }
   }
 }

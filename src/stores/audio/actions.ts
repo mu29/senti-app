@@ -9,24 +9,23 @@ export function playAudioAction(path: string) {
   }
 
   // 동일한 오디오 재생
-  const { audio: currentAudio } = audioState;
-  if (
-    currentAudio
-    && path === audioState.path
-    && currentAudio.isLoaded()
-    && !currentAudio.isPlaying()
-  ) {
-    return new Promise((resolve) => {
-      currentAudio.play(resetAudioAction);
-      setTimer();
-      resolve(true);
-    });
+  if (audioState.current) {
+    const {
+      audio: currentAudio,
+      path: currentPath,
+    } = audioState.current;
+    if (path === currentPath && currentAudio.isLoaded() && !currentAudio.isPlaying()) {
+      return new Promise((resolve) => {
+        currentAudio.play(resetAudioAction);
+        setTimer();
+        resolve(true);
+      });
+    }
   }
 
   runInAction(() => {
     audioState.isLoading = LoadingType.READ;
     stopAudioAction();
-    audioState.path = path;
   });
 
   return new Promise((resolve, reject) => {
@@ -37,8 +36,11 @@ export function playAudioAction(path: string) {
       }
 
       runInAction(() => {
-        audioState.audio = audio;
-        audioState.duration = 0;
+        audioState.current = {
+          audio,
+          path,
+          duration: 0,
+        };
         audioState.isLoading = LoadingType.NONE;
         setTimer();
       });
@@ -52,29 +54,27 @@ export function playAudioAction(path: string) {
 }
 
 export function stopAudioAction() {
-  const { audio } = audioState;
-
-  if (!audio) {
+  if (!audioState.current) {
     return;
   }
+
+  const { audio } = audioState.current;
 
   if (audio.isLoaded() && audio.isPlaying()) {
     audio.stop();
   }
   audio.release();
 
-  audioState.audio = undefined;
-  audioState.path = undefined;
-  audioState.duration = 0;
+  audioState.current = undefined;
   clearTimer();
 }
 
 export function pauseAudioAction() {
-  const { audio } = audioState;
-
-  if (!audio) {
+  if (!audioState.current) {
     return;
   }
+
+  const { audio } = audioState.current;
 
   if (audio.isLoaded() && audio.isPlaying()) {
     audio.pause();
@@ -84,11 +84,11 @@ export function pauseAudioAction() {
 }
 
 export function replayAudioAction() {
-  const { audio } = audioState;
-
-  if (!audio) {
+  if (!audioState.current) {
     return;
   }
+
+  const { audio } = audioState.current;
 
   if (audio.isLoaded()) {
     audio.stop(() => {
@@ -99,15 +99,13 @@ export function replayAudioAction() {
 }
 
 export function resetAudioAction() {
-  const { audio } = audioState;
-
-  if (!audio) {
+  if (!audioState.current) {
     return;
   }
 
-  audio.stop();
+  audioState.current.audio.stop();
   runInAction(() => {
-    audioState.duration = 0;
+    audioState.current!.duration = 0;
     clearTimer();
   });
 }
@@ -115,8 +113,10 @@ export function resetAudioAction() {
 function setTimer() {
   clearTimer();
   audioState.timer = setInterval(() => {
-    audioState.duration += 1000;
-  }, 1000);
+    if (audioState.current) {
+      audioState.current.duration += 500;
+    }
+  }, 500);
 }
 
 function clearTimer() {
