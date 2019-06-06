@@ -22,8 +22,13 @@ export interface MessageListProps {
 @inject('messageState')
 @observer
 class MessageList extends React.Component<MessageListProps> {
+  private listRef = React.createRef<FlatList<Message>>();
+
   public componentDidMount() {
     subscribeMessagesAction(this.props.chattingId);
+    if (this.listRef.current) {
+      this.listRef.current.scrollToEnd();
+    }
   }
 
   public componentWillUnmount() {
@@ -35,6 +40,7 @@ class MessageList extends React.Component<MessageListProps> {
 
     return (
       <FlatList
+        ref={this.listRef}
         data={messages}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}

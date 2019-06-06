@@ -15,6 +15,7 @@ import {
   Button,
 } from 'components';
 import {
+  AuthState,
   AudioState,
   MessageState,
 } from 'stores/states';
@@ -33,11 +34,12 @@ const PAUSE_ICON = { uri: 'ic_play' };
 interface MessageItemProps {
   index: number;
   message: Message;
+  authState?: AuthState;
   audioState?: AudioState;
   messageState?: MessageState;
 }
 
-@inject('audioState', 'messageState')
+@inject('authState', 'audioState', 'messageState')
 @observer
 class MessageItem extends React.Component<MessageItemProps> {
   public render() {
@@ -47,7 +49,7 @@ class MessageItem extends React.Component<MessageItemProps> {
     } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.isMyMessage && styles.myMessage]}>
         <Button onPress={this.toggle} style={styles.message}>
           <View style={styles.iconContainer}>
             {this.isLoading
@@ -86,6 +88,13 @@ class MessageItem extends React.Component<MessageItemProps> {
     return !isPaused && isPlaying(message.audio.url);
   }
 
+  private get isMyMessage() {
+    const { id: messageUserId } = this.props.message.user;
+    const { user } = this.props.authState!;
+
+    return user && user.id === messageUserId;
+  }
+
   private toggle = () => {
     const { index } = this.props;
 
@@ -102,8 +111,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 16,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  myMessage: {
+    justifyContent: 'flex-end',
   },
   message: {
     flexDirection: 'row',
