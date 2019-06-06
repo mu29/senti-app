@@ -4,6 +4,7 @@ import {
   Image,
   ActivityIndicator,
   StyleSheet,
+  LayoutChangeEvent,
 } from 'react-native';
 import {
   inject,
@@ -23,13 +24,12 @@ import {
   playMessageAction,
   pauseAudioAction,
 } from 'stores/actions';
-import { LoadingType } from 'constants/enums';
 import { typography, palette } from 'constants/style';
 import { toTimeText } from 'services/utils';
 
 const PLAY_ICON = { uri: 'ic_play_active' };
 
-const PAUSE_ICON = { uri: 'ic_play' };
+const PAUSE_ICON = { uri: 'ic_pause' };
 
 interface MessageItemProps {
   index: number;
@@ -50,6 +50,11 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
     isLoading: false,
   };
 
+  private timeLayout: {
+    width?: number;
+    height?: number;
+  } = {};
+
   public render() {
     const { message } = this.props;
     const { current } = this.props.audioState!;
@@ -65,12 +70,20 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
             }
           </View>
           <View style={styles.content}>
-            <Text style={[typography.body1, styles.duration]}>
-              {this.isActivated ? toTimeText(current!.duration) : '0:00'}
-              &nbsp;/&nbsp;
-              {toTimeText(message.audio.duration)}
-            </Text>
-            <Text style={typography.tiny3}>
+            <View onLayout={this.onTimeLayout} style={[styles.time, this.timeLayout]}>
+              <Text style={[typography.body1, styles.duration]}>
+                {this.isActivated ? toTimeText(current!.duration) : '0:00'}
+              </Text>
+              <View style={styles.divider}>
+                <Text style={typography.body1}>
+                  /
+                </Text>
+              </View>
+              <Text style={[typography.body1, styles.duration]}>
+                {toTimeText(message.audio.duration)}
+              </Text>
+            </View>
+            <Text style={[typography.tiny3, styles.duration]}>
               {moment(message.createdAt).fromNow()}
             </Text>
           </View>
@@ -98,6 +111,11 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
     const { user } = this.props.authState!;
 
     return user && user.id === messageUserId;
+  }
+
+  private onTimeLayout = ({ nativeEvent }: LayoutChangeEvent) => {
+    const { width, height } = nativeEvent.layout;
+    this.timeLayout = { width, height };
   }
 
   private toggle = () => {
@@ -149,10 +167,22 @@ const styles = StyleSheet.create({
     tintColor: palette.yellow.default,
   },
   content: {
-    marginHorizontal: 12,
+    marginHorizontal: 6,
+  },
+  time: {
+    flexDirection: 'row',
+    marginBottom: 2,
+    justifyContent: 'space-between',
   },
   duration: {
-    marginBottom: 2,
+    marginHorizontal: 6,
+  },
+  divider: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   dot: {
     width: 8,
