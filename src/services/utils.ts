@@ -18,7 +18,7 @@ export const withComma = (target: number) => {
 export const toTimeText = (target: number) => {
   const time = target / 1000;
   const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
+  const seconds = Math.round(time % 60);
 
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };

@@ -150,10 +150,10 @@ export function playStoryAction(index: number) {
         duration,
       };
       storyState.isLoading = LoadingType.NONE;
-
-      audio.setVolume(1);
-      audio.play();
     });
+
+    audio.setVolume(1);
+    audio.play();
   });
 }
 

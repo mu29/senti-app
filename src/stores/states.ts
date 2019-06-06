@@ -1,3 +1,4 @@
+export * from './audio/state';
 export * from './auth/state';
 export * from './chatting/state';
 export * from './cover/state';

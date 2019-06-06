@@ -1,4 +1,5 @@
 export * from './common/actions';
+export * from './audio/actions';
 export * from './auth/actions';
 export * from './chatting/actions';
 export * from './cover/actions';
