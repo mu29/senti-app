@@ -50,18 +50,25 @@ export async function playMessageAction(index: number) {
 
   messageState.isLoading = LoadingType.READ;
 
-  if (!messageState.messages[index].audio.url) {
+  let audioUrl = messageState.messages[index].audio.url;
+
+  if (!audioUrl) {
     const audioId = messageState.messages[index].audio.id;
-    const audioUrl = await getAudioUrl(audioId);
+    audioUrl = await getAudioUrl(audioId);
+
+    if (!audioUrl) {
+      messageState.isLoading = LoadingType.NONE;
+      return;
+    }
 
     messageState.messages[index].audio.url = audioUrl;
   }
 
   if (!messageState.messages[index].readAt) {
-    readMessage(messageState.messages[index]);
+    await readMessage(messageState.messages[index]);
   }
 
-  await playAudioAction(messageState.messages[index].audio.url);
+  await playAudioAction(audioUrl);
 
   messageState.isLoading = LoadingType.NONE;
 }
@@ -152,19 +159,8 @@ async function readMessage(message: Message) {
     return;
   }
 
-  const batch = firebase.firestore().batch();
-  const chattingRef = firebase.firestore().collection('chattings').doc(chattingId);
-  const messageRef = chattingRef.collection('messages').doc(message.id);
-
-  batch.set(chattingRef, {
-    unreadMessageCount: {
-      [user.id]: firebase.firestore.FieldValue.increment(-1),
-    },
-  }, { merge: true });
-
-  batch.set(messageRef, {
-    readAt: new Date().getTime(),
-  }, { merge: true });
-
-  await batch.commit();
+  await firebase.functions().httpsCallable('readMessage')({
+    chattingId,
+    messageId: message.id,
+  });
 }
