@@ -17,6 +17,13 @@ import {
   typography,
 } from 'constants/style';
 
+const HIT_SLOP = {
+  top: 16,
+  left: 16,
+  right: 16,
+  bottom: 16,
+};
+
 const BACK_ICON = { uri: 'ic_back' };
 
 export interface HeaderProps {
@@ -34,7 +41,7 @@ class Header extends React.PureComponent<HeaderProps & NavigationInjectedProps> 
     return (
       <View style={styles.container}>
         {canGoBack && (
-          <Button onPress={this.goBack} round>
+          <Button onPress={this.goBack} hitSlop={HIT_SLOP} round>
             <Image style={styles.icon} source={BACK_ICON} />
           </Button>
         )}

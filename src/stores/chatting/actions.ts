@@ -9,7 +9,6 @@ import {
   uploadAudioAction,
 } from 'stores/actions';
 import { LoadingType } from 'constants/enums';
-import NavigationService from '../../NavigationService';
 
 export function showReplyModalAction() {
   chattingState.isModalVisible = true;
@@ -124,6 +123,10 @@ export async function createChattingAction(path: string, duration: number) {
       [story.user.id]: now,
       [user.id]: now,
     },
+    unreadMessageCount: {
+      [story.user.id]: 1,
+      [user.id]: 0,
+    },
     messageCount: 2,
     createdAt: now,
     updatedAt: now,
@@ -132,6 +135,7 @@ export async function createChattingAction(path: string, duration: number) {
   batch.set(originMesageRef, {
     audio: story.audio,
     user: story.user,
+    readAt: now,
     createdAt: story.createdAt,
   });
 

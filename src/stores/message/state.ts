@@ -8,6 +8,10 @@ export class MessageState {
   @observable
   public messages: Message[] = [];
 
+  public chattingId?: string;
+
+  public partnerId?: string;
+
   public unsubscriber?: () => void;
 }
 

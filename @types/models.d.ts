@@ -38,6 +38,9 @@ interface Chatting {
   userIds: {
     [key: string]: number;
   },
+  unreadMessageCount: {
+    [key: string]: number;
+  },
   messageCount: number;
   createdAt: number;
   updatedAt: number;
@@ -47,6 +50,7 @@ interface Message {
   id: string;
   audio: Audio;
   user: UserEssential;
+  readAt?: number;
   createdAt: number;
 }
 

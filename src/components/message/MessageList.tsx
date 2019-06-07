@@ -16,6 +16,7 @@ import {
 
 export interface MessageListProps {
   chattingId: string;
+  partnerId: string;
   messageState?: MessageState;
 }
 
@@ -25,7 +26,12 @@ class MessageList extends React.Component<MessageListProps> {
   private listRef = React.createRef<FlatList<Message>>();
 
   public componentDidMount() {
-    subscribeMessagesAction(this.props.chattingId);
+    const {
+      chattingId,
+      partnerId,
+    } = this.props;
+
+    subscribeMessagesAction(chattingId, partnerId);
     if (this.listRef.current) {
       this.listRef.current.scrollToEnd();
     }
@@ -60,6 +66,7 @@ class MessageList extends React.Component<MessageListProps> {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingTop: 16,
   },
 });

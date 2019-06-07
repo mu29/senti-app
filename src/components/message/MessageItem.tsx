@@ -88,7 +88,7 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
             </Text>
           </View>
         </Button>
-        {!this.isMyMessage && (
+        {!this.isMyMessage && !message.readAt && (
           <View style={styles.dot} />
         )}
       </View>

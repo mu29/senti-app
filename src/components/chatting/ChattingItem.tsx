@@ -59,7 +59,9 @@ class ChattingItem extends React.Component<ChattingItemProps & NavigationInjecte
               <Text style={styles.messageCount}>
                 이야기 {withComma(messageCount)}개
               </Text>
-              <View style={styles.dot} />
+              {this.unreadMessageCount > 0 && (
+                <View style={styles.dot} />
+              )}
             </View>
           </View>
         </View>
@@ -74,13 +76,31 @@ class ChattingItem extends React.Component<ChattingItemProps & NavigationInjecte
     return this.props.chatting.users[partnerId];
   }
 
+  private get unreadMessageCount() {
+    const {
+      chatting: {
+        unreadMessageCount,
+      },
+      authState,
+    } = this.props;
+
+    if (!authState!.user) {
+      return 0;
+    }
+
+    return unreadMessageCount[authState!.user.id] || 0;
+  }
+
   private openMessageScreen = () => {
     const {
       navigation,
       chatting,
     } = this.props;
 
-    navigation.navigate('Message', { chattingId: chatting.id });
+    navigation.navigate('Message', {
+      chattingId: chatting.id,
+      partnerId: this.partner.id,
+    });
   }
 }
 

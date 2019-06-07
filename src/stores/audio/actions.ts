@@ -65,8 +65,10 @@ export function stopAudioAction() {
   }
   audio.release();
 
-  audioState.current = undefined;
-  clearTimer();
+  runInAction(() => {
+    audioState.current = undefined;
+    clearTimer();
+  });
 }
 
 export function pauseAudioAction() {
