@@ -33,7 +33,6 @@ const PAUSE_ICON = { uri: 'ic_pause' };
 
 interface MessageItemProps {
   index: number;
-  message: Message;
   authState?: AuthState;
   audioState?: AudioState;
   messageState?: MessageState;
@@ -56,7 +55,6 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
   } = {};
 
   public render() {
-    const { message } = this.props;
     const { current } = this.props.audioState!;
     const { isLoading } = this.state;
 
@@ -80,26 +78,34 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
                 </Text>
               </View>
               <Text style={[typography.body2, styles.duration]}>
-                {toTimeText(message.audio.duration)}
+                {toTimeText(this.message.audio.duration)}
               </Text>
             </View>
             <Text style={[typography.tiny4, styles.duration]}>
-              {moment(message.createdAt).fromNow()}
+              {moment(this.message.createdAt).fromNow()}
             </Text>
           </View>
         </Button>
-        {!this.isMyMessage && !message.readAt && (
+        {!this.isMyMessage && !this.message.readAt && (
           <View style={styles.dot} />
         )}
       </View>
     );
   }
 
+  private get message() {
+    const {
+      index,
+      messageState,
+    } = this.props;
+
+    return messageState!.messages[index];
+  }
+
   private get isActivated() {
-    const { message } = this.props;
     const { isActivated } = this.props.audioState!;
 
-    return isActivated(message.audio.url);
+    return isActivated(this.message.audio.url);
   }
 
   private get isPlaying() {
@@ -107,7 +113,7 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
   }
 
   private get isMyMessage() {
-    const { id: messageUserId } = this.props.message.user;
+    const { id: messageUserId } = this.message.user;
     const { user } = this.props.authState!;
 
     return user && user.id === messageUserId;

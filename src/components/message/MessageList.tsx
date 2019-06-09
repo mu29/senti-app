@@ -57,8 +57,8 @@ class MessageList extends React.Component<MessageListProps> {
     );
   }
 
-  private renderItem = ({ item, index }: { item: Message; index: number }) => (
-    <MessageItem index={index} message={item} />
+  private renderItem = ({ index }: { index: number }) => (
+    <MessageItem index={index} />
   )
 
   private keyExtractor = (item: Message) => `message-${item.id}`;
