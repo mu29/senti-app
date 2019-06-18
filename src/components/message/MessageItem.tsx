@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   LayoutChangeEvent,
+  Alert,
 } from 'react-native';
 import {
   inject,
@@ -121,15 +122,15 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
 
   private toggle = () => {
     const { messageId } = this.props;
-
     if (this.audio.isPlaying) {
       pauseAudioAction();
     } else {
       this.setState({
         isLoading: true,
-      }, async () => {
-        await playMessageAction(messageId);
-        this.setState({ isLoading: false });
+      }, () => {
+        playMessageAction(messageId)
+          .catch(error => Alert.alert('알림', error.message))
+          .finally(() => this.setState({ isLoading: false }));
       });
     }
   }

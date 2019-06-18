@@ -8,6 +8,7 @@ import {
 import {
   playAudioAction,
   uploadAudioAction,
+  resetRecordAction,
 } from 'stores/actions';
 import { LoadingType } from 'constants/enums';
 import NavigationService from '../../NavigationService';
@@ -59,14 +60,11 @@ export async function playMessageAction(messageId: string) {
   const message = messageState.messages[messageId];
 
   if (!message.audio.url) {
-    const audioUrl = await getAudioUrl(message.audio.id);
-
-    if (!audioUrl) {
+    try {
+      message.audio.url = await getAudioUrl(message.audio.id);
+    } finally {
       messageState.isLoading = LoadingType.NONE;
-      return;
     }
-
-    message.audio.url = audioUrl;
   }
 
   if (!message.readAt) {
@@ -138,6 +136,8 @@ export async function createMessageAction(path: string, duration: number) {
   await batch.commit();
 
   messageState.isLoading = LoadingType.NONE;
+
+  resetRecordAction();
 }
 
 async function getAudioUrl(audioId: string) {
