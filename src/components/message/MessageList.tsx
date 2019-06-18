@@ -23,7 +23,7 @@ export interface MessageListProps {
 @inject('messageState')
 @observer
 class MessageList extends React.Component<MessageListProps> {
-  private listRef = React.createRef<FlatList<Message>>();
+  private listRef = React.createRef<FlatList<string>>();
 
   public componentDidMount() {
     const {
@@ -42,12 +42,12 @@ class MessageList extends React.Component<MessageListProps> {
   }
 
   public render() {
-    const { messages } = this.props.messageState!;
+    const { messageIds } = this.props.messageState!;
 
     return (
       <FlatList
         ref={this.listRef}
-        data={messages}
+        data={messageIds}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
         contentContainerStyle={styles.container}
@@ -57,11 +57,11 @@ class MessageList extends React.Component<MessageListProps> {
     );
   }
 
-  private renderItem = ({ index }: { index: number }) => (
-    <MessageItem index={index} />
+  private renderItem = ({ item }: { item: string }) => (
+    <MessageItem messageId={item} />
   )
 
-  private keyExtractor = (item: Message) => `message-${item.id}`;
+  private keyExtractor = (item: string) => `message-${item}`;
 }
 
 const styles = StyleSheet.create({

@@ -1,62 +1,74 @@
-interface UserEssential {
-  id: string;
-  name: string | null;
-  photoUrl: string | null;
-}
+import Sound from 'react-native-sound';
+import { LoadingType } from 'constants/enums';
 
-interface User extends UserEssential {
-  email?: string;
-  lastSignInAt: number;
-  createdAt: number;
-}
+declare global {
+  interface UserEssential {
+    id: string;
+    name: string | null;
+    photoUrl: string | null;
+  }
 
-interface Audio {
-  id: string;
-  url: string;
-  duration: number;
-}
+  interface User extends UserEssential {
+    email?: string;
+    lastSignInAt: number;
+    createdAt: number;
+  }
 
-interface Story {
-  id: string;
-  index: number;
-  cover: string;
-  description: string;
-  tags: {
-    [key: string]: boolean;
-  };
-  audio: Audio;
-  user: UserEssential;
-  createdAt: number;
-  updatedAt: number;
-}
+  interface Audio {
+    id: string;
+    url: string;
+    duration: number;
+  }
 
-interface Chatting {
-  id: string;
-  users: {
-    [key: string]: UserEssential;
-  };
-  userIds: {
-    [key: string]: number;
-  },
-  unreadMessageCount: {
-    [key: string]: number;
-  },
-  messageCount: number;
-  createdAt: number;
-  updatedAt: number;
-}
+  interface PlayableAudio extends Audio {
+    sound?: Sound;
+    currentTime: number;
+    isActivated: boolean;
+    isPlaying: boolean;
+  }
 
-interface Message {
-  id: string;
-  audio: Audio;
-  user: UserEssential;
-  readAt?: number;
-  createdAt: number;
-}
+  interface Story {
+    id: string;
+    index: number;
+    cover: string;
+    description: string;
+    tags: {
+      [key: string]: boolean;
+    };
+    audio: Audio;
+    user: UserEssential;
+    createdAt: number;
+    updatedAt: number;
+  }
 
-interface Tag {
-  id: number;
-  name: string;
-  count: number;
-  isSubscribed: boolean;
+  interface Chatting {
+    id: string;
+    users: {
+      [key: string]: UserEssential;
+    };
+    userIds: {
+      [key: string]: number;
+    },
+    unreadMessageCount: {
+      [key: string]: number;
+    },
+    messageCount: number;
+    createdAt: number;
+    updatedAt: number;
+  }
+
+  interface Message {
+    id: string;
+    audio: Audio;
+    user: UserEssential;
+    readAt?: number;
+    createdAt: number;
+  }
+
+  interface Tag {
+    id: number;
+    name: string;
+    count: number;
+    isSubscribed: boolean;
+  }
 }

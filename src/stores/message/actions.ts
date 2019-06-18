@@ -1,4 +1,5 @@
 import { runInAction } from 'mobx';
+import mergeWith from 'lodash/mergeWith';
 import firebase from 'react-native-firebase';
 import {
   authState,
@@ -14,7 +15,7 @@ import NavigationService from '../../NavigationService';
 export function subscribeMessagesAction(chattingId: string, partnerId: string) {
   runInAction(() => {
     messageState.isLoading = LoadingType.LIST;
-    messageState.messages = [];
+    messageState.messageIds = [];
   });
 
   const observer = firebase.firestore()
@@ -23,7 +24,13 @@ export function subscribeMessagesAction(chattingId: string, partnerId: string) {
     .orderBy('createdAt')
     .onSnapshot(snapshot => {
       runInAction(() => {
-        messageState.messages = snapshot.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Message);
+        const messages = snapshot.docs
+          .map(doc => Object.assign(doc.data(), { id: doc.id }) as Message)
+          .reduce((result, message) => Object.assign(result, { [message.id]: message }), {});
+
+        mergeWith(messageState.messages, messages);
+        messageState.messageIds = Object.keys(messages);
+
         if (messageState.isLoading !== LoadingType.NONE) {
           messageState.isLoading = LoadingType.NONE;
         }
@@ -43,32 +50,31 @@ export function unsubscribeMessagesAction() {
   }
 }
 
-export async function playMessageAction(index: number) {
+export async function playMessageAction(messageId: string) {
   if (messageState.isLoading !== LoadingType.NONE) {
     return;
   }
 
   messageState.isLoading = LoadingType.READ;
 
-  let audioUrl = messageState.messages[index].audio.url;
+  const message = messageState.messages[messageId];
 
-  if (!audioUrl) {
-    const audioId = messageState.messages[index].audio.id;
-    audioUrl = await getAudioUrl(audioId);
+  if (!message.audio.url) {
+    const audioUrl = await getAudioUrl(message.audio.id);
 
     if (!audioUrl) {
       messageState.isLoading = LoadingType.NONE;
       return;
     }
 
-    messageState.messages[index].audio.url = audioUrl;
+    message.audio.url = audioUrl;
   }
 
-  if (!messageState.messages[index].readAt) {
-    await readMessage(messageState.messages[index]);
+  if (!message.readAt) {
+    await readMessage(message);
   }
 
-  await playAudioAction(audioUrl);
+  await playAudioAction(message.audio);
 
   messageState.isLoading = LoadingType.NONE;
 }

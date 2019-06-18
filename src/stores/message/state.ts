@@ -6,7 +6,10 @@ export class MessageState {
   public isLoading = LoadingType.NONE;
 
   @observable
-  public messages: Message[] = [];
+  public messageIds: string[] = [];
+
+  @observable
+  public messages: { [key: string]: Message } = {};
 
   public chattingId?: string;
 

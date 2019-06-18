@@ -1,8 +1,4 @@
-import {
-  observable,
-  computed,
-} from 'mobx';
-import Sound from 'react-native-sound';
+import { observable } from 'mobx';
 import { LoadingType } from 'constants/enums';
 
 export class AudioState {
@@ -10,23 +6,11 @@ export class AudioState {
   public isLoading = LoadingType.NONE;
 
   @observable
-  public current?: {
-    audio: Sound;
-    path: string;
-    duration: number;
-  };
+  public audios: { [key: string]: PlayableAudio } = {};
 
-  @observable
+  public current?: string = undefined;
+
   public timer?: NodeJS.Timeout;
-
-  @computed
-  public get isPaused() {
-    return !this.timer;
-  }
-
-  public isActivated = (path: string) => {
-    return this.current && this.current.path === path;
-  }
 }
 
 export const audioState = new AudioState();
