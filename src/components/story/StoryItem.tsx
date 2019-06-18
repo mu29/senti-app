@@ -20,12 +20,16 @@ import {
   Text,
   StoryController,
 } from 'components';
-import { StoryState } from 'stores/states';
 import {
-  pauseStoryAction,
-  playStoryAction,
+  AudioState,
+  StoryState,
+} from 'stores/states';
+import {
+  pauseAudioAction,
+  playAudioAction,
 } from 'stores/actions';
 import { palette } from 'constants/style';
+import { LoadingType } from 'constants/enums';
 
 const {
   width: deviceWidth,
@@ -35,13 +39,14 @@ const {
 const PLAY_ICON = { uri: 'ic_play_active' };
 
 interface StoryItemProps {
-  story: Story;
+  storyId: string;
   index: number;
   animatedValue: Animated.Value;
+  audioState?: AudioState;
   storyState?: StoryState;
 }
 
-@inject('storyState')
+@inject('audioState', 'storyState')
 @observer
 class StoryItem extends React.Component<StoryItemProps> {
   private pauseAnimation = new Animated.Value(0);
@@ -52,13 +57,8 @@ class StoryItem extends React.Component<StoryItemProps> {
 
   public componentDidMount() {
     this.animationReactionDisposer = autorun(() => {
-      const {
-        index,
-        storyState,
-      } = this.props;
-
       Animated.timing(this.pauseAnimation, {
-        toValue: Number(storyState!.paused === index),
+        toValue: Number(!this.audio.isPlaying && this.props.audioState!.isLoading === LoadingType.NONE),
         duration: 200,
         useNativeDriver: true,
       }).start();
@@ -72,20 +72,17 @@ class StoryItem extends React.Component<StoryItemProps> {
   }
 
   public render() {
-    const {
-      index,
-      story,
-    } = this.props;
-
-    if (!story) {
+    if (!this.story) {
       return null;
     }
+
+    const { index } = this.props;
 
     return (
       <View style={styles.container}>
         <Animated.View style={this.getParallaxStyles(index)}>
           <Image
-            source={{ uri: story.cover }}
+            source={{ uri: this.story.cover }}
             style={styles.background}
           />
         </Animated.View>
@@ -97,13 +94,13 @@ class StoryItem extends React.Component<StoryItemProps> {
               style={styles.button}
             >
               <Text style={styles.description}>
-                {story.description.replace(/#[^ ]+/g, '').trim()}
+                {this.story.description.replace(/#[^ ]+/g, '').trim()}
               </Text>
               <View style={styles.tags}>
-                {Object.keys(story.tags).map(tag => `#${tag}`).reverse().map(this.renderTag)}
+                {Object.keys(this.story.tags).map(tag => `#${tag}`).reverse().map(this.renderTag)}
               </View>
             </TouchableOpacity>
-            <StoryController story={story} />
+            <StoryController story={this.story} />
             <Animated.View pointerEvents="none" style={[styles.iconContainer, this.iconStyle]}>
               <Image
                 source={PLAY_ICON}
@@ -116,6 +113,21 @@ class StoryItem extends React.Component<StoryItemProps> {
     );
   }
 
+  private get story() {
+    const {
+      storyId,
+      storyState,
+    } = this.props;
+
+    return storyState!.stories[storyId] || {};
+  }
+
+  private get audio() {
+    const { audioState } = this.props;
+
+    return audioState!.audios[this.story.audio.id] || {};
+  }
+
   private renderTag = (tag: string, index: number) => (
     <Text key={`${tag}-${index}`} style={styles.tag}>
       {tag}
@@ -123,15 +135,10 @@ class StoryItem extends React.Component<StoryItemProps> {
   )
 
   private toggle = () => {
-    const {
-      index,
-      storyState,
-    } = this.props;
-
-    if (storyState!.paused === undefined) {
-      pauseStoryAction();
+    if (this.audio.isPlaying) {
+      pauseAudioAction();
     } else {
-      playStoryAction(index);
+      playAudioAction(this.audio);
     }
   }
 

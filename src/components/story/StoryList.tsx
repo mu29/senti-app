@@ -13,8 +13,8 @@ import { StoryItem } from 'components';
 import { StoryState } from 'stores/states';
 import {
   readStoriesAction,
-  playStoryAction,
-  pauseStoryAction,
+  playAudioAction,
+  pauseAudioAction,
   setCurrentStoryAction,
 } from 'stores/actions';
 import { palette } from 'constants/style';
@@ -37,20 +37,22 @@ interface StoryListProps {
 class StoryList extends React.Component<StoryListProps> {
   private swiperAnimation = new Animated.Value(0);
 
-  private previousItem?: Story;
+  private previousItem?: string;
 
   public componentDidMount() {
     readStoriesAction();
   }
 
   public componentWillUnmount() {
-    pauseStoryAction();
+    pauseAudioAction();
   }
 
   public render() {
+    const { storyIds } = this.props.storyState!;
+
     return (
       <AnimatedFlatList
-        data={this.props.storyState!.stories.slice()}
+        data={storyIds.slice()}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
         onEndReached={readStoriesAction}
@@ -71,18 +73,19 @@ class StoryList extends React.Component<StoryListProps> {
     );
   }
 
-  private renderItem = ({ item, index }: { item: Story; index: number }) => (
-    <StoryItem story={item} index={index} animatedValue={this.swiperAnimation} />
+  private renderItem = ({ item, index }: { item: string; index: number }) => (
+    <StoryItem storyId={item} index={index} animatedValue={this.swiperAnimation} />
   )
 
-  private keyExtractor = (item: Story) => item.id;
+  private keyExtractor = (item: string) => item;
 
-  private onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ item: Story }> }) => {
+  private onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ item: string }> }) => {
     if (viewableItems.length > 0) {
-      const currentItem = { ...viewableItems[0].item };
-      if (!this.previousItem || this.previousItem.id !== currentItem.id) {
-        setCurrentStoryAction(currentItem);
-        playStoryAction(currentItem.index);
+      const currentItem = viewableItems[0].item;
+      if (this.previousItem !== currentItem) {
+        const story = this.props.storyState!.stories[currentItem];
+        setCurrentStoryAction(story);
+        playAudioAction(story.audio);
         this.previousItem = currentItem;
       }
     }

@@ -1,6 +1,5 @@
 import { observable } from 'mobx';
 import { DocumentSnapshot } from 'react-native-firebase/firestore';
-import Sound from 'react-native-sound';
 import { LoadingType } from 'constants/enums';
 
 export class StoryState {
@@ -11,21 +10,13 @@ export class StoryState {
   public description = '';
 
   @observable
-  public current?: {
-    index: number;
-    audio: Sound;
-    path: string;
-    duration: number;
-  };
-
-  @observable
-  public paused?: number;
-
-  @observable
   public isLoading = LoadingType.NONE;
 
   @observable
-  public stories: Story[] = [];
+  public storyIds: string[] = [];
+
+  @observable
+  public stories: { [key: string]: Story } = {};
 
   public cursor?: DocumentSnapshot;
 }

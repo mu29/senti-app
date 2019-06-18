@@ -13,10 +13,10 @@ import {
   StoryState,
 } from 'stores/states';
 import {
-  replayStoryAction,
+  replayAudioAction,
   showAuthModalAction,
   showReplyModalAction,
-  pauseStoryAction,
+  pauseAudioAction,
 } from 'stores/actions';
 import {
   palette,
@@ -56,7 +56,7 @@ class StoryController extends React.Component<StoryControllerProps> {
         <TouchableOpacity
           activeOpacity={0.6}
           hitSlop={HIT_SLOP}
-          onPress={replayStoryAction}
+          onPress={replayAudioAction}
         >
           <Image source={{ uri: 'ic_replay' }} style={styles.icon} />
         </TouchableOpacity>
@@ -79,7 +79,7 @@ class StoryController extends React.Component<StoryControllerProps> {
       return;
     }
 
-    pauseStoryAction();
+    pauseAudioAction();
     showReplyModalAction();
   }
 }

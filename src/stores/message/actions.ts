@@ -23,14 +23,13 @@ export function subscribeMessagesAction(chattingId: string, partnerId: string) {
     .collection('messages')
     .orderBy('createdAt')
     .onSnapshot(snapshot => {
+      const messages = snapshot.docs
+        .map(doc => Object.assign(doc.data(), { id: doc.id }) as Message)
+        .reduce((result, message) => Object.assign(result, { [message.id]: message }), {});
+
       runInAction(() => {
-        const messages = snapshot.docs
-          .map(doc => Object.assign(doc.data(), { id: doc.id }) as Message)
-          .reduce((result, message) => Object.assign(result, { [message.id]: message }), {});
-
         mergeWith(messageState.messages, messages);
-        messageState.messageIds = Object.keys(messages);
-
+        messageState.messageIds = snapshot.docs.map(doc => doc.id !== null ? doc.id : '').filter(Boolean);
         if (messageState.isLoading !== LoadingType.NONE) {
           messageState.isLoading = LoadingType.NONE;
         }
