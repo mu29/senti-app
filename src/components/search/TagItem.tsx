@@ -26,7 +26,7 @@ export interface TagItemProps {
 const TagItem: React.FunctionComponent<TagItemProps> = ({
   tag: {
     name,
-    count,
+    storyCount,
     isSubscribed,
   },
 }) => (
@@ -40,7 +40,7 @@ const TagItem: React.FunctionComponent<TagItemProps> = ({
           {name}
         </Text>
         <Text style={styles.count}>
-          이야기 {withComma(count)}개
+          이야기 {withComma(storyCount)}개
         </Text>
       </View>
       <TouchableOpacity
