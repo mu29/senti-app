@@ -97,6 +97,7 @@ export async function signInWithFacebookAction() {
 
 export async function signOutAction() {
   authState.isLoading = LoadingType.DESTROY;
+  NavigationService.reset('MainStack');
   await firebase.auth().signOut();
   authState.isLoading = LoadingType.NONE;
 }

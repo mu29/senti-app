@@ -11,6 +11,7 @@ import {
   observer,
 } from 'mobx-react/native';
 import { Text } from 'components';
+import { signOutAction } from 'stores/actions';
 import { AuthState } from 'stores/states';
 import {
   palette,
@@ -54,6 +55,7 @@ class UserInfo extends React.Component<UserInfoProps> {
         </View>
         <TouchableOpacity
           activeOpacity={0.8}
+          onPress={signOutAction}
           hitSlop={BUTTON_HITSLOP}
           style={styles.button}
         >
