@@ -115,8 +115,11 @@ export function replayAudioAction() {
 
   if (audio.sound.isLoaded()) {
     audio.sound.stop(() => {
-      Object.assign(audio, { currentTime: 0 });
-      audio.sound!.play();
+      Object.assign(audio, {
+        currentTime: 0,
+        isPlaying: true,
+      });
+      audio.sound!.play(resetAudioAction);
     });
   }
 }
