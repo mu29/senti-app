@@ -97,7 +97,7 @@ class StoryItem extends React.Component<StoryItemProps> {
                 {this.story.description.replace(/#[^ ]+/g, '').trim()}
               </Text>
               <View style={styles.tags}>
-                {Object.keys(this.story.tags).map(tag => `#${tag}`).reverse().map(this.renderTag)}
+                {(this.story.tagNames || []).map(tag => `#${tag}`).map(this.renderTag)}
               </View>
             </TouchableOpacity>
             <StoryController story={this.story} />

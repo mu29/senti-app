@@ -33,8 +33,9 @@ declare global {
     cover: string;
     description: string;
     tags: {
-      [key: string]: boolean;
+      [key: string]: number;
     };
+    tagNames: [string];
     audio: Audio;
     user: UserEssential;
     createdAt: number;
