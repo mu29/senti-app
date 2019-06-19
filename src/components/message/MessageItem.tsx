@@ -4,7 +4,6 @@ import {
   Image,
   ActivityIndicator,
   StyleSheet,
-  LayoutChangeEvent,
   Alert,
 } from 'react-native';
 import {
@@ -50,11 +49,6 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
     isLoading: false,
   };
 
-  private timeLayout: {
-    width?: number;
-    height?: number;
-  } = {};
-
   public render() {
     const { isLoading } = this.state;
 
@@ -68,20 +62,18 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
             }
           </View>
           <View style={styles.content}>
-            <View onLayout={this.onTimeLayout} style={[styles.time, this.timeLayout]}>
-              <Text style={[typography.body2, styles.duration]}>
+            <View style={styles.time}>
+              <Text style={typography.body2}>
                 {this.audio.isActivated ? toTimeText(this.audio.currentTime) : '0:00'}
               </Text>
-              <View style={styles.divider}>
-                <Text style={typography.body2}>
-                  /
-                </Text>
-              </View>
-              <Text style={[typography.body2, styles.duration]}>
+              <Text style={typography.body2}>
+                /
+              </Text>
+              <Text style={typography.body2}>
                 {toTimeText(this.message.audio.duration)}
               </Text>
             </View>
-            <Text style={[typography.tiny4, styles.duration]}>
+            <Text style={typography.tiny4}>
               {moment(this.message.createdAt).fromNow()}
             </Text>
           </View>
@@ -115,11 +107,6 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
     return user && user.id === messageUserId;
   }
 
-  private onTimeLayout = ({ nativeEvent }: LayoutChangeEvent) => {
-    const { width, height } = nativeEvent.layout;
-    this.timeLayout = { width, height };
-  }
-
   private toggle = () => {
     const { messageId } = this.props;
     if (this.audio.isPlaying) {
@@ -138,8 +125,8 @@ class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
 
 const styles = StyleSheet.create({
   container: {
+    marginVertical: 8,
     marginHorizontal: 16,
-    marginBottom: 16,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -169,21 +156,13 @@ const styles = StyleSheet.create({
     tintColor: palette.yellow.default,
   },
   content: {
-    marginLeft: 4,
+    marginLeft: 8,
+    marginRight: 4,
   },
   time: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  duration: {
-    marginHorizontal: 4,
-  },
-  divider: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 80,
   },
   dot: {
     width: 6,
