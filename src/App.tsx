@@ -17,11 +17,21 @@ Sound.setActive(true);
 
 moment.locale('ko');
 
-export default class App extends React.Component {
+interface AppState {
+  isLoaded: boolean;
+}
+
+export default class App extends React.Component<{} , AppState> {
+  public state = {
+    isLoaded: false,
+  };
+
   private authStateUnsubscriber?: () => void;
 
   public componentDidMount() {
-    this.authStateUnsubscriber = firebase.auth().onAuthStateChanged(readUserInfoAction);
+    this.authStateUnsubscriber = firebase.auth().onAuthStateChanged((user) => {
+      readUserInfoAction(user).then(() => this.setState({ isLoaded: true }));
+    });
     readCoversAction();
   }
 
@@ -32,6 +42,10 @@ export default class App extends React.Component {
   }
 
   public render() {
+    if (!this.state.isLoaded) {
+      return null;
+    }
+
     return (
       <React.Fragment>
         <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
