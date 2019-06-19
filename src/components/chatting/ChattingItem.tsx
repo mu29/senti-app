@@ -100,6 +100,7 @@ class ChattingItem extends React.Component<ChattingItemProps & NavigationInjecte
     navigation.navigate('Message', {
       chattingId: chatting.id,
       partnerId: this.partner.id,
+      partnerName: this.partner.name,
     });
   }
 }

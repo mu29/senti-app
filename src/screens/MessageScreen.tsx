@@ -17,12 +17,13 @@ const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
 }) => {
   const chattingId = navigation.getParam('chattingId', '');
   const partnerId = navigation.getParam('partnerId', '');
+  const partnerName = navigation.getParam('partnerName', '');
 
   return (
     <React.Fragment>
       <NavigationEvents onWillBlur={stopAudioAction} />
       <Header canGoBack>
-        정인중
+        {partnerName}
       </Header>
       <MessageList chattingId={chattingId} partnerId={partnerId} />
       <MessageReply />
@@ -30,4 +31,9 @@ const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
   );
 };
 
-export default withSafeArea(withNavigation(MessageScreen));
+export default withSafeArea(withNavigation(MessageScreen), {
+  forceInset: {
+    top: 'always',
+    bottom: 'never',
+  },
+});
