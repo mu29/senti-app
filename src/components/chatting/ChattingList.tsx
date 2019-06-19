@@ -9,6 +9,7 @@ import {
   observer,
 } from 'mobx-react/native';
 import {
+  LoadingIndicator,
   ChattingItem,
   ChattingEmptyList,
 } from 'components';
@@ -54,6 +55,7 @@ class ChattingList extends React.Component<ChattingListProps> {
             onRefresh={refreshChattingsAction}
           />
         )}
+        ListFooterComponent={isLoading === LoadingType.LIST ? <LoadingIndicator /> : null}
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}

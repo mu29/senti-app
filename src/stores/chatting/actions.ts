@@ -32,9 +32,7 @@ export async function refreshChattingsAction(showRefreshing: boolean = true) {
   }
 
   chattingState.cursor = undefined;
-  if (showRefreshing) {
-    chattingState.isLoading = LoadingType.REFRESH;
-  }
+  chattingState.isLoading = showRefreshing ? LoadingType.REFRESH : LoadingType.LIST;
 
   const {
     chattings,

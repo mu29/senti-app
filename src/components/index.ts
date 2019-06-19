@@ -6,6 +6,7 @@ export { default as SocialProviderButton } from './auth/SocialProviderButton';
 export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as Header } from './common/Header';
 export { default as AuthModal } from './common/AuthModal';
+export { default as LoadingIndicator } from './common/LoadingIndicator';
 export { default as LoadingView } from './common/LoadingView';
 export { default as withSafeArea } from './common/withSafeArea';
 
@@ -32,4 +33,4 @@ export { default as StoryList } from './story/StoryList';
 
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
-export { default as TagList } from './search/TagList';
+export { default as PopularTagList } from './search/PopularTagList';
