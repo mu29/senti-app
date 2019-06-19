@@ -86,7 +86,6 @@ export async function createStoryAction(path: string, duration: number) {
   batch.set(storyRef, {
     cover,
     description: storyState.description,
-    tags: getTags(storyState.description).reduce((o, tag) => Object.assign(o, { [tag]: now }), {}),
     audio: {
       id: audioRef.id,
       url: audio.url,
@@ -105,10 +104,4 @@ export async function createStoryAction(path: string, duration: number) {
 
   storyState.isLoading = LoadingType.NONE;
   NavigationService.goBack();
-}
-
-function getTags(description: string) {
-  return description.split(/\s/)
-    .filter(candidate => candidate.startsWith('#'))
-    .map(tag => tag.replace('#', ''));
 }
