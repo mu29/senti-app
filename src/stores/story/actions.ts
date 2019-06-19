@@ -44,7 +44,7 @@ export async function readStoriesAction() {
 
   const snapshot = await query.get();
   const stories = snapshot.docs
-    .map((doc) => Object.assign(doc.data(), { id: doc.id }) as Story)
+    .map(doc => Object.assign(doc.data(), { id: doc.id }) as Story)
     .reduce((result, story) => Object.assign(result, { [story.id]: story }), {});
 
   runInAction(() => {

@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   container: {
-    paddingTop: 56,
+    paddingTop: 48,
     paddingBottom: 24,
     backgroundColor: palette.black.default,
     borderTopLeftRadius: 16,

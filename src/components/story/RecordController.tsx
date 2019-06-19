@@ -240,7 +240,6 @@ const styles = StyleSheet.create({
   },
   hint: {
     marginTop: 32,
-    marginBottom: 16,
     color: palette.white.default,
   },
   recordContainer: {
