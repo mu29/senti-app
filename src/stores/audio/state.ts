@@ -10,6 +10,8 @@ export class AudioState {
 
   public current?: string = undefined;
 
+  public candidate?: string = undefined;
+
   public timer?: NodeJS.Timeout;
 }
 

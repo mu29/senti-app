@@ -25,14 +25,18 @@ export function playAudioAction(data: Audio) {
 
   runInAction(() => {
     audioState.isLoading = LoadingType.READ;
+    audioState.candidate = data.id;
     stopAudioAction();
   });
 
   return new Promise((resolve, reject) => {
     const sound = new Sound(data.url, '', (error) => {
       if (error) {
-        reject(error);
-        return;
+        return reject(error);
+      }
+
+      if (audioState.candidate !== data.id) {
+        return resolve(false);
       }
 
       runInAction(() => {
@@ -53,7 +57,7 @@ export function playAudioAction(data: Audio) {
       sound.setVolume(1);
       sound.play(resetAudioAction);
 
-      resolve(true);
+      return resolve(true);
     });
   });
 }
