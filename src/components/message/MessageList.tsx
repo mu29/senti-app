@@ -14,6 +14,8 @@ import {
   unsubscribeMessagesAction,
 } from 'stores/actions';
 
+const MESSAGE_ITEM_HEIGHT = 72;
+
 export interface MessageListProps {
   chattingId: string;
   partnerId: string;
@@ -32,9 +34,6 @@ class MessageList extends React.Component<MessageListProps> {
     } = this.props;
 
     subscribeMessagesAction(chattingId, partnerId);
-    if (this.listRef.current) {
-      this.listRef.current.scrollToEnd();
-    }
   }
 
   public componentWillUnmount() {
@@ -50,6 +49,8 @@ class MessageList extends React.Component<MessageListProps> {
         data={messageIds}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
+        getItemLayout={this.getItemLayout}
+        onContentSizeChange={this.scrollToEnd}
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
@@ -62,12 +63,30 @@ class MessageList extends React.Component<MessageListProps> {
   )
 
   private keyExtractor = (item: string) => `message-${item}`;
+
+  private getItemLayout = (_: any, index: number) => ({
+    length: MESSAGE_ITEM_HEIGHT,
+    offset: (MESSAGE_ITEM_HEIGHT * index),
+    index,
+  })
+
+  private scrollToEnd = () => {
+    const { messageIds } = this.props.messageState!;
+
+    if (this.listRef.current && messageIds.length > 0) {
+      this.listRef.current.scrollToIndex({
+        index: messageIds.length - 1,
+        viewPosition: 1,
+        viewOffset: -16,
+        animated: false,
+      });
+    }
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 16,
+    paddingVertical: 8,
   },
 });
 
