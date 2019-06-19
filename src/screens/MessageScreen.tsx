@@ -26,6 +26,10 @@ interface MessageScreenProps {
 @inject('messageState')
 @observer
 class MessageScreen extends React.Component<MessageScreenProps & NavigationScreenProps> {
+  public componentWillUnmount() {
+    stopAudioAction();
+  }
+
   public render() {
     const {
       navigation,

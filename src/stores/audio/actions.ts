@@ -76,6 +76,7 @@ export function stopAudioAction() {
 
   clearTimer();
   Object.assign(audio, {
+    currentTime: 0,
     isActivated: false,
     isPlaying: false,
   });
