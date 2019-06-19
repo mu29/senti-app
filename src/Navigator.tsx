@@ -98,6 +98,9 @@ const MainStackNavigator = createStackNavigator({
 }, {
   headerMode: 'none',
   initialRouteName: 'MainTab',
+  cardStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
 });
 
 const ModalNavigator = createStackNavigator({
@@ -112,6 +115,9 @@ const ModalNavigator = createStackNavigator({
   headerMode: 'none',
   mode: 'modal',
   initialRouteName: 'MainStack',
+  cardStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
 });
 
 const styles = StyleSheet.create({
