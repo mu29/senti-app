@@ -18,12 +18,7 @@ export function hideReplyModalAction() {
   chattingState.isModalVisible = false;
 }
 
-export async function refreshChattingsAction(showRefreshing: boolean = true) {
-  if (chattingState.isLoading === LoadingType.REFRESH
-    || chattingState.isLoading === LoadingType.LIST) {
-    return;
-  }
-
+export function subscribeChattingsAction() {
   const { user } = authState;
 
   if (!user) {
@@ -31,48 +26,29 @@ export async function refreshChattingsAction(showRefreshing: boolean = true) {
     return;
   }
 
-  chattingState.cursor = undefined;
-  chattingState.isLoading = showRefreshing ? LoadingType.REFRESH : LoadingType.LIST;
-
-  const {
-    chattings,
-    cursor,
-  } = await readChattings();
-
-  runInAction(() => {
-    chattingState.chattings = chattings;
-    chattingState.cursor = cursor;
-    chattingState.isLoading = LoadingType.NONE;
-
-    if (!chattingState.isInitialLoaded) {
-      chattingState.isInitialLoaded = true;
-    }
-  });
-}
-
-export async function readChattingsAction() {
-  if (chattingState.isLoading === LoadingType.REFRESH
-    || chattingState.isLoading === LoadingType.LIST) {
-    return;
-  }
-
-  // 커서가 없고 데이터가 있는 경우 = 모든 데이터를 읽음
-  if (!chattingState.cursor && chattingState.chattings.length > 0) {
-    return;
-  }
-
   chattingState.isLoading = LoadingType.LIST;
 
-  const {
-    chattings,
-    cursor,
-  } = await readChattings();
+  const key = `userIds.${user.id}`;
+  const observer = firebase.firestore()
+    .collection('chattings')
+    .where(key, '>', 0)
+    .orderBy(key, 'desc')
+    .onSnapshot(snapshot => {
+      runInAction(() => {
+        chattingState.chattings = snapshot.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Chatting);
+        if (chattingState.isLoading !== LoadingType.NONE) {
+          chattingState.isLoading = LoadingType.NONE;
+        }
+      });
+    });
 
-  runInAction(() => {
-    chattingState.chattings.push(...chattings);
-    chattingState.cursor = cursor;
-    chattingState.isLoading = LoadingType.NONE;
-  });
+  chattingState.unsubscriber = observer;
+}
+
+export function unsubscribeChattingsAction() {
+  if (chattingState.unsubscriber) {
+    chattingState.unsubscriber();
+  }
 }
 
 export async function createChattingAction(path: string, duration: number) {
@@ -158,29 +134,4 @@ export async function createChattingAction(path: string, duration: number) {
 
 export function setCurrentStoryAction(story: Story) {
   chattingState.story = story;
-}
-
-async function readChattings() {
-  const { user } = authState;
-
-  if (!user) {
-    return {
-      chattings: [],
-      cursor: undefined,
-    };
-  }
-
-  const key = `userIds.${user.id}`;
-  let query = firebase.firestore().collection('chattings').where(key, '>', 0).orderBy(key, 'desc').limit(10);
-  if (chattingState.cursor) {
-    query = query.startAfter(chattingState.cursor);
-  }
-
-  const snapshot = await query.get();
-  const chattings = snapshot.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Chatting);
-
-  return {
-    chattings,
-    cursor: snapshot.docs.slice(-1)[0],
-  };
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   FlatList,
   StyleSheet,
-  RefreshControl,
 } from 'react-native';
 import {
   inject,
@@ -13,15 +12,12 @@ import {
   ChattingItem,
   ChattingEmptyList,
 } from 'components';
-import { ChattingState } from 'stores/states';
 import {
-  readChattingsAction,
-  refreshChattingsAction,
+  subscribeChattingsAction,
+  unsubscribeChattingsAction,
 } from 'stores/actions';
+import { ChattingState } from 'stores/states';
 import { LoadingType } from 'constants/enums';
-import { palette } from 'constants/style';
-
-const REFRESH_CONTROL_COLORS = [palette.gray[40]];
 
 export interface ChattingListProps {
   chattingState?: ChattingState;
@@ -30,6 +26,14 @@ export interface ChattingListProps {
 @inject('chattingState')
 @observer
 class ChattingList extends React.Component<ChattingListProps> {
+  public componentDidMount() {
+    subscribeChattingsAction();
+  }
+
+  public componentWillUnmount() {
+    unsubscribeChattingsAction();
+  }
+
   public render() {
     const {
       chattings,
@@ -46,15 +50,6 @@ class ChattingList extends React.Component<ChattingListProps> {
         data={chattings.slice()}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
-        onEndReached={readChattingsAction}
-        refreshControl={(
-          <RefreshControl
-            colors={REFRESH_CONTROL_COLORS}
-            tintColor={palette.gray[40]}
-            refreshing={isLoading === LoadingType.REFRESH}
-            onRefresh={refreshChattingsAction}
-          />
-        )}
         ListFooterComponent={isLoading === LoadingType.LIST ? <LoadingIndicator /> : null}
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}

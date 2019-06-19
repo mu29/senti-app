@@ -1,5 +1,4 @@
 import { observable } from 'mobx';
-import { DocumentSnapshot } from 'react-native-firebase/firestore';
 import { LoadingType } from 'constants/enums';
 
 export class ChattingState {
@@ -15,9 +14,9 @@ export class ChattingState {
   @observable
   public chattings: Chatting[] = [];
 
-  public cursor?: DocumentSnapshot;
-
   public story?: Story;
+
+  public unsubscriber?: () => void;
 }
 
 export const chattingState = new ChattingState();

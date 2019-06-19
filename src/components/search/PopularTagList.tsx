@@ -22,7 +22,7 @@ export interface PopularTagListProps {
 @inject('searchState')
 @observer
 class PopularTagList extends React.Component<PopularTagListProps> {
-  public componentWillMount() {
+  public componentDidMount() {
     readPopularTagsAction();
   }
 
