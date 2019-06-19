@@ -81,14 +81,9 @@ class ChattingItem extends React.Component<ChattingItemProps & NavigationInjecte
       chatting: {
         unreadMessageCount,
       },
-      authState,
     } = this.props;
 
-    if (!authState!.user) {
-      return 0;
-    }
-
-    return unreadMessageCount[authState!.user.id] || 0;
+    return unreadMessageCount[this.partner.id] || 0;
   }
 
   private openMessageScreen = () => {

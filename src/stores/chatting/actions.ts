@@ -124,7 +124,7 @@ export async function createChattingAction(path: string, duration: number) {
       [user.id]: now,
     },
     unreadMessageCount: {
-      [story.user.id]: 1,
+      [story.user.id]: 0,
       [user.id]: 0,
     },
     messageCount: 2,

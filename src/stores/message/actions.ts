@@ -68,7 +68,10 @@ export async function playMessageAction(messageId: string) {
   }
 
   if (!message.readAt) {
-    await readMessage(message);
+    firebase.firestore()
+      .collection('chattings').doc(messageState.chattingId)
+      .collection('messages').doc(messageId)
+      .update({ readAt: new Date().getTime() });
   }
 
   await playAudioAction(message.audio);
@@ -113,10 +116,6 @@ export async function createMessageAction(path: string, duration: number) {
       [user.id]: now,
     },
     messageCount: firebase.firestore.FieldValue.increment(1),
-    unreadMessageCount: {
-      [partnerId]: firebase.firestore.FieldValue.increment(1),
-      [user.id]: firebase.firestore.FieldValue.increment(0),
-    },
     updatedAt: now,
   });
 
@@ -151,21 +150,4 @@ async function getAudioUrl(audioId: string) {
   const { data } = await getAudioInfo({ id: audioId });
 
   return data.url;
-}
-
-async function readMessage(message: Message) {
-  const { user } = authState;
-  const {
-    chattingId,
-    partnerId,
-  } = messageState;
-
-  if (!user || !chattingId || !partnerId || message.user.id === user.id) {
-    return;
-  }
-
-  await firebase.functions().httpsCallable('readMessage')({
-    chattingId,
-    messageId: message.id,
-  });
 }
