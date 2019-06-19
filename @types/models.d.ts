@@ -27,6 +27,12 @@ declare global {
     isPlaying: boolean;
   }
 
+  interface Tag {
+    id: string;
+    name: string;
+    storyCount: number;
+  }
+
   interface Story {
     id: string;
     index: number;
