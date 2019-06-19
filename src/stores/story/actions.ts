@@ -108,7 +108,7 @@ export async function createStoryAction(path: string, duration: number) {
 }
 
 function getTags(description: string) {
-  return description.split(' ')
+  return description.split(/\s/)
     .filter(candidate => candidate.startsWith('#'))
     .map(tag => tag.replace('#', ''));
 }
