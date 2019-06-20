@@ -33,4 +33,4 @@ export { default as StoryList } from './story/StoryList';
 
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
-export { default as PopularTagList } from './search/PopularTagList';
+export { default as TagList } from './search/TagList';

@@ -15,26 +15,26 @@ import { readPopularTagsAction } from 'stores/actions';
 import { SearchState } from 'stores/states';
 import { LoadingType } from 'constants/enums';
 
-export interface PopularTagListProps {
+export interface TagListProps {
   searchState?: SearchState;
 }
 
 @inject('searchState')
 @observer
-class PopularTagList extends React.Component<PopularTagListProps> {
+class TagList extends React.Component<TagListProps> {
   public componentDidMount() {
     readPopularTagsAction();
   }
 
   public render() {
     const {
-      popularTags,
+      tags,
       isLoading,
     } = this.props.searchState!;
 
     return (
       <FlatList
-        data={popularTags}
+        data={tags}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
         contentContainerStyle={styles.container}
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PopularTagList;
+export default TagList;

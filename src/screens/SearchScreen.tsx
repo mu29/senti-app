@@ -1,14 +1,14 @@
 import React from 'react';
 import {
   SearchBar,
-  PopularTagList,
+  TagList,
   withSafeArea,
 } from 'components';
 
 const SearchScreen = () => (
   <React.Fragment>
     <SearchBar />
-    <PopularTagList />
+    <TagList />
   </React.Fragment>
 );
 
