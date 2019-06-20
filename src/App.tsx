@@ -7,7 +7,11 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { AuthModal } from 'components';
 import * as states from './stores/states';
-import { readCoversAction, readUserInfoAction } from './stores/actions';
+import {
+  readCoversAction,
+  subscribeUserInfoAction,
+  unsubscribeUserInfoAction,
+} from './stores/actions';
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
 
@@ -30,7 +34,7 @@ export default class App extends React.Component<{} , AppState> {
 
   public componentDidMount() {
     this.authStateUnsubscriber = firebase.auth().onAuthStateChanged((user) => {
-      readUserInfoAction(user).then(() => this.setState({ isLoaded: true }));
+      subscribeUserInfoAction(user).then(() => this.setState({ isLoaded: true }));
     });
     readCoversAction();
   }

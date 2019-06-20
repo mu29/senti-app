@@ -22,18 +22,34 @@ export function hideAuthModalAction() {
   authState.isModalVisible = false;
 }
 
-export async function readUserInfoAction(user: RNFirebase.User | null) {
+export function subscribeUserInfoAction(user: RNFirebase.User | null) {
   if (!user) {
     authState.user = undefined;
-    return;
+    return Promise.resolve(true);
   }
 
-  const snapshot = await firebase.firestore().collection('users').doc(user.uid).get();
+  unsubscribeUserInfoAction();
 
-  if (snapshot.exists) {
-    authState.user = snapshot.data() as User;
-  } else {
-    createUserInfo();
+  return new Promise((resolve) => {
+    const observer = firebase.firestore()
+      .collection('users')
+      .doc(user.uid)
+      .onSnapshot(snapshot => {
+        if (snapshot.exists) {
+          authState.user = snapshot.data() as User;
+          resolve(true);
+        } else {
+          createUserInfo();
+        }
+      });
+
+    authState.unsubscriber = observer;
+  });
+}
+
+export function unsubscribeUserInfoAction() {
+  if (authState.unsubscriber) {
+    authState.unsubscriber();
   }
 }
 

@@ -19,6 +19,8 @@ export class AuthState {
 
   public nextRoute?: string;
 
+  public unsubscriber?: () => void;
+
   @computed
   public get isLoggedIn() {
     return this.user !== undefined;
