@@ -12,14 +12,14 @@ import {
   LoadingIndicator,
 } from 'components';
 import { readPopularTagsAction } from 'stores/actions';
-import { SearchState } from 'stores/states';
+import { TagState } from 'stores/states';
 import { LoadingType } from 'constants/enums';
 
 export interface TagListProps {
-  searchState?: SearchState;
+  tagState?: TagState;
 }
 
-@inject('searchState')
+@inject('tagState')
 @observer
 class TagList extends React.Component<TagListProps> {
   public componentDidMount() {
@@ -30,7 +30,7 @@ class TagList extends React.Component<TagListProps> {
     const {
       tags,
       isLoading,
-    } = this.props.searchState!;
+    } = this.props.tagState!;
 
     return (
       <FlatList

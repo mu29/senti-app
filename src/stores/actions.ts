@@ -5,5 +5,5 @@ export * from './chatting/actions';
 export * from './cover/actions';
 export * from './message/actions';
 export * from './record/actions';
-export * from './search/actions';
+export * from './tag/actions';
 export * from './story/actions';

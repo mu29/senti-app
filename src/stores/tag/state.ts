@@ -5,7 +5,7 @@ import {
 import { DocumentSnapshot } from 'react-native-firebase/firestore';
 import { LoadingType } from 'constants/enums';
 
-export class SearchState {
+export class TagState {
   @observable
   public isLoading = LoadingType.NONE;
 
@@ -28,4 +28,4 @@ export class SearchState {
   }
 }
 
-export const searchState = new SearchState();
+export const tagState = new TagState();
