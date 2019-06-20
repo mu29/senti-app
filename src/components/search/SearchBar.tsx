@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import { updateSearchQueryAction } from 'stores/actions';
 import { palette } from 'constants/style';
 
 const SEARCH_ICON = { uri: 'ic_search_active' };
@@ -21,6 +22,7 @@ class SearchBar extends React.PureComponent<SearchBarProps> {
           <TextInput
             placeholder="검색"
             placeholderTextColor={palette.gray[50]}
+            onChangeText={this.onChangeText}
             spellCheck={false}
             autoCorrect={false}
             autoCapitalize="none"
@@ -37,6 +39,10 @@ class SearchBar extends React.PureComponent<SearchBarProps> {
         </View>
       </View>
     );
+  }
+
+  private onChangeText = (text: string) => {
+    updateSearchQueryAction(text);
   }
 }
 
