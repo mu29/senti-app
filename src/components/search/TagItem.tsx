@@ -5,12 +5,20 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
+  Alert,
 } from 'react-native';
 import {
   inject,
   observer,
 } from 'mobx-react/native';
-import { Text } from 'components';
+import {
+  Text,
+  Button,
+} from 'components';
+import {
+  subscribeTagAction,
+  unsubscribeTagAction,
+} from 'stores/actions';
 import { AuthState } from 'stores/states';
 import { palette } from 'constants/style';
 import { withComma } from 'services/utils';
@@ -29,15 +37,23 @@ export interface TagItemProps {
   authState?: AuthState;
 }
 
+export interface TagItemState {
+  isLoading: boolean;
+}
+
 @inject('authState')
 @observer
-class TagItem extends React.Component<TagItemProps> {
+class TagItem extends React.Component<TagItemProps, TagItemState> {
+  public state = {
+    isLoading: false,
+  };
+
   public render() {
     const {
-      id,
       name,
       storyCount,
     } = this.props.tag;
+    const { isLoading } = this.state;
 
     return (
       <TouchableOpacity activeOpacity={0.8}>
@@ -45,7 +61,7 @@ class TagItem extends React.Component<TagItemProps> {
           <View style={styles.tag}>
             <Image source={TAG_ICON} style={styles.icon} />
           </View>
-          <View>
+          <View style={styles.content}>
             <Text style={styles.name}>
               {name}
             </Text>
@@ -53,15 +69,16 @@ class TagItem extends React.Component<TagItemProps> {
               이야기 {withComma(storyCount)}개
             </Text>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
+          <Button
             hitSlop={TAG_HITSLOP}
+            isLoading={isLoading}
+            onPress={this.toggle}
             style={styles.button}
           >
             <Text style={[styles.normalText, this.isSubscribed && styles.subscribedText]}>
               관심
             </Text>
-          </TouchableOpacity>
+          </Button>
         </View>
       </TouchableOpacity>
     );
@@ -74,6 +91,16 @@ class TagItem extends React.Component<TagItemProps> {
     } = this.props;
 
     return authState!.user && (authState!.user.subscribedTags || []).find(t => t.id === tag.id);
+  }
+
+  private toggle = () => {
+    const action = this.isSubscribed ? unsubscribeTagAction : subscribeTagAction;
+
+    this.setState({ isLoading: true }, () => {
+      action(this.props.tag)
+        .catch((error) => Alert.alert('오류', error.message))
+        .finally(() => this.setState({ isLoading: false }));
+    });
   }
 }
 
@@ -98,6 +125,9 @@ const styles = StyleSheet.create({
     height: 14,
     tintColor: palette.yellow.default,
   },
+  content: {
+    flex: 1,
+  },
   name: {
     marginTop: Platform.select({
       ios: 4,
@@ -112,7 +142,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
   button: {
-    marginLeft: 'auto',
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 2,
