@@ -22,7 +22,7 @@ export function subscribeMessagesAction(chattingId: string, partnerId: string) {
   const observer = firebase.firestore()
     .collection('chattings').doc(chattingId)
     .collection('messages')
-    .orderBy('createdAt')
+    .orderBy('createdAt', 'desc')
     .onSnapshot(snapshot => {
       const messages = snapshot.docs
         .map(doc => Object.assign(doc.data(), { id: doc.id }) as Message)
