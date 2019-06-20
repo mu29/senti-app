@@ -124,6 +124,7 @@ async function createUserInfo() {
     email: user.email || (user.providerData && user.providerData[0] && user.providerData[0].email),
     name: user.displayName,
     photoUrl: user.photoURL,
+    subscribedTags: [],
     lastSignInAt: now,
     createdAt: now,
   };

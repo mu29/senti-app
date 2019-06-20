@@ -2,6 +2,12 @@ import Sound from 'react-native-sound';
 import { LoadingType } from 'constants/enums';
 
 declare global {
+  interface Tag {
+    id: string;
+    name: string;
+    storyCount: number;
+  }
+
   interface UserEssential {
     id: string;
     name: string | null;
@@ -12,6 +18,7 @@ declare global {
     email?: string;
     lastSignInAt: number;
     createdAt: number;
+    subscribedTags: Array<Partial<Tag>>;
   }
 
   interface Audio {
@@ -25,12 +32,6 @@ declare global {
     currentTime: number;
     isActivated: boolean;
     isPlaying: boolean;
-  }
-
-  interface Tag {
-    id: string;
-    name: string;
-    storyCount: number;
   }
 
   interface Story {
@@ -70,12 +71,5 @@ declare global {
     user: UserEssential;
     readAt?: number;
     createdAt: number;
-  }
-
-  interface Tag {
-    id: number;
-    name: string;
-    count: number;
-    isSubscribed: boolean;
   }
 }

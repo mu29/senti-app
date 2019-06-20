@@ -6,7 +6,12 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import {
+  inject,
+  observer,
+} from 'mobx-react/native';
 import { Text } from 'components';
+import { AuthState } from 'stores/states';
 import { palette } from 'constants/style';
 import { withComma } from 'services/utils';
 
@@ -21,40 +26,56 @@ const TAG_HITSLOP = {
 
 export interface TagItemProps {
   tag: Tag;
+  authState?: AuthState;
 }
 
-const TagItem: React.FunctionComponent<TagItemProps> = ({
-  tag: {
-    name,
-    storyCount,
-    isSubscribed,
-  },
-}) => (
-  <TouchableOpacity activeOpacity={0.8}>
-    <View style={styles.container}>
-      <View style={styles.tag}>
-        <Image source={TAG_ICON} style={styles.icon} />
-      </View>
-      <View>
-        <Text style={styles.name}>
-          {name}
-        </Text>
-        <Text style={styles.count}>
-          이야기 {withComma(storyCount)}개
-        </Text>
-      </View>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        hitSlop={TAG_HITSLOP}
-        style={styles.button}
-      >
-        <Text style={[styles.normalText, isSubscribed && styles.subscribedText]}>
-          구독
-        </Text>
+@inject('authState')
+@observer
+class TagItem extends React.Component<TagItemProps> {
+  public render() {
+    const {
+      id,
+      name,
+      storyCount,
+    } = this.props.tag;
+
+    return (
+      <TouchableOpacity activeOpacity={0.8}>
+        <View style={styles.container}>
+          <View style={styles.tag}>
+            <Image source={TAG_ICON} style={styles.icon} />
+          </View>
+          <View>
+            <Text style={styles.name}>
+              {name}
+            </Text>
+            <Text style={styles.count}>
+              이야기 {withComma(storyCount)}개
+            </Text>
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            hitSlop={TAG_HITSLOP}
+            style={styles.button}
+          >
+            <Text style={[styles.normalText, this.isSubscribed && styles.subscribedText]}>
+              관심
+            </Text>
+          </TouchableOpacity>
+        </View>
       </TouchableOpacity>
-    </View>
-  </TouchableOpacity>
-);
+    );
+  }
+
+  private get isSubscribed() {
+    const {
+      tag,
+      authState,
+    } = this.props;
+
+    return authState!.user && (authState!.user.subscribedTags || []).find(t => t.id === tag.id);
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -106,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(TagItem);
+export default TagItem;
