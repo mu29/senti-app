@@ -8,6 +8,10 @@ import {
   Alert,
 } from 'react-native';
 import {
+  withNavigation,
+  NavigationInjectedProps,
+} from 'react-navigation';
+import {
   inject,
   observer,
 } from 'mobx-react/native';
@@ -43,7 +47,7 @@ export interface TagItemState {
 
 @inject('authState')
 @observer
-class TagItem extends React.Component<TagItemProps, TagItemState> {
+class TagItem extends React.Component<TagItemProps & NavigationInjectedProps, TagItemState> {
   public state = {
     isLoading: false,
   };
@@ -56,7 +60,7 @@ class TagItem extends React.Component<TagItemProps, TagItemState> {
     const { isLoading } = this.state;
 
     return (
-      <TouchableOpacity activeOpacity={0.8}>
+      <TouchableOpacity onPress={this.openTagStory} activeOpacity={0.8}>
         <View style={styles.container}>
           <View style={styles.tag}>
             <Image source={TAG_ICON} style={styles.icon} />
@@ -91,6 +95,17 @@ class TagItem extends React.Component<TagItemProps, TagItemState> {
     } = this.props;
 
     return authState!.user && (authState!.user.subscribedTags || []).find(t => t.id === tag.id);
+  }
+
+  private openTagStory = () => {
+    const {
+      tag: {
+        id,
+      },
+      navigation,
+    } = this.props;
+
+    navigation.navigate('TagStory', { tagId: id });
   }
 
   private toggle = () => {
@@ -156,4 +171,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TagItem;
+export default withNavigation(TagItem);

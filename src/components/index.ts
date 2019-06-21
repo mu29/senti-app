@@ -30,6 +30,7 @@ export { default as StoryController } from './story/StoryController';
 export { default as StoryDescription } from './story/StoryDescription';
 export { default as StoryItem } from './story/StoryItem';
 export { default as StoryList } from './story/StoryList';
+export { default as TagStoryList } from './story/TagStoryList';
 
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
