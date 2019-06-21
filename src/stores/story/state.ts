@@ -16,9 +16,14 @@ export class StoryState {
   public storyIds: string[] = [];
 
   @observable
+  public tagStoryIds: string[] = [];
+
+  @observable
   public stories: { [key: string]: Story } = {};
 
   public cursor?: DocumentSnapshot;
+
+  public tagCursor?: DocumentSnapshot;
 }
 
 export const storyState = new StoryState();

@@ -50,8 +50,49 @@ export async function readStoriesAction() {
   runInAction(() => {
     mergeWith(storyState.stories, stories);
     storyState.storyIds.push(...snapshot.docs.map(doc => doc.id !== null ? doc.id : '').filter(Boolean));
-    storyState.cursor = snapshot.docs.slice(-1)[0];
+    storyState.cursor = snapshot.docs.length === 10 ? snapshot.docs.slice(-1)[0] : undefined;
     storyState.isLoading = LoadingType.NONE;
+  });
+}
+
+export async function readStoriesByTagAction(tagId: string) {
+  if (storyState.isLoading === LoadingType.LIST) {
+    return;
+  }
+
+  // 커서가 없고 데이터가 있는 경우 = 모든 데이터를 읽음
+  if (!storyState.tagCursor && storyState.tagStoryIds.length > 0) {
+    return;
+  }
+
+  storyState.isLoading = LoadingType.LIST;
+
+  const key = `tags.${tagId}`;
+  let query = firebase.firestore().collection('stories')
+    .where(key, '>', 0)
+    .orderBy(key, 'desc')
+    .limit(10);
+  if (storyState.tagCursor) {
+    query = query.startAfter(storyState.tagCursor);
+  }
+
+  const snapshot = await query.get();
+  const stories = snapshot.docs
+    .map(doc => Object.assign(doc.data(), { id: doc.id }) as Story)
+    .reduce((result, story) => Object.assign(result, { [story.id]: story }), {});
+
+  runInAction(() => {
+    mergeWith(storyState.stories, stories);
+    storyState.tagStoryIds.push(...snapshot.docs.map(doc => doc.id !== null ? doc.id : '').filter(Boolean));
+    storyState.tagCursor = snapshot.docs.length === 10 ? snapshot.docs.slice(-1)[0] : undefined;
+    storyState.isLoading = LoadingType.NONE;
+  });
+}
+
+export function resetStoriesWithTagAction() {
+  runInAction(() => {
+    storyState.tagCursor = undefined;
+    storyState.tagStoryIds = [];
   });
 }
 
