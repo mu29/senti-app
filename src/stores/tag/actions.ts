@@ -79,7 +79,7 @@ export async function searchTagsAction() {
 
   runInAction(() => {
     tagState.searchTags.push(...snapshot.docs.map(doc => Object.assign(doc.data(), { id: doc.id }) as Tag));
-    tagState.cursor = snapshot.docs.slice(-1)[0];
+    tagState.cursor = snapshot.docs.length === 20 ? snapshot.docs.slice(-1)[0] : undefined;
     tagState.isLoading = LoadingType.NONE;
   });
 }
