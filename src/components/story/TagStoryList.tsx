@@ -33,13 +33,13 @@ const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-interface StoryListProps {
+interface TagStoryListProps {
   storyState?: StoryState;
 }
 
 @inject('storyState')
 @observer
-class StoryList extends React.Component<StoryListProps & NavigationInjectedProps> {
+class TagStoryList extends React.Component<TagStoryListProps & NavigationInjectedProps> {
   private swiperAnimation = new Animated.Value(0);
 
   private previousItem?: string;
@@ -111,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(StoryList);
+export default withNavigation(TagStoryList);

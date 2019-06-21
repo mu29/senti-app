@@ -42,6 +42,7 @@ interface StoryItemProps {
   storyId: string;
   index: number;
   animatedValue: Animated.Value;
+  hasBottom?: boolean;
   audioState?: AudioState;
   storyState?: StoryState;
 }
@@ -76,7 +77,10 @@ class StoryItem extends React.Component<StoryItemProps> {
       return null;
     }
 
-    const { index } = this.props;
+    const {
+      index,
+      hasBottom,
+    } = this.props;
 
     return (
       <View style={styles.container}>
@@ -100,7 +104,7 @@ class StoryItem extends React.Component<StoryItemProps> {
                 {(this.story.tagNames || []).map(tag => `#${tag}`).map(this.renderTag)}
               </View>
             </TouchableOpacity>
-            <StoryController story={this.story} />
+            <StoryController story={this.story} style={hasBottom && styles.controller} />
             <Animated.View pointerEvents="none" style={[styles.iconContainer, this.iconStyle]}>
               <Image
                 source={PLAY_ICON}
@@ -201,6 +205,9 @@ const styles = StyleSheet.create({
     color: palette.gray[30],
     fontSize: 16,
     fontWeight: '600',
+  },
+  controller: {
+    marginBottom: 48,
   },
   iconContainer: {
     position: 'absolute',

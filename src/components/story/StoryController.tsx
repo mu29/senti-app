@@ -4,6 +4,8 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import { inject } from 'mobx-react/native';
 import moment from 'moment';
@@ -30,6 +32,7 @@ const HIT_SLOP = {
 
 interface StoryControllerProps {
   story: Story;
+  style?: StyleProp<ViewStyle>;
   authState?: AuthState;
   storyState?: StoryState;
 }
@@ -37,10 +40,13 @@ interface StoryControllerProps {
 @inject('authState', 'storyState')
 class StoryController extends React.Component<StoryControllerProps> {
   public render() {
-    const { story } = this.props;
+    const {
+      story,
+      style,
+    } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         <Image
           source={{ uri: story.user.photoUrl || '' }}
           style={styles.photo}
@@ -90,7 +96,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 24,
     paddingRight: 8,
-    marginBottom: 48,
   },
   photo: {
     width: 40,
