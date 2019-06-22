@@ -55,7 +55,7 @@ export async function createChattingAction(path: string, duration: number) {
   const { user } = authState;
   const { story } = chattingState;
 
-  if (!story || !user) {
+  if (!story || !user || story.user === user) {
     return;
   }
 

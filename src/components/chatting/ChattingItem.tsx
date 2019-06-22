@@ -39,6 +39,10 @@ class ChattingItem extends React.Component<ChattingItemProps & NavigationInjecte
       updatedAt,
     } = this.props.chatting;
 
+    if (!this.partner) {
+      return null;
+    }
+
     return (
       <Button onPress={this.openMessageScreen}>
         <View style={[styles.row, styles.container]}>
