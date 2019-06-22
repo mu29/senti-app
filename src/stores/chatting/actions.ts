@@ -109,7 +109,6 @@ export async function createChattingAction(path: string, duration: number) {
   batch.set(originMesageRef, {
     audio: story.audio,
     user: story.user,
-    readAt: now,
     createdAt: story.createdAt,
   });
 
