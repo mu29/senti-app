@@ -20,8 +20,6 @@ export class TagState {
 
   public cursor?: DocumentSnapshot;
 
-  public searchTimeout?: NodeJS.Timeout;
-
   @computed
   public get tags() {
     return this.query ? this.searchTags : this.popularTags;

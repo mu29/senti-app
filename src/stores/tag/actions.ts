@@ -1,4 +1,5 @@
 import { runInAction } from 'mobx';
+import debounce from 'lodash/debounce';
 import firebase from 'react-native-firebase';
 import { tagState } from 'stores/states';
 import { LoadingType } from 'constants/enums';
@@ -59,7 +60,22 @@ export async function readPopularTagsAction() {
   });
 }
 
-export async function searchTagsAction() {
+export function updateTagSearchQueryAction(query: string) {
+  runInAction(() => {
+    if (tagState.isLoading !== LoadingType.LIST) {
+      tagState.isLoading = LoadingType.LIST;
+    }
+    if (tagState.searchTags.length > 0) {
+      tagState.searchTags = [];
+    }
+    tagState.query = query;
+    tagState.cursor = undefined;
+  });
+
+  debouncedSearchTagsAction();
+}
+
+async function searchTagsAction() {
   if (!tagState.query) {
     tagState.isLoading = LoadingType.NONE;
     return;
@@ -67,6 +83,7 @@ export async function searchTagsAction() {
 
   // 커서가 없고 데이터가 있는 경우 = 모든 데이터를 읽음
   if (!tagState.cursor && tagState.searchTags.length > 0) {
+    tagState.isLoading = LoadingType.NONE;
     return;
   }
 
@@ -84,20 +101,4 @@ export async function searchTagsAction() {
   });
 }
 
-export function updateTagSearchQueryAction(query: string) {
-  runInAction(() => {
-    if (tagState.isLoading !== LoadingType.LIST) {
-      tagState.isLoading = LoadingType.LIST;
-    }
-    if (tagState.searchTags.length > 0) {
-      tagState.searchTags = [];
-    }
-    tagState.query = query;
-    tagState.cursor = undefined;
-  });
-
-  if (tagState.searchTimeout) {
-    clearTimeout(tagState.searchTimeout);
-  }
-  tagState.searchTimeout = setTimeout(searchTagsAction, 1000);
-}
+const debouncedSearchTagsAction = debounce(searchTagsAction, 1000);
