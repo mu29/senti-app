@@ -10,6 +10,7 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
+import imageCacheHoc from 'react-native-image-cache-hoc';
 import { Text } from 'components';
 import { signOutAction } from 'stores/actions';
 import { AuthState } from 'stores/states';
@@ -24,6 +25,11 @@ const BUTTON_HITSLOP = {
   left: 10,
   right: 10,
 };
+
+const CachableImage = imageCacheHoc(Image, {
+  fileDirName: 'profile',
+  cachePruneTriggerLimit: 1024 * 1024 * 50,
+});
 
 interface UserInfoProps {
   authState?: AuthState;
@@ -41,9 +47,10 @@ class UserInfo extends React.Component<UserInfoProps> {
 
     return (
       <View style={styles.container}>
-        <Image
+        <CachableImage
           source={{ uri: user.photoUrl || '' }}
           style={styles.profile}
+          permanent
         />
         <View>
           <Text style={[typography.heading2, styles.name]}>
