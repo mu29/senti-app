@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import imageCacheHoc from 'react-native-image-cache-hoc';
 import {
   autorun,
   IReactionDisposer,
@@ -37,6 +38,11 @@ const {
 } = Dimensions.get('window');
 
 const PLAY_ICON = { uri: 'ic_play_active' };
+
+const CachableImage = imageCacheHoc(Image, {
+  fileDirName: 'covers',
+  cachePruneTriggerLimit: 1024 * 1024 * 50,
+});
 
 interface StoryItemProps {
   storyId: string;
@@ -82,12 +88,19 @@ class StoryItem extends React.Component<StoryItemProps> {
       hasBottom,
     } = this.props;
 
+    const {
+      cover,
+      description,
+      tagNames,
+    } = this.story;
+
     return (
       <View style={styles.container}>
         <Animated.View style={this.getParallaxStyles(index)}>
-          <Image
-            source={{ uri: this.story.cover }}
+          <CachableImage
+            source={{ uri: cover }}
             style={styles.background}
+            permanent
           />
         </Animated.View>
         <View style={styles.filter}>
@@ -98,10 +111,10 @@ class StoryItem extends React.Component<StoryItemProps> {
               style={styles.button}
             >
               <Text style={styles.description}>
-                {this.story.description.replace(/#[^ ]+/g, '').trim()}
+                {description.replace(/#[^ ]+/g, '').trim()}
               </Text>
               <View style={styles.tags}>
-                {(this.story.tagNames || []).map(tag => `#${tag}`).map(this.renderTag)}
+                {(tagNames || []).map(tag => `#${tag}`).map(this.renderTag)}
               </View>
             </TouchableOpacity>
             <StoryController story={this.story} style={hasBottom && styles.controller} />
