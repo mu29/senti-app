@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     marginRight: 12,
-    borderRadius: 20,
+    borderRadius: 24,
     backgroundColor: palette.gray[80],
   },
   content: {
