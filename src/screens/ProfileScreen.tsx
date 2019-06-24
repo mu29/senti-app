@@ -7,6 +7,7 @@ import {
   Header,
   UserInfo,
   CoinInventory,
+  StoryGrid,
   withSafeArea,
 } from 'components';
 import { palette } from 'constants/style';
@@ -21,6 +22,7 @@ const ProfileScreen = () => (
       <View style={styles.divider} />
       <CoinInventory />
     </View>
+    <StoryGrid />
   </React.Fragment>
 );
 
