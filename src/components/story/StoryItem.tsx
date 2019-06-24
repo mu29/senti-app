@@ -210,11 +210,14 @@ const styles = StyleSheet.create({
   },
   tags: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     marginVertical: 8,
     marginHorizontal: 64,
   },
   tag: {
-    margin: 4,
+    marginHorizontal: 4,
+    marginVertical: 2,
     color: palette.gray[30],
     fontSize: 16,
     fontWeight: '600',
