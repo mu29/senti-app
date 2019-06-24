@@ -96,6 +96,44 @@ export function resetStoriesWithTagAction() {
   });
 }
 
+export async function subscribeMyStoriesAction() {
+  const { user } = authState;
+
+  if (!user) {
+    showAuthModalAction();
+    return;
+  }
+
+  storyState.isLoading = LoadingType.LIST;
+
+  const key = `user.${user.id}`;
+  const observer = firebase.firestore()
+    .collection('stories')
+    .where(key, '>', 0)
+    .orderBy(key, 'desc')
+    .onSnapshot(snapshot => {
+      const stories = snapshot.docs
+        .map(doc => Object.assign(doc.data(), { id: doc.id }) as Story)
+        .reduce((result, story) => Object.assign(result, { [story.id]: story }), {});
+
+      runInAction(() => {
+        mergeWith(storyState.stories, stories);
+        storyState.myStoryIds = snapshot.docs.map(doc => doc.id !== null ? doc.id : '').filter(Boolean);
+        if (storyState.isLoading !== LoadingType.NONE) {
+          storyState.isLoading = LoadingType.NONE;
+        }
+      });
+    });
+
+  storyState.unsubscriber = observer;
+}
+
+export function unsubscribeMyStoriesAction() {
+  if (storyState.unsubscriber) {
+    storyState.unsubscriber();
+  }
+}
+
 export async function createStoryAction(path: string, duration: number) {
   const { user } = authState;
 
@@ -136,6 +174,7 @@ export async function createStoryAction(path: string, duration: number) {
       id: user.id,
       name: user.name,
       photoUrl: user.photoUrl,
+      [user.id]: now,
     },
     createdAt: now,
     updatedAt: now,
