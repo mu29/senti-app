@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
     margin: 16,
     borderRadius: 4,
     backgroundColor: palette.gray[100],
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginLeft: 'auto',
-    paddingVertical: 4,
+    paddingVertical: 6,
     paddingHorizontal: 8,
     borderRadius: 2,
     backgroundColor: palette.gray[90],

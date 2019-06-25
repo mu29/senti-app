@@ -20,6 +20,7 @@ export { default as MessageList } from './message/MessageList';
 export { default as MessageReply } from './message/MessageReply';
 
 export { default as CoinInventory } from './profile/CoinInventory';
+export { default as EditProfilePhoto } from './profile/EditProfilePhoto';
 export { default as UserInfo } from './profile/UserInfo';
 
 export { default as CompactStoryItem } from './story/CompactStoryItem';

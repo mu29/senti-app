@@ -17,6 +17,7 @@ import SearchScreen from './screens/SearchScreen';
 import ChattingScreen from './screens/ChattingScreen';
 import CreateStoryScreen from './screens/CreateStoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import EditProfileScreen from './screens/EditProfileScreen';
 import MessageScreen from './screens/MessageScreen';
 import MyStoryScreen from './screens/MyStoryScreen';
 import TagStoryScreen from './screens/TagStoryScreen';
@@ -91,7 +92,7 @@ const MainTabNavigator = createBottomTabNavigator({
     inactiveTintColor: palette.gray[40],
     showLabel: false,
   },
-  initialRouteName: 'Home',
+  initialRouteName: 'Profile',
 });
 
 const MainStackNavigator = createStackNavigator({
@@ -99,6 +100,7 @@ const MainStackNavigator = createStackNavigator({
   Message: MessageScreen,
   TagStory: TagStoryScreen,
   MyStory: MyStoryScreen,
+  EditProfile: EditProfileScreen,
 }, {
   headerMode: 'none',
   initialRouteName: 'MainTab',

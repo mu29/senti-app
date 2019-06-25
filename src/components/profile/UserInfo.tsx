@@ -7,12 +7,15 @@ import {
   Platform,
 } from 'react-native';
 import {
+  withNavigation,
+  NavigationInjectedProps,
+} from 'react-navigation';
+import {
   inject,
   observer,
 } from 'mobx-react/native';
 import imageCacheHoc from 'react-native-image-cache-hoc';
 import { Text } from 'components';
-import { signOutAction } from 'stores/actions';
 import { AuthState } from 'stores/states';
 import {
   palette,
@@ -37,7 +40,7 @@ interface UserInfoProps {
 
 @inject('authState')
 @observer
-class UserInfo extends React.Component<UserInfoProps> {
+class UserInfo extends React.Component<UserInfoProps & NavigationInjectedProps> {
   public render() {
     const { user } = this.props.authState!;
 
@@ -62,7 +65,7 @@ class UserInfo extends React.Component<UserInfoProps> {
         </View>
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={signOutAction}
+          onPress={this.openEditProfileScreen}
           hitSlop={BUTTON_HITSLOP}
           style={styles.button}
         >
@@ -73,6 +76,10 @@ class UserInfo extends React.Component<UserInfoProps> {
       </View>
     );
   }
+
+  private openEditProfileScreen = () => {
+    this.props.navigation.navigate('EditProfile');
+  }
 }
 
 const styles = StyleSheet.create({
@@ -82,10 +89,10 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   profile: {
-    width: 48,
-    height: 48,
+    width: 56,
+    height: 56,
     marginRight: 12,
-    borderRadius: 24,
+    borderRadius: 28,
   },
   name: {
     marginTop: Platform.select({
@@ -103,8 +110,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 2,
-    backgroundColor: palette.gray[70],
+    backgroundColor: palette.gray[80],
   },
 });
 
-export default UserInfo;
+export default withNavigation(UserInfo);
