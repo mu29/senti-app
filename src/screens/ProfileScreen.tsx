@@ -3,14 +3,19 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
+  Text,
   Header,
   UserInfo,
   CoinInventory,
   StoryGrid,
   withSafeArea,
 } from 'components';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 const ProfileScreen = () => (
   <React.Fragment>
@@ -21,6 +26,12 @@ const ProfileScreen = () => (
       <UserInfo />
       <View style={styles.divider} />
       <CoinInventory />
+    </View>
+    <View style={styles.stories}>
+      <Icon name="ios-albums" size={16} color={palette.gray[20]} />
+      <Text style={[typography.heading3, styles.title]}>
+        나의 이야기
+      </Text>
     </View>
     <StoryGrid />
   </React.Fragment>
@@ -34,6 +45,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     height: 1,
     backgroundColor: palette.gray[80],
+  },
+  title: {
+    marginLeft: 6,
+  },
+  stories: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: palette.gray[90],
   },
 });
 
