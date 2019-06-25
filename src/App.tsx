@@ -43,6 +43,7 @@ export default class App extends React.Component<{} , AppState> {
     if (this.authStateUnsubscriber) {
       this.authStateUnsubscriber();
     }
+    unsubscribeUserInfoAction();
   }
 
   public render() {

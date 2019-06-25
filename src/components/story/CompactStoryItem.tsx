@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   Image,
+  Dimensions,
   StyleSheet,
 } from 'react-native';
 import {
@@ -63,7 +64,7 @@ class CompactStoryItem extends React.Component<CompactStoryItemProps> {
 
 const styles = StyleSheet.create({
   image: {
-    height: 128,
+    height: Dimensions.get('window').width / 2,
   },
   filter: {
     ...StyleSheet.absoluteFillObject,

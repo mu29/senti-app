@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     color: palette.white.default,
   },
   item: {
-    height: 96,
+    height: Dimensions.get('window').width / 4,
   },
   image: {
     flex: 1,

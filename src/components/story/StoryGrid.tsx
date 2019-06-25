@@ -12,7 +12,7 @@ import {
 } from 'stores/actions';
 import { StoryState } from 'stores/states';
 
-const ITEM_SIZE = Dimensions.get('window').width / 4;
+const ITEM_SIZE = Dimensions.get('window').width / 3;
 
 interface StoryGridProps {
   storyState?: StoryState;
