@@ -25,6 +25,7 @@ export { default as UserInfo } from './profile/UserInfo';
 export { default as CompactStoryItem } from './story/CompactStoryItem';
 export { default as CreateStoryCover } from './story/CreateStoryCover';
 export { default as CreateStoryHeader } from './story/CreateStoryHeader';
+export { default as MyStoryList } from './story/MyStoryList';
 export { default as ImagePickerModal } from './story/ImagePickerModal';
 export { default as RecordController } from './story/RecordController';
 export { default as StoryController } from './story/StoryController';

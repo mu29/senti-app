@@ -42,8 +42,8 @@ class StoryGrid extends React.Component<StoryGridProps> {
     );
   }
 
-  private renderItem = ({ item }: { item: string }) => (
-    <CompactStoryItem storyId={item} />
+  private renderItem = ({ item, index }: { item: string; index: number }) => (
+    <CompactStoryItem storyId={item} index={index} />
   )
 }
 

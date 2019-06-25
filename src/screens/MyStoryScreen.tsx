@@ -11,8 +11,7 @@ import {
 } from 'react-navigation';
 import {
   Button,
-  TagStoryList,
-  ReplyModal,
+  MyStoryList,
 } from 'components';
 import { palette } from 'constants/style';
 
@@ -31,19 +30,18 @@ const HIT_SLOP = {
 
 const BACK_ICON = { uri: 'ic_back' };
 
-class TagStoryScreen extends React.Component<NavigationScreenProps> {
+class MyStoryScreen extends React.Component<NavigationScreenProps> {
   public render() {
-    const tagId = this.props.navigation.getParam('tagId', '');
+    const index = this.props.navigation.getParam('index', 0);
 
     return (
       <React.Fragment>
-        <TagStoryList tagId={tagId} />
+        <MyStoryList initialIndex={index} />
         <SafeAreaView style={styles.container} forceInset={SAFE_AREA_INSET}>
           <Button onPress={this.goBack} hitSlop={HIT_SLOP} round>
             <Image style={styles.icon} source={BACK_ICON} />
           </Button>
         </SafeAreaView>
-        <ReplyModal />
       </React.Fragment>
     );
   }
@@ -67,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(TagStoryScreen);
+export default withNavigation(MyStoryScreen);

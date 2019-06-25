@@ -18,6 +18,7 @@ import ChattingScreen from './screens/ChattingScreen';
 import CreateStoryScreen from './screens/CreateStoryScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import MessageScreen from './screens/MessageScreen';
+import MyStoryScreen from './screens/MyStoryScreen';
 import TagStoryScreen from './screens/TagStoryScreen';
 
 const MainTabNavigator = createBottomTabNavigator({
@@ -97,6 +98,7 @@ const MainStackNavigator = createStackNavigator({
   MainTab: MainTabNavigator,
   Message: MessageScreen,
   TagStory: TagStoryScreen,
+  MyStory: MyStoryScreen,
 }, {
   headerMode: 'none',
   initialRouteName: 'MainTab',

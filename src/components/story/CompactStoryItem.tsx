@@ -6,6 +6,10 @@ import {
   StyleSheet,
 } from 'react-native';
 import {
+  withNavigation,
+  NavigationInjectedProps,
+} from 'react-navigation';
+import {
   inject,
   observer,
 } from 'mobx-react/native';
@@ -24,12 +28,13 @@ const CachableImage = imageCacheHoc(Image, {
 
 interface CompactStoryItemProps {
   storyId: string;
+  index: number;
   storyState?: StoryState;
 }
 
 @inject('storyState')
 @observer
-class CompactStoryItem extends React.Component<CompactStoryItemProps> {
+class CompactStoryItem extends React.Component<CompactStoryItemProps & NavigationInjectedProps> {
   public render() {
     if (!this.story) {
       return null;
@@ -41,7 +46,7 @@ class CompactStoryItem extends React.Component<CompactStoryItemProps> {
     } = this.story;
 
     return (
-      <Button>
+      <Button onPress={this.openMyStoryScreen}>
         <CachableImage source={{ uri: cover }} style={styles.image} permanent />
         <View style={styles.filter}>
           <Text style={styles.description}>
@@ -59,6 +64,15 @@ class CompactStoryItem extends React.Component<CompactStoryItemProps> {
     } = this.props;
 
     return storyState!.stories[storyId] || {};
+  }
+
+  private openMyStoryScreen = () => {
+    const {
+      navigation,
+      index,
+    } = this.props;
+
+    navigation.navigate('MyStory', { index });
   }
 }
 
@@ -79,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CompactStoryItem;
+export default withNavigation(CompactStoryItem);

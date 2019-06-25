@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  FlatList,
   Animated,
   StyleSheet,
   Dimensions,
@@ -15,8 +14,6 @@ import {
   playAudioAction,
   stopAudioAction,
   setCurrentStoryAction,
-  readStoriesByTagAction,
-  resetStoriesWithTagAction,
 } from 'stores/actions';
 import { palette } from 'constants/style';
 
@@ -27,38 +24,32 @@ const {
 
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-
-interface TagStoryListProps {
-  tagId: string;
+interface MyStoryListProps {
+  initialIndex: number;
   storyState?: StoryState;
 }
 
 @inject('storyState')
 @observer
-class TagStoryList extends React.Component<TagStoryListProps> {
+class MyStoryList extends React.Component<MyStoryListProps> {
   private swiperAnimation = new Animated.Value(0);
 
   private previousItem?: string;
 
-  public componentDidMount() {
-    this.paginate();
-  }
-
   public componentWillUnmount() {
     stopAudioAction();
-    resetStoriesWithTagAction();
   }
 
   public render() {
-    const { tagStoryIds } = this.props.storyState!;
+    const { initialIndex } = this.props;
+    const { myStoryIds } = this.props.storyState!;
 
     return (
-      <AnimatedFlatList
-        data={tagStoryIds.slice()}
+      <Animated.FlatList
+        data={myStoryIds.slice()}
         renderItem={this.renderItem}
         keyExtractor={this.keyExtractor}
-        onEndReached={this.paginate}
+        initialScrollIndex={initialIndex}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
           { useNativeDriver: true },
@@ -82,10 +73,6 @@ class TagStoryList extends React.Component<TagStoryListProps> {
 
   private keyExtractor = (item: string) => item;
 
-  private paginate = () => {
-    readStoriesByTagAction(this.props.tagId);
-  }
-
   private onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ item: string }> }) => {
     if (viewableItems.length > 0) {
       const currentItem = viewableItems[0].item;
@@ -107,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TagStoryList;
+export default MyStoryList;
