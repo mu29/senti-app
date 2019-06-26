@@ -38,6 +38,16 @@ class Header extends React.PureComponent<HeaderProps & NavigationInjectedProps> 
       children,
     } = this.props;
 
+    let CenterComponent = null;
+    let RightComponent = null;
+
+    if (Array.isArray(children)) {
+      CenterComponent = children[0] || null;
+      RightComponent = children[1] || null;
+    } else {
+      CenterComponent = children || null;
+    }
+
     return (
       <View style={styles.container}>
         {canGoBack && (
@@ -45,9 +55,10 @@ class Header extends React.PureComponent<HeaderProps & NavigationInjectedProps> 
             <Image style={styles.icon} source={BACK_ICON} />
           </Button>
         )}
+        {RightComponent}
         <View pointerEvents="box-none" style={styles.title}>
           <Text style={typography.heading1}>
-            {children}
+            {CenterComponent}
           </Text>
         </View>
       </View>
