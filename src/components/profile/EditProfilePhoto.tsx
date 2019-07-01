@@ -4,6 +4,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
 import {
   inject,
   observer,
@@ -19,6 +20,8 @@ interface EditProfilePhotoProps {
   authState?: AuthState;
 }
 
+console.log(ImagePicker)
+
 @inject('authState')
 @observer
 class EditProfilePhoto extends React.Component<EditProfilePhotoProps> {
@@ -31,7 +34,7 @@ class EditProfilePhoto extends React.Component<EditProfilePhotoProps> {
 
     return (
       <View style={styles.container}>
-        <Button style={styles.button}>
+        <Button onPress={this.openImagePicker} style={styles.button}>
           <Image
             source={{ uri: user.photoUrl || '' }}
             style={styles.photo}
@@ -42,6 +45,16 @@ class EditProfilePhoto extends React.Component<EditProfilePhotoProps> {
         </Button>
       </View>
     );
+  }
+
+  private openImagePicker = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+    });
   }
 }
 
