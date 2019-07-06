@@ -13,14 +13,13 @@ import {
   Button,
   Text,
 } from 'components';
+import { uploadProfilePhotoAction } from 'stores/actions';
 import { AuthState } from 'stores/states';
-import { typography, palette } from 'constants/style';
+import { typography } from 'constants/style';
 
 interface EditProfilePhotoProps {
   authState?: AuthState;
 }
-
-console.log(ImagePicker)
 
 @inject('authState')
 @observer
@@ -53,7 +52,8 @@ class EditProfilePhoto extends React.Component<EditProfilePhotoProps> {
       height: 300,
       cropping: true,
     }).then(image => {
-      console.log(image);
+      const target = Array.isArray(image) ? image[0] : image;
+      uploadProfilePhotoAction(target.path);
     });
   }
 }

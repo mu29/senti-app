@@ -1,5 +1,6 @@
 import { Alert } from 'react-native';
 import { runInAction } from 'mobx';
+import uuidv4 from 'uuid/v4';
 import firebase, { RNFirebase } from 'react-native-firebase';
 import { GoogleSignin } from 'react-native-google-signin';
 import {
@@ -120,6 +121,23 @@ export async function signOutAction() {
 
 export function setNextRouteAction(route: string) {
   authState.nextRoute = route;
+}
+
+export async function uploadProfilePhotoAction(path: string) {
+  const { user } = authState;
+
+  if (!user) {
+    return;
+  }
+
+  const id = uuidv4();
+  const extension = path.split('.').reverse()[0];
+  const userRef = firebase.firestore().collection('users').doc(user.id);
+
+  return firebase.storage()
+    .ref(`profiles/${id}.${extension}`)
+    .putFile(path)
+    .then(snapshot => userRef.update({ photoURL: snapshot.downloadURL }));
 }
 
 async function createUserInfo() {
