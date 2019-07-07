@@ -10,7 +10,11 @@ import {
   observer,
 } from 'mobx-react/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Text } from 'components';
+import {
+  Text,
+  Button,
+} from 'components';
+import { signOutAction } from 'stores/actions';
 import { AuthState } from 'stores/states';
 import { palette, typography } from 'constants/style';
 
@@ -63,14 +67,14 @@ class EditProfileInfo extends React.Component<EditProfileInfoProps> {
             성별
           </Text>
         </View>
-        <View style={styles.form}>
+        <Button onPress={signOutAction} style={styles.form}>
           <View style={styles.icon}>
             <Icon name="md-exit" size={20} color={palette.gray[60]} />
           </View>
           <Text style={styles.text}>
             로그아웃
           </Text>
-        </View>
+        </Button>
         <View style={styles.header}>
           <Text style={[typography.tiny3, styles.title]}>
             지원
