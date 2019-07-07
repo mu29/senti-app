@@ -137,7 +137,7 @@ export async function uploadProfilePhotoAction(path: string) {
   return firebase.storage()
     .ref(`profiles/${id}.${extension}`)
     .putFile(path)
-    .then(snapshot => userRef.update({ photoURL: snapshot.downloadURL }));
+    .then(snapshot => userRef.update({ photoUrl: snapshot.downloadURL }));
 }
 
 async function createUserInfo() {
