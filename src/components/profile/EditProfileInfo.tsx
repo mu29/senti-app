@@ -9,6 +9,7 @@ import {
   inject,
   observer,
 } from 'mobx-react/native';
+import ActionSheet from 'rn-actionsheet-module';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   Text,
@@ -16,10 +17,17 @@ import {
 } from 'components';
 import {
   updateNameCandidateAction,
+  updateGenderCandidateAction,
   signOutAction,
 } from 'stores/actions';
 import { AuthState } from 'stores/states';
 import { palette, typography } from 'constants/style';
+
+const GENDERS = {
+  male: '남성',
+  female: '여성',
+  none: '성별',
+};
 
 interface EditProfileInfoProps {
   authState?: AuthState;
@@ -29,7 +37,10 @@ interface EditProfileInfoProps {
 @observer
 class EditProfileInfo extends React.Component<EditProfileInfoProps> {
   public render() {
-    const { user } = this.props.authState!;
+    const {
+      user,
+      candidate,
+    } = this.props.authState!;
 
     if (!user) {
       return null;
@@ -63,14 +74,14 @@ class EditProfileInfo extends React.Component<EditProfileInfoProps> {
             {user.name}
           </TextInput>
         </View>
-        <View style={styles.form}>
+        <Button onPress={this.showGenderSelectSheet} style={styles.form}>
           <View style={styles.icon}>
             <Icon name="md-heart" size={20} color={palette.gray[60]} />
           </View>
-          <Text style={[styles.text, styles.hint]}>
-            성별
+          <Text style={[styles.text, !user.gender && !candidate.gender && styles.hint]}>
+            {GENDERS[candidate.gender || user.gender || 'none']}
           </Text>
-        </View>
+        </Button>
         <Button onPress={signOutAction} style={styles.form}>
           <View style={styles.icon}>
             <Icon name="md-exit" size={20} color={palette.gray[60]} />
@@ -102,6 +113,16 @@ class EditProfileInfo extends React.Component<EditProfileInfoProps> {
         </View>
       </View>
     );
+  }
+
+  private showGenderSelectSheet = () => {
+    ActionSheet({
+      title: '성별을 선택하세요',
+      optionsIOS: ['남성', '여성', '취소'],
+      optionsAndroid: ['남성', '여성'],
+      cancelButtonIndex: 2,
+      onCancelAndroidIndex: 2,
+    }, updateGenderCandidateAction);
   }
 }
 

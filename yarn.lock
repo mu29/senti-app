@@ -5958,6 +5958,11 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
+rn-actionsheet-module@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/rn-actionsheet-module/-/rn-actionsheet-module-0.2.3.tgz#331f939cab19f8c7a012142262dde1d330c50458"
+  integrity sha512-D41Th3+yFNwDVrMi7Sp/dR4HeXSOA2TLV2mTCzwMiMy+OADxArCLOV4qP8rlvA6igkt8rcQAUM2FEWhiTiDcRg==
+
 rn-fetch-blob@0.10.13:
   version "0.10.13"
   resolved "https://registry.yarnpkg.com/rn-fetch-blob/-/rn-fetch-blob-0.10.13.tgz#e0fd5eac1a3a872563b35061353d96c4e51ae1cc"

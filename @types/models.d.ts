@@ -16,6 +16,7 @@ declare global {
 
   interface User extends UserEssential {
     email?: string;
+    gender?: 'male' | 'female';
     lastSignInAt: number;
     createdAt: number;
     subscribedTags: Array<Partial<Tag>>;

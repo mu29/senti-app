@@ -11,7 +11,7 @@ export class AuthState {
   @observable
   public candidate: {
     name?: string;
-    gender?: string;
+    gender?: 'male' | 'female';
   } = {};
 
   @observable

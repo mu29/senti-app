@@ -144,6 +144,10 @@ export function updateNameCandidateAction(name: string) {
   authState.candidate.name = name;
 }
 
+export function updateGenderCandidateAction(index: number) {
+  authState.candidate.gender = index === 0 ? 'male' : 'female';
+}
+
 export async function updateProfileAction() {
   const { user } = authState;
 

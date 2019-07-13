@@ -1,5 +1,8 @@
 import React from 'react';
-import { StyleSheet, Alert } from 'react-native';
+import {
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import {
   inject,
   observer,
@@ -55,7 +58,6 @@ class AuthModal extends React.Component<AuthModalProps> {
             backgroundColor={palette.brand.facebook}
             onPress={this.signInWithFacebook}
             isLoading={currentProvider === 'facebook'}
-            indicatorSize={26}
           >
             페이스북으로 시작하기
           </SocialProviderButton>
@@ -64,7 +66,6 @@ class AuthModal extends React.Component<AuthModalProps> {
             backgroundColor={palette.brand.google}
             onPress={this.signInWithGoogle}
             isLoading={currentProvider === 'google'}
-            indicatorSize={26}
           >
             구글 계정으로 시작하기
           </SocialProviderButton>
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     width: '100%',
     fontSize: 12,
+    lineHeight: 18,
     textAlign: 'center',
     color: palette.gray[60],
   },
