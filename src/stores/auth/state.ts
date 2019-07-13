@@ -9,6 +9,15 @@ export class AuthState {
   public isModalVisible = false;
 
   @observable
+  public candidate: {
+    name?: string;
+    gender?: string;
+  } = {
+    name: undefined,
+    gender: undefined,
+  };
+
+  @observable
   public user?: User;
 
   @observable

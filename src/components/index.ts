@@ -1,6 +1,7 @@
 export { default as Button } from './bootstrap/Button';
 export { default as Text } from './bootstrap/Text';
 
+export { default as ProfileSaveButton } from './auth/ProfileSaveButton';
 export { default as SocialProviderButton } from './auth/SocialProviderButton';
 
 export { default as BottomTabBar } from './common/BottomTabBar';

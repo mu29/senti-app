@@ -14,7 +14,10 @@ import {
   Text,
   Button,
 } from 'components';
-import { signOutAction } from 'stores/actions';
+import {
+  updateNameCandidateAction,
+  signOutAction,
+} from 'stores/actions';
 import { AuthState } from 'stores/states';
 import { palette, typography } from 'constants/style';
 
@@ -54,6 +57,7 @@ class EditProfileInfo extends React.Component<EditProfileInfoProps> {
             underlineColorAndroid="transparent"
             multiline={false}
             maxLength={40}
+            onChangeText={updateNameCandidateAction}
             style={styles.input}
           >
             {user.name}

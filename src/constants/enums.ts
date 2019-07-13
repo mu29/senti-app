@@ -3,6 +3,7 @@ export enum LoadingType {
   REFRESH,
   CREATE,
   READ,
+  UPDATE,
   DESTROY,
   NONE,
 }

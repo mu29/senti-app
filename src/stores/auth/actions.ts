@@ -140,6 +140,25 @@ export async function uploadProfilePhotoAction(path: string) {
     .then(snapshot => userRef.update({ photoUrl: snapshot.downloadURL }));
 }
 
+export function updateNameCandidateAction(name: string) {
+  authState.candidate.name = name;
+}
+
+export async function updateProfileAction() {
+  const { user } = authState;
+
+  if (!user) {
+    return;
+  }
+
+  authState.isLoading = LoadingType.UPDATE;
+
+  const userRef = firebase.firestore().collection('users').doc(user.id);
+  await userRef.set(authState.candidate, { merge: true });
+
+  authState.isLoading = LoadingType.NONE;
+}
+
 async function createUserInfo() {
   const user = firebase.auth().currentUser;
 
