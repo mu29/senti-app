@@ -1,9 +1,6 @@
 export { default as Button } from './bootstrap/Button';
 export { default as Text } from './bootstrap/Text';
 
-export { default as ProfileSaveButton } from './auth/ProfileSaveButton';
-export { default as SocialProviderButton } from './auth/SocialProviderButton';
-
 export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as Header } from './common/Header';
 export { default as AuthModal } from './common/AuthModal';
@@ -23,6 +20,8 @@ export { default as MessageReply } from './message/MessageReply';
 export { default as CoinInventory } from './profile/CoinInventory';
 export { default as EditProfileInfo } from './profile/EditProfileInfo';
 export { default as EditProfilePhoto } from './profile/EditProfilePhoto';
+export { default as ProfileSaveButton } from './profile/ProfileSaveButton';
+export { default as SocialProviderButton } from './profile/SocialProviderButton';
 export { default as UserInfo } from './profile/UserInfo';
 
 export { default as CompactStoryItem } from './story/CompactStoryItem';
