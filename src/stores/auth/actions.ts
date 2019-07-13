@@ -156,7 +156,10 @@ export async function updateProfileAction() {
   const userRef = firebase.firestore().collection('users').doc(user.id);
   await userRef.set(authState.candidate, { merge: true });
 
-  authState.isLoading = LoadingType.NONE;
+  runInAction(() => {
+    authState.candidate = {};
+    authState.isLoading = LoadingType.NONE;
+  });
 }
 
 async function createUserInfo() {

@@ -12,10 +12,7 @@ export class AuthState {
   public candidate: {
     name?: string;
     gender?: string;
-  } = {
-    name: undefined,
-    gender: undefined,
-  };
+  } = {};
 
   @observable
   public user?: User;
