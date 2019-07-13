@@ -19,10 +19,7 @@ import {
   NavigationParams,
 } from 'react-navigation';
 import { AuthState } from 'stores/states';
-import {
-  setNextRouteAction,
-  showAuthModalAction,
-} from 'stores/actions';
+import { showAuthModalAction } from 'stores/actions';
 import { palette } from 'constants/style';
 
 const SAFE_AREA_INSET: {
@@ -147,7 +144,6 @@ class BottomTabBar extends React.Component<BottomTabBarProps> {
         } = this.props;
 
         if (params.private && !authState!.isLoggedIn) {
-          setNextRouteAction(route.key);
           showAuthModalAction();
           return;
         }

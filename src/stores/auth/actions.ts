@@ -72,7 +72,7 @@ export async function signInWithGoogleAction() {
     .then(data => firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken))
     .then(credential => firebase.auth().signInWithCredential(credential))
     .then(createUserInfo)
-    .then(handleNextRoute)
+    .then(showProfileScreen)
     .catch((error) => {
       authState.currentProvider = undefined;
       if (error.code === '-5') {
@@ -101,7 +101,7 @@ export async function signInWithFacebookAction() {
     .then(data => firebase.auth.FacebookAuthProvider.credential(data.accessToken))
     .then(credential => firebase.auth().signInWithCredential(credential))
     .then(createUserInfo)
-    .then(handleNextRoute)
+    .then(showProfileScreen)
     .catch((error) => {
       authState.currentProvider = undefined;
       if (error.code === 'user_cancel') {
@@ -117,10 +117,6 @@ export async function signOutAction() {
   NavigationService.reset('MainStack');
   await firebase.auth().signOut();
   authState.isLoading = LoadingType.NONE;
-}
-
-export function setNextRouteAction(route: string) {
-  authState.nextRoute = route;
 }
 
 export async function uploadProfilePhotoAction(path: string) {
@@ -201,12 +197,8 @@ async function createUserInfo() {
   return true;
 }
 
-function handleNextRoute() {
-  if (authState.nextRoute) {
-    NavigationService.navigate(authState.nextRoute);
-    authState.nextRoute = undefined;
-  }
-
+function showProfileScreen() {
+  NavigationService.navigate('Profile');
   return true;
 }
 

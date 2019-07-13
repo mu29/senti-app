@@ -5484,9 +5484,9 @@ react-native-google-signin@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-google-signin/-/react-native-google-signin-2.0.0.tgz#0d9cb128a65c0b48216716b979c1ada35900ceb0"
   integrity sha512-9loM4lcCIdbco5BnmNio7yGaXQKCpCaY1VRmYiTSvC5NjuSf6Ui6jZRee46p/YdaU4yRnS3u5Vct6Psrvr0HNg==
 
-react-native-image-cache-hoc@mu29/react-native-image-cache-hoc#fix/default-extension:
+react-native-image-cache-hoc@mu29/react-native-image-cache-hoc#5d76ae53482b005e1609356b05523d308d637402:
   version "2.0.0"
-  resolved "https://codeload.github.com/mu29/react-native-image-cache-hoc/tar.gz/7a12934008b93488f050e1b044a8a0384bbe8470"
+  resolved "https://codeload.github.com/mu29/react-native-image-cache-hoc/tar.gz/5d76ae53482b005e1609356b05523d308d637402"
   dependencies:
     buffer "^5.0.8"
     crypto-js "^3.1.9-1"

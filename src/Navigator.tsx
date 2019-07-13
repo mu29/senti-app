@@ -56,6 +56,9 @@ const MainTabNavigator = createBottomTabNavigator({
       ),
       tabBarOnPress: ({ navigation }: { navigation: any }) => navigation.navigate('CreateStory'),
     },
+    params: {
+      private: true,
+    },
   },
   Chatting: {
     screen: ChattingScreen,
@@ -92,7 +95,7 @@ const MainTabNavigator = createBottomTabNavigator({
     inactiveTintColor: palette.gray[40],
     showLabel: false,
   },
-  initialRouteName: 'Profile',
+  initialRouteName: 'Home',
 });
 
 const MainStackNavigator = createStackNavigator({

@@ -19,7 +19,7 @@
     "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-google-signin": "^2.0.0",
-    "react-native-image-cache-hoc": "mu29/react-native-image-cache-hoc#fix/default-extension",
+    "react-native-image-cache-hoc": "mu29/react-native-image-cache-hoc#5d76ae53482b005e1609356b05523d308d637402",
     "react-native-image-crop-picker": "^0.24.1",
     "react-native-modal": "^11.0.1",
     "react-native-sound": "^0.10.12",

@@ -23,8 +23,6 @@ export class AuthState {
   @observable
   public isLoading = LoadingType.NONE;
 
-  public nextRoute?: string;
-
   public unsubscriber?: () => void;
 
   @computed
