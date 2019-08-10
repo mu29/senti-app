@@ -9,6 +9,7 @@ module.exports = {
         'constants': './src/constants',
         'containers': './src/containers',
         'services': './src/services',
+        'utils': './src/utils',
         'stores': './src/stores'
       },
     }],

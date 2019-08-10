@@ -16,6 +16,7 @@
       "components": ["components"],
       "constants/*": ["constants/*"],
       "containers": ["containers"],
+      "services": ["services"],
       "services/*": ["services/*"],
       "stores/*": ["stores/*"],
     }
