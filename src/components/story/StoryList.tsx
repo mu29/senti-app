@@ -10,11 +10,13 @@ import {
   inject,
 } from 'mobx-react/native';
 import { StoryItem } from 'components';
+import {
+  withAudio,
+  AudioActionProps,
+} from 'services';
 import { StoryState } from 'stores/states';
 import {
   readStoriesAction,
-  playAudioAction,
-  pauseAudioAction,
   setCurrentStoryAction,
 } from 'stores/actions';
 import { palette } from 'constants/style';
@@ -28,13 +30,13 @@ const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-interface StoryListProps {
+interface Props extends AudioActionProps {
   storyState?: StoryState;
 }
 
 @inject('storyState')
 @observer
-class StoryList extends React.Component<StoryListProps> {
+class StoryList extends React.Component<Props> {
   private swiperAnimation = new Animated.Value(0);
 
   private previousItem?: string;
@@ -44,7 +46,7 @@ class StoryList extends React.Component<StoryListProps> {
   }
 
   public componentWillUnmount() {
-    pauseAudioAction();
+    this.props.pause();
   }
 
   public render() {
@@ -85,7 +87,7 @@ class StoryList extends React.Component<StoryListProps> {
       if (this.previousItem !== currentItem) {
         const story = this.props.storyState!.stories[currentItem];
         setCurrentStoryAction(story);
-        playAudioAction(story.audio);
+        this.props.play(story.audio.url);
         this.previousItem = currentItem;
       }
     }
@@ -100,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StoryList;
+export default withAudio(StoryList);

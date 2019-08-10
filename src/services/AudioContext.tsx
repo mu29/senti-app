@@ -8,11 +8,18 @@ interface Audio {
   isPlaying: boolean;
 }
 
-interface ContextProps {
+interface State {
   current: string;
   audios: {
     [key: string]: Audio;
   };
+}
+
+interface ContextProps extends State {
+  play: (url: string) => void;
+  replay: () => void;
+  pause: () => void;
+  stop: () => void;
 }
 
 const {
@@ -21,10 +28,14 @@ const {
 } = React.createContext<ContextProps>({
   current: '',
   audios: {},
+  play: () => {},
+  replay: () => {},
+  pause: () => {},
+  stop: () => {},
 });
 
-export class AudioProvider extends React.Component<{}, ContextProps> {
-  public state: ContextProps = {
+export class AudioProvider extends React.Component<{}, State> {
+  public state: State = {
     current: '',
     audios: {},
   };
@@ -55,7 +66,7 @@ export class AudioProvider extends React.Component<{}, ContextProps> {
   }
 
   private updateCurrentAudio(params: Partial<Audio>, callback?: () => void) {
-    this.setState((state: ContextProps) => {
+    this.setState((state: State) => {
       if (!this.currentAudio) {
         return state;
       }
@@ -90,7 +101,9 @@ export class AudioProvider extends React.Component<{}, ContextProps> {
     if (this.currentAudio && this.currentAudio.url === url) {
       return new Promise((resolve) => {
         if (this.currentAudio && this.isReady(this.currentAudio.sound)) {
-          this.currentAudio.sound!.play(this.reset);
+          this.updateCurrentAudio({ isPlaying: true }, () => {
+            this.currentAudio.sound!.play(this.reset);
+          });
         }
         resolve(true);
       });
@@ -126,7 +139,7 @@ export class AudioProvider extends React.Component<{}, ContextProps> {
     }).catch(() => {});
   }
 
-  private stop = <K extends keyof ContextProps>(nextState?: Pick<ContextProps, K>) => {
+  private stop = <K extends keyof State>(nextState?: Pick<State, K>) => {
     if (this.currentAudio && this.currentAudio.sound) {
       if (this.currentAudio.sound.isLoaded() && this.currentAudio.sound.isPlaying()) {
         this.currentAudio.sound.stop();
@@ -209,15 +222,22 @@ export interface AudioActionProps {
 }
 
 export interface AudioItemProps extends AudioActionProps {
-  audio: Audio;
+  audio?: Audio;
   isActivated: boolean;
 }
 
-export function withAudio<P>(WrappedComponent: React.ComponentType<P>, key?: string) {
-  return (props: P) => (
+type AudioProps = AudioActionProps | AudioItemProps;
+
+export function withAudio<P extends AudioProps, T = Omit<P, keyof AudioItemProps>>(
+  WrappedComponent: React.ComponentType<P>,
+  keyFn?: (props: T) => string,
+): React.ComponentType<T> {
+  return (props) => (
     <Consumer>
-      {({ current, audios, ...actions }) => (
-        key ? (
+      {({ current, audios, ...actions }) => {
+        const key = keyFn ? keyFn(props) : undefined;
+        return key ? (
+          // @ts-ignore
           <WrappedComponent
             audio={audios[key]}
             isActivated={current === key}
@@ -225,12 +245,13 @@ export function withAudio<P>(WrappedComponent: React.ComponentType<P>, key?: str
             {...props}
           />
         ) : (
+          // @ts-ignore
           <WrappedComponent
             {...actions}
             {...props}
           />
-        ))
-      }
+        );
+      }}
     </Consumer>
   );
 }

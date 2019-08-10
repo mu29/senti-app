@@ -10,10 +10,6 @@ import {
 import { SafeAreaView } from 'react-navigation';
 import imageCacheHoc from 'react-native-image-cache-hoc';
 import {
-  autorun,
-  IReactionDisposer,
-} from 'mobx';
-import {
   inject,
   observer,
 } from 'mobx-react/native';
@@ -22,15 +18,11 @@ import {
   StoryController,
 } from 'components';
 import {
-  AudioState,
-  StoryState,
-} from 'stores/states';
-import {
-  pauseAudioAction,
-  playAudioAction,
-} from 'stores/actions';
+  withAudio,
+  AudioItemProps,
+} from 'services';
+import { StoryState } from 'stores/states';
 import { palette } from 'constants/style';
-import { LoadingType } from 'constants/enums';
 
 const {
   width: deviceWidth,
@@ -44,37 +36,31 @@ const CachableImage = imageCacheHoc(Image, {
   cachePruneTriggerLimit: 1024 * 1024 * 50,
 });
 
-interface StoryItemProps {
+interface Props extends AudioItemProps {
   storyId: string;
   index: number;
   animatedValue: Animated.Value;
   hasBottom?: boolean;
-  audioState?: AudioState;
   storyState?: StoryState;
 }
 
-@inject('audioState', 'storyState')
+@inject('storyState')
 @observer
-class StoryItem extends React.Component<StoryItemProps> {
+class StoryItem extends React.Component<Props> {
   private pauseAnimation = new Animated.Value(0);
 
   private iconStyle = { opacity: this.pauseAnimation };
 
-  private animationReactionDisposer?: IReactionDisposer;
+  public componentDidUpdate(prevProps: Props) {
+    const wasPlaying = prevProps.audio && prevProps.audio.isPlaying;
+    const isPlaying = this.props.audio && this.props.audio.isPlaying;
 
-  public componentDidMount() {
-    this.animationReactionDisposer = autorun(() => {
+    if (wasPlaying !== isPlaying) {
       Animated.timing(this.pauseAnimation, {
-        toValue: Number(!this.audio.isPlaying && this.props.audioState!.isLoading === LoadingType.NONE),
+        toValue: Number(!(this.props.audio && this.props.audio.isPlaying)),
         duration: 200,
         useNativeDriver: true,
       }).start();
-    });
-  }
-
-  public componentWillUnmount() {
-    if (this.animationReactionDisposer) {
-      this.animationReactionDisposer();
     }
   }
 
@@ -139,12 +125,6 @@ class StoryItem extends React.Component<StoryItemProps> {
     return storyState!.stories[storyId] || {};
   }
 
-  private get audio() {
-    const { audioState } = this.props;
-
-    return audioState!.audios[this.story.audio.id] || {};
-  }
-
   private renderTag = (tag: string, index: number) => (
     <Text key={`${tag}-${index}`} style={styles.tag}>
       {tag}
@@ -152,10 +132,20 @@ class StoryItem extends React.Component<StoryItemProps> {
   )
 
   private toggle = () => {
-    if (this.audio.isPlaying) {
-      pauseAudioAction();
+    const {
+      audio,
+      play,
+      pause,
+    } = this.props;
+
+    if (!audio) {
+      return;
+    }
+
+    if (audio.isPlaying) {
+      pause();
     } else {
-      playAudioAction(this.audio);
+      play(audio.url);
     }
   }
 
@@ -236,4 +226,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StoryItem;
+export default inject('storyState')(observer(withAudio(StoryItem, props => props.storyState!.stories[props.storyId].audio.url)));
