@@ -37,13 +37,12 @@ declare global {
 
   interface Story {
     id: string;
-    index: number;
     cover: string;
     description: string;
     tags: {
       [key: string]: number;
     };
-    tagNames: [string];
+    tagNames: string[];
     audio: Audio;
     user: UserEssential;
     createdAt: number;
