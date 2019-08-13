@@ -10,10 +10,6 @@ import {
 import { SafeAreaView } from 'react-navigation';
 import imageCacheHoc from 'react-native-image-cache-hoc';
 import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import {
   Text,
   StoryController,
 } from 'components';
@@ -21,7 +17,6 @@ import {
   withAudio,
   AudioItemProps,
 } from 'services';
-import { StoryState } from 'stores/states';
 import { palette } from 'constants/style';
 
 const {
@@ -37,19 +32,18 @@ const CachableImage = imageCacheHoc(Image, {
 });
 
 interface Props extends AudioItemProps {
-  storyId: string;
+  item: Story;
   index: number;
   animatedValue: Animated.Value;
   hasBottom?: boolean;
-  storyState?: StoryState;
 }
 
-@inject('storyState')
-@observer
 class StoryItem extends React.Component<Props> {
   private pauseAnimation = new Animated.Value(0);
 
   private iconStyle = { opacity: this.pauseAnimation };
+
+  private coverImage = { uri: this.props.item.cover };
 
   public componentDidUpdate(prevProps: Props) {
     const wasPlaying = prevProps.audio && prevProps.audio.isPlaying;
@@ -65,26 +59,17 @@ class StoryItem extends React.Component<Props> {
   }
 
   public render() {
-    if (!this.story) {
-      return null;
-    }
-
     const {
+      item,
       index,
       hasBottom,
     } = this.props;
-
-    const {
-      cover,
-      description,
-      tagNames,
-    } = this.story;
 
     return (
       <View style={styles.container}>
         <Animated.View style={this.getParallaxStyles(index)}>
           <CachableImage
-            source={{ uri: cover }}
+            source={this.coverImage}
             style={styles.background}
             permanent
           />
@@ -97,32 +82,20 @@ class StoryItem extends React.Component<Props> {
               style={styles.button}
             >
               <Text style={styles.description}>
-                {description.replace(/#[^ ]+/g, '').trim()}
+                {item.description.replace(/#[^ ]+/g, '').trim()}
               </Text>
               <View style={styles.tags}>
-                {(tagNames || []).map(tag => `#${tag}`).map(this.renderTag)}
+                {item.tags.map(tag => `#${tag}`).map(this.renderTag)}
               </View>
             </TouchableOpacity>
-            <StoryController story={this.story} style={hasBottom && styles.controller} />
+            <StoryController item={item} style={hasBottom && styles.controller} />
             <Animated.View pointerEvents="none" style={[styles.iconContainer, this.iconStyle]}>
-              <Image
-                source={PLAY_ICON}
-                style={styles.icon}
-              />
+              <Image source={PLAY_ICON} style={styles.icon} />
             </Animated.View>
           </SafeAreaView>
         </View>
       </View>
     );
-  }
-
-  private get story() {
-    const {
-      storyId,
-      storyState,
-    } = this.props;
-
-    return storyState!.stories[storyId] || {};
   }
 
   private renderTag = (tag: string, index: number) => (
@@ -226,4 +199,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default inject('storyState')(observer(withAudio(StoryItem, props => props.storyState!.stories[props.storyId].audio.url)));
+export default withAudio(StoryItem, props => props.item.audio.url);

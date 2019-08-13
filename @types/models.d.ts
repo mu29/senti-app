@@ -39,10 +39,7 @@ declare global {
     id: string;
     cover: string;
     description: string;
-    tags: {
-      [key: string]: number;
-    };
-    tagNames: string[];
+    tags: string[];
     audio: Audio;
     user: UserEssential;
     createdAt: number;

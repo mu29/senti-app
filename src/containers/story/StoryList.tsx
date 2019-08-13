@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { useQuery } from 'react-apollo-hooks';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { StoryList } from 'components';
 import { FETCH_MAIN_STORY_FEED } from 'graphqls';
 
@@ -10,31 +10,48 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
     fetchMore,
   } = useQuery(FETCH_MAIN_STORY_FEED);
 
-  const onFetchMore = useCallback(() => fetchMore({
-    variables: {
-      cursor: data.cursor,
-    },
-    updateQuery: (original, { fetchMoreResult }) => {
-      if (!fetchMoreResult) {
-        return original;
-      }
-
-      return Object.assign(original, {
-        stories: original.stories.concat(fetchMoreResult.stories),
-        cursor: fetchMoreResult.cursor,
-      });
-    },
-  }), [data.cursor]);
-
   if (error) {
     // TODO: 오류 메시지 표시 & Reload
     return null;
   }
 
+  if (!data.mainStoryFeed) {
+    return null;
+  }
+
+  const {
+    mainStoryFeed: {
+      stories,
+      cursor,
+    },
+  } = data;
+
   return (
     <StoryList
-      stories={data.stories || []}
-      onFetchMore={onFetchMore}
+      stories={stories || []}
+      onFetchMore={() => fetchMore({
+        variables: { cursor },
+        updateQuery: (original, { fetchMoreResult }) => {
+          if (!fetchMoreResult) {
+            return original;
+          }
+
+          const {
+            mainStoryFeed: {
+              stories: nextStories,
+              cursor: nextCursor,
+            },
+          } = fetchMoreResult;
+
+          return Object.assign(original, {
+            mainStoryFeed: {
+              ...original.mainStoryFeed,
+              stories: original.mainStoryFeed.stories.concat(nextStories),
+              cursor: nextCursor,
+            },
+          });
+        },
+      })}
     />
   );
 };

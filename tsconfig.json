@@ -16,9 +16,11 @@
       "components": ["components"],
       "constants/*": ["constants/*"],
       "containers": ["containers"],
+      "graphqls": ["graphqls"],
       "services": ["services"],
       "services/*": ["services/*"],
       "stores/*": ["stores/*"],
+      "utils": ["utils"],
     }
   },
   "include": ["src/**/*", "@types/*"],

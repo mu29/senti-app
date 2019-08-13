@@ -31,7 +31,7 @@ const HIT_SLOP = {
 };
 
 interface StoryControllerProps {
-  story: Story;
+  item: Story;
   style?: StyleProp<ViewStyle>;
   authState?: AuthState;
   storyState?: StoryState;
@@ -41,22 +41,28 @@ interface StoryControllerProps {
 class StoryController extends React.Component<StoryControllerProps> {
   public render() {
     const {
-      story,
+      item: {
+        user: {
+          photoUrl,
+          name,
+        },
+        createdAt,
+      },
       style,
     } = this.props;
 
     return (
       <View style={[styles.container, style]}>
         <Image
-          source={{ uri: story.user.photoUrl || '' }}
+          source={{ uri: photoUrl || '' }}
           style={styles.photo}
         />
         <View style={styles.profile}>
           <Text style={[typography.heading3, styles.name]}>
-            {story.user.name}
+            {name}
           </Text>
           <Text style={styles.date}>
-            {moment(story.createdAt).fromNow()}
+            {moment(createdAt).fromNow()}
           </Text>
         </View>
         <TouchableOpacity

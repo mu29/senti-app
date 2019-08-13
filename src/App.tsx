@@ -1,7 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { ApolloProvider } from 'react-apollo';
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
 import { BatchHttpLink } from 'apollo-link-batch-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -68,14 +67,12 @@ export default class App extends React.Component<{} , AppState> {
         <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
         <Provider {...states}>
           <ApolloProvider client={client}>
-            <ApolloHooksProvider client={client}>
-              <AudioProvider>
-                <React.Fragment>
-                  <AuthModal />
-                  <Navigator ref={this.setNavigationRef} />
-                </React.Fragment>
-              </AudioProvider>
-            </ApolloHooksProvider>
+            <AudioProvider>
+              <React.Fragment>
+                <AuthModal />
+                <Navigator ref={this.setNavigationRef} />
+              </React.Fragment>
+            </AudioProvider>
           </ApolloProvider>
         </Provider>
       </React.Fragment>
