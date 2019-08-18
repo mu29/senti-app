@@ -3,7 +3,6 @@ import Sound from 'react-native-sound';
 
 interface Audio {
   url: string;
-  sound?: Sound;
   elapsedTime: number;
   isPlaying: boolean;
 }
@@ -39,6 +38,8 @@ export class AudioProvider extends React.Component<{}, State> {
     current: '',
     audios: {},
   };
+
+  private sound?: Sound;
 
   private timer?: NodeJS.Timer;
 
@@ -87,10 +88,6 @@ export class AudioProvider extends React.Component<{}, State> {
     });
   }
 
-  private isReady(sound?: Sound) {
-    return sound && sound.isLoaded() && !sound.isPlaying();
-  }
-
   private play = (url: string) => {
     if (this.rejector) {
       this.rejector('Other audio is started.');
@@ -100,21 +97,20 @@ export class AudioProvider extends React.Component<{}, State> {
     // 동일한 오디오 재생
     if (this.currentAudio && this.currentAudio.url === url) {
       return new Promise((resolve) => {
-        if (this.currentAudio && this.isReady(this.currentAudio.sound)) {
+        if (this.sound && this.sound.isLoaded() && !this.sound.isPlaying()) {
           this.updateCurrentAudio({ isPlaying: true }, () => {
-            this.currentAudio.sound!.play(this.reset);
+            this.sound!.play(this.reset);
           });
         }
         resolve(true);
       });
     }
 
-    this.stop({ current: url });
-
     return new Promise((resolve, reject) => {
       this.rejector = reject;
 
-      const sound = new Sound(url, '', (error) => {
+      this.stop({ current: url });
+      this.sound = new Sound(url, '', (error) => {
         if (error) {
           return reject(error);
         }
@@ -124,14 +120,13 @@ export class AudioProvider extends React.Component<{}, State> {
             ...this.state.audios,
             [url]: {
               url,
-              sound,
               elapsedTime: 0,
               isPlaying: true,
             },
           },
         });
-        sound.setVolume(1);
-        sound.play(this.reset);
+        this.sound!.setVolume(1);
+        this.sound!.play(this.reset);
         this.setTimer();
 
         return resolve(true);
@@ -140,11 +135,9 @@ export class AudioProvider extends React.Component<{}, State> {
   }
 
   private stop = <K extends keyof State>(nextState?: Pick<State, K>) => {
-    if (this.currentAudio && this.currentAudio.sound) {
-      if (this.currentAudio.sound.isLoaded() && this.currentAudio.sound.isPlaying()) {
-        this.currentAudio.sound.stop();
-      }
-      this.currentAudio.sound.release();
+    if (this.sound && this.sound.isLoaded()) {
+      this.sound.stop();
+      this.sound.release();
     }
 
     if (nextState) {
@@ -156,12 +149,12 @@ export class AudioProvider extends React.Component<{}, State> {
   }
 
   private pause = () => {
-    if (!this.currentAudio || !this.currentAudio.sound) {
+    if (!this.sound) {
       return;
     }
 
-    if (this.currentAudio.sound.isLoaded() && this.currentAudio.sound.isPlaying()) {
-      this.currentAudio.sound.pause();
+    if (this.sound.isLoaded() && this.sound.isPlaying()) {
+      this.sound.pause();
     }
 
     this.updateCurrentAudio({ isPlaying: false });
@@ -169,32 +162,30 @@ export class AudioProvider extends React.Component<{}, State> {
   }
 
   private replay = () => {
-    if (!this.currentAudio || !this.currentAudio.sound) {
+    if (!this.sound) {
       return;
     }
 
-    if (this.currentAudio.sound && this.currentAudio.sound.isLoaded()) {
-      this.currentAudio.sound.stop(() => {
+    if (this.sound.isLoaded()) {
+      this.sound.stop(() => {
         this.updateCurrentAudio({ elapsedTime: 0 }, () => {
-          this.currentAudio.sound!.play(this.reset);
+          this.sound!.play(this.reset);
         });
       });
     }
   }
 
   private reset = () => {
-    if (!this.currentAudio || !this.currentAudio.sound) {
+    if (!this.sound) {
       return;
     }
 
-    if (this.currentAudio.sound) {
-      this.currentAudio.sound.stop();
-      this.clearTimer();
-      this.updateCurrentAudio({
-        elapsedTime: 0,
-        isPlaying: false,
-      });
-    }
+    this.sound.stop();
+    this.clearTimer();
+    this.updateCurrentAudio({
+      elapsedTime: 0,
+      isPlaying: false,
+    });
   }
 
   private setTimer = () => {
