@@ -1,12 +1,12 @@
 import Sound from 'react-native-sound';
 
-enum SoundState {
-  NONE,
+export enum SoundState {
   PLAY,
   PAUSE,
   STOP,
   LOADING,
   ERROR,
+  NONE,
 }
 
 type SoundStateObserver = (state: SoundState) => void;
@@ -16,25 +16,32 @@ class SoundService {
 
   private current = '';
 
-  private observers: {
-    [key: string]: SoundStateObserver;
-  } = {};
+  private observers = new Map<string, SoundStateObserver[]>();
 
-  public addObserver(key: string, observer: SoundStateObserver) {
-    this.observers[key] = observer;
+  public addObserver = (key: string, observer: SoundStateObserver) => {
+    const prevObservers = this.observers.get(key) || [];
+    const nextObservers = prevObservers.concat(observer);
+    this.observers.set(key, nextObservers);
   }
 
-  public removeObserver(key: string) {
+  public removeObserver = (key: string, observer: SoundStateObserver) => {
     if (Object.prototype.hasOwnProperty.call(this.observers, key)) {
-      delete this.observers[key];
+      const prevObservers = this.observers.get(key) || [];
+      const nextObservers = prevObservers.filter(o => o !== observer);
+
+      if (nextObservers.length > 0) {
+        this.observers.set(key, nextObservers);
+      } else {
+        this.observers.delete(key);
+      }
     }
   }
 
-  public play(url: string) {
+  public play = (url: string) => {
     if (this.current === url) {
       if (this.sound && this.sound.isLoaded() && !this.sound.isPlaying()) {
         this.emit(SoundState.PLAY);
-        this.sound.play();
+        this.sound.play(this.reset);
       }
       return;
     }
@@ -48,21 +55,20 @@ class SoundService {
         this.emit(SoundState.ERROR);
         return;
       }
-
       this.emit(SoundState.PLAY);
       this.sound!.setVolume(1);
       this.sound!.play(this.reset);
     });
   }
 
-  public pause() {
+  public pause = () => {
     if (this.sound && this.sound.isLoaded() && this.sound.isPlaying()) {
       this.sound.pause();
       this.emit(SoundState.PAUSE);
     }
   }
 
-  public replay() {
+  public replay = () => {
     if (!this.sound) {
       return;
     }
@@ -76,7 +82,7 @@ class SoundService {
     }
   }
 
-  public release() {
+  public release = () => {
     if (this.sound && this.sound.isLoaded()) {
       this.sound.stop();
       this.sound.release();
@@ -85,19 +91,16 @@ class SoundService {
     this.emit(SoundState.NONE);
   }
 
-  private reset() {
+  private reset = () => {
     if (this.sound && this.sound.isLoaded()) {
       this.emit(SoundState.STOP);
       this.sound.stop();
     }
   }
 
-  private emit(state: SoundState) {
-    const observer = this.observers[this.current];
-
-    if (observer) {
-      observer(state);
-    }
+  private emit = (state: SoundState) => {
+    const observers = this.observers.get(this.current) || [];
+    observers.forEach(o => o(state));
   }
 }
 
