@@ -6,10 +6,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { StoryItem } from 'components';
-import {
-  withAudio,
-  AudioActionProps,
-} from 'services';
+import { SoundService } from 'services';
 import { palette } from 'constants/style';
 
 const {
@@ -21,7 +18,7 @@ const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-interface Props extends AudioActionProps {
+interface Props {
   stories: Story[];
   onFetchMore: () => void;
 }
@@ -30,10 +27,6 @@ class StoryList extends React.Component<Props> {
   private swiperAnimation = new Animated.Value(0);
 
   private previousItem?: Story;
-
-  public componentWillUnmount() {
-    this.props.pause();
-  }
 
   public render() {
     const {
@@ -74,7 +67,7 @@ class StoryList extends React.Component<Props> {
     if (viewableItems.length > 0) {
       const currentItem = viewableItems[0].item;
       if (this.previousItem !== currentItem) {
-        this.props.play(currentItem.audio.url);
+        SoundService.play(currentItem.audio.url);
         this.previousItem = currentItem;
       }
     }
@@ -89,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withAudio(StoryList);
+export default StoryList;

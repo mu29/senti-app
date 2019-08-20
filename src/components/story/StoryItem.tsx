@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   View,
   Image,
@@ -7,16 +10,14 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+import { useAnimation } from 'react-native-animation-hooks';
 import { SafeAreaView } from 'react-navigation';
 import imageCacheHoc from 'react-native-image-cache-hoc';
 import {
   Text,
   StoryController,
 } from 'components';
-import {
-  withAudio,
-  AudioItemProps,
-} from 'services';
+import { useAudio } from 'services';
 import { palette } from 'constants/style';
 
 const {
@@ -31,115 +32,92 @@ const CachableImage = imageCacheHoc(Image, {
   cachePruneTriggerLimit: 1024 * 1024 * 50,
 });
 
-interface Props extends AudioItemProps {
+interface Props {
   item: Story;
   index: number;
   animatedValue: Animated.Value;
   hasBottom?: boolean;
 }
 
-class StoryItem extends React.Component<Props> {
-  private pauseAnimation = new Animated.Value(0);
+const StoryItem: React.FunctionComponent<Props> = ({
+  item,
+  index,
+  animatedValue,
+  hasBottom,
+}) => {
+  const {
+    audio,
+    play,
+    pause,
+  } = useAudio(item.audio.url);
 
-  private iconStyle = { opacity: this.pauseAnimation };
+  const coverImage = useMemo(() => ({ uri: item.cover }), [item]);
 
-  private coverImage = { uri: this.props.item.cover };
+  const parallexStyle = useMemo(() => ({
+    transform: [{
+      translateY: animatedValue!.interpolate({
+        inputRange: [
+          (index - 1) * deviceHeight,
+          index * deviceHeight,
+          (index + 1) * deviceHeight,
+        ],
+        outputRange: [-deviceHeight * 0.5, 0, deviceHeight * 0.5],
+        extrapolate: 'clamp',
+      }),
+    }],
+  }), [index]);
 
-  public componentDidUpdate(prevProps: Props) {
-    const wasPlaying = prevProps.audio && prevProps.audio.isPlaying;
-    const isPlaying = this.props.audio && this.props.audio.isPlaying;
+  const pauseAnimation = useAnimation({
+    type: 'timing',
+    toValue: Number(!audio.isPlaying),
+    duration: 200,
+    useNativeDriver: true,
+  });
 
-    if (wasPlaying !== isPlaying) {
-      Animated.timing(this.pauseAnimation, {
-        toValue: Number(!(this.props.audio && this.props.audio.isPlaying)),
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    }
-  }
+  const toggle = useCallback(() => {
+    audio.isPlaying ? pause() : play(item.audio.url);
+  }, [item, audio.isPlaying]);
 
-  public render() {
-    const {
-      item,
-      index,
-      hasBottom,
-    } = this.props;
-
-    return (
-      <View style={styles.container}>
-        <Animated.View style={this.getParallaxStyles(index)}>
-          <CachableImage
-            source={this.coverImage}
-            style={styles.background}
-            permanent
-          />
-        </Animated.View>
-        <View style={styles.filter}>
-          <SafeAreaView style={styles.content}>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={this.toggle}
-              style={styles.button}
-            >
-              <Text style={styles.description}>
-                {item.description.replace(/#[^ ]+/g, '').trim()}
-              </Text>
-              <View style={styles.tags}>
-                {item.tags.map(tag => `#${tag}`).map(this.renderTag)}
-              </View>
-            </TouchableOpacity>
-            <StoryController item={item} style={hasBottom && styles.controller} />
-            <Animated.View pointerEvents="none" style={[styles.iconContainer, this.iconStyle]}>
-              <Image source={PLAY_ICON} style={styles.icon} />
-            </Animated.View>
-          </SafeAreaView>
-        </View>
-      </View>
-    );
-  }
-
-  private renderTag = (tag: string, index: number) => (
-    <Text key={`${tag}-${index}`} style={styles.tag}>
+  const renderTag = useCallback((tag: string, i: number) => (
+    <Text key={`${tag}-${i}`} style={styles.tag}>
       {tag}
     </Text>
-  )
+  ), []);
 
-  private toggle = () => {
-    const {
-      audio,
-      play,
-      pause,
-    } = this.props;
+  const iconStyle = useMemo(() => ({ opacity: pauseAnimation }), [pauseAnimation]);
 
-    if (!audio) {
-      return;
-    }
-
-    if (audio.isPlaying) {
-      pause();
-    } else {
-      play(audio.url);
-    }
-  }
-
-  private getParallaxStyles(index: number) {
-    return {
-      transform: [
-        {
-          translateY: this.props.animatedValue!.interpolate({
-            inputRange: [
-              (index - 1) * deviceHeight,
-              index * deviceHeight,
-              (index + 1) * deviceHeight,
-            ],
-            outputRange: [-deviceHeight * 0.5, 0, deviceHeight * 0.5],
-            extrapolate: 'clamp',
-          }),
-        },
-      ],
-    };
-  }
-}
+  return (
+    <View style={styles.container}>
+      <Animated.View style={parallexStyle}>
+        <CachableImage
+          source={coverImage}
+          style={styles.background}
+          permanent
+        />
+      </Animated.View>
+      <View style={styles.filter}>
+        <SafeAreaView style={styles.content}>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={toggle}
+            style={styles.button}
+          >
+            <Text style={styles.description}>
+              {item.description.replace(/#[^ ]+/g, '').trim()}
+            </Text>
+            <View style={styles.tags}>
+              {item.tags.map(tag => `#${tag}`).map(renderTag)}
+            </View>
+          </TouchableOpacity>
+          <StoryController item={item} style={hasBottom && styles.controller} />
+          <Animated.View pointerEvents="none" style={[styles.iconContainer, iconStyle]}>
+            <Image source={PLAY_ICON} style={styles.icon} />
+          </Animated.View>
+        </SafeAreaView>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -170,6 +148,7 @@ const styles = StyleSheet.create({
     marginTop: 32,
     color: palette.gray[10],
     fontSize: 18,
+    textAlign: 'center',
   },
   tags: {
     flexDirection: 'row',
@@ -199,4 +178,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withAudio(StoryItem, props => props.item.audio.url);
+export default React.memo(StoryItem);

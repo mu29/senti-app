@@ -2,11 +2,11 @@ import React from 'react';
 import { NavigationEvents } from 'react-navigation';
 import { ReplyModal } from 'components';
 import { StoryList } from 'containers';
-import { pauseAudioAction } from 'stores/actions';
+import { SoundService } from 'services';
 
 const HomeScreen: React.FunctionComponent<{}> = () => (
   <React.Fragment>
-    <NavigationEvents onWillBlur={pauseAudioAction} />
+    <NavigationEvents onWillBlur={SoundService.pause} />
     <StoryList />
     <ReplyModal />
   </React.Fragment>

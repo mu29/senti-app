@@ -21,6 +21,7 @@
     "react": "16.8.3",
     "react-apollo": "^3.0.0",
     "react-native": "0.59.4",
+    "react-native-animation-hooks": "^1.0.1",
     "react-native-fbsdk": "^0.8.0",
     "react-native-firebase": "^5.3.1",
     "react-native-fs": "^2.13.3",
