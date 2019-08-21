@@ -14,6 +14,7 @@
     "baseUrl": "./src",
     "paths": {
       "components": ["components"],
+      "components/*": ["components/*"],
       "constants/*": ["constants/*"],
       "containers": ["containers"],
       "graphqls": ["graphqls"],

@@ -10,7 +10,6 @@ import { Provider } from 'mobx-react/native';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { AuthModal } from 'components';
-import { AudioProvider } from 'services';
 import * as states from './stores/states';
 import {
   readCoversAction,
@@ -67,12 +66,10 @@ export default class App extends React.Component<{} , AppState> {
         <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
         <Provider {...states}>
           <ApolloProvider client={client}>
-            <AudioProvider>
-              <React.Fragment>
-                <AuthModal />
-                <Navigator ref={this.setNavigationRef} />
-              </React.Fragment>
-            </AudioProvider>
+            <React.Fragment>
+              <AuthModal />
+              <Navigator ref={this.setNavigationRef} />
+            </React.Fragment>
           </ApolloProvider>
         </Provider>
       </React.Fragment>
