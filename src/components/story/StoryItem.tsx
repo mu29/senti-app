@@ -13,10 +13,8 @@ import {
 import { useAnimation } from 'react-native-animation-hooks';
 import { SafeAreaView } from 'react-navigation';
 import imageCacheHoc from 'react-native-image-cache-hoc';
-import {
-  Text,
-  StoryController,
-} from 'components';
+import { Text } from 'components';
+import { StoryController } from 'containers';
 import { useAudio } from 'services';
 import { palette } from 'constants/style';
 
@@ -51,7 +49,16 @@ const StoryItem: React.FunctionComponent<Props> = ({
     pause,
   } = useAudio(item.audio.url);
 
-  const coverImage = useMemo(() => ({ uri: item.cover }), [item]);
+  const pauseAnimation = useAnimation({
+    type: 'timing',
+    toValue: Number(!audio.isPlaying),
+    duration: 200,
+    useNativeDriver: true,
+  });
+
+  const coverImage = useMemo(() => ({ uri: item.cover }), [item.cover]);
+
+  const iconStyle = useMemo(() => ({ opacity: pauseAnimation }), [pauseAnimation]);
 
   const parallexStyle = useMemo(() => ({
     transform: [{
@@ -67,13 +74,6 @@ const StoryItem: React.FunctionComponent<Props> = ({
     }],
   }), [index]);
 
-  const pauseAnimation = useAnimation({
-    type: 'timing',
-    toValue: Number(!audio.isPlaying),
-    duration: 200,
-    useNativeDriver: true,
-  });
-
   const toggle = useCallback(() => {
     audio.isPlaying ? pause() : play(item.audio.url);
   }, [item, audio.isPlaying]);
@@ -83,8 +83,6 @@ const StoryItem: React.FunctionComponent<Props> = ({
       {tag}
     </Text>
   ), []);
-
-  const iconStyle = useMemo(() => ({ opacity: pauseAnimation }), [pauseAnimation]);
 
   return (
     <View style={styles.container}>
@@ -109,7 +107,9 @@ const StoryItem: React.FunctionComponent<Props> = ({
               {item.tags.map(tag => `#${tag}`).map(renderTag)}
             </View>
           </TouchableOpacity>
-          <StoryController item={item} style={hasBottom && styles.controller} />
+          <View style={hasBottom && styles.controller}>
+            <StoryController item={item} />
+          </View>
           <Animated.View pointerEvents="none" style={[styles.iconContainer, iconStyle]}>
             <Image source={PLAY_ICON} style={styles.icon} />
           </Animated.View>
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   controller: {
+    alignSelf: 'stretch',
     marginBottom: 48,
   },
   iconContainer: {

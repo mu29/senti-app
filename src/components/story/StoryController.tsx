@@ -1,25 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
   Image,
   TouchableOpacity,
   StyleSheet,
-  StyleProp,
-  ViewStyle,
 } from 'react-native';
-import { inject } from 'mobx-react/native';
 import moment from 'moment';
 import { Text } from 'components';
-import {
-  AuthState,
-  StoryState,
-} from 'stores/states';
-import {
-  replayAudioAction,
-  showAuthModalAction,
-  showReplyModalAction,
-  pauseAudioAction,
-} from 'stores/actions';
+import { SoundService } from 'services';
 import {
   palette,
   typography,
@@ -30,71 +18,58 @@ const HIT_SLOP = {
   bottom: 16,
 };
 
-interface StoryControllerProps {
+const REPLAY_ICON = { uri: 'ic_replay' };
+
+const REPLY_ICON = { uri: 'ic_chat_active' };
+
+export interface Props {
   item: Story;
-  style?: StyleProp<ViewStyle>;
-  authState?: AuthState;
-  storyState?: StoryState;
+  openReplyModal: () => void;
 }
 
-@inject('authState', 'storyState')
-class StoryController extends React.Component<StoryControllerProps> {
-  public render() {
-    const {
-      item: {
-        user: {
-          photoUrl,
-          name,
-        },
-        createdAt,
-      },
-      style,
-    } = this.props;
+const StoryController: React.FunctionComponent<Props> = ({
+  item: {
+    user: {
+      photoUrl,
+      name,
+    },
+    createdAt,
+  },
+  openReplyModal,
+}) => {
+  const photoImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
 
-    return (
-      <View style={[styles.container, style]}>
-        <Image
-          source={{ uri: photoUrl || '' }}
-          style={styles.photo}
-        />
-        <View style={styles.profile}>
-          <Text style={[typography.heading3, styles.name]}>
-            {name}
-          </Text>
-          <Text style={styles.date}>
-            {moment(createdAt).fromNow()}
-          </Text>
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          hitSlop={HIT_SLOP}
-          onPress={replayAudioAction}
-        >
-          <Image source={{ uri: 'ic_replay' }} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          hitSlop={HIT_SLOP}
-          onPress={this.openReplyModal}
-        >
-          <Image source={{ uri: 'ic_chat_active' }} style={styles.icon} />
-        </TouchableOpacity>
+  return (
+    <View style={styles.container}>
+      <Image
+        source={photoImage}
+        style={styles.photo}
+      />
+      <View style={styles.profile}>
+        <Text style={[typography.heading3, styles.name]}>
+          {name}
+        </Text>
+        <Text style={styles.date}>
+          {moment(createdAt).fromNow()}
+        </Text>
       </View>
-    );
-  }
-
-  private openReplyModal = () => {
-    const { authState } = this.props;
-
-    if (!authState!.isLoggedIn) {
-      showAuthModalAction();
-      return;
-    }
-
-    pauseAudioAction();
-    showReplyModalAction();
-  }
-}
+      <TouchableOpacity
+        activeOpacity={0.6}
+        hitSlop={HIT_SLOP}
+        onPress={SoundService.replay}
+      >
+        <Image source={REPLAY_ICON} style={styles.icon} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        hitSlop={HIT_SLOP}
+        onPress={openReplyModal}
+      >
+        <Image source={REPLY_ICON} style={styles.icon} />
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -129,4 +104,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StoryController;
+export default React.memo(StoryController);
