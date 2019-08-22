@@ -9,7 +9,7 @@ import {
   createBottomTabNavigator,
   TabBarIconProps,
 } from 'react-navigation';
-import { BottomTabBar } from 'components';
+import { BottomTabBar } from 'containers';
 import { palette } from 'constants/style';
 
 import HomeScreen from './screens/HomeScreen';

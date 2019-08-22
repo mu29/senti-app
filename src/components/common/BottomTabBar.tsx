@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  View,
   TouchableOpacity,
   StyleSheet,
   Platform,
@@ -8,18 +7,12 @@ import {
   EmitterSubscription,
 } from 'react-native';
 import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import {
   SafeAreaView,
   SafeAreaViewForceInsetValue,
-  BottomTabBarProps as NavigationBottomTabBarProps,
+  BottomTabBarProps,
   NavigationRoute,
   NavigationParams,
 } from 'react-navigation';
-import { AuthState } from 'stores/states';
-import { showAuthModalAction } from 'stores/actions';
 import { palette } from 'constants/style';
 
 const SAFE_AREA_INSET: {
@@ -30,14 +23,13 @@ const SAFE_AREA_INSET: {
   bottom: 'always',
 };
 
-interface BottomTabBarProps extends NavigationBottomTabBarProps {
+interface Props extends BottomTabBarProps {
+  isLoggedIn: boolean;
   onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
-  authState?: AuthState;
+  showAuthModal: () => void;
 }
 
-@inject('authState')
-@observer
-class BottomTabBar extends React.Component<BottomTabBarProps> {
+class BottomTabBar extends React.PureComponent<Props> {
   public state = {
     isVisible: true,
   };
@@ -89,19 +81,17 @@ class BottomTabBar extends React.Component<BottomTabBarProps> {
     } = this.props;
 
     return (
-      <View>
-        <SafeAreaView
-          style={[
-            styles.container,
-            style,
-            { backgroundColor: navigationIndex === 0 ? palette.transparent.black[60] : palette.gray[100] },
-            { position: navigationIndex === 0 ? 'absolute' : 'relative' },
-          ]}
-          forceInset={SAFE_AREA_INSET}
-        >
-          {routes.map(this.renderTabItem)}
-        </SafeAreaView>
-      </View>
+      <SafeAreaView
+        style={[
+          styles.container,
+          style,
+          { backgroundColor: navigationIndex === 0 ? palette.transparent.black[60] : palette.gray[100] },
+          { position: navigationIndex === 0 ? 'absolute' : 'relative' },
+        ]}
+        forceInset={SAFE_AREA_INSET}
+      >
+        {routes.map(this.renderTabItem)}
+      </SafeAreaView>
     );
   }
 
@@ -139,12 +129,13 @@ class BottomTabBar extends React.Component<BottomTabBarProps> {
       this.onPressHandlers[route.key] = () => {
         const { params = {} } = route;
         const {
-          authState,
+          isLoggedIn,
+          showAuthModal,
           onTabPress,
         } = this.props;
 
-        if (params.private && !authState!.isLoggedIn) {
-          showAuthModalAction();
+        if (params.private && !isLoggedIn) {
+          showAuthModal();
           return;
         }
 
