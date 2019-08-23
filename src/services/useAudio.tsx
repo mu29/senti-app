@@ -3,7 +3,7 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-import SoundService, { SoundState } from './SoundService';
+import AudioService, { AudioState } from './AudioService';
 
 interface Audio {
   elapsedTime: number;
@@ -20,9 +20,9 @@ function useAudio(key: string) {
     isPlaying: false,
   });
 
-  const soundObserver = useCallback((state: SoundState) => {
+  const soundObserver = useCallback((state: AudioState) => {
     switch (state) {
-      case SoundState.PLAY:
+      case AudioState.PLAY:
         setAudio((prev) => ({
           ...prev,
           isLoading: false,
@@ -30,29 +30,29 @@ function useAudio(key: string) {
           isPlaying: true,
         }));
         break;
-      case SoundState.PAUSE:
+      case AudioState.PAUSE:
         setAudio((prev) => ({
           ...prev,
           isPlaying: false,
         }));
         break;
-      case SoundState.STOP:
+      case AudioState.STOP:
         setAudio((prev) => ({
           ...prev,
           elapsedTime: 0,
           isPlaying: false,
         }));
         break;
-      case SoundState.LOADING:
+      case AudioState.LOADING:
         setAudio((prev) => ({
           ...prev,
           isLoading: true,
         }));
         break;
-      case SoundState.ERROR:
-        SoundService.play(key);
+      case AudioState.ERROR:
+        AudioService.play(key);
         break;
-      case SoundState.NONE:
+      case AudioState.NONE:
         setAudio({
           elapsedTime: 0,
           isLoading: false,
@@ -64,17 +64,17 @@ function useAudio(key: string) {
   }, [key]);
 
   useEffect(() => {
-    SoundService.addObserver(key, soundObserver);
+    AudioService.addObserver(key, soundObserver);
 
-    return SoundService.removeObserver(key, soundObserver);
+    return AudioService.removeObserver(key, soundObserver);
   }, []);
 
   return {
     audio,
-    play: SoundService.play,
-    pause: SoundService.pause,
-    replay: SoundService.replay,
-    release: SoundService.release,
+    play: AudioService.play,
+    pause: AudioService.pause,
+    replay: AudioService.replay,
+    release: AudioService.release,
   };
 }
 

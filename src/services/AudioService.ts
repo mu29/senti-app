@@ -1,6 +1,6 @@
 import Sound from 'react-native-sound';
 
-export enum SoundState {
+export enum AudioState {
   PLAY,
   PAUSE,
   STOP,
@@ -9,22 +9,22 @@ export enum SoundState {
   NONE,
 }
 
-type SoundStateObserver = (state: SoundState) => void;
+type AudioStateObserver = (state: AudioState) => void;
 
-class SoundService {
+class AudioService {
   private sound?: Sound;
 
   private current = '';
 
-  private observers = new Map<string, SoundStateObserver[]>();
+  private observers = new Map<string, AudioStateObserver[]>();
 
-  public addObserver = (key: string, observer: SoundStateObserver) => {
+  public addObserver = (key: string, observer: AudioStateObserver) => {
     const prevObservers = this.observers.get(key) || [];
     const nextObservers = prevObservers.concat(observer);
     this.observers.set(key, nextObservers);
   }
 
-  public removeObserver = (key: string, observer: SoundStateObserver) => {
+  public removeObserver = (key: string, observer: AudioStateObserver) => {
     if (Object.prototype.hasOwnProperty.call(this.observers, key)) {
       const prevObservers = this.observers.get(key) || [];
       const nextObservers = prevObservers.filter(o => o !== observer);
@@ -37,34 +37,41 @@ class SoundService {
     }
   }
 
-  public play = (url: string) => {
+  public play = (url: string): Promise<boolean> => {
     if (this.current === url) {
       if (this.sound && this.sound.isLoaded() && !this.sound.isPlaying()) {
-        this.emit(SoundState.PLAY);
-        this.sound.play(this.reset);
+        return new Promise((resolve) => {
+          this.emit(AudioState.PLAY);
+          this.sound!.play(this.reset);
+          resolve(true);
+        });
       }
-      return;
     }
 
     this.release();
     this.current = url;
-    this.emit(SoundState.LOADING);
+    this.emit(AudioState.LOADING);
 
-    this.sound = new Sound(url, '', (error) => {
-      if (error) {
-        this.emit(SoundState.ERROR);
-        return;
-      }
-      this.emit(SoundState.PLAY);
-      this.sound!.setVolume(1);
-      this.sound!.play(this.reset);
+    return new Promise((resolve, reject) => {
+      this.sound = new Sound(url, '', (error) => {
+        if (error) {
+          this.emit(AudioState.ERROR);
+          return reject(error);
+        }
+
+        this.emit(AudioState.PLAY);
+        this.sound!.setVolume(1);
+        this.sound!.play(this.reset);
+
+        resolve(true);
+      });
     });
   }
 
   public pause = () => {
     if (this.sound && this.sound.isLoaded() && this.sound.isPlaying()) {
       this.sound.pause();
-      this.emit(SoundState.PAUSE);
+      this.emit(AudioState.PAUSE);
     }
   }
 
@@ -74,9 +81,9 @@ class SoundService {
     }
 
     if (this.sound.isLoaded()) {
-      this.emit(SoundState.STOP);
+      this.emit(AudioState.STOP);
       this.sound.stop(() => {
-        this.emit(SoundState.PLAY);
+        this.emit(AudioState.PLAY);
         this.sound!.play(this.reset);
       });
     }
@@ -88,20 +95,20 @@ class SoundService {
       this.sound.release();
     }
 
-    this.emit(SoundState.NONE);
+    this.emit(AudioState.NONE);
   }
 
   private reset = () => {
     if (this.sound && this.sound.isLoaded()) {
-      this.emit(SoundState.STOP);
+      this.emit(AudioState.STOP);
       this.sound.stop();
     }
   }
 
-  private emit = (state: SoundState) => {
+  private emit = (state: AudioState) => {
     const observers = this.observers.get(this.current) || [];
     observers.forEach(o => o(state));
   }
 }
 
-export default new SoundService();
+export default new AudioService();

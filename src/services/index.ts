@@ -1,3 +1,3 @@
-export * from './AudioContext';
-export { default as SoundService } from './SoundService';
+export { default as AudioService } from './AudioService';
+export { default as RecordService } from './RecordService';
 export { default as useAudio } from './useAudio';
