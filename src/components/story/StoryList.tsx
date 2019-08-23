@@ -6,7 +6,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { StoryItem } from 'components';
-import { SoundService } from 'services';
+import { AudioService } from 'services';
 import { palette } from 'constants/style';
 
 const {
@@ -67,7 +67,7 @@ class StoryList extends React.Component<Props> {
     if (viewableItems.length > 0) {
       const currentItem = viewableItems[0].item;
       if (this.previousItem !== currentItem) {
-        SoundService.play(currentItem.audio.url);
+        AudioService.play(currentItem.audio.url);
         this.previousItem = currentItem;
       }
     }

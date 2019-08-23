@@ -68,7 +68,7 @@ class MyStoryList extends React.Component<MyStoryListProps> {
   }
 
   private renderItem = ({ item, index }: { item: string; index: number }) => (
-    <StoryItem storyId={item} index={index} animatedValue={this.swiperAnimation} />
+    <StoryItem item={this.props.storyState!.stories[item]} index={index} animatedValue={this.swiperAnimation} />
   )
 
   private keyExtractor = (item: string) => item;

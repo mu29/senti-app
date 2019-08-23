@@ -1,16 +1,12 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-client';
-import { BatchHttpLink } from 'apollo-link-batch-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 import firebase from 'react-native-firebase';
 import Sound from 'react-native-sound';
 import { Provider } from 'mobx-react/native';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { AuthModal } from 'components';
-import { AudioProvider } from 'services';
 import * as states from './stores/states';
 import {
   readCoversAction,
@@ -19,18 +15,13 @@ import {
 } from './stores/actions';
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
-import config from './config';
+import client from './apollo';
 
 // @ts-ignore
 Sound.enableInSilenceMode(true);
 Sound.setActive(true);
 
 moment.locale('ko');
-
-const client = new ApolloClient({
-  link: new BatchHttpLink({ uri: config.apiUrl }),
-  cache: new InMemoryCache(),
-});
 
 interface AppState {
   isLoaded: boolean;
@@ -67,12 +58,10 @@ export default class App extends React.Component<{} , AppState> {
         <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
         <Provider {...states}>
           <ApolloProvider client={client}>
-            <AudioProvider>
-              <React.Fragment>
-                <AuthModal />
-                <Navigator ref={this.setNavigationRef} />
-              </React.Fragment>
-            </AudioProvider>
+            <React.Fragment>
+              <AuthModal />
+              <Navigator ref={this.setNavigationRef} />
+            </React.Fragment>
           </ApolloProvider>
         </Provider>
       </React.Fragment>
