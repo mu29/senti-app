@@ -8,6 +8,7 @@ import {
   FETCH_MODAL,
   HIDE_MODAL,
 } from 'graphqls';
+import { useAuth } from 'services';
 
 const AuthModalContainer: React.FunctionComponent<{}> = () => {
   const { data } = useQuery(FETCH_MODAL, {
@@ -18,6 +19,12 @@ const AuthModalContainer: React.FunctionComponent<{}> = () => {
     variables: { id: 'Auth' },
   });
 
+  const {
+    provider,
+    signInWithFacebook,
+    signInWithGoogle,
+  } = useAuth(hideModal);
+
   if (!data || !data.modal) {
     return null;
   }
@@ -25,9 +32,9 @@ const AuthModalContainer: React.FunctionComponent<{}> = () => {
   return (
     <AuthModal
       isVisible={data.modal.isVisible}
-      provider={undefined}
-      signInWithFacebook={() => {}}
-      signInWithGoogle={() => {}}
+      provider={provider}
+      signInWithFacebook={signInWithFacebook}
+      signInWithGoogle={signInWithGoogle}
       hide={hideModal}
     />
   );
