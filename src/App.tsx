@@ -6,7 +6,7 @@ import Sound from 'react-native-sound';
 import { Provider } from 'mobx-react/native';
 import moment from 'moment';
 import 'moment/locale/ko';
-import { AuthModal } from 'components';
+import { AuthModal } from 'containers';
 import * as states from './stores/states';
 import {
   readCoversAction,
