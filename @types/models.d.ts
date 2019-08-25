@@ -15,10 +15,10 @@ declare global {
   }
 
   interface User extends UserEssential {
-    email?: string;
+    email: string;
     gender?: 'male' | 'female';
-    lastSignInAt: number;
     createdAt: number;
+    useFreeTicketAt: number;
     subscribedTags: Array<Partial<Tag>>;
   }
 

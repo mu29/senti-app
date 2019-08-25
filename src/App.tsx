@@ -8,11 +8,8 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { AuthModal } from 'containers';
 import * as states from './stores/states';
-import {
-  readCoversAction,
-  subscribeUserInfoAction,
-  unsubscribeUserInfoAction,
-} from './stores/actions';
+import { readCoversAction } from './stores/actions';
+import { FETCH_USER } from './graphqls';
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
 import client from './apollo';
@@ -23,11 +20,11 @@ Sound.setActive(true);
 
 moment.locale('ko');
 
-interface AppState {
+interface State {
   isLoaded: boolean;
 }
 
-export default class App extends React.Component<{} , AppState> {
+export default class App extends React.Component<{} , State> {
   public state = {
     isLoaded: false,
   };
@@ -36,7 +33,14 @@ export default class App extends React.Component<{} , AppState> {
 
   public componentDidMount() {
     this.authStateUnsubscriber = firebase.auth().onAuthStateChanged((user) => {
-      subscribeUserInfoAction(user).then(() => this.setState({ isLoaded: true }));
+      client.query({
+        query: FETCH_USER,
+        variables: {
+          id: user && user.uid,
+        },
+        fetchPolicy: 'network-only',
+      })
+      .finally(() => this.setState({ isLoaded: true }));
     });
     readCoversAction();
   }
@@ -45,7 +49,6 @@ export default class App extends React.Component<{} , AppState> {
     if (this.authStateUnsubscriber) {
       this.authStateUnsubscriber();
     }
-    unsubscribeUserInfoAction();
   }
 
   public render() {

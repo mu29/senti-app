@@ -5,3 +5,16 @@ export const CREATE_USER = gql`
     createUser(id: $id, email: $email)
   }
 `;
+
+export const FETCH_USER = gql`
+  query fetchUser($id: ID) {
+    user(id: $id) {
+      id
+      email
+      name
+      photoUrl
+      gender
+      useFreeTicketAt
+    }
+  }
+`;

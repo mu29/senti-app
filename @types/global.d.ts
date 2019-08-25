@@ -1,4 +1,5 @@
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import ApolloClient from 'apollo-client';
 
 declare global {
   type Params = {
@@ -6,6 +7,7 @@ declare global {
   }
 
   interface Context {
+    client: ApolloClient<InMemoryCache>;
     cache: InMemoryCache;
     getCacheKey: ({ __typename, id }: { __typename: string, id: string }) => string;
   }

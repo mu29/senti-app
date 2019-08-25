@@ -25,46 +25,44 @@ const AuthModal: React.FunctionComponent<Props> = ({
   signInWithFacebook,
   signInWithGoogle,
   hide,
-}) => {
-  return (
-    <Modal
-      isVisible={isVisible}
-      onBackdropPress={hide}
-      onBackButtonPress={hide}
-      style={styles.modal}
-      backdropOpacity={0.4}
-      animationInTiming={400}
-      animationOutTiming={600}
-      hideModalContentWhileAnimating={true}
-      useNativeDriver
-    >
-      <SafeAreaView style={styles.container} pointerEvents="auto">
-        <Text style={[typography.heading1, styles.title]}>
-          로그인하고 모든 기능을 사용하세요!
-        </Text>
-        <SocialProviderButton
-          icon="facebook"
-          backgroundColor={palette.brand.facebook}
-          onPress={signInWithFacebook}
-          isLoading={provider === 'facebook'}
-        >
-          페이스북으로 시작하기
-        </SocialProviderButton>
-        <SocialProviderButton
-          icon="google"
-          backgroundColor={palette.brand.google}
-          onPress={signInWithGoogle}
-          isLoading={provider === 'google'}
-        >
-          구글 계정으로 시작하기
-        </SocialProviderButton>
-        <Text style={styles.description}>
-          로그인하면 이용약관 및 개인정보처리방침에{'\n'}동의하는 것으로 간주합니다.
-        </Text>
-      </SafeAreaView>
-    </Modal>
-  );
-};
+}) => (
+  <Modal
+    isVisible={isVisible}
+    onBackdropPress={hide}
+    onBackButtonPress={hide}
+    style={styles.modal}
+    backdropOpacity={0.4}
+    animationInTiming={400}
+    animationOutTiming={600}
+    hideModalContentWhileAnimating={true}
+    useNativeDriver
+  >
+    <SafeAreaView style={styles.container} pointerEvents="auto">
+      <Text style={[typography.heading1, styles.title]}>
+        로그인하고 모든 기능을 사용하세요!
+      </Text>
+      <SocialProviderButton
+        icon="facebook"
+        backgroundColor={palette.brand.facebook}
+        onPress={signInWithFacebook}
+        isLoading={provider === 'facebook'}
+      >
+        페이스북으로 시작하기
+      </SocialProviderButton>
+      <SocialProviderButton
+        icon="google"
+        backgroundColor={palette.brand.google}
+        onPress={signInWithGoogle}
+        isLoading={provider === 'google'}
+      >
+        구글 계정으로 시작하기
+      </SocialProviderButton>
+      <Text style={styles.description}>
+        로그인하면 이용약관 및 개인정보처리방침에{'\n'}동의하는 것으로 간주합니다.
+      </Text>
+    </SafeAreaView>
+  </Modal>
+);
 
 const styles = StyleSheet.create({
   modal: {

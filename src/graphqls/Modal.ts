@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const FETCH_MODAL = gql`
-  query modal($id: ID) {
-    modal(id: $id) @client(always: true) {
+  query fetchModal($id: ID) {
+    modal(id: $id) @client {
       id
       isVisible
     }

@@ -6,6 +6,7 @@ import {
 } from 'react-navigation';
 import { useMutation } from '@apollo/react-hooks';
 import { BottomTabBar } from 'components';
+import { useAuth } from 'services';
 import { SHOW_MODAL } from 'graphqls';
 
 interface Props extends BottomTabBarProps {
@@ -13,17 +14,19 @@ interface Props extends BottomTabBarProps {
 }
 
 const BottomTabBarContainer: React.FunctionComponent<Props> = (props) => {
+  const { user } = useAuth();
+
   const [showModal] = useMutation(SHOW_MODAL, {
     variables: { id: 'Auth' },
   });
 
   return (
     <BottomTabBar
-      isLoggedIn={false}
+      isLoggedIn={!!user}
       showAuthModal={showModal}
       {...props}
     />
   );
 };
 
-export default BottomTabBarContainer;
+export default React.memo(BottomTabBarContainer);

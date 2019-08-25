@@ -4,11 +4,11 @@ import {
   useQuery,
 } from '@apollo/react-hooks';
 import { AuthModal } from 'components';
+import { useAuth } from 'services';
 import {
   FETCH_MODAL,
   HIDE_MODAL,
 } from 'graphqls';
-import { useAuth } from 'services';
 
 const AuthModalContainer: React.FunctionComponent<{}> = () => {
   const { data } = useQuery(FETCH_MODAL, {
@@ -40,4 +40,4 @@ const AuthModalContainer: React.FunctionComponent<{}> = () => {
   );
 };
 
-export default AuthModalContainer;
+export default React.memo(AuthModalContainer);

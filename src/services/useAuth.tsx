@@ -1,7 +1,13 @@
-import { useState, useCallback } from 'react';
+import {
+  useState,
+  useCallback,
+} from 'react';
 import { Alert } from 'react-native';
 import firebase from 'react-native-firebase';
-import { useMutation } from '@apollo/react-hooks';
+import {
+  useQuery,
+  useMutation,
+} from '@apollo/react-hooks';
 import { GoogleSignin } from 'react-native-google-signin';
 import {
   AccessToken,
@@ -11,7 +17,10 @@ import {
   FIREBASE_IOS_CLIENT_ID,
   FIREBASE_WEB_CLIENT_ID,
 } from 'constants/env';
-import { CREATE_USER } from 'graphqls';
+import {
+  CREATE_USER,
+  FETCH_USER,
+} from 'graphqls';
 
 type ProviderType = 'facebook' | 'google' | undefined;
 
@@ -34,7 +43,13 @@ async function initGoogleSignin() {
   return true;
 }
 
-function useAuth(onSuccess: () => void) {
+function useAuth(onSuccess?: () => void) {
+  const { data: profile } = useQuery(FETCH_USER, {
+    variables: { id: firebase.auth().currentUser && firebase.auth().currentUser!.uid },
+    skip: !firebase.auth().currentUser,
+    fetchPolicy: 'cache-only',
+  });
+
   const [provider, setProvider] = useState<ProviderType>(undefined);
 
   const [createUser] = useMutation<User>(CREATE_USER);
@@ -71,7 +86,9 @@ function useAuth(onSuccess: () => void) {
           throw new Error(result.errors[0]);
         }
 
-        onSuccess();
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch((error) => {
         if (error.code !== '-5') {
@@ -114,7 +131,9 @@ function useAuth(onSuccess: () => void) {
           throw new Error(result.errors[0]);
         }
 
-        onSuccess();
+        if (onSuccess) {
+          onSuccess();
+        }
       })
       .catch((error) => {
         if (error.code !== 'user_cancel') {
@@ -127,6 +146,7 @@ function useAuth(onSuccess: () => void) {
   }, []);
 
   return {
+    user: profile && profile.user,
     provider,
     signInWithGoogle,
     signInWithFacebook,
