@@ -11,7 +11,10 @@ import {
   Dimensions,
 } from 'react-native';
 import { useAnimation } from 'react-native-animation-hooks';
-import { SafeAreaView } from 'react-navigation';
+import {
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
+} from 'react-navigation';
 import imageCacheHoc from 'react-native-image-cache-hoc';
 import {
   Text,
@@ -26,6 +29,14 @@ const {
 } = Dimensions.get('window');
 
 const PLAY_ICON = { uri: 'ic_play_active' };
+
+const SAFE_AREA_INSET: {
+  top: SafeAreaViewForceInsetValue;
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  top: 'never',
+  bottom: 'always',
+};
 
 const CachableImage = imageCacheHoc(Image, {
   fileDirName: 'covers',
@@ -96,7 +107,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
         />
       </Animated.View>
       <View style={styles.filter}>
-        <SafeAreaView style={styles.content}>
+        <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.content}>
           <TouchableOpacity
             activeOpacity={1}
             onPress={toggle}
@@ -109,7 +120,9 @@ const StoryItem: React.FunctionComponent<Props> = ({
               {item.tags.map(tag => `#${tag}`).map(renderTag)}
             </View>
           </TouchableOpacity>
-          <StoryController item={item} style={hasBottom && styles.controller} />
+          <View style={hasBottom && styles.controller}>
+            <StoryController item={item} />
+          </View>
           <Animated.View pointerEvents="none" style={[styles.iconContainer, iconStyle]}>
             <Image source={PLAY_ICON} style={styles.icon} />
           </Animated.View>
@@ -165,6 +178,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   controller: {
+    alignSelf: 'stretch',
     marginBottom: 48,
   },
   iconContainer: {

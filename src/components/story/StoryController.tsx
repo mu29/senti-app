@@ -32,7 +32,6 @@ const HIT_SLOP = {
 
 interface StoryControllerProps {
   item: Story;
-  style?: StyleProp<ViewStyle>;
   authState?: AuthState;
   storyState?: StoryState;
 }
@@ -41,18 +40,15 @@ interface StoryControllerProps {
 class StoryController extends React.Component<StoryControllerProps> {
   public render() {
     const {
-      item: {
-        user: {
-          photoUrl,
-          name,
-        },
-        createdAt,
+      user: {
+        photoUrl,
+        name,
       },
-      style,
-    } = this.props;
+      createdAt,
+    } = this.props.item;
 
     return (
-      <View style={[styles.container, style]}>
+      <View style={styles.container}>
         <Image
           source={{ uri: photoUrl || '' }}
           style={styles.photo}

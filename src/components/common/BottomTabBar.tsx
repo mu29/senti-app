@@ -86,7 +86,6 @@ class BottomTabBar extends React.PureComponent<Props> {
           styles.container,
           style,
           { backgroundColor: navigationIndex === 0 ? palette.transparent.black[60] : palette.gray[100] },
-          { position: navigationIndex === 0 ? 'absolute' : 'relative' },
         ]}
         forceInset={SAFE_AREA_INSET}
       >
