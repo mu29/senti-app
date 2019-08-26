@@ -63,7 +63,7 @@ class StoryList extends React.Component<Props> {
           scrollEnabled
           pagingEnabled
           horizontal={false}
-          scrollEventThrottle={1}
+          scrollEventThrottle={10}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         />
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   container: {
     width: deviceWidth,
     height: deviceHeight,
-    backgroundColor: palette.gray[100],
+    backgroundColor: palette.black.default,
   },
   loading: {
     position: 'absolute',
