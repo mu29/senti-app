@@ -1,6 +1,9 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { StoryList } from 'components';
+import {
+  LoadingView,
+  StoryList,
+} from 'components';
 import { FETCH_MAIN_STORY_FEED } from 'graphqls';
 
 const StoryListContainer: React.FunctionComponent<{}> = () => {
@@ -16,7 +19,7 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
   }
 
   if (!data.mainStoryFeed) {
-    return null;
+    return <LoadingView />;
   }
 
   const {
