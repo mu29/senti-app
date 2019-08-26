@@ -8,10 +8,10 @@ import * as resolvers from './resolvers';
 import config from './config';
 import firebase from 'react-native-firebase';
 
-const customFetch = (uri: RequestInfo, options?: RequestInit) => {
+const customFetch = async (uri: RequestInfo, options?: RequestInit) => {
   const { currentUser } = firebase.auth();
   if (options && options.headers && currentUser) {
-    (options.headers as any).Authorization = currentUser.uid;
+    (options.headers as any).Authorization = await currentUser.getIdToken();
   }
 
   return fetch(uri, options);
