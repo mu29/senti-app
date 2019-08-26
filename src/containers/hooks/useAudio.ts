@@ -66,15 +66,18 @@ function useAudio(key: string) {
     }
   }, [key]);
 
+  const play = useCallback(() => {
+    AudioService.play(key);
+  }, [key]);
+
   useEffect(() => {
     AudioService.addObserver(key, soundObserver);
-
     return AudioService.removeObserver(key, soundObserver);
   }, []);
 
   return {
     audio,
-    play: AudioService.play,
+    play,
     pause: AudioService.pause,
     replay: AudioService.replay,
     release: AudioService.release,

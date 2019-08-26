@@ -9,7 +9,10 @@ import {
   SafeAreaView,
   SafeAreaViewForceInsetValue,
 } from 'react-navigation';
-import { LoadingBar, StoryItem } from 'components';
+import {
+  LoadingBar,
+  StoryItem,
+} from 'components';
 import { AudioService } from 'services';
 import { palette } from 'constants/style';
 

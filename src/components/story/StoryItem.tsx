@@ -62,6 +62,23 @@ const StoryItem: React.FunctionComponent<Props> = ({
     pause,
   } = useAudio(item.audio.url);
 
+  const toggle = useCallback(() => {
+    audio.isPlaying ? pause() : play();
+  }, [item, audio.isPlaying]);
+
+  const renderTag = useCallback((tag: string, i: number) => (
+    <Text key={`${tag}-${i}`} style={styles.tag}>
+      {tag}
+    </Text>
+  ), []);
+
+  const pauseAnimation = useAnimation({
+    type: 'timing',
+    toValue: Number(!audio.isPlaying),
+    duration: 200,
+    useNativeDriver: true,
+  });
+
   const coverImage = useMemo(() => ({ uri: item.cover }), [item]);
 
   const parallexStyle = useMemo(() => ({
@@ -77,23 +94,6 @@ const StoryItem: React.FunctionComponent<Props> = ({
       }),
     }],
   }), [index]);
-
-  const pauseAnimation = useAnimation({
-    type: 'timing',
-    toValue: Number(!audio.isPlaying),
-    duration: 200,
-    useNativeDriver: true,
-  });
-
-  const toggle = useCallback(() => {
-    audio.isPlaying ? pause() : play(item.audio.url);
-  }, [item, audio.isPlaying]);
-
-  const renderTag = useCallback((tag: string, i: number) => (
-    <Text key={`${tag}-${i}`} style={styles.tag}>
-      {tag}
-    </Text>
-  ), []);
 
   const iconStyle = useMemo(() => ({ opacity: pauseAnimation }), [pauseAnimation]);
 

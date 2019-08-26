@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { palette } from 'constants/style';
 
-const { width: windowWidth } = Dimensions.get('window');
+const { width: deviceWidth } = Dimensions.get('window');
 
 class LoadingBar extends React.PureComponent<{}> {
   private scaleAnimation = new Animated.Value(0);
@@ -20,7 +20,7 @@ class LoadingBar extends React.PureComponent<{}> {
     Animated.loop(
       Animated.sequence([
         Animated.timing(this.scaleAnimation, {
-          toValue: windowWidth,
+          toValue: deviceWidth,
           duration: 800,
           useNativeDriver: true,
         }),
