@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import {
+  ErrorView,
   LoadingView,
   StoryList,
 } from 'components';
@@ -9,17 +10,19 @@ import { FETCH_MAIN_STORY_FEED } from 'graphqls';
 const StoryListContainer: React.FunctionComponent<{}> = () => {
   const {
     data,
+    loading,
     error,
     fetchMore,
+    refetch,
   } = useQuery(FETCH_MAIN_STORY_FEED);
 
-  if (error) {
-    // TODO: 오류 메시지 표시 & Reload
-    return null;
+  if (loading) {
+    return <LoadingView />;
   }
 
-  if (!data.mainStoryFeed) {
-    return <LoadingView />;
+  if (error) {
+    const reload = () => refetch().catch(() => {});
+    return <ErrorView reload={reload} message={error.message} />;
   }
 
   const {

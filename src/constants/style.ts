@@ -70,10 +70,12 @@ export const typography: {
   },
   body1: {
     fontSize: 16,
+    lineHeight: 24,
     color: palette.gray[30],
   },
   body2: {
     fontSize: 15,
+    lineHeight: 21,
     color: palette.gray[30],
   },
   tiny2: {
