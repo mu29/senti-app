@@ -6,9 +6,24 @@ import gql from 'graphql-tag';
 import { getLanguage } from 'utils';
 import * as resolvers from './resolvers';
 import config from './config';
+import firebase from 'react-native-firebase';
+
+const customFetch = (uri: RequestInfo, options?: RequestInit) => {
+  const { currentUser } = firebase.auth();
+  if (options && options.headers && currentUser) {
+    (options.headers as any).Authorization = currentUser.uid;
+  }
+
+  return fetch(uri, options);
+};
+
+const link = new BatchHttpLink({
+  uri: `${config.apiUrl}?language=${getLanguage()}`,
+  fetch: customFetch,
+});
 
 const client = new ApolloClient({
-  link: new BatchHttpLink({ uri: `${config.apiUrl}?language=${getLanguage()}` }),
+  link,
   cache: new InMemoryCache(),
   resolvers: Object.values(resolvers).reduce((c, r) => merge(c, r), {}),
   typeDefs: gql`
