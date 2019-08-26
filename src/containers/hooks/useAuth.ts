@@ -42,6 +42,20 @@ function useAuth(onSuccess?: () => void) {
 
   const [createUser] = useMutation<User>(CREATE_USER);
 
+  const resultHandler = useCallback((result) => {
+    if (!result) {
+      throw new Error('');
+    }
+
+    if (result.errors) {
+      throw new Error(result.errors[0]);
+    }
+
+    if (onSuccess) {
+      onSuccess();
+    }
+  }, []);
+
   const signInWithGoogle = useCallback(async () => {
     if (provider) {
       return;
@@ -61,23 +75,10 @@ function useAuth(onSuccess?: () => void) {
       .then(credential => firebase.auth().signInWithCredential(credential))
       .then(credential => createUser({
         variables: {
-          id: credential.user.uid,
           email: credential.user.email,
         },
       }))
-      .then((result) => {
-        if (!result) {
-          throw new Error('');
-        }
-
-        if (result.errors) {
-          throw new Error(result.errors[0]);
-        }
-
-        if (onSuccess) {
-          onSuccess();
-        }
-      })
+      .then(resultHandler)
       .catch((error) => {
         if (error.code !== '-5') {
           Alert.alert('로그인', `구글 로그인에 실패했습니다.\n${error.message}`);
@@ -106,23 +107,10 @@ function useAuth(onSuccess?: () => void) {
       .then(credential => firebase.auth().signInWithCredential(credential))
       .then(credential => createUser({
         variables: {
-          id: credential.user.uid,
           email: credential.user.email,
         },
       }))
-      .then((result) => {
-        if (!result) {
-          throw new Error('');
-        }
-
-        if (result.errors) {
-          throw new Error(result.errors[0]);
-        }
-
-        if (onSuccess) {
-          onSuccess();
-        }
-      })
+      .then(resultHandler)
       .catch((error) => {
         if (error.code !== 'user_cancel') {
           Alert.alert('로그인', `페이스북 로그인에 실패했습니다.\n${error.message}`);
