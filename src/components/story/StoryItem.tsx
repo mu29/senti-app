@@ -16,11 +16,11 @@ import {
   SafeAreaViewForceInsetValue,
 } from 'react-navigation';
 import imageCacheHoc from 'react-native-image-cache-hoc';
+import { Text } from 'components';
 import {
-  Text,
+  useAudio,
   StoryController,
-} from 'components';
-import { useAudio } from 'containers';
+} from 'containers';
 import { palette } from 'constants/style';
 
 const {

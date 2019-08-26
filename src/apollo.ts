@@ -49,6 +49,10 @@ client.cache.writeData({
       __typename: 'Modal',
       id: 'Auth',
       isVisible: false,
+    }, {
+      __typename: 'Modal',
+      id: 'Reply',
+      isVisible: false,
     }],
   },
 });
