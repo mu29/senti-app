@@ -12,7 +12,7 @@ import {
   Header,
   MessageList,
   MessageReply,
-  LoadingView,
+  LoadingLayer,
   withSafeArea,
 } from 'components';
 import { MessageState } from 'stores/states';
@@ -42,7 +42,7 @@ class MessageScreen extends React.Component<MessageScreenProps & NavigationScree
 
     return (
       <React.Fragment>
-        {messageState!.isLoading === LoadingType.CREATE && <LoadingView />}
+        {messageState!.isLoading === LoadingType.CREATE && <LoadingLayer />}
         <NavigationEvents onWillBlur={stopAudioAction} />
         <Header canGoBack>
           {partnerName}

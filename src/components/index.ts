@@ -5,7 +5,7 @@ export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as Header } from './common/Header';
 export { default as AuthModal } from './common/AuthModal';
 export { default as LoadingIndicator } from './common/LoadingIndicator';
-export { default as LoadingView } from './common/LoadingView';
+export { default as LoadingLayer } from './common/LoadingLayer';
 export { default as withSafeArea } from './common/withSafeArea';
 
 export { default as ChattingEmptyList } from './chatting/ChattingEmptyList';

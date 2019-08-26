@@ -8,7 +8,7 @@ import {
 } from 'mobx-react/native';
 import {
   RecordController,
-  LoadingView,
+  LoadingLayer,
 } from 'components';
 import { ChattingState } from 'stores/states';
 import {
@@ -30,7 +30,7 @@ class ReplyModal extends React.Component<ReplyModalProps> {
 
     return (
       <React.Fragment>
-        {chattingState!.isLoading === LoadingType.CREATE && <LoadingView />}
+        {chattingState!.isLoading === LoadingType.CREATE && <LoadingLayer />}
         <Modal
           isVisible={chattingState!.isModalVisible}
           onBackdropPress={this.hide}

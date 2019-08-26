@@ -13,7 +13,7 @@ import {
   ImagePickerModal,
   RecordController,
   StoryDescription,
-  LoadingView,
+  LoadingLayer,
   withSafeArea,
 } from 'components';
 import { StoryState } from 'stores/states';
@@ -28,7 +28,7 @@ const CreateStoryScreen: React.FunctionComponent<CreateStoryScreenProps> = ({
   storyState,
 }) => (
   <React.Fragment>
-    {storyState!.isLoading === LoadingType.CREATE && <LoadingView />}
+    {storyState!.isLoading === LoadingType.CREATE && <LoadingLayer />}
     <CreateStoryCover />
     <View style={styles.container}>
       <CreateStoryHeader />
