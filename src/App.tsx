@@ -9,7 +9,7 @@ import 'moment/locale/ko';
 import { AuthModal } from 'containers';
 import * as states from './stores/states';
 import { readCoversAction } from './stores/actions';
-import { FETCH_USER } from './graphqls';
+import { FETCH_PROFILE } from './graphqls';
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
 import client from './apollo';
@@ -26,22 +26,20 @@ interface State {
 
 export default class App extends React.Component<{} , State> {
   public state = {
-    isLoaded: false,
+    isLoaded: true,
   };
 
   private authStateUnsubscriber?: () => void;
 
   public componentDidMount() {
-    this.authStateUnsubscriber = firebase.auth().onAuthStateChanged((user) => {
+    this.authStateUnsubscriber = firebase.auth().onAuthStateChanged(() => {
       client.query({
-        query: FETCH_USER,
-        variables: {
-          id: user && user.uid,
-        },
+        query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
       })
       .finally(() => this.setState({ isLoaded: true }));
     });
+    setTimeout(() => this.setState({ isLoaded: true }), 1000);
     readCoversAction();
   }
 

@@ -8,13 +8,13 @@ declare global {
     storyCount: number;
   }
 
-  interface UserEssential {
+  interface User {
     id: string;
     name: string | null;
     photoUrl: string | null;
   }
 
-  interface User extends UserEssential {
+  interface Profile extends User {
     email: string;
     gender?: 'male' | 'female';
     createdAt: number;
@@ -41,7 +41,7 @@ declare global {
     description: string;
     tags: string[];
     audio: Audio;
-    user: UserEssential;
+    user: User;
     createdAt: number;
     updatedAt: number;
   }
@@ -49,7 +49,7 @@ declare global {
   interface Chatting {
     id: string;
     users: {
-      [key: string]: UserEssential;
+      [key: string]: User;
     };
     userIds: {
       [key: string]: number;
@@ -65,7 +65,7 @@ declare global {
   interface Message {
     id: string;
     audio: Audio;
-    user: UserEssential;
+    user: User;
     readAt?: number;
     createdAt: number;
   }

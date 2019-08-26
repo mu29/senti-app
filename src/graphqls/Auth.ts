@@ -6,9 +6,9 @@ export const CREATE_USER = gql`
   }
 `;
 
-export const FETCH_USER = gql`
-  query fetchUser($id: ID) {
-    user(id: $id) {
+export const FETCH_PROFILE = gql`
+  query fetchProfile {
+    me {
       id
       email
       name
