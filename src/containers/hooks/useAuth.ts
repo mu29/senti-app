@@ -4,10 +4,7 @@ import {
 } from 'react';
 import { Alert } from 'react-native';
 import firebase from 'react-native-firebase';
-import {
-  useQuery,
-  useMutation,
-} from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { GoogleSignin } from 'react-native-google-signin';
 import {
   AccessToken,
@@ -17,10 +14,7 @@ import {
   FIREBASE_IOS_CLIENT_ID,
   FIREBASE_WEB_CLIENT_ID,
 } from 'constants/env';
-import {
-  CREATE_USER,
-  FETCH_USER,
-} from 'graphqls';
+import { CREATE_USER } from 'graphqls';
 
 type ProviderType = 'facebook' | 'google' | undefined;
 
@@ -44,12 +38,6 @@ async function initGoogleSignin() {
 }
 
 function useAuth(onSuccess?: () => void) {
-  const { data: profile } = useQuery(FETCH_USER, {
-    variables: { id: firebase.auth().currentUser && firebase.auth().currentUser!.uid },
-    skip: !firebase.auth().currentUser,
-    fetchPolicy: 'cache-only',
-  });
-
   const [provider, setProvider] = useState<ProviderType>(undefined);
 
   const [createUser] = useMutation<User>(CREATE_USER);
@@ -146,7 +134,6 @@ function useAuth(onSuccess?: () => void) {
   }, []);
 
   return {
-    user: profile && profile.user,
     provider,
     signInWithGoogle,
     signInWithFacebook,

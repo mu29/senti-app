@@ -20,7 +20,7 @@ import {
   Text,
   StoryController,
 } from 'components';
-import { useAudio } from 'services';
+import { useAudio } from 'containers';
 import { palette } from 'constants/style';
 
 const {

@@ -3,7 +3,10 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-import AudioService, { AudioState } from './AudioService';
+import {
+  AudioService,
+  AudioState,
+ } from 'services';
 
 interface Audio {
   elapsedTime: number;

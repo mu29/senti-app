@@ -4,7 +4,7 @@ import {
   useQuery,
 } from '@apollo/react-hooks';
 import { AuthModal } from 'components';
-import { useAuth } from 'services';
+import { useAuth } from 'containers';
 import {
   FETCH_MODAL,
   HIDE_MODAL,
