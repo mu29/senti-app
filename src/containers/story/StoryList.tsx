@@ -1,4 +1,5 @@
 import React from 'react';
+import { NetworkStatus } from 'apollo-client';
 import { useQuery } from '@apollo/react-hooks';
 import {
   ErrorView,
@@ -10,13 +11,15 @@ import { FETCH_MAIN_STORY_FEED } from 'graphqls';
 const StoryListContainer: React.FunctionComponent<{}> = () => {
   const {
     data,
-    loading,
+    networkStatus,
     error,
     fetchMore,
     refetch,
-  } = useQuery(FETCH_MAIN_STORY_FEED);
+  } = useQuery(FETCH_MAIN_STORY_FEED, {
+    notifyOnNetworkStatusChange: true,
+  });
 
-  if (loading) {
+  if ([NetworkStatus.loading, NetworkStatus.refetch].includes(networkStatus)) {
     return <LoadingView />;
   }
 
@@ -35,6 +38,7 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
   return (
     <StoryList
       stories={stories || []}
+      isLoading={networkStatus === NetworkStatus.fetchMore}
       onFetchMore={() => fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {

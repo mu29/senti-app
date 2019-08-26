@@ -5,7 +5,11 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { StoryItem } from 'components';
+import {
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
+} from 'react-navigation';
+import { LoadingBar, StoryItem } from 'components';
 import { AudioService } from 'services';
 import { palette } from 'constants/style';
 
@@ -16,10 +20,17 @@ const {
 
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 
+const SAFE_AREA_INSET: {
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  bottom: 'always',
+};
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 interface Props {
   stories: Story[];
+  isLoading: boolean;
   onFetchMore: () => void;
 }
 
@@ -31,29 +42,37 @@ class StoryList extends React.Component<Props> {
   public render() {
     const {
       stories,
+      isLoading,
       onFetchMore,
     } = this.props;
 
     return (
-      <AnimatedFlatList
-        data={stories}
-        renderItem={this.renderItem}
-        keyExtractor={this.keyExtractor}
-        onEndReached={onFetchMore}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
-          { useNativeDriver: true },
+      <React.Fragment>
+        <AnimatedFlatList
+          data={stories}
+          renderItem={this.renderItem}
+          keyExtractor={this.keyExtractor}
+          onEndReached={onFetchMore}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
+            { useNativeDriver: true },
+          )}
+          onViewableItemsChanged={this.onViewableItemsChanged}
+          viewabilityConfig={VIEWABILITY_CONFIG}
+          style={styles.container}
+          scrollEnabled
+          pagingEnabled
+          horizontal={false}
+          scrollEventThrottle={1}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        />
+        {isLoading && (
+          <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.loading}>
+            <LoadingBar />
+          </SafeAreaView>
         )}
-        onViewableItemsChanged={this.onViewableItemsChanged}
-        viewabilityConfig={VIEWABILITY_CONFIG}
-        style={styles.container}
-        scrollEnabled
-        pagingEnabled
-        horizontal={false}
-        scrollEventThrottle={1}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      />
+      </React.Fragment>
     );
   }
 
@@ -79,6 +98,12 @@ const styles = StyleSheet.create({
     width: deviceWidth,
     height: deviceHeight,
     backgroundColor: palette.gray[100],
+  },
+  loading: {
+    position: 'absolute',
+    bottom: 50,
+    left: 0,
+    right: 0,
   },
 });
 

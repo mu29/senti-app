@@ -5,6 +5,7 @@ export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as ErrorView } from './common/ErrorView';
 export { default as Header } from './common/Header';
 export { default as AuthModal } from './common/AuthModal';
+export { default as LoadingBar } from './common/LoadingBar';
 export { default as LoadingIndicator } from './common/LoadingIndicator';
 export { default as LoadingLayer } from './common/LoadingLayer';
 export { default as LoadingView } from './common/LoadingView';
