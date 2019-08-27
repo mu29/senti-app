@@ -35,6 +35,7 @@ const TagList: React.FunctionComponent<Props> = ({
 const styles = StyleSheet.create({
   container: {
     paddingTop: 8,
+    paddingBottom: 50,
   },
 });
 
