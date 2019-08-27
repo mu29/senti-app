@@ -34,6 +34,7 @@ const client = new ApolloClient({
 
     extend type Query {
       modal(id: ID!): Modal
+      searchQuery: String
     }
 
     extend type Mutation {
@@ -54,6 +55,7 @@ client.cache.writeData({
       id: 'Reply',
       isVisible: false,
     }],
+    searchQuery: '',
   },
 });
 

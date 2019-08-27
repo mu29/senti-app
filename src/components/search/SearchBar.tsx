@@ -6,41 +6,40 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import { updateTagSearchQueryAction } from 'stores/actions';
 import { palette } from 'constants/style';
 
 const SEARCH_ICON = { uri: 'ic_search_active' };
 
-export interface SearchBarProps {}
-
-class SearchBar extends React.PureComponent<SearchBarProps> {
-  public render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.bar}>
-          <Image source={SEARCH_ICON} style={styles.icon} />
-          <TextInput
-            placeholder="검색"
-            placeholderTextColor={palette.gray[50]}
-            onChangeText={updateTagSearchQueryAction}
-            spellCheck={false}
-            autoCorrect={false}
-            autoCapitalize="none"
-            dataDetectorTypes="none"
-            keyboardType="default"
-            returnKeyType="search"
-            underlineColorAndroid="transparent"
-            multiline={false}
-            maxLength={40}
-            blurOnSubmit
-            enablesReturnKeyAutomatically
-            style={styles.input}
-          />
-        </View>
-      </View>
-    );
-  }
+interface Props {
+  updateQuery: (query: string) => void;
 }
+
+const SearchBar: React.FunctionComponent<Props> = ({
+  updateQuery,
+}) => (
+  <View style={styles.container}>
+    <View style={styles.bar}>
+      <Image source={SEARCH_ICON} style={styles.icon} />
+      <TextInput
+        placeholder="검색"
+        placeholderTextColor={palette.gray[50]}
+        onChangeText={updateQuery}
+        spellCheck={false}
+        autoCorrect={false}
+        autoCapitalize="none"
+        dataDetectorTypes="none"
+        keyboardType="default"
+        returnKeyType="search"
+        underlineColorAndroid="transparent"
+        multiline={false}
+        maxLength={40}
+        blurOnSubmit
+        enablesReturnKeyAutomatically
+        style={styles.input}
+      />
+    </View>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -73,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchBar;
+export default React.memo(SearchBar);

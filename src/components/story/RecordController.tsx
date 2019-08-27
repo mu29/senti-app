@@ -174,4 +174,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecordController;
+export default React.memo(RecordController);

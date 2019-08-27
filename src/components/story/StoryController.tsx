@@ -120,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StoryController;
+export default React.memo(StoryController);
