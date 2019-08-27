@@ -1,3 +1,7 @@
+import {
+  PermissionsAndroid,
+  Platform,
+} from 'react-native';
 import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
 
@@ -5,16 +9,33 @@ class RecordService {
   private sound?: Sound;
 
   public start = () => {
+    if (!this.requestMicrophonePermission()) {
+      return;
+    }
+
     this.release();
-    return SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
+    SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
   }
 
-  public stop = async () => {
-    const { path } = await SoundRecorder.stop();
+  public stop = async (): Promise<{
+    path: string;
+    duration: number;
+  }> => {
+    const {
+      path,
+      duration,
+    } = await SoundRecorder.stop();
 
     return new Promise((resolve, reject) => {
       this.sound = new Sound('temp.aac', path.replace('/temp.aac', ''), (error) => {
-        error ? reject(error) : resolve();
+        if (error) {
+          reject(error);
+        }
+
+        resolve({
+          path,
+          duration,
+        });
       });
     });
   }
@@ -36,6 +57,24 @@ class RecordService {
       this.sound.release();
       this.sound = undefined;
     }
+  }
+
+  private requestMicrophonePermission = async () => {
+    if (Platform.OS !== 'android') {
+      return true;
+    }
+
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      );
+
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+    } catch (err) {
+      console.error(err);
+    }
+
+    return false;
   }
 }
 
