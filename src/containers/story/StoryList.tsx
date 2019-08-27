@@ -20,7 +20,7 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
   });
 
   if ([NetworkStatus.loading, NetworkStatus.refetch].includes(networkStatus)) {
-    return <LoadingView />;
+    return <LoadingView dark />;
   }
 
   if (error) {
