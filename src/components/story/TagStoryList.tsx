@@ -30,7 +30,7 @@ const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 interface TagStoryListProps {
-  tagId: string;
+  id: string;
   storyState?: StoryState;
 }
 
@@ -83,7 +83,7 @@ class TagStoryList extends React.Component<TagStoryListProps> {
   private keyExtractor = (item: string) => item;
 
   private paginate = () => {
-    readStoriesByTagAction(this.props.tagId);
+    readStoriesByTagAction(this.props.id);
   }
 
   private onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ item: string }> }) => {
