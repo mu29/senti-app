@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavigationEvents } from 'react-navigation';
-import { ReplyModal } from 'components';
-import { StoryList } from 'containers';
+import {
+  StoryList,
+  ReplyModal,
+} from 'containers';
 import { AudioService } from 'services';
 
 const HomeScreen: React.FunctionComponent<{}> = () => (
