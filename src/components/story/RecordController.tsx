@@ -1,7 +1,6 @@
 import React, {
   useMemo,
   useEffect,
-  useCallback,
 } from 'react';
 import {
   View,
@@ -14,7 +13,6 @@ import {
   Text,
   Button,
 } from 'components';
-import { useRecord } from 'containers';
 import {
   palette,
   typography,
@@ -26,20 +24,22 @@ const RESET_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
 
 interface Props {
-  create: (path: string, duration: number) => Promise<void>;
+  isLoading: boolean;
+  isStarted: boolean;
+  isRecorded: boolean;
+  toggle: () => void;
+  release: () => void;
+  create: () => void;
 }
 
 const RecordController: React.FunctionComponent<Props> = ({
+  isLoading,
+  isStarted,
+  isRecorded,
+  toggle,
+  release,
   create,
 }) => {
-  const {
-    data,
-    isStarted,
-    isRecorded,
-    toggle,
-    release,
-  } = useRecord();
-
   const fadeAnimation = useAnimation({
     type: 'timing',
     toValue: Number(!isStarted),
@@ -52,12 +52,6 @@ const RecordController: React.FunctionComponent<Props> = ({
   const fadeStyle = useMemo(() => ({ opacity: fadeAnimation }), [fadeAnimation]);
 
   const progressStyle = useMemo(() => ({ transform: [{ scale: progressAnimation }] }), [progressAnimation]);
-
-  const finish = useCallback(() => {
-    if (data) {
-      create(data.path, data.duration);
-    }
-  }, [data]);
 
   useEffect(() => {
     if (!isStarted) {
@@ -109,13 +103,15 @@ const RecordController: React.FunctionComponent<Props> = ({
             style={styles.record}
           />
         </View>
-        <TouchableOpacity
-          onPress={finish}
+        <Button
+          onPress={create}
           disabled={!isRecorded}
+          isLoading={isLoading}
           style={[styles.button, isRecorded && styles.enabled]}
+          round
         >
           <Animated.Image source={DONE_ICON} style={[styles.icon, fadeStyle]} />
-        </TouchableOpacity>
+        </Button>
       </View>
       <AnimatedText style={[typography.heading4, styles.hint, fadeStyle]}>
         눌러서 {isRecorded ? '듣기' : '녹음'}

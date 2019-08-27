@@ -27,7 +27,7 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
       isVisible={data.modal.isVisible}
       isLoading={false}
       hide={hideModal}
-      create={(_path: string, _duration: number) => Promise.resolve()}
+      create={({}) => Promise.resolve()}
     />
   );
 };

@@ -11,11 +11,11 @@ import {
   CreateStoryCover,
   CreateStoryHeader,
   ImagePickerModal,
-  RecordController,
   StoryDescription,
   LoadingLayer,
   withSafeArea,
 } from 'components';
+import { RecordController } from 'containers';
 import { StoryState } from 'stores/states';
 import { createStoryAction } from 'stores/actions';
 import { LoadingType } from 'constants/enums';
@@ -33,7 +33,7 @@ const CreateStoryScreen: React.FunctionComponent<CreateStoryScreenProps> = ({
     <View style={styles.container}>
       <CreateStoryHeader />
       <StoryDescription />
-      <RecordController create={createStoryAction} />
+      {/* <RecordController onCreate={createStoryAction} /> */}
     </View>
     <ImagePickerModal />
   </React.Fragment>

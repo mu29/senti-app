@@ -20,7 +20,7 @@ class MessageReply extends React.Component<{}> {
   public render() {
     return (
       <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
-        <RecordController create={createMessageAction} />
+        {/* <RecordController create={createMessageAction} /> */}
       </SafeAreaView>
     );
   }

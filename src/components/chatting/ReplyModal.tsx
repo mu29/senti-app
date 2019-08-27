@@ -2,17 +2,23 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import Modal from 'react-native-modal';
-import {
-  RecordController,
-  LoadingLayer,
-} from 'components';
+import { LoadingLayer } from 'components';
+import { RecordController } from 'containers';
 import { palette } from 'constants/style';
 
 interface Props {
   isVisible: boolean;
   isLoading: boolean;
   hide: () => void;
-  create: (path: string, duration: number) => Promise<void>;
+  create: ({
+    id,
+    url,
+    duration,
+  }: {
+    id: string;
+    url: string | null;
+    duration: number;
+  }) => Promise<void>;
 }
 
 const ReplyModal: React.FunctionComponent<Props> = ({
@@ -35,7 +41,7 @@ const ReplyModal: React.FunctionComponent<Props> = ({
       useNativeDriver
     >
       <SafeAreaView style={styles.container} pointerEvents="auto">
-        <RecordController create={create} />
+        <RecordController onCreate={create} />
       </SafeAreaView>
     </Modal>
   </React.Fragment>
