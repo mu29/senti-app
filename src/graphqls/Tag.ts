@@ -20,7 +20,7 @@ export const FETCH_POPULAR_TAGS = gql`
     popularTags {
       id
       name
-      subscriberCount
+      storyCount
     }
   }
 `;
