@@ -17,9 +17,9 @@ declare global {
   interface Profile extends User {
     email: string;
     gender?: 'male' | 'female';
+    tags: Array<Partial<Tag>>;
     createdAt: number;
     useFreeTicketAt: number;
-    subscribedTags: Array<Partial<Tag>>;
   }
 
   interface Audio {

@@ -8,6 +8,8 @@ export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as ReplyModal } from './chatting/ReplyModal';
 
 export { default as SearchBar } from './search/SearchBar';
+export { default as TagItem } from './search/TagItem';
+export { default as TagList } from './search/TagList';
 
 export { default as RecordController } from './story/RecordController';
 export { default as StoryController } from './story/StoryController';

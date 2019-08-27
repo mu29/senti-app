@@ -1,10 +1,8 @@
 import React from 'react';
-import {
-  TagList,
-  withSafeArea,
-} from 'components';
+import { withSafeArea } from 'components';
 import {
   SearchBar,
+  TagList,
 } from 'containers';
 
 const SearchScreen = () => (

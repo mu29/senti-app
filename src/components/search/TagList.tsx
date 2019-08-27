@@ -1,54 +1,45 @@
-import React from 'react';
+import React, {
+  useEffect,
+  useCallback,
+} from 'react';
 import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import {
-  TagItem,
-  LoadingIndicator,
-} from 'components';
-import { readPopularTagsAction } from 'stores/actions';
-import { TagState } from 'stores/states';
-import { LoadingType } from 'constants/enums';
+import { LoadingIndicator } from 'components';
+import { TagItem } from 'containers';
 
-export interface TagListProps {
-  tagState?: TagState;
+interface Props {
+  items: Tag[];
+  isLoading: boolean;
+  fetchPopularTags: () => void;
 }
 
-@inject('tagState')
-@observer
-class TagList extends React.Component<TagListProps> {
-  public componentDidMount() {
-    readPopularTagsAction();
-  }
+const TagList: React.FunctionComponent<Props> = ({
+  items,
+  isLoading,
+  fetchPopularTags,
+}) => {
+  useEffect(() => {
+    fetchPopularTags();
+  }, []);
 
-  public render() {
-    const {
-      tags,
-      isLoading,
-    } = this.props.tagState!;
+  const renderItem = useCallback(({ item }: { item: Tag }) => (
+    <TagItem item={item} />
+  ), []);
 
-    return (
-      <FlatList
-        data={tags}
-        renderItem={this.renderItem}
-        keyExtractor={this.keyExtractor}
-        contentContainerStyle={styles.container}
-        ListFooterComponent={isLoading === LoadingType.LIST ? <LoadingIndicator /> : null}
-      />
-    );
-  }
+  const keyExtractor = useCallback((item: Tag) => `tag-${item.id}`, []);
 
-  private renderItem = ({ item }: { item: Tag }) => (
-    <TagItem tag={item} />
-  )
-
-  private keyExtractor = (item: Tag) => `tag-${item.id}`;
-}
+  return (
+    <FlatList
+      data={items}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      contentContainerStyle={styles.container}
+      ListFooterComponent={isLoading ? <LoadingIndicator /> : null}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
