@@ -24,3 +24,22 @@ export const FETCH_POPULAR_TAGS = gql`
     }
   }
 `;
+
+export const FETCH_SEARCH_QUERY = gql`
+  query fetchSearchQuery {
+    searchQuery @client
+  }
+`;
+
+export const SEARCH_TAGS = gql`
+  query searchTags($name: String!, $cursor: ID) {
+    searchTags(name: $name, cursor: $cursor) {
+      tags {
+        id
+        name
+        storyCount
+      }
+      cursor
+    }
+  }
+`;
