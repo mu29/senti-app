@@ -1,26 +1,20 @@
-import React from 'react';
+import React, {
+  useMemo,
+  useEffect,
+  useCallback,
+} from 'react';
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   Animated,
-  InteractionManager,
-  PermissionsAndroid,
-  Platform,
 } from 'react-native';
+import { useAnimation } from 'react-native-animation-hooks';
 import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import { Text } from 'components';
-import { RecordState } from 'stores/states';
-import {
-  resetRecordAction,
-  startRecordAction,
-  stopRecordAction,
-  startPlayRecordAction,
-  stopPlayRecordAction,
-} from 'stores/actions';
+  Text,
+  Button,
+} from 'components';
+import { useRecord } from 'containers';
 import {
   palette,
   typography,
@@ -31,201 +25,104 @@ const AnimatedText = Animated.createAnimatedComponent(Text);
 const RESET_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
 
-export interface RecordControllerProps {
-  recordState?: RecordState;
+interface Props {
   create: (path: string, duration: number) => Promise<void>;
 }
 
-@inject('recordState')
-@observer
-class RecordController extends React.Component<RecordControllerProps> {
-  private isEntered = false;
+const RecordController: React.FunctionComponent<Props> = ({
+  create,
+}) => {
+  const {
+    data,
+    isStarted,
+    isRecorded,
+    toggle,
+    release,
+  } = useRecord();
 
-  private isBusy = false;
+  const fadeAnimation = useAnimation({
+    type: 'timing',
+    toValue: Number(!isStarted),
+    duration: 200,
+    useNativeDriver: true,
+  });
 
-  private progressAnimation = new Animated.Value(1);
+  const progressAnimation = useMemo(() => new Animated.Value(0), []);
 
-  private fadeAnimation = new Animated.Value(1);
+  const fadeStyle = useMemo(() => ({ opacity: fadeAnimation }), [fadeAnimation]);
 
-  public componentDidMount() {
-    resetRecordAction();
-  }
+  const progressStyle = useMemo(() => ({ transform: [{ scale: progressAnimation }] }), [progressAnimation]);
 
-  public componentWillUnmount() {
-    resetRecordAction();
-  }
-
-  public render() {
-    const { isRecorded } = this.props.recordState!;
-
-    return (
-      <Animated.View style={styles.container}>
-        <View style={styles.controller}>
-          <TouchableOpacity
-            onPress={resetRecordAction}
-            disabled={!isRecorded}
-            style={[styles.button, isRecorded && styles.enabled]}
-          >
-            <Animated.Image source={RESET_ICON} style={[styles.icon, this.fadeStyle]} />
-          </TouchableOpacity>
-          <View style={styles.recordContainer}>
-            <Animated.View style={[styles.progress, this.progressStyle]} />
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={this.toggle}
-              style={styles.record}
-            />
-          </View>
-          <TouchableOpacity
-            onPress={this.create}
-            disabled={!isRecorded}
-            style={[styles.button, isRecorded && styles.enabled]}
-          >
-            <Animated.Image source={DONE_ICON} style={[styles.icon, this.fadeStyle]} />
-          </TouchableOpacity>
-        </View>
-        <AnimatedText style={[typography.heading4, styles.hint, this.fadeStyle]}>
-          눌러서 {isRecorded ? '듣기' : '녹음'}
-        </AnimatedText>
-      </Animated.View>
-    );
-  }
-
-  private get progressStyle() {
-    return {
-      transform: [{
-        scale: this.progressAnimation,
-      }],
-    };
-  }
-
-  private get fadeStyle() {
-    return {
-      opacity: this.fadeAnimation,
-    };
-  }
-
-  private create = () => {
-    const {
-      create,
-      recordState,
-    } = this.props;
-
-    if (recordState!.data) {
-      const {
-        path,
-        duration,
-      } = recordState!.data;
-
-      create(path, duration);
+  const finish = useCallback(() => {
+    if (data) {
+      create(data.path, data.duration);
     }
-  }
+  }, [data]);
 
-  private toggle = () => {
-    if (this.isBusy) {
+  useEffect(() => {
+    if (!isStarted) {
+      Animated.timing(progressAnimation, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
       return;
     }
 
-    if (this.isEntered) {
-      this.stop();
-    } else {
-      this.start();
-    }
-  }
-
-  private start = async () => {
-    if (this.props.recordState!.isRecorded) {
-      this.startPlay();
-    } else {
-      if (!await this.requestMicrophonePermission()) {
-        return;
-      }
-
-      this.startRecord();
-    }
-
-    Animated.timing(this.fadeAnimation, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-
     Animated.loop(
       Animated.sequence([
-        Animated.timing(this.progressAnimation, {
+        Animated.timing(progressAnimation, {
           toValue: 1.3,
           duration: 600,
           useNativeDriver: true,
         }),
-        Animated.timing(this.progressAnimation, {
+        Animated.timing(progressAnimation, {
           toValue: 1,
           duration: 600,
           useNativeDriver: true,
         }),
       ]),
     ).start();
-  }
+  }, [isStarted]);
 
-  private startRecord = () => {
-    requestAnimationFrame(async () => {
-      await startRecordAction();
-      this.isEntered = true;
-    });
-  }
+  useEffect(() => {
+    release();
+    return release();
+  }, []);
 
-  private startPlay = () => {
-    startPlayRecordAction(this.stop);
-    this.isEntered = true;
-  }
-
-  private stop = () => {
-    this.props.recordState!.isRecorded ? this.stopPlay() : this.stopRecord();
-
-    Animated.timing(this.fadeAnimation, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(this.progressAnimation, {
-      toValue: 1,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  }
-
-  private stopRecord = () => {
-    this.isBusy = true;
-    InteractionManager.runAfterInteractions(async () => {
-      await stopRecordAction();
-      this.isEntered = false;
-      this.isBusy = false;
-    });
-  }
-
-  private stopPlay = () => {
-    stopPlayRecordAction();
-    this.isEntered = false;
-  }
-
-  private requestMicrophonePermission = async () => {
-    if (Platform.OS !== 'android') {
-      return true;
-    }
-
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-      );
-
-      return granted === PermissionsAndroid.RESULTS.GRANTED;
-    } catch (err) {
-      console.error(err);
-    }
-
-    return false;
-  }
-}
+  return (
+    <Animated.View style={styles.container}>
+      <View style={styles.controller}>
+        <Button
+          onPress={release}
+          disabled={!isRecorded}
+          style={[styles.button, isRecorded && styles.enabled]}
+          round
+        >
+          <Animated.Image source={RESET_ICON} style={[styles.icon, fadeStyle]} />
+        </Button>
+        <View style={styles.recordContainer}>
+          <Animated.View style={[styles.progress, progressStyle]} />
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={toggle}
+            style={styles.record}
+          />
+        </View>
+        <TouchableOpacity
+          onPress={finish}
+          disabled={!isRecorded}
+          style={[styles.button, isRecorded && styles.enabled]}
+        >
+          <Animated.Image source={DONE_ICON} style={[styles.icon, fadeStyle]} />
+        </TouchableOpacity>
+      </View>
+      <AnimatedText style={[typography.heading4, styles.hint, fadeStyle]}>
+        눌러서 {isRecorded ? '듣기' : '녹음'}
+      </AnimatedText>
+    </Animated.View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
