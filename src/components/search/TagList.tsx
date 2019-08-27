@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -12,18 +9,12 @@ import { TagItem } from 'containers';
 interface Props {
   items: Tag[];
   isLoading: boolean;
-  fetchPopularTags: () => void;
 }
 
 const TagList: React.FunctionComponent<Props> = ({
   items,
   isLoading,
-  fetchPopularTags,
 }) => {
-  useEffect(() => {
-    fetchPopularTags();
-  }, []);
-
   const renderItem = useCallback(({ item }: { item: Tag }) => (
     <TagItem item={item} />
   ), []);

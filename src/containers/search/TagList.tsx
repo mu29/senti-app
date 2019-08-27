@@ -1,6 +1,6 @@
 import React from 'react';
 import { NetworkStatus } from 'apollo-client';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import {
   ErrorView,
   LoadingView,
@@ -9,12 +9,12 @@ import {
 import { FETCH_POPULAR_TAGS } from 'graphqls';
 
 const TagListContainer: React.FunctionComponent<{}> = () => {
-  const [fetchPopularTags, {
+  const {
     data,
     networkStatus,
     error,
     refetch,
-  }] = useLazyQuery(FETCH_POPULAR_TAGS, {
+  } = useQuery(FETCH_POPULAR_TAGS, {
     notifyOnNetworkStatusChange: true,
   });
 
@@ -29,9 +29,8 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
 
   return (
     <TagList
-      items={data.tags}
+      items={data.popularTags}
       isLoading={networkStatus === NetworkStatus.fetchMore}
-      fetchPopularTags={fetchPopularTags}
     />
   );
 };

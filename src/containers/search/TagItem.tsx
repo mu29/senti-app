@@ -33,7 +33,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
       id: item.id,
       name: item.name,
     },
-    update: (cache, { data }) => {
+    update: (cache) => {
       const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
 
       if (!savedProfile) {
@@ -43,8 +43,10 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
       cache.writeQuery({
         query: FETCH_PROFILE,
         data: {
-          ...savedProfile.me,
-          tags: savedProfile.me.tags.concat(data.subscribeTag),
+          me: {
+            ...savedProfile.me,
+            tags: savedProfile.me.tags.concat(item),
+          },
         },
       });
     },
@@ -53,8 +55,9 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
   const [unsubscribeTag, { loading: unsubscribing }] = useMutation<Tag>(UNSUBSCRIBE_TAG, {
     variables: {
       id: item.id,
+      name: item.name,
     },
-    update: (cache, { data }) => {
+    update: (cache) => {
       const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
 
       if (!savedProfile) {
@@ -64,14 +67,18 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
       cache.writeQuery({
         query: FETCH_PROFILE,
         data: {
-          ...savedProfile.me,
-          tags: savedProfile.me.tags.filter(t => t.id !== data.unsubscribeTag.id),
+          me: {
+            ...savedProfile.me,
+            tags: savedProfile.me.tags.filter(t => t.id !== item.id),
+          },
         },
       });
     },
   });
 
-  const isSubscribed = useMemo(() => profile ? !!profile.me.tags.find(t => t.id === item.id) : false, [profile]);
+  const isSubscribed = useMemo(() => {
+    return profile && profile.me ? !!profile.me.tags.find(t => t.id === item.id) : false;
+  }, [profile]);
 
   const toggle = useCallback(() => {
     isSubscribed ? unsubscribeTag() : subscribeTag();

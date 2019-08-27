@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const SUBSCRIBE_TAG = gql`
-  mutation subscribeTag($id: ID, $name: String) {
+  mutation subscribeTag($id: ID!, $name: String!) {
     subscribeTag(id: $id, name: $name) {
       id
       name
@@ -10,8 +10,8 @@ export const SUBSCRIBE_TAG = gql`
 `;
 
 export const UNSUBSCRIBE_TAG = gql`
-  mutation unsubscribeTag($id: ID) {
-    unsubscribeTag(id: $id)
+  mutation unsubscribeTag($id: ID!, $name: String!) {
+    unsubscribeTag(id: $id, name: $name)
   }
 `;
 
