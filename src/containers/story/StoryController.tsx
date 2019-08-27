@@ -15,7 +15,7 @@ interface Props {
 }
 
 const StoryControllerContainer: React.FunctionComponent<Props> = (props) => {
-  const { data: profile } = useQuery(FETCH_PROFILE, {
+  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
     skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
@@ -30,7 +30,7 @@ const StoryControllerContainer: React.FunctionComponent<Props> = (props) => {
 
   return (
     <StoryController
-      isLoggedIn={!!profile}
+      isLoggedIn={!!(profile && profile.me)}
       showAuthModal={showAuthModal}
       showReplyModal={showReplyModal}
       {...props}

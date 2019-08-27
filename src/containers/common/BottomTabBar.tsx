@@ -20,7 +20,7 @@ interface Props extends BottomTabBarProps {
 }
 
 const BottomTabBarContainer: React.FunctionComponent<Props> = (props) => {
-  const { data: profile } = useQuery(FETCH_PROFILE, {
+  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
     skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
@@ -31,7 +31,7 @@ const BottomTabBarContainer: React.FunctionComponent<Props> = (props) => {
 
   return (
     <BottomTabBar
-      isLoggedIn={!!profile}
+      isLoggedIn={!!(profile && profile.me)}
       showAuthModal={showModal}
       {...props}
     />
