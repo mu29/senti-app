@@ -3,14 +3,12 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import {
-  StoryDescription,
-  withSafeArea,
-} from 'components';
+import { withSafeArea } from 'components';
 import {
   CoverModal,
   CreateStoryCover,
   CreateStoryHeader,
+  CreateStoryMessage,
   RecordController,
 } from 'containers';
 
@@ -19,7 +17,7 @@ const CreateStoryScreen: React.FunctionComponent<{}> = () => (
     <CreateStoryCover />
     <View style={styles.container}>
       <CreateStoryHeader />
-      <StoryDescription />
+      <CreateStoryMessage />
       <RecordController onCreate={({}) => Promise.resolve()} />
     </View>
     <CoverModal />

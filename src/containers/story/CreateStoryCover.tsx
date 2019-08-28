@@ -13,7 +13,7 @@ type DraftResult = {
   draft: Draft;
 };
 
-const CreateStoryCoverContainer: React.FunctionComponent<{}> = () => {
+const Container: React.FunctionComponent<{}> = () => {
   const { data } = useQuery(FETCH_DRAFT) as { data: DraftResult };
 
   const [shuffleCovers] = useMutation(SHUFFLE_COVERS);
@@ -31,4 +31,4 @@ const CreateStoryCoverContainer: React.FunctionComponent<{}> = () => {
   );
 };
 
-export default React.memo(CreateStoryCoverContainer);
+export default React.memo(Container);
