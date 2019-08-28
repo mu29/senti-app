@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 import {
   useQuery,
   useMutation,
-  useApolloClient,
 } from '@apollo/react-hooks';
 import { CoverModal } from 'components';
 import {
   FETCH_COVERS,
   FETCH_MODAL,
+  UPDATE_DRAFT,
   HIDE_MODAL,
 } from 'graphqls';
 
@@ -30,10 +30,10 @@ const CoverModalContainer: React.FunctionComponent<{}> = () => {
     variables: { id: 'Cover' },
   });
 
-  const client = useApolloClient();
+  const [updateDraft] = useMutation(UPDATE_DRAFT);
 
   const updateCover = useCallback((cover: string) => {
-    client.writeData({ data: { cover } });
+    updateDraft({ variables: { cover } });
   }, []);
 
   if (!data || !data.modal) {

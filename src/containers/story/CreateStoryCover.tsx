@@ -5,16 +5,16 @@ import {
 } from '@apollo/react-hooks';
 import { CreateStoryCover } from 'components';
 import {
-  FETCH_COVER,
+  FETCH_DRAFT,
   SHUFFLE_COVERS,
 } from 'graphqls';
 
-type CoverResult = {
-  cover: string;
+type DraftResult = {
+  draft: Draft;
 };
 
 const CreateStoryCoverContainer: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery(FETCH_COVER) as { data: CoverResult };
+  const { data } = useQuery(FETCH_DRAFT) as { data: DraftResult };
 
   const [shuffleCovers] = useMutation(SHUFFLE_COVERS);
 
@@ -22,12 +22,12 @@ const CreateStoryCoverContainer: React.FunctionComponent<{}> = () => {
     shuffleCovers();
   }, []);
 
-  if (!data.cover) {
+  if (!data.draft.cover) {
     return null;
   }
 
   return (
-    <CreateStoryCover cover={data.cover} />
+    <CreateStoryCover cover={data.draft.cover} />
   );
 };
 

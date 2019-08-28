@@ -1,5 +1,20 @@
 import gql from 'graphql-tag';
 
+export const FETCH_DRAFT = gql`
+  query fetchDraft {
+    draft @client {
+      cover
+      message
+    }
+  }
+`;
+
+export const UPDATE_DRAFT = gql`
+  mutation updateDraft($cover: String, $message: String) {
+    updateDraft(cover: $cover, message: $message) @client
+  }
+`;
+
 export const FETCH_MAIN_STORY_FEED = gql`
   query fetchMainStoryFeed($cursor: ID) {
     mainStoryFeed(cursor: $cursor) {

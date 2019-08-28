@@ -2,6 +2,11 @@ import Sound from 'react-native-sound';
 import { LoadingType } from 'constants/enums';
 
 declare global {
+  interface Draft {
+    cover: string;
+    message: string;
+  }
+
   interface Tag {
     id: string;
     name: string;

@@ -36,7 +36,6 @@ const client = new ApolloClient({
     extend type Query {
       modal(id: ID!): Modal
       searchQuery: String
-      cover: String
     }
 
     extend type Mutation {
@@ -63,8 +62,12 @@ client.cache.writeData({
       isVisible: false,
     }],
     searchQuery: '',
-    cover: '',
     covers,
+    draft: {
+      __typename: 'Draft',
+      cover: '',
+      message: '',
+    },
   },
 });
 
