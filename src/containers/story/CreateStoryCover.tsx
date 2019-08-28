@@ -1,21 +1,33 @@
-import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import React, { useEffect } from 'react';
+import {
+  useQuery,
+  useMutation,
+} from '@apollo/react-hooks';
 import { CreateStoryCover } from 'components';
-import { FETCH_RANDOM_COVER } from 'graphqls';
+import {
+  FETCH_COVER,
+  SHUFFLE_COVERS,
+} from 'graphqls';
 
-type RandomCoverResult = {
-  randomCover: string;
+type CoverResult = {
+  cover: string;
 };
 
 const CreateStoryCoverContainer: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery<RandomCoverResult>(FETCH_RANDOM_COVER);
+  const { data } = useQuery(FETCH_COVER) as { data: CoverResult };
 
-  if (!data || !data.randomCover) {
+  const [shuffleCovers] = useMutation(SHUFFLE_COVERS);
+
+  useEffect(() => {
+    shuffleCovers();
+  }, []);
+
+  if (!data.cover) {
     return null;
   }
 
   return (
-    <CreateStoryCover cover={data.randomCover} />
+    <CreateStoryCover cover={data.cover} />
   );
 };
 

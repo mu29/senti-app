@@ -1,12 +1,13 @@
+import firebase from 'react-native-firebase';
 import merge from 'lodash/merge';
 import ApolloClient from 'apollo-client';
 import { BatchHttpLink } from 'apollo-link-batch-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import gql from 'graphql-tag';
+import covers from 'constants/covers';
 import { getLanguage } from 'utils';
 import * as resolvers from './resolvers';
 import config from './config';
-import firebase from 'react-native-firebase';
 
 const customFetch = async (uri: RequestInfo, options?: RequestInit) => {
   const { currentUser } = firebase.auth();
@@ -35,12 +36,13 @@ const client = new ApolloClient({
     extend type Query {
       modal(id: ID!): Modal
       searchQuery: String
-      randomCover: String
+      cover: String
     }
 
     extend type Mutation {
       showModal(id: ID!): Boolean
       hideModal(id: ID!): Boolean
+      shuffleCovers: Boolean
     }
   `,
 });
@@ -61,6 +63,8 @@ client.cache.writeData({
       isVisible: false,
     }],
     searchQuery: '',
+    cover: '',
+    covers,
   },
 });
 
