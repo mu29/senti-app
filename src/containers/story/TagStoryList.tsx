@@ -6,24 +6,33 @@ import {
   LoadingView,
   StoryList,
 } from 'components';
-import { FETCH_MAIN_STORY_FEED } from 'graphqls';
+import { FETCH_TAG_STORY_FEED } from 'graphqls';
 import { isInitialLoading } from 'utils';
 
-type MainStoryFeedResult = {
-  mainStoryFeed: {
+type TagStoryFeedResult = {
+  tagStoryFeed: {
     stories: Story[];
     cursor: string;
   };
 };
 
-const StoryListContainer: React.FunctionComponent<{}> = () => {
+interface Props {
+  tagId: string;
+}
+
+const TagStoryListContainer: React.FunctionComponent<Props> = ({
+  tagId,
+}) => {
   const {
     data,
     networkStatus,
     error,
     fetchMore,
     refetch,
-  } = useQuery<MainStoryFeedResult>(FETCH_MAIN_STORY_FEED, {
+  } = useQuery<TagStoryFeedResult>(FETCH_TAG_STORY_FEED, {
+    variables: {
+      tagId,
+    },
     notifyOnNetworkStatusChange: true,
   });
 
@@ -37,7 +46,7 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
   }
 
   const {
-    mainStoryFeed: {
+    tagStoryFeed: {
       stories,
       cursor,
     },
@@ -47,25 +56,27 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
     <StoryList
       stories={stories || []}
       isLoading={networkStatus === NetworkStatus.fetchMore}
-      hasBottom
       onFetchMore={() => fetchMore({
-        variables: { cursor },
+        variables: {
+          tagId,
+          cursor,
+        },
         updateQuery: (original, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
             return original;
           }
 
           const {
-            mainStoryFeed: {
+            tagStoryFeed: {
               stories: nextStories,
               cursor: nextCursor,
             },
           } = fetchMoreResult;
 
           return Object.assign(original, {
-            mainStoryFeed: {
-              ...original.mainStoryFeed,
-              stories: original.mainStoryFeed.stories.concat(nextStories),
+            tagStoryFeed: {
+              ...original.tagStoryFeed,
+              stories: original.tagStoryFeed.stories.concat(nextStories),
               cursor: nextCursor,
             },
           });
@@ -75,4 +86,4 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
   );
 };
 
-export default React.memo(StoryListContainer);
+export default React.memo(TagStoryListContainer);

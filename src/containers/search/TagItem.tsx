@@ -85,7 +85,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
   }, [isSubscribed]);
 
   const openTagStoryScreen = useCallback(() => {
-    navigation.navigate('TagStory', { id: item.id });
+    navigation.navigate('TagStory', { tagId: item.id });
   }, [item]);
 
   return (

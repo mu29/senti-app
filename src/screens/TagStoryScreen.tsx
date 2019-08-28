@@ -9,11 +9,11 @@ import {
   SafeAreaViewForceInsetValue,
   NavigationScreenProps,
 } from 'react-navigation';
+import { Button } from 'components';
 import {
-  Button,
   TagStoryList,
-} from 'components';
-import { ReplyModal } from 'containers';
+  ReplyModal,
+} from 'containers';
 import { palette } from 'constants/style';
 
 const SAFE_AREA_INSET: {
@@ -33,11 +33,11 @@ const BACK_ICON = { uri: 'ic_back' };
 
 class TagStoryScreen extends React.Component<NavigationScreenProps> {
   public render() {
-    const id = this.props.navigation.getParam('id', '');
+    const tagId = this.props.navigation.getParam('tagId', '');
 
     return (
       <React.Fragment>
-        <TagStoryList id={id} />
+        <TagStoryList tagId={tagId} />
         <SafeAreaView style={styles.container} forceInset={SAFE_AREA_INSET}>
           <Button onPress={this.goBack} hitSlop={HIT_SLOP} round>
             <Image style={styles.icon} source={BACK_ICON} />
