@@ -34,6 +34,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 interface Props {
   stories: Story[];
   isLoading: boolean;
+  hasBottom?: boolean;
   onFetchMore: () => void;
 }
 
@@ -46,6 +47,7 @@ class StoryList extends React.PureComponent<Props> {
     const {
       stories,
       isLoading,
+      hasBottom,
       onFetchMore,
     } = this.props;
 
@@ -71,7 +73,7 @@ class StoryList extends React.PureComponent<Props> {
           showsHorizontalScrollIndicator={false}
         />
         {isLoading && (
-          <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.loading}>
+          <SafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.loading, hasBottom && styles.bottomSpace]}>
             <LoadingBar />
           </SafeAreaView>
         )}
@@ -80,7 +82,12 @@ class StoryList extends React.PureComponent<Props> {
   }
 
   private renderItem = ({ item, index }: { item: Story; index: number }) => (
-    <StoryItem item={item} index={index} animatedValue={this.swiperAnimation} hasBottom />
+    <StoryItem
+      item={item}
+      index={index}
+      animatedValue={this.swiperAnimation}
+      hasBottom={this.props.hasBottom}
+    />
   )
 
   private keyExtractor = (item: Story) => item.id;
@@ -104,9 +111,12 @@ const styles = StyleSheet.create({
   },
   loading: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 0,
     left: 0,
     right: 0,
+  },
+  bottomSpace: {
+    bottom: 50,
   },
 });
 

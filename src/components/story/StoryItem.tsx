@@ -120,7 +120,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
               {item.tags.map(tag => `#${tag}`).map(renderTag)}
             </View>
           </TouchableOpacity>
-          <View style={hasBottom && styles.controller}>
+          <View style={[styles.controller, hasBottom && styles.bottomSpace]}>
             <StoryController item={item} />
           </View>
           <Animated.View pointerEvents="none" style={[styles.iconContainer, iconStyle]}>
@@ -179,6 +179,8 @@ const styles = StyleSheet.create({
   },
   controller: {
     alignSelf: 'stretch',
+  },
+  bottomSpace: {
     marginBottom: 48,
   },
   iconContainer: {
