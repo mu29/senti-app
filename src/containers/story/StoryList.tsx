@@ -7,6 +7,7 @@ import {
   StoryList,
 } from 'components';
 import { FETCH_MAIN_STORY_FEED } from 'graphqls';
+import { isInitialLoading } from 'utils';
 
 const StoryListContainer: React.FunctionComponent<{}> = () => {
   const {
@@ -19,7 +20,7 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
     notifyOnNetworkStatusChange: true,
   });
 
-  if ([NetworkStatus.loading, NetworkStatus.refetch].includes(networkStatus)) {
+  if (isInitialLoading(networkStatus)) {
     return <LoadingView dark />;
   }
 
