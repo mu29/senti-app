@@ -106,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CoverModal;
+export default React.memo(CoverModal);
