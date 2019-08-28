@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-} from 'react';
+import React from 'react';
 import { StatusBar } from 'react-native';
 import { ApolloProvider } from '@apollo/react-hooks';
 import firebase from 'react-native-firebase';
@@ -12,10 +8,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { AuthModal } from 'containers';
 import * as states from './stores/states';
-import {
-  FETCH_PROFILE,
-  FETCH_COVERS,
-} from './graphqls';
+import { FETCH_PROFILE } from './graphqls';
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
 import client from './apollo';
@@ -26,44 +19,59 @@ Sound.setActive(true);
 
 moment.locale('ko');
 
-const App: React.FunctionComponent<{}> = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+interface State {
+  hasAuthTriggered: boolean;
+}
 
-  const setNavigationRef = useCallback((ref: any) => {
-    NavigationService.setTopLevelNavigator(ref);
-  }, []);
+class App extends React.Component<{}, State> {
+  public state = {
+    hasAuthTriggered: false,
+  };
 
-  useEffect(() => {
-    const authStateUnsubscriber = firebase.auth().onAuthStateChanged(() => {
+  private authStateUnsubscriber?: () => void;
+
+  constructor(props: {}) {
+    super(props);
+    this.authStateUnsubscriber = firebase.auth().onAuthStateChanged(() => {
       client.query({
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
       })
-      .finally(() => setIsLoaded(true));
+      .finally(() => this.setState({ hasAuthTriggered: true }));
     });
-    setTimeout(() => setIsLoaded(true), 1000);
-    client.query({ query: FETCH_COVERS });
-
-    return authStateUnsubscriber;
-  }, []);
-
-  if (!isLoaded) {
-    return null;
   }
 
-  return (
-    <React.Fragment>
-      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-      <Provider {...states}>
-        <ApolloProvider client={client}>
-          <React.Fragment>
-            <AuthModal />
-            <Navigator ref={setNavigationRef} />
-          </React.Fragment>
-        </ApolloProvider>
-      </Provider>
-    </React.Fragment>
-  );
-};
+  public componentWillUnmount() {
+    if (this.authStateUnsubscriber) {
+      this.authStateUnsubscriber();
+    }
+  }
+
+  public render() {
+    const { hasAuthTriggered } = this.state;
+
+    if (!hasAuthTriggered) {
+      return null;
+    }
+
+    return (
+      <React.Fragment>
+        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+        <Provider {...states}>
+          <ApolloProvider client={client}>
+            <React.Fragment>
+              <AuthModal />
+              <Navigator ref={this.setNavigationRef} />
+            </React.Fragment>
+          </ApolloProvider>
+        </Provider>
+      </React.Fragment>
+    );
+  }
+
+  private setNavigationRef = (ref: any) => {
+    NavigationService.setTopLevelNavigator(ref);
+  }
+}
 
 export default App;
