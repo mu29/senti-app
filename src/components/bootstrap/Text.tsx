@@ -15,22 +15,29 @@ const defaultStyle = Platform.select({
   },
 });
 
-interface Props extends TextProps {
+export interface Props extends TextProps {
   children: React.ReactNode;
 }
 
-const Text: React.FunctionComponent<Props> = ({
-  children,
-  style,
-  ...props
-}) => (
-  <TextNative
-    allowFontScaling={false}
-    style={[defaultStyle, style]}
-    {...props}
-  >
-    {children}
-  </TextNative>
-);
+// Animated를 위해 Class Component로 남겨둔다
+class Text extends React.PureComponent<Props> {
+  public render() {
+    const {
+      children,
+      style,
+      ...props
+    } = this.props;
 
-export default React.memo(Text);
+    return (
+      <TextNative
+        allowFontScaling={false}
+        style={[defaultStyle, style]}
+        {...props}
+      >
+        {children}
+      </TextNative>
+    );
+  }
+}
+
+export default Text;
