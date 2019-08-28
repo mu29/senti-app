@@ -8,7 +8,6 @@ import {
   observer,
 } from 'mobx-react/native';
 import {
-  CreateStoryHeader,
   ImagePickerModal,
   StoryDescription,
   LoadingLayer,
@@ -16,6 +15,7 @@ import {
 } from 'components';
 import {
   CreateStoryCover,
+  CreateStoryHeader,
   RecordController,
 } from 'containers';
 import { StoryState } from 'stores/states';

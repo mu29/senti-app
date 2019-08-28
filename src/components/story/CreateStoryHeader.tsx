@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -9,7 +9,6 @@ import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
-import { showImagePickerModalAction } from 'stores/actions';
 import { palette } from 'constants/style';
 
 const ALBUM_ICON = { uri: 'ic_grid' };
@@ -21,34 +20,39 @@ const TOUCH_HITSLOP = {
   right: 32,
 };
 
-class CreateStoryHeader extends React.Component<NavigationInjectedProps> {
-  public render() {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={showImagePickerModalAction}
-          hitSlop={TOUCH_HITSLOP}
-        >
-          <Animated.Image
-            source={ALBUM_ICON}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={this.goBack}
-          hitSlop={TOUCH_HITSLOP}
-        >
-          <Animated.Image
-            source={CLOSE_ICON}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  private goBack = () => this.props.navigation.goBack();
+interface Props extends NavigationInjectedProps {
+  showCoverModal: () => void;
 }
+
+const CreateStoryHeader: React.FunctionComponent<Props> = ({
+  navigation,
+  showCoverModal,
+}) => {
+  const goBack = useCallback(() => navigation.goBack(), []);
+
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={showCoverModal}
+        hitSlop={TOUCH_HITSLOP}
+      >
+        <Animated.Image
+          source={ALBUM_ICON}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={goBack}
+        hitSlop={TOUCH_HITSLOP}
+      >
+        <Animated.Image
+          source={CLOSE_ICON}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -64,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(CreateStoryHeader);
+export default withNavigation(React.memo(CreateStoryHeader));
