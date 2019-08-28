@@ -1,17 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
   Image,
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
 import imageCacheHoc from 'react-native-image-cache-hoc';
-import { CoverState } from 'stores/states';
-import { shuffleCoverAction } from 'stores/actions';
 import { palette } from 'constants/style';
 
 const { width, height } = Dimensions.get('window');
@@ -21,30 +15,26 @@ const CachableImage = imageCacheHoc(Image, {
   cachePruneTriggerLimit: 1024 * 1024 * 50,
 });
 
-interface CreateStoryCoverProps {
-  coverState?: CoverState;
+interface Props {
+  cover: string;
 }
 
-@inject('coverState')
-@observer
-class CreateStoryCover extends React.Component<CreateStoryCoverProps> {
-  public componentDidMount() {
-    shuffleCoverAction();
-  }
+const CreateStoryCover: React.FunctionComponent<Props> = ({
+  cover,
+}) => {
+  const coverImage = useMemo(() => ({ uri: cover }), [cover]);
 
-  public render() {
-    return (
-      <React.Fragment>
-        <CachableImage
-          source={{ uri: this.props.coverState!.current }}
-          style={styles.background}
-          permanent
-        />
-        <View style={styles.filter} />
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <CachableImage
+        source={coverImage}
+        style={styles.background}
+        permanent
+      />
+      <View style={styles.filter} />
+    </React.Fragment>
+  );
+};
 
 const styles = StyleSheet.create({
   background: {
@@ -59,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateStoryCover;
+export default React.memo(CreateStoryCover);

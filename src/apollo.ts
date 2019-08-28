@@ -35,6 +35,7 @@ const client = new ApolloClient({
     extend type Query {
       modal(id: ID!): Modal
       searchQuery: String
+      randomCover: String
     }
 
     extend type Mutation {

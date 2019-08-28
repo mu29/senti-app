@@ -11,6 +11,7 @@ export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
 export { default as TagList } from './search/TagList';
 
+export { default as CreateStoryCover } from './story/CreateStoryCover';
 export { default as RecordController } from './story/RecordController';
 export { default as StoryController } from './story/StoryController';
 export { default as StoryList } from './story/StoryList';

@@ -8,14 +8,16 @@ import {
   observer,
 } from 'mobx-react/native';
 import {
-  CreateStoryCover,
   CreateStoryHeader,
   ImagePickerModal,
   StoryDescription,
   LoadingLayer,
   withSafeArea,
 } from 'components';
-import { RecordController } from 'containers';
+import {
+  CreateStoryCover,
+  RecordController,
+} from 'containers';
 import { StoryState } from 'stores/states';
 import { createStoryAction } from 'stores/actions';
 import { LoadingType } from 'constants/enums';
