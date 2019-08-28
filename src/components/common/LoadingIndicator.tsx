@@ -6,15 +6,11 @@ import {
 } from 'react-native';
 import { palette } from 'constants/style';
 
-class LoadingIndicator extends React.PureComponent<{}> {
-  public render() {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator color={palette.gray[40]} />
-      </View>
-    );
-  }
-}
+const LoadingIndicator: React.FunctionComponent<{}> = () => (
+  <View style={styles.container}>
+    <ActivityIndicator color={palette.gray[40]} />
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -24,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoadingIndicator;
+export default React.memo(LoadingIndicator);

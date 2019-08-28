@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ErrorView;
+export default React.memo(ErrorView);

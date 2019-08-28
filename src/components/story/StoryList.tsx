@@ -37,7 +37,7 @@ interface Props {
   onFetchMore: () => void;
 }
 
-class StoryList extends React.Component<Props> {
+class StoryList extends React.PureComponent<Props> {
   private swiperAnimation = new Animated.Value(0);
 
   private previousItem?: Story;

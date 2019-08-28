@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Text as TextNative,
   Platform,
-  TextProps as TextNativeProps,
+  TextProps,
 } from 'react-native';
 
 const defaultStyle = Platform.select({
@@ -15,28 +15,22 @@ const defaultStyle = Platform.select({
   },
 });
 
-export interface TextProps extends TextNativeProps {
+interface Props extends TextProps {
   children: React.ReactNode;
 }
 
-class Text extends React.PureComponent<TextProps> {
-  public render() {
-    const {
-      children,
-      style,
-      ...props
-    } = this.props;
+const Text: React.FunctionComponent<Props> = ({
+  children,
+  style,
+  ...props
+}) => (
+  <TextNative
+    allowFontScaling={false}
+    style={[defaultStyle, style]}
+    {...props}
+  >
+    {children}
+  </TextNative>
+);
 
-    return (
-      <TextNative
-        allowFontScaling={false}
-        style={[defaultStyle, style]}
-        {...props}
-      >
-        {children}
-      </TextNative>
-    );
-  }
-}
-
-export default Text;
+export default React.memo(Text);

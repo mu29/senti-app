@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useMemo,
+  useEffect,
+} from 'react';
 import {
   Animated,
   StyleSheet,
@@ -8,37 +11,35 @@ import { palette } from 'constants/style';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
-class LoadingBar extends React.PureComponent<{}> {
-  private scaleAnimation = new Animated.Value(0);
+const LoadingBar: React.FunctionComponent<{}> = () => {
+  const scaleAnimation = useMemo(() => new Animated.Value(0), []);
 
-  private barStyle = [
+  const barStyle = useMemo(() => [
     styles.bar,
-    { transform: [{ scaleX: this.scaleAnimation }] },
-  ];
+    { transform: [{ scaleX: scaleAnimation }] },
+  ], [scaleAnimation]);
 
-  public componentDidMount() {
+  useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(this.scaleAnimation, {
+        Animated.timing(scaleAnimation, {
           toValue: deviceWidth,
           duration: 800,
           useNativeDriver: true,
         }),
-        Animated.timing(this.scaleAnimation, {
+        Animated.timing(scaleAnimation, {
           toValue: 28,
           duration: 800,
           useNativeDriver: true,
         }),
       ]),
     ).start();
-  }
+  }, []);
 
-  public render() {
-    return (
-      <Animated.View style={this.barStyle} />
-    );
-  }
-}
+  return (
+    <Animated.View style={barStyle} />
+  );
+};
 
 const styles = StyleSheet.create({
   bar: {
@@ -49,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoadingBar;
+export default React.memo(LoadingBar);

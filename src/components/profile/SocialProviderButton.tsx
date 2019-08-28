@@ -12,7 +12,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { ButtonProps } from '../bootstrap/Button';
+import { Props as ButtonProps } from '../bootstrap/Button';
 
 interface SocialProviderButtonProps extends ButtonProps {
   icon: string;

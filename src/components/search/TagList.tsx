@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TagList;
+export default React.memo(TagList);

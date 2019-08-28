@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReplyModal;
+export default React.memo(ReplyModal);

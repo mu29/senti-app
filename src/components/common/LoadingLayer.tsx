@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoadingLayer;
+export default React.memo(LoadingLayer);

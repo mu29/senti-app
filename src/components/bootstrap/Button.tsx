@@ -13,14 +13,14 @@ import {
 } from 'react-native';
 import { palette } from 'constants/style';
 
-export interface ButtonProps extends TouchableOpacityProps, TouchableNativeFeedbackProps {
+export interface Props extends TouchableOpacityProps, TouchableNativeFeedbackProps {
   round?: boolean;
   isLoading?: boolean;
   style?: StyleProp<ViewStyle>;
   children: React.ReactNode;
 }
 
-class Button extends React.PureComponent<ButtonProps> {
+class Button extends React.PureComponent<Props> {
   private layout: {
     width?: number;
     height?: number;
