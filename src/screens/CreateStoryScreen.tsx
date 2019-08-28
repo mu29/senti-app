@@ -8,12 +8,12 @@ import {
   observer,
 } from 'mobx-react/native';
 import {
-  ImagePickerModal,
   StoryDescription,
   LoadingLayer,
   withSafeArea,
 } from 'components';
 import {
+  CoverModal,
   CreateStoryCover,
   CreateStoryHeader,
   RecordController,
@@ -37,7 +37,7 @@ const CreateStoryScreen: React.FunctionComponent<CreateStoryScreenProps> = ({
       <StoryDescription />
       {/* <RecordController onCreate={createStoryAction} /> */}
     </View>
-    <ImagePickerModal />
+    <CoverModal />
   </React.Fragment>
 );
 
