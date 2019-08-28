@@ -4,7 +4,6 @@ import React, {
   useEffect,
 } from 'react';
 import debounce from 'lodash/debounce';
-import { NetworkStatus } from 'apollo-client';
 import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 import {
   ErrorView,
@@ -16,11 +15,18 @@ import {
   FETCH_SEARCH_QUERY,
   SEARCH_TAGS,
 } from 'graphqls';
+import { isInitialLoading } from 'utils';
+
+const EMPTY_LIST: Tag[] = [];
 
 const TagListContainer: React.FunctionComponent<{}> = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { data } = useQuery<{ searchQuery: string }>(FETCH_SEARCH_QUERY);
+  const {
+    data: {
+      searchQuery,
+    },
+  } = useQuery(FETCH_SEARCH_QUERY) as { data: { searchQuery: string } };
 
   const [searchTags, searchResult] = useLazyQuery(SEARCH_TAGS, {
     notifyOnNetworkStatusChange: true,
@@ -31,19 +37,18 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
   });
 
   const debouncedSearch = useRef(debounce((name) => {
-    setIsLoading(false);
     searchTags({ variables: { name } });
+    setIsLoading(false);
   }, 1000));
 
   useEffect(() => {
-    if (data!.searchQuery) {
+    if (searchQuery && !isLoading) {
       setIsLoading(true);
     }
-    debouncedSearch.current(data!.searchQuery);
-  }, [data!.searchQuery]);
+    debouncedSearch.current(searchQuery);
+  }, [searchQuery]);
 
-  if ([NetworkStatus.loading, NetworkStatus.refetch].includes(popularTagResult.networkStatus)
-    || [NetworkStatus.loading, NetworkStatus.refetch].includes(searchResult.networkStatus)) {
+  if (isInitialLoading(popularTagResult.networkStatus) || isInitialLoading(searchResult.networkStatus)) {
     return <LoadingView />;
   }
 
@@ -60,8 +65,8 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
   return (
     <TagList
       items={isLoading || searchResult.loading
-        ? []
-        : (data!.searchQuery
+        ? EMPTY_LIST
+        : (searchQuery
             ? searchResult.data.searchTags.tags
             : popularTagResult.data.popularTags
           )

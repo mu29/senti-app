@@ -28,7 +28,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
     fetchPolicy: 'cache-only',
   });
 
-  const [subscribeTag, { loading: subscribing }] = useMutation<Tag>(SUBSCRIBE_TAG, {
+  const [subscribeTag, { loading: subscribing }] = useMutation(SUBSCRIBE_TAG, {
     variables: {
       id: item.id,
       name: item.name,
@@ -52,7 +52,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
     },
   });
 
-  const [unsubscribeTag, { loading: unsubscribing }] = useMutation<Tag>(UNSUBSCRIBE_TAG, {
+  const [unsubscribeTag, { loading: unsubscribing }] = useMutation(UNSUBSCRIBE_TAG, {
     variables: {
       id: item.id,
       name: item.name,
