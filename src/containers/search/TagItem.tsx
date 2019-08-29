@@ -30,8 +30,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
 
   const [subscribeTag, { loading: subscribing }] = useMutation(SUBSCRIBE_TAG, {
     variables: {
-      id: item.id,
-      name: item.name,
+      tag: item.name,
     },
     update: (cache) => {
       const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
@@ -54,8 +53,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
 
   const [unsubscribeTag, { loading: unsubscribing }] = useMutation(UNSUBSCRIBE_TAG, {
     variables: {
-      id: item.id,
-      name: item.name,
+      tag: item.name,
     },
     update: (cache) => {
       const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
