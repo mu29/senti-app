@@ -10,18 +10,18 @@ import { Alert } from 'react-native';
 
 interface Props {
   onCreate: ({
-    id,
     url,
     duration,
   }: {
-    id: string;
     url: string | null;
     duration: number;
   }) => Promise<void>;
+  onFinish?: () => void;
 }
 
 const RecordControllerContainer: React.FunctionComponent<Props> = ({
   onCreate,
+  onFinish,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -43,7 +43,6 @@ const RecordControllerContainer: React.FunctionComponent<Props> = ({
       .putFile(data.path);
 
     return {
-      id,
       url: snapshot.downloadURL,
       duration: data.duration,
     };
@@ -54,6 +53,7 @@ const RecordControllerContainer: React.FunctionComponent<Props> = ({
     upload()
       .then(onCreate)
       .then(() => setIsLoading(false))
+      .then(() => onFinish && onFinish())
       .catch((error) => {
         Alert.alert('알림', `녹음 파일 업로드에 실패했습니다.\n${error.message}`);
       });
