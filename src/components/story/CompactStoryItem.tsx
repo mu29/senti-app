@@ -42,15 +42,15 @@ class CompactStoryItem extends React.Component<CompactStoryItemProps & Navigatio
 
     const {
       cover,
-      description,
+      message,
     } = this.story;
 
     return (
       <Button onPress={this.openMyStoryScreen}>
         <CachableImage source={{ uri: cover }} style={styles.image} permanent />
         <View style={styles.filter}>
-          <Text style={styles.description}>
-            {description.replace(/#[^ ]+/g, '').trim()}
+          <Text style={styles.message}>
+            {message.replace(/#[^ ]+/g, '').trim()}
           </Text>
         </View>
       </Button>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: palette.transparent.black[40],
   },
-  description: {
+  message: {
     color: palette.gray[10],
     fontSize: 12,
   },

@@ -113,8 +113,8 @@ const StoryItem: React.FunctionComponent<Props> = ({
             onPress={toggle}
             style={styles.button}
           >
-            <Text style={styles.description}>
-              {item.description.replace(/#[^ ]+/g, '').trim()}
+            <Text style={styles.message}>
+              {item.message.replace(/#[^ ]+/g, '').trim()}
             </Text>
             <View style={styles.tags}>
               {item.tags.map(tag => `#${tag}`).map(renderTag)}
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
   },
-  description: {
+  message: {
     marginTop: 32,
     color: palette.gray[10],
     fontSize: 18,

@@ -27,7 +27,7 @@ const ErrorView: React.FunctionComponent<Props> = ({
     <Text style={[typography.heading1, styles.title]}>
       일시적인 오류입니다.
     </Text>
-    <Text style={[typography.body2, styles.description]}>
+    <Text style={[typography.body2, styles.message]}>
       {`아래 버튼을 눌러 다시 시도할 수 있습니다.\n문제가 반복된다면 저희에게 알려 주세요.\n\n${message}`}
     </Text>
     <Button style={styles.button} onPress={reload}>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 6 ,
   },
-  description: {
+  message: {
     textAlign: 'center',
   },
   button: {

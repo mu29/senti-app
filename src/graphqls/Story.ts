@@ -21,7 +21,7 @@ export const FETCH_MAIN_STORY_FEED = gql`
       stories {
         id
         cover
-        description
+        message
         tags
         user {
           id
@@ -45,7 +45,7 @@ export const FETCH_TAG_STORY_FEED = gql`
       stories {
         id
         cover
-        description
+        message
         tags
         user {
           id
@@ -59,6 +59,27 @@ export const FETCH_TAG_STORY_FEED = gql`
         }
       }
       cursor
+    }
+  }
+`;
+
+export const CREATE_STORY = gql`
+  mutation createStory($input: CreateStoryInput!) {
+    createStory(input: $input) {
+      id
+      cover
+      message
+      tags
+      user {
+        id
+        name
+        photoUrl
+      }
+      audio {
+        id
+        url
+        duration
+      }
     }
   }
 `;
