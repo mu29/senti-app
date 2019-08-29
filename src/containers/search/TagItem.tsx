@@ -99,4 +99,4 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
   );
 };
 
-export default React.memo(withNavigation(TagItemContainer));
+export default withNavigation(React.memo(TagItemContainer));

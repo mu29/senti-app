@@ -9,7 +9,7 @@ import {
   CreateStoryCover,
   CreateStoryHeader,
   CreateStoryMessage,
-  RecordController,
+  CreateStoryController,
 } from 'containers';
 
 const CreateStoryScreen: React.FunctionComponent<{}> = () => (
@@ -18,7 +18,7 @@ const CreateStoryScreen: React.FunctionComponent<{}> = () => (
     <View style={styles.container}>
       <CreateStoryHeader />
       <CreateStoryMessage />
-      <RecordController onCreate={({}) => Promise.resolve()} />
+      <CreateStoryController />
     </View>
     <CoverModal />
   </React.Fragment>
