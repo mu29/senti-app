@@ -9,6 +9,8 @@ import {
 import { FETCH_TAG_STORY_FEED } from 'graphqls';
 import { isInitialLoading } from 'utils';
 
+const EMPTY_LIST: Story[] = [];
+
 type TagStoryFeedResult = {
   tagStoryFeed: {
     stories: Story[];
@@ -54,7 +56,7 @@ const TagStoryListContainer: React.FunctionComponent<Props> = ({
 
   return (
     <StoryList
-      stories={stories || []}
+      items={stories || EMPTY_LIST}
       isLoading={networkStatus === NetworkStatus.fetchMore}
       onFetchMore={() => fetchMore({
         variables: {

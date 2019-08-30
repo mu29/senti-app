@@ -32,7 +32,7 @@ const SAFE_AREA_INSET: {
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 interface Props {
-  stories: Story[];
+  items: Story[];
   isLoading: boolean;
   hasBottom?: boolean;
   onFetchMore: () => void;
@@ -45,7 +45,7 @@ class StoryList extends React.PureComponent<Props> {
 
   public render() {
     const {
-      stories,
+      items,
       isLoading,
       hasBottom,
       onFetchMore,
@@ -54,7 +54,7 @@ class StoryList extends React.PureComponent<Props> {
     return (
       <React.Fragment>
         <AnimatedFlatList
-          data={stories}
+          data={items}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
           onEndReached={onFetchMore}
