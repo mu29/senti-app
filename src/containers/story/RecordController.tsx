@@ -53,6 +53,7 @@ const RecordControllerContainer: React.FunctionComponent<Props> = ({
       .then(() => setIsLoading(false))
       .then(() => onFinish && onFinish())
       .catch((error) => {
+        setIsLoading(false);
         Alert.alert('알림', `녹음 파일 업로드에 실패했습니다.\n${error.message}`);
       });
   }, [upload, onCreate]);
