@@ -2,16 +2,17 @@ import gql from 'graphql-tag';
 
 export const FETCH_MODAL = gql`
   query fetchModal($id: ID) {
-    modal(id: $id) @client {
+    modal(id: $id) @client(always: true) {
       id
+      params
       isVisible
     }
   }
 `;
 
 export const SHOW_MODAL = gql`
-  mutation showModal($id: ID) {
-    showModal(id: $id) @client
+  mutation showModal($id: ID, $params: String) {
+    showModal(id: $id, params: $params) @client
   }
 `;
 

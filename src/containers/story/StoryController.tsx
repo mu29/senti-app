@@ -25,7 +25,12 @@ const StoryControllerContainer: React.FunctionComponent<Props> = (props) => {
   });
 
   const [showReplyModal] = useMutation(SHOW_MODAL, {
-    variables: { id: 'Reply' },
+    variables: {
+      id: 'Reply',
+      params: JSON.stringify({
+        id: props.item.id,
+      }),
+    },
   });
 
   return (

@@ -30,6 +30,7 @@ const client = new ApolloClient({
   typeDefs: gql`
     type Modal {
       id: ID!
+      params: String
       isVisible: Boolean!
     }
 
@@ -51,14 +52,17 @@ client.cache.writeData({
     modals: [{
       __typename: 'Modal',
       id: 'Auth',
+      params: null,
       isVisible: false,
     }, {
       __typename: 'Modal',
       id: 'Reply',
+      params: null,
       isVisible: false,
     }, {
       __typename: 'Modal',
       id: 'Cover',
+      params: null,
       isVisible: false,
     }],
     searchQuery: '',

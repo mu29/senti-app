@@ -7,6 +7,7 @@ export default {
       const fragment = gql`
         fragment visibleModal on Modal {
           id
+          params
           isVisible
         }
       `;
@@ -23,6 +24,7 @@ export default {
         data: {
           __typename: 'Modal',
           id: args.id,
+          params: args.params || null,
           isVisible: true,
         },
       });
@@ -37,6 +39,7 @@ export default {
         data: {
           __typename: 'Modal',
           id: args.id,
+          params: null,
           isVisible: false,
         },
       });

@@ -14,6 +14,9 @@ declare global {
 
   interface Modal {
     id: string;
+    params?: {
+      [key: string]: any;
+    };
     isVisible: boolean;
   }
 }
