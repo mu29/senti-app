@@ -5,6 +5,7 @@ export { default as useRecord } from './hooks/useRecord';
 export { default as AuthModal } from './common/AuthModal';
 export { default as BottomTabBar } from './common/BottomTabBar';
 
+export { default as ChattingList } from './chatting/ChattingList';
 export { default as ReplyModal } from './chatting/ReplyModal';
 
 export { default as SearchBar } from './search/SearchBar';

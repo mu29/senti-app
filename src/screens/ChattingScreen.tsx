@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   Header,
-  ChattingList,
   withSafeArea,
 } from 'components';
+import { ChattingList } from 'containers';
 
 class ChattingScreen extends React.Component<{}> {
   public render() {

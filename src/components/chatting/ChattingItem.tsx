@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   View,
   Image,
@@ -9,10 +12,6 @@ import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
 import moment from 'moment';
 import {
   Text,
@@ -22,87 +21,64 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { AuthState } from 'stores/states';
 import { withComma } from 'services/utils';
 
-export interface ChattingItemProps {
-  chatting: Chatting;
-  authState?: AuthState;
+interface Props extends NavigationInjectedProps {
+  item: Chatting;
 }
 
-@inject('authState')
-@observer
-class ChattingItem extends React.Component<ChattingItemProps & NavigationInjectedProps> {
-  public render() {
-    const {
-      messageCount,
-      updatedAt,
-    } = this.props.chatting;
+const ChattingItem: React.FunctionComponent<Props> = ({
+  item: {
+    id,
+    partner: {
+      id: partnerId,
+      name,
+      photoUrl,
+    },
+    messageCount,
+    unreadMessageCount,
+    updatedAt,
+  },
+  navigation,
+}) => {
+  const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
+  const openMessageScreen = useCallback(() => {
+    navigation.navigate('Message', {
+      chattingId: id,
+      partnerId,
+      partnerName: name,
+    });
+  }, [id]);
 
-    if (!this.partner) {
-      return null;
-    }
-
-    return (
-      <Button onPress={this.openMessageScreen}>
-        <View style={[styles.row, styles.container]}>
-          <Image
-            source={{ uri: this.partner.photoUrl || '' }}
-            style={styles.profile}
-          />
-          <View style={styles.content}>
-            <View style={styles.row}>
-              <Text style={[typography.heading3, styles.partner]}>
-                {this.partner.name}
-              </Text>
-              <Text style={styles.date}>
-                {moment(updatedAt).fromNow()}
-              </Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.messageCount}>
-                이야기 {withComma(messageCount)}개
-              </Text>
-              {this.unreadMessageCount > 0 && (
-                <View style={styles.dot} />
-              )}
-            </View>
+  return (
+    <Button onPress={openMessageScreen}>
+      <View style={[styles.row, styles.container]}>
+        <Image
+          source={profileImage}
+          style={styles.profile}
+        />
+        <View style={styles.content}>
+          <View style={styles.row}>
+            <Text style={[typography.heading3, styles.partner]}>
+              {name}
+            </Text>
+            <Text style={styles.date}>
+              {moment(updatedAt).fromNow()}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.messageCount}>
+              이야기 {withComma(messageCount)}개
+            </Text>
+            {unreadMessageCount > 0 && (
+              <View style={styles.dot} />
+            )}
           </View>
         </View>
-      </Button>
-    );
-  }
-
-  private get partner() {
-    const { user } = this.props.authState!;
-    const partnerId = Object.keys(this.props.chatting.userIds).filter(id => id !== user!.id)[0];
-
-    return this.props.chatting.users[partnerId];
-  }
-
-  private get unreadMessageCount() {
-    const {
-      chatting: {
-        unreadMessageCount,
-      },
-    } = this.props;
-
-    return unreadMessageCount[this.partner.id] || 0;
-  }
-
-  private openMessageScreen = () => {
-    const {
-      navigation,
-      chatting,
-    } = this.props;
-
-    navigation.navigate('Message', {
-      chattingId: chatting.id,
-      partnerId: this.partner.id,
-      partnerName: this.partner.name,
-    });
-  }
-}
+      </View>
+    </Button>
+  );
+};
 
 const styles = StyleSheet.create({
   row: {
@@ -148,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(ChattingItem);
+export default withNavigation(React.memo(ChattingItem));

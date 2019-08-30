@@ -1,73 +1,49 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   FlatList,
   StyleSheet,
 } from 'react-native';
 import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import {
   LoadingIndicator,
   ChattingItem,
-  ChattingEmptyList,
 } from 'components';
-import {
-  subscribeChattingsAction,
-  unsubscribeChattingsAction,
-} from 'stores/actions';
-import { ChattingState } from 'stores/states';
-import { LoadingType } from 'constants/enums';
 
-export interface ChattingListProps {
-  chattingState?: ChattingState;
+interface Props {
+  items: Chatting[];
+  isLoading: boolean;
+  onFetchMore: () => void;
 }
 
-@inject('chattingState')
-@observer
-class ChattingList extends React.Component<ChattingListProps> {
-  public componentDidMount() {
-    subscribeChattingsAction();
-  }
+const ChattingList: React.FunctionComponent<Props> = ({
+  items,
+  isLoading,
+  onFetchMore,
+}) => {
+  const renderItem = useCallback(({ item }: { item: Chatting }) => (
+    <ChattingItem item={item} />
+  ), []);
 
-  public componentWillUnmount() {
-    unsubscribeChattingsAction();
-  }
+  const keyExtractor = useCallback((item: Chatting) => `Chatting-${item.id}`, []);
 
-  public render() {
-    const {
-      chattings,
-      isLoading,
-      isInitialLoaded,
-    } = this.props.chattingState!;
-
-    if (chattings.length === 0 && isInitialLoaded) {
-      return <ChattingEmptyList />;
-    }
-
-    return (
-      <FlatList
-        data={chattings.slice()}
-        renderItem={this.renderItem}
-        keyExtractor={this.keyExtractor}
-        ListFooterComponent={isLoading === LoadingType.LIST ? <LoadingIndicator /> : null}
-        contentContainerStyle={styles.container}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      />
-    );
-  }
-
-  private renderItem = ({ item }: { item: Chatting }) => (
-    <ChattingItem chatting={item} />
-  )
-
-  private keyExtractor = (item: Chatting) => `Chatting-${item.id}`;
-}
+  return (
+    <FlatList
+      data={items}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      onEndReached={onFetchMore}
+      ListFooterComponent={isLoading ? <LoadingIndicator /> : null}
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingTop: 8,
+    paddingBottom: 50,
   },
 });
 

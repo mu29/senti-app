@@ -53,16 +53,9 @@ declare global {
 
   interface Chatting {
     id: string;
-    users: {
-      [key: string]: User;
-    };
-    userIds: {
-      [key: string]: number;
-    },
-    unreadMessageCount: {
-      [key: string]: number;
-    },
+    partner: User;
     messageCount: number;
+    unreadMessageCount: number;
     createdAt: number;
     updatedAt: number;
   }
