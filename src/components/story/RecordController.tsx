@@ -24,7 +24,6 @@ const RESET_ICON = { uri: 'ic_replay' };
 const DONE_ICON = { uri: 'ic_check' };
 
 interface Props {
-  isLoading: boolean;
   isStarted: boolean;
   isRecorded: boolean;
   toggle: () => void;
@@ -33,7 +32,6 @@ interface Props {
 }
 
 const RecordController: React.FunctionComponent<Props> = ({
-  isLoading,
   isStarted,
   isRecorded,
   toggle,
@@ -106,7 +104,6 @@ const RecordController: React.FunctionComponent<Props> = ({
         <Button
           onPress={create}
           disabled={!isRecorded}
-          isLoading={isLoading}
           style={[styles.button, isRecorded && styles.enabled]}
           round
         >

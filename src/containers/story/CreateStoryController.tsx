@@ -1,4 +1,7 @@
-import React, { useCallback } from 'react';
+import React, {
+  useState,
+  useCallback,
+} from 'react';
 import {
   withNavigation,
   NavigationInjectedProps,
@@ -7,6 +10,7 @@ import {
   useQuery,
   useMutation,
 } from '@apollo/react-hooks';
+import { LoadingLayer } from 'components';
 import { RecordController } from 'containers';
 import {
   FETCH_DRAFT,
@@ -19,6 +23,8 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
   const { data } = useQuery(FETCH_DRAFT);
 
   const [createStory] = useMutation(CREATE_STORY);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const create = useCallback(async (audio) => {
     await createStory({
@@ -35,7 +41,14 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
   const finish = useCallback(() => navigation.goBack(), []);
 
   return (
-    <RecordController onCreate={create} onFinish={finish} />
+    <React.Fragment>
+      <RecordController
+        setIsLoading={setIsLoading}
+        onCreate={create}
+        onFinish={finish}
+      />
+      {isLoading && <LoadingLayer />}
+    </React.Fragment>
   );
 };
 

@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import uuidv4 from 'uuid/v4';
 import firebase from 'react-native-firebase';
 import { RecordController } from 'components';
@@ -9,6 +6,7 @@ import { useRecord } from 'containers';
 import { Alert } from 'react-native';
 
 interface Props {
+  setIsLoading: (isLoading: boolean) => void;
   onCreate: ({
     url,
     duration,
@@ -20,10 +18,10 @@ interface Props {
 }
 
 const RecordControllerContainer: React.FunctionComponent<Props> = ({
+  setIsLoading,
   onCreate,
   onFinish,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const {
     data,
     isStarted,
@@ -61,7 +59,6 @@ const RecordControllerContainer: React.FunctionComponent<Props> = ({
 
   return (
     <RecordController
-      isLoading={isLoading}
       isStarted={isStarted}
       isRecorded={isRecorded}
       toggle={toggle}
