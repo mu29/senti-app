@@ -5,10 +5,12 @@ import {
 } from 'react-navigation';
 import {
   Header,
-  MessageReply,
   withSafeArea,
 } from 'components';
-import { MessageList } from 'containers';
+import {
+  MessageList,
+  MessageReply,
+} from 'containers';
 import { AudioService } from 'services';
 
 const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
@@ -24,7 +26,7 @@ const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
         {partnerName}
       </Header>
       <MessageList chattingId={chattingId} />
-      <MessageReply />
+      <MessageReply chattingId={chattingId} />
     </React.Fragment>
   );
 };
