@@ -51,6 +51,7 @@ const RecordControllerContainer: React.FunctionComponent<Props> = ({
     upload()
       .then(onCreate)
       .then(() => setIsLoading(false))
+      .then(release)
       .then(() => onFinish && onFinish())
       .catch((error) => {
         setIsLoading(false);
