@@ -2,6 +2,13 @@ import Sound from 'react-native-sound';
 import { LoadingType } from 'constants/enums';
 
 declare global {
+  interface PlayableAudio {
+    elapsedTime: number;
+    isLoading: boolean;
+    isActivated: boolean;
+    isPlaying: boolean;
+  }
+  
   interface Draft {
     cover: string;
     message: string;
@@ -31,13 +38,6 @@ declare global {
     id: string;
     url: string;
     duration: number;
-  }
-
-  interface PlayableAudio extends Audio {
-    sound?: Sound;
-    currentTime: number;
-    isActivated: boolean;
-    isPlaying: boolean;
   }
 
   interface Story {

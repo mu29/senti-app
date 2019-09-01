@@ -9,15 +9,8 @@ import {
   AudioState,
  } from 'services';
 
-interface Audio {
-  elapsedTime: number;
-  isLoading: boolean;
-  isActivated: boolean;
-  isPlaying: boolean;
-}
-
 function useAudio(key: string) {
-  const [audio, setAudio] = useState<Audio>({
+  const [audio, setAudio] = useState<PlayableAudio>({
     elapsedTime: 0,
     isLoading: false,
     isActivated: false,
