@@ -51,7 +51,7 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
       hasBottom
-      onFetchMore={() => fetchMore({
+      onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
@@ -64,6 +64,10 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
               cursor: nextCursor,
             },
           } = fetchMoreResult;
+
+          if (nextStories.length === 0) {
+            return original;
+          }
 
           return Object.assign(original, {
             mainStoryFeed: {

@@ -59,7 +59,7 @@ const Container: React.FunctionComponent<Props> = ({
       isLoading={networkStatus === NetworkStatus.fetchMore}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      onFetchMore={() => fetchMore({
+      onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
@@ -72,6 +72,10 @@ const Container: React.FunctionComponent<Props> = ({
               cursor: nextCursor,
             },
           } = fetchMoreResult;
+
+          if (nextMessages.length === 0) {
+            return original;
+          }
 
           return Object.assign(original, {
             messageFeed: {

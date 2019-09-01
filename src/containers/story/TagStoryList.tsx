@@ -59,7 +59,7 @@ const TagStoryListContainer: React.FunctionComponent<Props> = ({
       isLoading={networkStatus === NetworkStatus.fetchMore}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      onFetchMore={() => fetchMore({
+      onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
         variables: {
           tagId,
           cursor,
@@ -75,6 +75,10 @@ const TagStoryListContainer: React.FunctionComponent<Props> = ({
               cursor: nextCursor,
             },
           } = fetchMoreResult;
+
+          if (nextStories.length === 0) {
+            return original;
+          }
 
           return Object.assign(original, {
             tagStoryFeed: {
