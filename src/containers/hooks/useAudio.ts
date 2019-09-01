@@ -82,7 +82,7 @@ function useAudio(key: string) {
   useEffect(() => {
     AudioService.addObserver(key, soundObserver);
     return AudioService.removeObserver(key, soundObserver);
-  }, []);
+  }, [key]);
 
   return {
     audio,

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Alert } from 'react-native';
 import firebase from 'react-native-firebase';
 import {
   useQuery,
@@ -22,11 +23,17 @@ const Container: React.FunctionComponent<Props> = ({
     fetchPolicy: 'cache-only',
   });
 
-  const [fetchAudio, { data, loading }] = useLazyQuery(FETCH_AUDIO, {
+  const [loadAudio, { loading, error }] = useLazyQuery(FETCH_AUDIO, {
     variables: {
-      id: item.id,
+      id: item.audio.id,
     },
   });
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert('오류', `메시지 재생에 실패했습니다.\n${error.message}`);
+    }
+  }, [error]);
 
   if (!profile || !profile.me) {
     return null;
@@ -37,7 +44,7 @@ const Container: React.FunctionComponent<Props> = ({
       item={item}
       userId={profile.me.id}
       isLoading={loading}
-      loadAudio={fetchAudio}
+      loadAudio={loadAudio}
     />
   );
 };

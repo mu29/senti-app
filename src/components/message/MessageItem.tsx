@@ -1,6 +1,8 @@
 import React, {
+  useRef,
   useMemo,
   useCallback,
+  useEffect,
 } from 'react';
 import {
   View,
@@ -30,7 +32,6 @@ interface Props {
 const MessageItem: React.FunctionComponent<Props> = ({
   item: {
     audio: {
-      id,
       url,
       duration,
     },
@@ -42,6 +43,8 @@ const MessageItem: React.FunctionComponent<Props> = ({
   isLoading,
   loadAudio,
 }) => {
+  const isInitialLoaded = useRef(false);
+
   const {
     audio,
     play,
@@ -52,20 +55,28 @@ const MessageItem: React.FunctionComponent<Props> = ({
 
   const toggle = useCallback(() => {
     if (!url) {
-      loadAudio();
+      return loadAudio();
+    }
+
+    audio.isPlaying ? pause() : play();
+  }, [url, audio.isPlaying]);
+
+  useEffect(() => {
+    if (!isInitialLoaded.current) {
+      isInitialLoaded.current = true;
       return;
     }
 
-    audio.isPlaying
-      ? pause()
-      : play();
-  }, [url, audio.isPlaying]);
+    if (url) {
+      play();
+    }
+  }, [url]);
 
   return (
     <View style={[styles.container, isMyMessage && styles.myMessage]}>
       <Button onPress={toggle} style={styles.message}>
         <View style={styles.iconContainer}>
-          {isLoading
+          {isLoading || audio.isLoading
             ? (<ActivityIndicator color={palette.yellow.default} size="small" />)
             : (<Image source={audio.isPlaying ? PAUSE_ICON : PLAY_ICON} style={styles.icon} />)
           }
