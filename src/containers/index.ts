@@ -8,6 +8,9 @@ export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as ChattingList } from './chatting/ChattingList';
 export { default as ReplyModal } from './chatting/ReplyModal';
 
+export { default as MessageItem } from './message/MessageItem';
+export { default as MessageList } from './message/MessageList';
+
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
 export { default as TagList } from './search/TagList';

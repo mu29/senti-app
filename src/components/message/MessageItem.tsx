@@ -1,127 +1,93 @@
-import React from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   View,
   Image,
   ActivityIndicator,
   StyleSheet,
-  Alert,
 } from 'react-native';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
 import moment from 'moment';
 import {
   Text,
   Button,
 } from 'components';
-import {
-  AuthState,
-  AudioState,
-  MessageState,
-} from 'stores/states';
-import {
-  playMessageAction,
-  pauseAudioAction,
-} from 'stores/actions';
 import { typography, palette } from 'constants/style';
 import { toTimeText } from 'services/utils';
+import { useAudio } from 'containers';
 
 const PLAY_ICON = { uri: 'ic_play_active' };
-
 const PAUSE_ICON = { uri: 'ic_pause' };
 
-interface MessageItemProps {
-  messageId: string;
-  authState?: AuthState;
-  audioState?: AudioState;
-  messageState?: MessageState;
-}
-
-interface MessageItemState {
+interface Props {
+  item: Message;
+  userId: string;
   isLoading: boolean;
+  loadAudio: (id: string) => Promise<void>;
 }
 
-@inject('authState', 'audioState', 'messageState')
-@observer
-class MessageItem extends React.Component<MessageItemProps, MessageItemState> {
-  public state = {
-    isLoading: false,
-  };
+const MessageItem: React.FunctionComponent<Props> = ({
+  item: {
+    audio: {
+      id,
+      url,
+      duration,
+    },
+    user,
+    readAt,
+    createdAt,
+  },
+  userId,
+  isLoading,
+  loadAudio,
+}) => {
+  const {
+    audio,
+    play,
+    pause,
+  } = useAudio(url);
 
-  public render() {
-    const { isLoading } = this.state;
+  const isMyMessage = useMemo(() => user.id === userId, [user.id, userId]);
 
-    return (
-      <View style={[styles.container, this.isMyMessage && styles.myMessage]}>
-        <Button onPress={this.toggle} style={styles.message}>
-          <View style={styles.iconContainer}>
-            {isLoading
-              ? (<ActivityIndicator color={palette.yellow.default} size="small" />)
-              : (<Image source={this.audio.isPlaying ? PAUSE_ICON : PLAY_ICON} style={styles.icon} />)
-            }
-          </View>
-          <View style={styles.content}>
-            <View style={styles.time}>
-              <Text style={typography.body2}>
-                {this.audio.isActivated ? toTimeText(this.audio.currentTime) : '0:00'}
-              </Text>
-              <Text style={typography.body2}>
-                /
-              </Text>
-              <Text style={typography.body2}>
-                {toTimeText(this.message.audio.duration)}
-              </Text>
-            </View>
-            <Text style={typography.tiny4}>
-              {moment(this.message.createdAt).fromNow()}
+  const toggle = useCallback(() => {
+    url && audio.isPlaying
+      ? pause()
+      : loadAudio(id).then(play);
+  }, [url, audio.isPlaying]);
+
+  return (
+    <View style={[styles.container, isMyMessage && styles.myMessage]}>
+      <Button onPress={toggle} style={styles.message}>
+        <View style={styles.iconContainer}>
+          {isLoading
+            ? (<ActivityIndicator color={palette.yellow.default} size="small" />)
+            : (<Image source={audio.isPlaying ? PAUSE_ICON : PLAY_ICON} style={styles.icon} />)
+          }
+        </View>
+        <View style={styles.content}>
+          <View style={styles.time}>
+            <Text style={typography.body2}>
+              {audio.isActivated ? toTimeText(audio.elapsedTime) : '0:00'}
+            </Text>
+            <Text style={typography.body2}>
+              /
+            </Text>
+            <Text style={typography.body2}>
+              {toTimeText(duration)}
             </Text>
           </View>
-        </Button>
-        {!this.isMyMessage && !this.message.readAt && (
-          <View style={styles.dot} />
-        )}
-      </View>
-    );
-  }
-
-  private get message() {
-    const {
-      messageId,
-      messageState,
-    } = this.props;
-
-    return messageState!.messages[messageId] || {};
-  }
-
-  private get audio() {
-    const { audioState } = this.props;
-
-    return audioState!.audios[this.message.audio.id] || {};
-  }
-
-  private get isMyMessage() {
-    const { id: messageUserId } = this.message.user;
-    const { user } = this.props.authState!;
-
-    return user && user.id === messageUserId;
-  }
-
-  private toggle = () => {
-    const { messageId } = this.props;
-    if (this.audio.isPlaying) {
-      pauseAudioAction();
-    } else {
-      this.setState({
-        isLoading: true,
-      }, () => {
-        playMessageAction(messageId)
-          .catch(error => Alert.alert('알림', error.message))
-          .finally(() => this.setState({ isLoading: false }));
-      });
-    }
-  }
-}
+          <Text style={typography.tiny4}>
+            {moment(createdAt).fromNow()}
+          </Text>
+        </View>
+      </Button>
+      {!isMyMessage && !readAt && (
+        <View style={styles.dot} />
+      )}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

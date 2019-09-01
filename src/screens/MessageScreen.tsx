@@ -1,60 +1,35 @@
 import React from 'react';
 import {
   NavigationEvents,
-  withNavigation,
   NavigationScreenProps,
 } from 'react-navigation';
 import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import {
   Header,
-  MessageList,
   MessageReply,
-  LoadingLayer,
   withSafeArea,
 } from 'components';
-import { MessageState } from 'stores/states';
-import { stopAudioAction } from 'stores/actions';
-import { LoadingType } from 'constants/enums';
+import { MessageList } from 'containers';
+import { AudioService } from 'services';
 
-interface MessageScreenProps {
-  messageState?: MessageState;
-}
+const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
+  navigation,
+}) => {
+  const chattingId = navigation.getParam('chattingId', '');
+  const partnerName = navigation.getParam('partnerName', '');
 
-@inject('messageState')
-@observer
-class MessageScreen extends React.Component<MessageScreenProps & NavigationScreenProps> {
-  public componentWillUnmount() {
-    stopAudioAction();
-  }
+  return (
+    <React.Fragment>
+      <NavigationEvents onWillBlur={AudioService.release} />
+      <Header canGoBack>
+        {partnerName}
+      </Header>
+      <MessageList chattingId={chattingId} />
+      <MessageReply />
+    </React.Fragment>
+  );
+};
 
-  public render() {
-    const {
-      navigation,
-      messageState,
-    } = this.props;
-
-    const chattingId = navigation.getParam('chattingId', '');
-    const partnerId = navigation.getParam('partnerId', '');
-    const partnerName = navigation.getParam('partnerName', '');
-
-    return (
-      <React.Fragment>
-        {messageState!.isLoading === LoadingType.CREATE && <LoadingLayer />}
-        <NavigationEvents onWillBlur={stopAudioAction} />
-        <Header canGoBack>
-          {partnerName}
-        </Header>
-        <MessageList chattingId={chattingId} partnerId={partnerId} />
-        <MessageReply />
-      </React.Fragment>
-    );
-  }
-}
-
-export default withSafeArea(withNavigation(MessageScreen), {
+export default withSafeArea(MessageScreen, {
   forceInset: {
     top: 'always',
     bottom: 'never',

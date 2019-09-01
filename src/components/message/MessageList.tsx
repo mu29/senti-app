@@ -1,69 +1,48 @@
-import React from 'react';
+import React, {
+  useCallback,
+} from 'react';
 import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import { MessageItem } from 'components';
-import { MessageState } from 'stores/states';
-import {
-  subscribeMessagesAction,
-  unsubscribeMessagesAction,
-} from 'stores/actions';
+import { LoadingIndicator } from 'components';
+import { MessageItem } from 'containers';
 
-export interface MessageListProps {
-  chattingId: string;
-  partnerId: string;
-  messageState?: MessageState;
+interface Props {
+  items: Message[];
+  isLoading: boolean;
+  onFetchMore: () => void;
 }
 
-@inject('messageState')
-@observer
-class MessageList extends React.Component<MessageListProps> {
-  private listRef = React.createRef<FlatList<string>>();
+const MessageList: React.FunctionComponent<Props> = ({
+  items,
+  isLoading,
+  onFetchMore,
+}) => {
+  const renderItem = useCallback(({ item }: { item: Message }) => (
+    <MessageItem item={item} />
+  ), []);
 
-  public componentDidMount() {
-    const {
-      chattingId,
-      partnerId,
-    } = this.props;
+  const keyExtractor = useCallback((item: Message) => `message-${item.id}`, []);
 
-    subscribeMessagesAction(chattingId, partnerId);
-  }
-
-  public componentWillUnmount() {
-    unsubscribeMessagesAction();
-  }
-
-  public render() {
-    const { messageIds } = this.props.messageState!;
-
-    return (
-      <FlatList
-        ref={this.listRef}
-        data={messageIds}
-        renderItem={this.renderItem}
-        keyExtractor={this.keyExtractor}
-        contentContainerStyle={styles.container}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        inverted
-      />
-    );
-  }
-
-  private renderItem = ({ item }: { item: string }) => (
-    <MessageItem messageId={item} />
-  )
-
-  private keyExtractor = (item: string) => `message-${item}`;
-}
+  return (
+    <FlatList
+      data={items}
+      renderItem={renderItem}
+      keyExtractor={keyExtractor}
+      onEndReached={onFetchMore}
+      contentContainerStyle={styles.container}
+      ListFooterComponent={isLoading ? <LoadingIndicator /> : null}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      inverted
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingVertical: 8,
   },
 });
