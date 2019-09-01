@@ -2,8 +2,7 @@ import gql from 'graphql-tag';
 
 export default {
   Query: {
-    modal: (_: any, args: Params, { cache, getCacheKey }: Context) => {
-      const id = getCacheKey({ __typename: 'Modal', id: args.id });
+    modal: (_: any, { id }: Params, { cache }: Context) => {
       const fragment = gql`
         fragment visibleModal on Modal {
           id
@@ -12,33 +11,32 @@ export default {
         }
       `;
 
-      return cache.readFragment({ id, fragment });
+      return cache.readFragment({
+        id: `Modal:${id}`,
+        fragment,
+      });
     },
   },
   Mutation: {
-    showModal: (_: any, args: Params, { cache, getCacheKey }: Context) => {
-      const id = getCacheKey({ __typename: 'Modal', id: args.id });
-
+    showModal: (_: any, { id, params }: Params, { cache }: Context) => {
       cache.writeData({
-        id,
+        id: `Modal:${id}`,
         data: {
           __typename: 'Modal',
-          id: args.id,
-          params: args.params || null,
+          id: `Modal:${id}`,
+          params: params || null,
           isVisible: true,
         },
       });
 
       return true;
     },
-    hideModal: (_: any, args: Params, { cache, getCacheKey }: Context) => {
-      const id = getCacheKey({ __typename: 'Modal', id: args.id });
-
+    hideModal: (_: any, { id }: Params, { cache }: Context) => {
       cache.writeData({
-        id,
+        id: `Modal:${id}`,
         data: {
           __typename: 'Modal',
-          id: args.id,
+          id: `Modal:${id}`,
           params: null,
           isVisible: false,
         },
