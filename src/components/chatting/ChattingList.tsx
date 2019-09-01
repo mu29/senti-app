@@ -4,9 +4,19 @@ import {
   StyleSheet,
 } from 'react-native';
 import {
-  LoadingIndicator,
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
+} from 'react-navigation';
+import {
+  LoadingBar,
   ChattingItem,
 } from 'components';
+
+const SAFE_AREA_INSET: {
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  bottom: 'always',
+};
 
 interface Props {
   items: Chatting[];
@@ -30,26 +40,41 @@ const ChattingList: React.FunctionComponent<Props> = ({
   const keyExtractor = useCallback((item: Chatting) => `Chatting-${item.id}`, []);
 
   return (
-    <FlatList
-      data={items}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      onEndReached={onFetchMore}
-      onRefresh={onRefresh}
-      refreshing={isRefreshing}
-      ListFooterComponent={isLoading ? <LoadingIndicator /> : null}
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-    />
+    <React.Fragment>
+      <FlatList
+        data={items}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        onEndReached={onFetchMore}
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      />
+      {isLoading && (
+        <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.loading}>
+          <LoadingBar />
+        </SafeAreaView>
+      )}
+    </React.Fragment>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  contentContainer: {
     paddingTop: 8,
     paddingBottom: 50,
+  },
+  loading: {
+    position: 'absolute',
+    bottom: 50,
+    left: 0,
+    right: 0,
   },
 });
 

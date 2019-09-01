@@ -5,7 +5,7 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import { LoadingIndicator } from 'components';
+import { LoadingBar } from 'components';
 import { MessageItem } from 'containers';
 
 interface Props {
@@ -30,25 +30,30 @@ const MessageList: React.FunctionComponent<Props> = ({
   const keyExtractor = useCallback((item: Message) => `message-${item.id}`, []);
 
   return (
-    <FlatList
-      data={items}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      onEndReached={onFetchMore}
-      onRefresh={onRefresh}
-      refreshing={isRefreshing}
-      contentContainerStyle={styles.container}
-      ListFooterComponent={isLoading ? <LoadingIndicator /> : null}
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-      inverted
-    />
+    <React.Fragment>
+      {isLoading && <LoadingBar />}
+      <FlatList
+        data={items}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        onEndReached={onFetchMore}
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        inverted
+      />
+    </React.Fragment>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  contentContainer: {
     paddingVertical: 8,
   },
 });
