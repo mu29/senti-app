@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChattingEmptyList;
+export default React.memo(ChattingEmptyList);

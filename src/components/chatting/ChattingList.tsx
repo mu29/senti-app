@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChattingList;
+export default React.memo(ChattingList);
