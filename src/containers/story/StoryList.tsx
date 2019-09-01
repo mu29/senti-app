@@ -7,7 +7,6 @@ import {
   StoryList,
 } from 'components';
 import { FETCH_MAIN_STORY_FEED } from 'graphqls';
-import { isInitialLoading } from 'utils';
 
 const EMPTY_LIST: Story[] = [];
 
@@ -29,12 +28,12 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
     notifyOnNetworkStatusChange: true,
   });
 
-  if (error) {
+  if (error || networkStatus === NetworkStatus.error) {
     const reload = () => refetch().catch(() => {});
-    return <ErrorView reload={reload} message={error.message} />;
+    return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (isInitialLoading(networkStatus) || !data) {
+  if (networkStatus === NetworkStatus.loading || !data || !data.mainStoryFeed) {
     return <LoadingView dark />;
   }
 
@@ -49,6 +48,8 @@ const StoryListContainer: React.FunctionComponent<{}> = () => {
     <StoryList
       items={stories || EMPTY_LIST}
       isLoading={networkStatus === NetworkStatus.fetchMore}
+      isRefreshing={networkStatus === NetworkStatus.refetch}
+      onRefresh={refetch}
       hasBottom
       onFetchMore={() => fetchMore({
         variables: { cursor },

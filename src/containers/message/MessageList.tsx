@@ -7,7 +7,6 @@ import {
   MessageList,
 } from 'components';
 import { FETCH_MESSAGE_FEED } from 'graphqls';
-import { isInitialLoading } from 'utils';
 
 const EMPTY_LIST: Message[] = [];
 
@@ -38,12 +37,12 @@ const Container: React.FunctionComponent<Props> = ({
     notifyOnNetworkStatusChange: true,
   });
 
-  if (error) {
+  if (error || networkStatus === NetworkStatus.error) {
     const reload = () => refetch().catch(() => {});
-    return <ErrorView reload={reload} message={error.message} />;
+    return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (isInitialLoading(networkStatus) || !data) {
+  if (networkStatus === NetworkStatus.loading || !data || !data.messageFeed) {
     return <LoadingView />;
   }
 
@@ -58,6 +57,8 @@ const Container: React.FunctionComponent<Props> = ({
     <MessageList
       items={messages || EMPTY_LIST}
       isLoading={networkStatus === NetworkStatus.fetchMore}
+      isRefreshing={networkStatus === NetworkStatus.refetch}
+      onRefresh={refetch}
       onFetchMore={() => fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {

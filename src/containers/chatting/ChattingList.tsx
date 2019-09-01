@@ -8,7 +8,6 @@ import {
   ChattingEmptyList,
 } from 'components';
 import { FETCH_CHATTING_FEED } from 'graphqls';
-import { isInitialLoading } from 'utils';
 
 const EMPTY_LIST: Chatting[] = [];
 
@@ -30,12 +29,12 @@ const Container: React.FunctionComponent<{}> = () => {
     notifyOnNetworkStatusChange: true,
   });
 
-  if (error) {
+  if (error || networkStatus === NetworkStatus.error) {
     const reload = () => refetch().catch(() => {});
-    return <ErrorView reload={reload} message={error.message} />;
+    return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (isInitialLoading(networkStatus) || !data) {
+  if (networkStatus === NetworkStatus.loading || !data || !data.chattingFeed) {
     return <LoadingView />;
   }
 
@@ -54,6 +53,8 @@ const Container: React.FunctionComponent<{}> = () => {
     <ChattingList
       items={chattings || EMPTY_LIST}
       isLoading={networkStatus === NetworkStatus.fetchMore}
+      isRefreshing={networkStatus === NetworkStatus.refetch}
+      onRefresh={refetch}
       onFetchMore={() => fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {

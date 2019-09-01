@@ -11,13 +11,17 @@ import {
 interface Props {
   items: Chatting[];
   isLoading: boolean;
+  isRefreshing: boolean;
   onFetchMore: () => void;
+  onRefresh: () => void;
 }
 
 const ChattingList: React.FunctionComponent<Props> = ({
   items,
   isLoading,
+  isRefreshing,
   onFetchMore,
+  onRefresh,
 }) => {
   const renderItem = useCallback(({ item }: { item: Chatting }) => (
     <ChattingItem item={item} />
@@ -31,6 +35,8 @@ const ChattingList: React.FunctionComponent<Props> = ({
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       onEndReached={onFetchMore}
+      onRefresh={onRefresh}
+      refreshing={isRefreshing}
       ListFooterComponent={isLoading ? <LoadingIndicator /> : null}
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}

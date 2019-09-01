@@ -34,8 +34,10 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 interface Props {
   items: Story[];
   isLoading: boolean;
+  isRefreshing: boolean;
   hasBottom?: boolean;
   onFetchMore: () => void;
+  onRefresh: () => void;
 }
 
 class StoryList extends React.PureComponent<Props> {
@@ -47,8 +49,10 @@ class StoryList extends React.PureComponent<Props> {
     const {
       items,
       isLoading,
+      isRefreshing,
       hasBottom,
       onFetchMore,
+      onRefresh,
     } = this.props;
 
     return (
@@ -58,6 +62,8 @@ class StoryList extends React.PureComponent<Props> {
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
           onEndReached={onFetchMore}
+          onRefresh={onRefresh}
+          refreshing={isRefreshing}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
             { useNativeDriver: true },

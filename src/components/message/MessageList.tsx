@@ -11,13 +11,17 @@ import { MessageItem } from 'containers';
 interface Props {
   items: Message[];
   isLoading: boolean;
+  isRefreshing: boolean;
   onFetchMore: () => void;
+  onRefresh: () => void;
 }
 
 const MessageList: React.FunctionComponent<Props> = ({
   items,
   isLoading,
+  isRefreshing,
   onFetchMore,
+  onRefresh,
 }) => {
   const renderItem = useCallback(({ item }: { item: Message }) => (
     <MessageItem item={item} />
@@ -31,6 +35,8 @@ const MessageList: React.FunctionComponent<Props> = ({
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       onEndReached={onFetchMore}
+      onRefresh={onRefresh}
+      refreshing={isRefreshing}
       contentContainerStyle={styles.container}
       ListFooterComponent={isLoading ? <LoadingIndicator /> : null}
       showsVerticalScrollIndicator={false}
