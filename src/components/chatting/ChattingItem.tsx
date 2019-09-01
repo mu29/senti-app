@@ -62,17 +62,17 @@ const ChattingItem: React.FunctionComponent<Props> = ({
             <Text style={[typography.heading3, styles.partner]}>
               {name}
             </Text>
-            <Text style={styles.date}>
-              {moment(updatedAt).fromNow()}
-            </Text>
+            {unreadMessageCount > 0 && (
+              <View style={styles.dot} />
+            )}
           </View>
           <View style={styles.row}>
             <Text style={styles.messageCount}>
               이야기 {withComma(messageCount)}개
             </Text>
-            {unreadMessageCount > 0 && (
-              <View style={styles.dot} />
-            )}
+            <Text style={styles.date}>
+              {moment(updatedAt).fromNow()}
+            </Text>
           </View>
         </View>
       </View>
