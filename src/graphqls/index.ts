@@ -1,3 +1,4 @@
+export * from './Audio';
 export * from './Auth';
 export * from './Chatting';
 export * from './Extra';

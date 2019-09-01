@@ -2,11 +2,12 @@ import React from 'react';
 import firebase from 'react-native-firebase';
 import {
   useQuery,
-  useMutation,
+  useLazyQuery,
 } from '@apollo/react-hooks';
 import { MessageItem } from 'components';
 import {
   FETCH_PROFILE,
+  FETCH_AUDIO,
 } from 'graphqls';
 
 interface Props {
@@ -21,6 +22,12 @@ const Container: React.FunctionComponent<Props> = ({
     fetchPolicy: 'cache-only',
   });
 
+  const [fetchAudio, { data, loading }] = useLazyQuery(FETCH_AUDIO, {
+    variables: {
+      id: item.id,
+    },
+  });
+
   if (!profile || !profile.me) {
     return null;
   }
@@ -29,8 +36,8 @@ const Container: React.FunctionComponent<Props> = ({
     <MessageItem
       item={item}
       userId={profile.me.id}
-      isLoading={false}
-      loadAudio={() => Promise.resolve()}
+      isLoading={loading}
+      loadAudio={fetchAudio}
     />
   );
 };

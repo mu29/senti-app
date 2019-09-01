@@ -24,7 +24,7 @@ interface Props {
   item: Message;
   userId: string;
   isLoading: boolean;
-  loadAudio: (id: string) => Promise<void>;
+  loadAudio: () => void;
 }
 
 const MessageItem: React.FunctionComponent<Props> = ({
@@ -51,9 +51,14 @@ const MessageItem: React.FunctionComponent<Props> = ({
   const isMyMessage = useMemo(() => user.id === userId, [user.id, userId]);
 
   const toggle = useCallback(() => {
-    url && audio.isPlaying
+    if (!url) {
+      loadAudio();
+      return;
+    }
+
+    audio.isPlaying
       ? pause()
-      : loadAudio(id).then(play);
+      : play();
   }, [url, audio.isPlaying]);
 
   return (
