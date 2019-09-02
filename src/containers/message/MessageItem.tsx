@@ -1,39 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Alert } from 'react-native';
 import firebase from 'react-native-firebase';
 import {
   useQuery,
   useLazyQuery,
+  useApolloClient,
 } from '@apollo/react-hooks';
 import { MessageItem } from 'components';
 import {
   FETCH_PROFILE,
-  FETCH_AUDIO,
+  FETCH_MESSAGE,
 } from 'graphqls';
 
 interface Props {
+  chattingId: string;
   item: Message;
 }
 
 const Container: React.FunctionComponent<Props> = ({
+  chattingId,
   item,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const client = useApolloClient();
+
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
     skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
 
-  const [loadAudio, { loading, error }] = useLazyQuery(FETCH_AUDIO, {
-    variables: {
-      id: item.audio.id,
-    },
-  });
-
-  useEffect(() => {
-    if (error) {
-      Alert.alert('오류', `메시지 재생에 실패했습니다.\n${error.message}`);
-    }
-  }, [error]);
+  const loadAudio = useCallback(() => {
+    setIsLoading(true);
+    client.query({
+      query: FETCH_MESSAGE,
+      variables: {
+        chattingId,
+        id: item.id,
+      },
+    })
+    .catch(e => Alert.alert('오류', `메시지 재생에 실패했습니다.\n${e.message}`))
+    .finally(() => setIsLoading(false));
+  }, [item.id]);
 
   if (!profile || !profile.me) {
     return null;
@@ -43,7 +51,7 @@ const Container: React.FunctionComponent<Props> = ({
     <MessageItem
       item={item}
       userId={profile.me.id}
-      isLoading={loading}
+      isLoading={isLoading}
       loadAudio={loadAudio}
     />
   );

@@ -55,6 +55,7 @@ const Container: React.FunctionComponent<Props> = ({
 
   return (
     <MessageList
+      chattingId={chattingId}
       items={messages || EMPTY_LIST}
       isLoading={networkStatus === NetworkStatus.fetchMore}
       isRefreshing={networkStatus === NetworkStatus.refetch}

@@ -9,6 +9,7 @@ import { LoadingBar } from 'components';
 import { MessageItem } from 'containers';
 
 interface Props {
+  chattingId: string;
   items: Message[];
   isLoading: boolean;
   isRefreshing: boolean;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const MessageList: React.FunctionComponent<Props> = ({
+  chattingId,
   items,
   isLoading,
   isRefreshing,
@@ -24,7 +26,7 @@ const MessageList: React.FunctionComponent<Props> = ({
   onRefresh,
 }) => {
   const renderItem = useCallback(({ item }: { item: Message }) => (
-    <MessageItem item={item} />
+    <MessageItem chattingId={chattingId} item={item} />
   ), []);
 
   const keyExtractor = useCallback((item: Message) => `message-${item.id}`, []);

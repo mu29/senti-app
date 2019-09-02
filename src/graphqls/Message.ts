@@ -22,6 +22,20 @@ export const FETCH_MESSAGE_FEED = gql`
   }
 `;
 
+export const FETCH_MESSAGE = gql`
+  query fetchMessage($chattingId: ID!, $id: ID!) {
+    message(chattingId: $chattingId, id: $id) {
+      id
+      audio {
+        id
+        url
+        duration
+      }
+      readAt
+    }
+  }
+`;
+
 export const CREATE_MESSAGE = gql`
   mutation createMessage($input: CreateMessageInput!) {
     createMessage(input: $input) {
