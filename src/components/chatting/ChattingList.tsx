@@ -53,11 +53,9 @@ const ChattingList: React.FunctionComponent<Props> = ({
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       />
-      {isLoading && (
-        <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.loading}>
-          <LoadingBar />
-        </SafeAreaView>
-      )}
+      <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.loading}>
+        <LoadingBar isVisible={isLoading} />
+      </SafeAreaView>
     </React.Fragment>
   );
 };

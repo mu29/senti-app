@@ -1,6 +1,7 @@
 import React, {
   useMemo,
   useEffect,
+  useRef,
 } from 'react';
 import {
   View,
@@ -45,15 +46,17 @@ const RecordController: React.FunctionComponent<Props> = ({
     useNativeDriver: true,
   });
 
-  const progressAnimation = useMemo(() => new Animated.Value(0), []);
+  const progressAnimation = useRef(new Animated.Value(0));
 
   const fadeStyle = useMemo(() => ({ opacity: fadeAnimation }), [fadeAnimation]);
 
-  const progressStyle = useMemo(() => ({ transform: [{ scale: progressAnimation }] }), [progressAnimation]);
+  const progressStyle = useMemo(() => ({
+    transform: [{ scale: progressAnimation.current }],
+  }), [progressAnimation.current]);
 
   useEffect(() => {
     if (!isStarted) {
-      Animated.timing(progressAnimation, {
+      Animated.timing(progressAnimation.current, {
         toValue: 1,
         duration: 200,
         useNativeDriver: true,
@@ -63,12 +66,12 @@ const RecordController: React.FunctionComponent<Props> = ({
 
     Animated.loop(
       Animated.sequence([
-        Animated.timing(progressAnimation, {
+        Animated.timing(progressAnimation.current, {
           toValue: 1.3,
           duration: 600,
           useNativeDriver: true,
         }),
-        Animated.timing(progressAnimation, {
+        Animated.timing(progressAnimation.current, {
           toValue: 1,
           duration: 600,
           useNativeDriver: true,

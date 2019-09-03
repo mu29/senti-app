@@ -1,4 +1,5 @@
 import React, {
+  useRef,
   useMemo,
   useEffect,
 } from 'react';
@@ -11,30 +12,53 @@ import { palette } from 'constants/style';
 
 const { width: deviceWidth } = Dimensions.get('window');
 
-const LoadingBar: React.FunctionComponent<{}> = () => {
-  const scaleAnimation = useMemo(() => new Animated.Value(0), []);
+interface Props {
+  isVisible: boolean;
+}
+
+const LoadingBar: React.FunctionComponent<Props> = ({
+  isVisible,
+}) => {
+  const fadeAnimation = useRef(new Animated.Value(0));
+
+  const scaleAnimation = useRef(new Animated.Value(0));
 
   const barStyle = useMemo(() => [
     styles.bar,
-    { transform: [{ scaleX: scaleAnimation }] },
-  ], [scaleAnimation]);
+    { transform: [{ scaleX: scaleAnimation.current }] },
+    { opacity: fadeAnimation.current },
+  ], [scaleAnimation.current, fadeAnimation.current]);
 
   useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(scaleAnimation, {
-          toValue: deviceWidth,
-          duration: 800,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scaleAnimation, {
-          toValue: 28,
-          duration: 800,
-          useNativeDriver: true,
-        }),
-      ]),
-    ).start();
-  }, []);
+    fadeAnimation.current.stopAnimation(() => {
+      Animated.timing(fadeAnimation.current, {
+        toValue: Number(isVisible),
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    });
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (isVisible) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(scaleAnimation.current, {
+            toValue: deviceWidth,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+          Animated.timing(scaleAnimation.current, {
+            toValue: 28,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+        ]),
+      ).start();
+    } else {
+      scaleAnimation.current.stopAnimation();
+    }
+  }, [isVisible]);
 
   return (
     <Animated.View style={barStyle} />

@@ -33,7 +33,7 @@ const MessageList: React.FunctionComponent<Props> = ({
 
   return (
     <React.Fragment>
-      {isLoading && <LoadingBar />}
+      <LoadingBar isVisible={isLoading} />
       <FlatList
         data={items}
         renderItem={renderItem}

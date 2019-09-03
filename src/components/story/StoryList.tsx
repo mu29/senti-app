@@ -78,11 +78,9 @@ class StoryList extends React.PureComponent<Props> {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         />
-        {isLoading && (
-          <SafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.loading, hasBottom && styles.bottomSpace]}>
-            <LoadingBar />
-          </SafeAreaView>
-        )}
+        <SafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.loading, hasBottom && styles.bottomSpace]}>
+          <LoadingBar isVisible={isLoading} />
+        </SafeAreaView>
       </React.Fragment>
     );
   }
