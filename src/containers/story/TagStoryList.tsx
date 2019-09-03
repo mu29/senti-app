@@ -21,7 +21,7 @@ interface Props {
   tagId: string;
 }
 
-const TagStoryListContainer: React.FunctionComponent<Props> = ({
+const Container: React.FunctionComponent<Props> = ({
   tagId,
 }) => {
   const {
@@ -93,4 +93,4 @@ const TagStoryListContainer: React.FunctionComponent<Props> = ({
   );
 };
 
-export default React.memo(TagStoryListContainer);
+export default React.memo(Container);

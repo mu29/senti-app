@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Image,
   StyleSheet,
@@ -9,10 +9,8 @@ import {
   SafeAreaViewForceInsetValue,
   NavigationScreenProps,
 } from 'react-navigation';
-import {
-  Button,
-  MyStoryList,
-} from 'components';
+import { Button } from 'components';
+import { MyStoryList } from 'containers';
 import { palette } from 'constants/style';
 
 const SAFE_AREA_INSET: {
@@ -30,26 +28,24 @@ const HIT_SLOP = {
 
 const BACK_ICON = { uri: 'ic_back' };
 
-class MyStoryScreen extends React.Component<NavigationScreenProps> {
-  public render() {
-    const index = this.props.navigation.getParam('index', 0);
+const MyStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
+  navigation,
+}) => {
+  const goBack = useCallback(() => navigation.goBack(), []);
 
-    return (
-      <React.Fragment>
-        <MyStoryList initialIndex={index} />
-        <SafeAreaView style={styles.container} forceInset={SAFE_AREA_INSET}>
-          <Button onPress={this.goBack} hitSlop={HIT_SLOP} round>
-            <Image style={styles.icon} source={BACK_ICON} />
-          </Button>
-        </SafeAreaView>
-      </React.Fragment>
-    );
-  }
+  const index = navigation.getParam('index', 0);
 
-  private goBack = () => {
-    this.props.navigation.goBack();
-  }
-}
+  return (
+    <React.Fragment>
+      <MyStoryList initialIndex={index} />
+      <SafeAreaView style={styles.container} forceInset={SAFE_AREA_INSET}>
+        <Button onPress={goBack} hitSlop={HIT_SLOP} round>
+          <Image style={styles.icon} source={BACK_ICON} />
+        </Button>
+      </SafeAreaView>
+    </React.Fragment>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -4,14 +4,14 @@ import { useQuery } from '@apollo/react-hooks';
 import {
   ErrorView,
   LoadingView,
-  StoryList,
+  StoryGrid,
 } from 'components';
-import { FETCH_MAIN_STORY_FEED } from 'graphqls';
+import { FETCH_MY_STORY_FEED } from 'graphqls';
 
 const EMPTY_LIST: Story[] = [];
 
-type MainStoryFeedResult = {
-  mainStoryFeed: {
+type MyStoryFeedResult = {
+  myStoryFeed: {
     stories: Story[];
     cursor: string;
   };
@@ -24,7 +24,7 @@ const Container: React.FunctionComponent<{}> = () => {
     error,
     fetchMore,
     refetch,
-  } = useQuery<MainStoryFeedResult>(FETCH_MAIN_STORY_FEED, {
+  } = useQuery<MyStoryFeedResult>(FETCH_MY_STORY_FEED, {
     notifyOnNetworkStatusChange: true,
   });
 
@@ -33,24 +33,23 @@ const Container: React.FunctionComponent<{}> = () => {
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (networkStatus === NetworkStatus.loading || !data || !data.mainStoryFeed) {
-    return <LoadingView dark />;
+  if (networkStatus === NetworkStatus.loading || !data || !data.myStoryFeed) {
+    return <LoadingView />;
   }
 
   const {
-    mainStoryFeed: {
+    myStoryFeed: {
       stories,
       cursor,
     },
   } = data;
 
   return (
-    <StoryList
+    <StoryGrid
       items={stories || EMPTY_LIST}
       isLoading={networkStatus === NetworkStatus.fetchMore}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      hasBottom
       onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {
@@ -59,7 +58,7 @@ const Container: React.FunctionComponent<{}> = () => {
           }
 
           const {
-            mainStoryFeed: {
+            myStoryFeed: {
               stories: nextStories,
               cursor: nextCursor,
             },
@@ -70,9 +69,9 @@ const Container: React.FunctionComponent<{}> = () => {
           }
 
           return Object.assign(original, {
-            mainStoryFeed: {
-              ...original.mainStoryFeed,
-              stories: original.mainStoryFeed.stories.concat(nextStories),
+            myStoryFeed: {
+              ...original.myStoryFeed,
+              stories: original.myStoryFeed.stories.concat(nextStories),
               cursor: nextCursor,
             },
           });

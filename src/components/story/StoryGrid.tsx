@@ -1,50 +1,73 @@
-import React from 'react';
-import { Dimensions } from 'react-native';
+import React, { useCallback } from 'react';
 import {
-  inject,
-  observer,
-} from 'mobx-react/native';
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
+import {
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
+} from 'react-navigation';
 import { FlatGrid } from 'react-native-super-grid';
-import { CompactStoryItem } from 'components';
 import {
-  subscribeMyStoriesAction,
-  unsubscribeMyStoriesAction,
-} from 'stores/actions';
-import { StoryState } from 'stores/states';
+  LoadingBar,
+  CompactStoryItem,
+} from 'components';
 
 const ITEM_SIZE = Dimensions.get('window').width / 3;
 
-interface StoryGridProps {
-  storyState?: StoryState;
+const SAFE_AREA_INSET: {
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  bottom: 'always',
+};
+
+interface Props {
+  items: Story[];
+  isLoading: boolean;
+  isRefreshing: boolean;
+  onFetchMore: () => void;
+  onRefresh: () => void;
 }
 
-@inject('storyState')
-@observer
-class StoryGrid extends React.Component<StoryGridProps> {
-  public componentDidMount() {
-    subscribeMyStoriesAction();
-  }
+const StoryGrid: React.FunctionComponent<Props> = ({
+  items,
+  isLoading,
+  isRefreshing,
+  onFetchMore,
+  onRefresh,
+}) => {
+  const renderItem = useCallback(({ item, index }: { item: Story; index: number }) => (
+    <CompactStoryItem item={item} index={index} />
+  ), []);
 
-  public componentWillUnmount() {
-    unsubscribeMyStoriesAction();
-  }
-
-  public render() {
-    const { myStoryIds } = this.props.storyState!;
-
-    return (
+  return (
+    <React.Fragment>
+      {/*
+      // @ts-ignore */}
       <FlatGrid
         itemDimension={ITEM_SIZE}
         spacing={0}
-        items={myStoryIds}
-        renderItem={this.renderItem}
+        items={items}
+        renderItem={renderItem}
+        onEndReached={onFetchMore}
+        onEndReachedThreshold={1}
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
       />
-    );
-  }
+      <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.loading}>
+        <LoadingBar isVisible={isLoading} />
+      </SafeAreaView>
+    </React.Fragment>
+  );
+};
 
-  private renderItem = ({ item, index }: { item: string; index: number }) => (
-    <CompactStoryItem storyId={item} index={index} />
-  )
-}
+const styles = StyleSheet.create({
+  loading: {
+    position: 'absolute',
+    bottom: 50,
+    left: 0,
+    right: 0,
+  },
+});
 
-export default StoryGrid;
+export default React.memo(StoryGrid);

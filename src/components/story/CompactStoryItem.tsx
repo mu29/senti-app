@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   View,
   Image,
@@ -9,16 +12,11 @@ import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
 import imageCacheHoc from 'react-native-image-cache-hoc';
 import {
   Text,
   Button,
 } from 'components';
-import { StoryState } from 'stores/states';
 import { palette } from 'constants/style';
 
 const CachableImage = imageCacheHoc(Image, {
@@ -26,55 +24,36 @@ const CachableImage = imageCacheHoc(Image, {
   cachePruneTriggerLimit: 1024 * 1024 * 50,
 });
 
-interface CompactStoryItemProps {
-  storyId: string;
+interface Props extends NavigationInjectedProps {
+  item: Story;
   index: number;
-  storyState?: StoryState;
 }
 
-@inject('storyState')
-@observer
-class CompactStoryItem extends React.Component<CompactStoryItemProps & NavigationInjectedProps> {
-  public render() {
-    if (!this.story) {
-      return null;
-    }
+const CompactStoryItem: React.FunctionComponent<Props> = ({
+  item: {
+    cover,
+    message,
+  },
+  index,
+  navigation,
+}) => {
+  const coverImage = useMemo(() => ({ uri: cover }), [cover]);
 
-    const {
-      cover,
-      message,
-    } = this.story;
-
-    return (
-      <Button onPress={this.openMyStoryScreen}>
-        <CachableImage source={{ uri: cover }} style={styles.image} permanent />
-        <View style={styles.filter}>
-          <Text style={styles.message}>
-            {message.replace(/#[^ ]+/g, '').trim()}
-          </Text>
-        </View>
-      </Button>
-    );
-  }
-
-  private get story() {
-    const {
-      storyId,
-      storyState,
-    } = this.props;
-
-    return storyState!.stories[storyId] || {};
-  }
-
-  private openMyStoryScreen = () => {
-    const {
-      navigation,
-      index,
-    } = this.props;
-
+  const openMyStoryScreen = useCallback(() => {
     navigation.navigate('MyStory', { index });
-  }
-}
+  }, []);
+
+  return (
+    <Button onPress={openMyStoryScreen}>
+      <CachableImage source={coverImage} style={styles.image} permanent />
+      <View style={styles.filter}>
+        <Text style={styles.message}>
+          {message.trim()}
+        </Text>
+      </View>
+    </Button>
+  );
+};
 
 const styles = StyleSheet.create({
   image: {
@@ -88,9 +67,10 @@ const styles = StyleSheet.create({
     backgroundColor: palette.transparent.black[40],
   },
   message: {
+    textAlign: 'center',
     color: palette.gray[10],
     fontSize: 12,
   },
 });
 
-export default withNavigation(CompactStoryItem);
+export default withNavigation(React.memo(CompactStoryItem));

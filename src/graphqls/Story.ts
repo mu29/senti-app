@@ -63,6 +63,30 @@ export const FETCH_TAG_STORY_FEED = gql`
   }
 `;
 
+export const FETCH_MY_STORY_FEED = gql`
+  query fetchMyStoryFeed($cursor: ID) {
+    myStoryFeed(cursor: $cursor) {
+      stories {
+        id
+        cover
+        message
+        tags
+        user {
+          id
+          name
+          photoUrl
+        }
+        audio {
+          id
+          url
+          duration
+        }
+      }
+      cursor
+    }
+  }
+`;
+
 export const CREATE_STORY = gql`
   mutation createStory($input: CreateStoryInput!) {
     createStory(input: $input) {

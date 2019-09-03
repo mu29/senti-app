@@ -7,11 +7,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {
   Text,
   Header,
-  UserInfo,
   CoinInventory,
-  StoryGrid,
   withSafeArea,
 } from 'components';
+import {
+  UserInfo,
+  MyStoryGrid,
+} from 'containers';
 import {
   palette,
   typography,
@@ -33,7 +35,7 @@ const ProfileScreen = () => (
         나의 이야기
       </Text>
     </View>
-    <StoryGrid />
+    <MyStoryGrid />
   </React.Fragment>
 );
 
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 14,
+    padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: palette.gray[90],
   },
