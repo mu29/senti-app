@@ -32,7 +32,7 @@ const LoadingBar: React.FunctionComponent<Props> = ({
   useEffect(() => {
     fadeAnimation.current.stopAnimation(() => {
       Animated.timing(fadeAnimation.current, {
-        toValue: Number(isVisible),
+        toValue: Number(!!isVisible),
         duration: 300,
         useNativeDriver: true,
       }).start();
