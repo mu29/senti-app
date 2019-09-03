@@ -46,6 +46,7 @@ const ChattingList: React.FunctionComponent<Props> = ({
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onEndReached={onFetchMore}
+        onEndReachedThreshold={1}
         onRefresh={onRefresh}
         refreshing={isRefreshing}
         style={styles.container}
