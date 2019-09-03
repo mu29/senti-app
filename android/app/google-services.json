@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:40292466641:android:916c6b644b219865",
+        "mobilesdk_app_id": "1:40292466641:android:62ad51c535020a86",
         "android_client_info": {
-          "package_name": "net.yeoubi.senti"
+          "package_name": "com.senti.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "40292466641-e40cbm0msmbr9f0oj22o9903ao4tkilc.apps.googleusercontent.com",
+          "client_id": "40292466641-39uug7vh94j9ce1vt7k41nr3uq4kimeq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "net.yeoubi.senti",
+            "package_name": "com.senti.app",
             "certificate_hash": "1dcbc727102485f763c4f07dd46625ae6038524f"
           }
         },
@@ -40,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "40292466641-49v15tehsbgv4rtf7ed9c0mvg3iu808l.apps.googleusercontent.com",
+              "client_id": "40292466641-u3mdds8lvtdqqvg9bhuu67eh8fk4oi0e.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "net.yeoubi.senti"
+                "bundle_id": "com.senti.app"
               }
             }
           ]

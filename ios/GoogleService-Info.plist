@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>40292466641-49v15tehsbgv4rtf7ed9c0mvg3iu808l.apps.googleusercontent.com</string>
+	<string>40292466641-u3mdds8lvtdqqvg9bhuu67eh8fk4oi0e.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.40292466641-49v15tehsbgv4rtf7ed9c0mvg3iu808l</string>
+	<string>com.googleusercontent.apps.40292466641-u3mdds8lvtdqqvg9bhuu67eh8fk4oi0e</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>40292466641-39uug7vh94j9ce1vt7k41nr3uq4kimeq.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCWi5GNy_YxDSlIPeY2KyCys99_RUzn0Hc</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>net.yeoubi.senti</string>
+	<string>com.senti.app</string>
 	<key>PROJECT_ID</key>
 	<string>senti-ee110</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:40292466641:ios:916c6b644b219865</string>
+	<string>1:40292466641:ios:62ad51c535020a86</string>
 	<key>DATABASE_URL</key>
 	<string>https://senti-ee110.firebaseio.com</string>
 </dict>
