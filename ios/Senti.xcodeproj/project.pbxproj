@@ -26,7 +26,6 @@
 		3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28A995E4F756430E8F7C78AF /* Ionicons.ttf */; };
 		44B06AA06BC14F67AD74D80B /* libRNSoundRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */; };
 		5B468A1222991F1E00B7D83B /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B468A0722991F1100B7D83B /* libRNFetchBlob.a */; };
-		5B4D58802294E93D00853F25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */; };
 		5B52F92D22963C5F00E2B39A /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F92822963C4900E2B39A /* libRNGoogleSignin.a */; };
 		5B52F94322963CEA00E2B39A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94222963CEA00E2B39A /* AddressBook.framework */; };
 		5B52F94522963CF100E2B39A /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94422963CF100E2B39A /* SafariServices.framework */; };
@@ -413,7 +412,6 @@
 		3866BD4E3D20487989BA6204 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
 		51EEBB0AEB234603A058473D /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		5B4689DC22991F1100B7D83B /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
-		5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
 		5B52F94222963CEA00E2B39A /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		5B52F94422963CF100E2B39A /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
@@ -565,7 +563,6 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -1294,7 +1291,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				5B4D58802294E93D00853F25 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */,
 			);

@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.taluttasgiran.actionsheet.RNActionsheetPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -26,6 +28,7 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -72,6 +75,31 @@ public class MainApplication extends Application implements ReactApplication {
 
   @Override
   public void onCreate() {
+    String language = Locale.getDefault().getLanguage();
+
+    String apiKey = "AIzaSyAPrxYy0aZfs9gpk6ZAym8MulCUuWb6nrM";
+    String applicationId = "1:515616876137:android:62ad51c535020a86";
+    String databaseUrl = "https://senti-en.firebaseio.com";
+    String storageBucket = "senti-en.appspot.com";
+    String gcmSenderId = "515616876137";
+
+    if (language.equals("ko")) {
+        apiKey = "AIzaSyB1CrlPNUbCA_KezrWXgLqQX3eIYsjUao4";
+        applicationId = "1:840017091759:android:62ad51c535020a86";
+        databaseUrl = "https://senti-ko.firebaseio.com";
+        storageBucket = "senti-ko.appspot.com";
+        gcmSenderId = "840017091759";
+    }
+
+    FirebaseApp.initializeApp(getApplicationContext(), new FirebaseOptions.Builder()
+        .setApiKey(apiKey)
+        .setApplicationId(applicationId)
+        .setDatabaseUrl(databaseUrl)
+        .setStorageBucket(storageBucket)
+        .setGcmSenderId(gcmSenderId)
+        .build()
+    );
+
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }
