@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   View,
   Image,
@@ -10,13 +13,8 @@ import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
 import imageCacheHoc from 'react-native-image-cache-hoc';
 import { Text } from 'components';
-import { AuthState } from 'stores/states';
 import {
   palette,
   typography,
@@ -34,52 +32,51 @@ const CachableImage = imageCacheHoc(Image, {
   cachePruneTriggerLimit: 1024 * 1024 * 50,
 });
 
-interface UserInfoProps {
-  authState?: AuthState;
+interface Props extends NavigationInjectedProps {
+  item: Profile;
 }
 
-@inject('authState')
-@observer
-class UserInfo extends React.Component<UserInfoProps & NavigationInjectedProps> {
-  public render() {
-    const { user } = this.props.authState!;
+const UserInfo: React.FunctionComponent<Props> = ({
+  item: {
+    name,
+    email,
+    photoUrl,
+  },
+  navigation,
+}) => {
+  const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
 
-    if (!user) {
-      return null;
-    }
+  const openEditProfileScreen = useCallback(() => {
+    navigation.navigate('EditProfile');
+  }, []);
 
-    return (
-      <View style={styles.container}>
-        <CachableImage
-          source={{ uri: user.photoUrl || '' }}
-          style={styles.profile}
-          permanent
-        />
-        <View>
-          <Text style={[typography.heading2, styles.name]}>
-            {user.name}
-          </Text>
-          <Text style={styles.email}>
-            {user.email}
-          </Text>
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={this.openEditProfileScreen}
-          hitSlop={BUTTON_HITSLOP}
-          style={styles.button}
-        >
-          <Text style={typography.heading4}>
-            정보 관리
-          </Text>
-        </TouchableOpacity>
+  return (
+    <View style={styles.container}>
+      <CachableImage
+        source={profileImage}
+        style={styles.profile}
+        permanent
+      />
+      <View>
+        <Text style={[typography.heading2, styles.name]}>
+          {name}
+        </Text>
+        <Text style={styles.email}>
+          {email}
+        </Text>
       </View>
-    );
-  }
-
-  private openEditProfileScreen = () => {
-    this.props.navigation.navigate('EditProfile');
-  }
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={openEditProfileScreen}
+        hitSlop={BUTTON_HITSLOP}
+        style={styles.button}
+      >
+        <Text style={typography.heading4}>
+          정보 관리
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -114,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(UserInfo);
+export default withNavigation(React.memo(UserInfo));
