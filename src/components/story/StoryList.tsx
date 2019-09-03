@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  View,
   FlatList,
   Animated,
   StyleSheet,
@@ -33,6 +34,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 interface Props {
   items: Story[];
+  initialIndex?: number;
   isLoading: boolean;
   isRefreshing: boolean;
   hasBottom?: boolean;
@@ -48,6 +50,7 @@ class StoryList extends React.PureComponent<Props> {
   public render() {
     const {
       items,
+      initialIndex,
       isLoading,
       isRefreshing,
       hasBottom,
@@ -61,6 +64,7 @@ class StoryList extends React.PureComponent<Props> {
           data={items}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
+          initialScrollIndex={initialIndex}
           onEndReached={onFetchMore}
           onRefresh={onRefresh}
           refreshing={isRefreshing}
@@ -78,9 +82,15 @@ class StoryList extends React.PureComponent<Props> {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         />
-        <SafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.loading, hasBottom && styles.bottomSpace]}>
-          <LoadingBar isVisible={isLoading} />
-        </SafeAreaView>
+        {hasBottom ? (
+          <SafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.loading, styles.bottomSpace]}>
+            <LoadingBar isVisible={isLoading} />
+          </SafeAreaView>
+        ) : (
+          <View style={styles.loading}>
+            <LoadingBar isVisible={isLoading} />
+          </View>
+        )}
       </React.Fragment>
     );
   }
