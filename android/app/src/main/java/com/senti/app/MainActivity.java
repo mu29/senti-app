@@ -1,4 +1,4 @@
-package net.yeoubi.senti;
+package com.senti.app;
 
 import android.content.Intent;
 

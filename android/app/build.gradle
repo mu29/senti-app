@@ -107,7 +107,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "net.yeoubi.senti"
+        applicationId "com.senti.app"
         minSdkVersion safeExtGet('minSdkVersion', 19)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
         versionCode 1
