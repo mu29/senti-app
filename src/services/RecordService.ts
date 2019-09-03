@@ -6,14 +6,21 @@ import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
 
 class RecordService {
+  private isRecording = false;
+
   private sound?: Sound;
 
   public start = () => {
+    if (this.isRecording) {
+      return;
+    }
+
     if (!this.requestMicrophonePermission()) {
       return;
     }
 
     this.release();
+    this.isRecording = true;
     SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
   }
 
@@ -28,6 +35,8 @@ class RecordService {
 
     return new Promise((resolve, reject) => {
       this.sound = new Sound('temp.aac', path.replace('/temp.aac', ''), (error) => {
+        this.isRecording = false;
+
         if (error) {
           reject(error);
         }
