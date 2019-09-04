@@ -10,6 +10,8 @@ import {
  } from 'services';
 
 function useAudio(key: string) {
+  const isMounted = useRef(false);
+
   const [audio, setAudio] = useState<PlayableAudio>({
     elapsedTime: 0,
     isLoading: false,
@@ -20,6 +22,10 @@ function useAudio(key: string) {
   const timer = useRef<NodeJS.Timeout>();
 
   const soundObserver = useCallback((state: AudioState) => {
+    if (!isMounted.current) {
+      return;
+    }
+
     switch (state) {
       case AudioState.PLAY:
         setAudio(prev => ({
@@ -78,6 +84,14 @@ function useAudio(key: string) {
   const play = useCallback(() => {
     AudioService.play(key);
   }, [key]);
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    return () => {
+      isMounted.current = false;
+    };
+  });
 
   useEffect(() => {
     AudioService.addObserver(key, soundObserver);
