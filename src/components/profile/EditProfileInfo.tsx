@@ -1,26 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   TextInput,
+  Alert,
   StyleSheet,
   Platform,
+  Linking,
 } from 'react-native';
-import {
-  inject,
-  observer,
-} from 'mobx-react/native';
 import ActionSheet from 'rn-actionsheet-module';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   Text,
   Button,
 } from 'components';
-import {
-  updateNameCandidateAction,
-  updateGenderCandidateAction,
-  signOutAction,
-} from 'stores/actions';
-import { AuthState } from 'stores/states';
 import { palette, typography } from 'constants/style';
 
 const GENDERS = {
@@ -29,102 +21,112 @@ const GENDERS = {
   none: '성별',
 };
 
-interface EditProfileInfoProps {
-  authState?: AuthState;
+interface Props {
+  profile: Profile;
+  candidate: Candidate;
+  updateCandidate: (candidate: Candidate) => void;
+  signOut: () => void;
 }
 
-@inject('authState')
-@observer
-class EditProfileInfo extends React.Component<EditProfileInfoProps> {
-  public render() {
-    const {
-      user,
-      candidate,
-    } = this.props.authState!;
+const EditProfileInfo: React.FunctionComponent<Props> = ({
+  profile,
+  candidate,
+  updateCandidate,
+  signOut,
+}) => {
+  const updateCandidateName = useCallback((name: string) => updateCandidate({ name }), []);
 
-    if (!user) {
-      return null;
-    }
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={[typography.tiny3, styles.title]}>
-            계정
-          </Text>
-        </View>
-        <View style={styles.form}>
-          <View style={styles.icon}>
-            <Icon name="md-contact" size={20} color={palette.gray[60]} />
-          </View>
-          <TextInput
-            placeholder="닉네임"
-            placeholderTextColor={palette.gray[50]}
-            spellCheck={false}
-            autoCorrect={false}
-            autoCapitalize="none"
-            dataDetectorTypes="none"
-            keyboardType="default"
-            underlineColorAndroid="transparent"
-            multiline={false}
-            maxLength={40}
-            onChangeText={updateNameCandidateAction}
-            style={styles.input}
-          >
-            {user.name}
-          </TextInput>
-        </View>
-        <Button onPress={this.showGenderSelectSheet} style={styles.form}>
-          <View style={styles.icon}>
-            <Icon name="md-heart" size={20} color={palette.gray[60]} />
-          </View>
-          <Text style={[styles.text, !user.gender && !candidate.gender && styles.hint]}>
-            {GENDERS[candidate.gender || user.gender || 'none']}
-          </Text>
-        </Button>
-        <Button onPress={signOutAction} style={styles.form}>
-          <View style={styles.icon}>
-            <Icon name="md-exit" size={20} color={palette.gray[60]} />
-          </View>
-          <Text style={styles.text}>
-            로그아웃
-          </Text>
-        </Button>
-        <View style={styles.header}>
-          <Text style={[typography.tiny3, styles.title]}>
-            지원
-          </Text>
-        </View>
-        <View style={styles.form}>
-          <View style={styles.icon}>
-            <Icon name="ios-mail" size={20} color={palette.gray[60]} />
-          </View>
-          <Text style={styles.text}>
-            건의 및 불편 신고
-          </Text>
-        </View>
-        <View style={styles.form}>
-          <View style={styles.icon}>
-            <Icon name="ios-filing" size={20} color={palette.gray[60]} />
-          </View>
-          <Text style={styles.text}>
-            이용약관 및 개인정보처리방침
-          </Text>
-        </View>
-      </View>
-    );
-  }
-
-  private showGenderSelectSheet = () => {
+  const showGenderSelectSheet = useCallback(() => {
     ActionSheet({
       title: '성별을 선택하세요',
       optionsIOS: ['남성', '여성', '취소'],
       optionsAndroid: ['남성', '여성'],
       cancelButtonIndex: 2,
       onCancelAndroidIndex: 2,
-    }, updateGenderCandidateAction);
-  }
-}
+    }, (index: number) => {
+      updateCandidate({ gender: index === 0 ? 'male' : 'female' });
+    });
+  }, []);
+
+  const openEmail = useCallback(async () => {
+    const subject = '[센치] 건의 & 불편 신고';
+    const url = `mailto:service@senti.in?subject=${encodeURIComponent(subject)}`;
+
+    try {
+      await Linking.openURL(url);
+    } catch (error) {
+      Alert.alert('알림', `메일 작성에 실패했습니다.\n${error.message}`);
+    }
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={[typography.tiny3, styles.title]}>
+          계정
+        </Text>
+      </View>
+      <View style={styles.form}>
+        <View style={styles.icon}>
+          <Icon name="md-contact" size={20} color={palette.gray[60]} />
+        </View>
+        <TextInput
+          placeholder="닉네임"
+          placeholderTextColor={palette.gray[50]}
+          spellCheck={false}
+          autoCorrect={false}
+          autoCapitalize="none"
+          dataDetectorTypes="none"
+          keyboardType="default"
+          underlineColorAndroid="transparent"
+          multiline={false}
+          maxLength={40}
+          onChangeText={updateCandidateName}
+          style={styles.input}
+        >
+          {profile.name}
+        </TextInput>
+      </View>
+      <Button onPress={showGenderSelectSheet} style={styles.form}>
+        <View style={styles.icon}>
+          <Icon name="md-heart" size={20} color={palette.gray[60]} />
+        </View>
+        <Text style={[styles.text, !profile.gender && !candidate.gender && styles.hint]}>
+          {GENDERS[candidate.gender || profile.gender || 'none']}
+        </Text>
+      </Button>
+      <Button onPress={signOut} style={styles.form}>
+        <View style={styles.icon}>
+          <Icon name="md-exit" size={20} color={palette.gray[60]} />
+        </View>
+        <Text style={styles.text}>
+          로그아웃
+        </Text>
+      </Button>
+      <View style={styles.header}>
+        <Text style={[typography.tiny3, styles.title]}>
+          지원
+        </Text>
+      </View>
+      <Button onPress={openEmail} style={styles.form}>
+        <View style={styles.icon}>
+          <Icon name="ios-mail" size={20} color={palette.gray[60]} />
+        </View>
+        <Text style={styles.text}>
+          건의 및 불편 신고
+        </Text>
+      </Button>
+      <View style={styles.form}>
+        <View style={styles.icon}>
+          <Icon name="ios-filing" size={20} color={palette.gray[60]} />
+        </View>
+        <Text style={styles.text}>
+          이용약관 및 개인정보처리방침
+        </Text>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -174,4 +176,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditProfileInfo;
+export default React.memo(EditProfileInfo);
