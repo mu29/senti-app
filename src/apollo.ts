@@ -47,7 +47,7 @@ const client = new ApolloClient({
   `,
 });
 
-client.cache.writeData({
+const initialData = {
   data: {
     modals: [{
       __typename: 'Modal',
@@ -72,7 +72,19 @@ client.cache.writeData({
       cover: '',
       message: '',
     },
+    candidate: {
+      __typename: 'Candidate',
+      name: null,
+      gender: null,
+    },
   },
+};
+
+client.cache.writeData(initialData);
+
+client.onResetStore(() => {
+  client.cache.writeData(initialData);
+  return Promise.resolve();
 });
 
 export default client;
