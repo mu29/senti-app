@@ -23,12 +23,27 @@ export const FETCH_PROFILE = gql`
   }
 `;
 
+export const FETCH_CANDIDATE = gql`
+  query fetchCandidate {
+    candidate @client {
+      name
+      gender
+    }
+  }
+`;
+
+export const UPDATE_CANDIDATE = gql`
+  mutation updateCandidate($name: String, $profile: String) {
+    updateCandidate(name: $name, profile: $profile) @client
+  }
+`;
+
 export const UPDATE_PROFILE = gql`
   mutation updateProfile($input: UpdateProfileInput!) {
     updateProfile(input: $input) {
       id
       name
-      email
+      gender
       photoUrl
     }
   }

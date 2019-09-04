@@ -14,6 +14,11 @@ declare global {
     message: string;
   }
 
+  interface Candidate {
+    name?: string;
+    gender?: 'male' | 'female' | null;
+  }
+
   interface Tag {
     id: string;
     name: string;
