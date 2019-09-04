@@ -31,7 +31,6 @@ export { default as CompactStoryItem } from './story/CompactStoryItem';
 export { default as CreateStoryCover } from './story/CreateStoryCover';
 export { default as CreateStoryHeader } from './story/CreateStoryHeader';
 export { default as CreateStoryMessage } from './story/CreateStoryMessage';
-export { default as MyStoryList } from './story/MyStoryList';
 export { default as CoverModal } from './story/CoverModal';
 export { default as RecordController } from './story/RecordController';
 export { default as StoryController } from './story/StoryController';

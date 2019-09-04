@@ -3,11 +3,9 @@ import { StatusBar } from 'react-native';
 import { ApolloProvider } from '@apollo/react-hooks';
 import firebase from 'react-native-firebase';
 import Sound from 'react-native-sound';
-import { Provider } from 'mobx-react/native';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { AuthModal } from 'containers';
-import * as states from './stores/states';
 import { FETCH_PROFILE } from './graphqls';
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
@@ -57,14 +55,12 @@ class App extends React.Component<{}, State> {
     return (
       <React.Fragment>
         <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-        <Provider {...states}>
-          <ApolloProvider client={client}>
-            <React.Fragment>
-              <AuthModal />
-              <Navigator ref={this.setNavigationRef} />
-            </React.Fragment>
-          </ApolloProvider>
-        </Provider>
+        <ApolloProvider client={client}>
+          <React.Fragment>
+            <AuthModal />
+            <Navigator ref={this.setNavigationRef} />
+          </React.Fragment>
+        </ApolloProvider>
       </React.Fragment>
     );
   }
