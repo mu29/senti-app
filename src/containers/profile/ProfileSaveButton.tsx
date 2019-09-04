@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   useQuery,
   useMutation,
@@ -56,6 +56,12 @@ const Container: React.FunctionComponent<{}> = () => {
         },
       },
     });
+  }, [data, data && data.candidate]);
+
+  useEffect(() => {
+    return () => {
+      clearCandidate();
+    };
   }, []);
 
   const isEnabled = !!(data && data.candidate && (data.candidate.name || data.candidate.gender));
