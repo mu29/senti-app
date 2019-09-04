@@ -2,10 +2,10 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import {
   Header,
-  ProfileSaveButton,
   withSafeArea,
 } from 'components';
 import {
+  ProfileSaveButton,
   EditProfileInfo,
   EditProfilePhoto,
 } from 'containers';

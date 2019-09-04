@@ -21,5 +21,18 @@ export default {
 
       return true;
     },
+    clearCandidate: (_: any, _args: Params, { cache }: Context) => {
+      cache.writeData({
+        data: {
+          candidate: {
+            __typename: 'Candidate',
+            name: null,
+            gender: null,
+          },
+        },
+      });
+
+      return true;
+    },
   },
 };

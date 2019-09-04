@@ -1,17 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import {
   Button,
   Text,
 } from 'components';
-import { updateProfileAction } from 'stores/actions';
-import { AuthState, authState } from 'stores/states';
 import { palette } from 'constants/style';
-import { LoadingType } from 'constants/enums';
 
 const HIT_SLOP = {
   top: 16,
@@ -20,32 +13,31 @@ const HIT_SLOP = {
   bottom: 16,
 };
 
-interface ProfileSaveButtonProps {
-  authState?: AuthState;
+interface Props {
+  isEnabled: boolean;
+  isLoading: boolean;
+  updateProfile: () => void;
 }
 
-@inject('authState')
-@observer
-class ProfileSaveButton extends React.Component<ProfileSaveButtonProps> {
-  render() {
-    const { candidate } = this.props.authState!;
-    const isEnabled = Object.values(candidate).filter(Boolean).length > 0;
-
-    return (
-      <Button
-        hitSlop={HIT_SLOP}
-        disabled={!isEnabled}
-        onPress={updateProfileAction}
-        isLoading={authState.isLoading === LoadingType.UPDATE}
-        style={styles.button}
-      >
-        <Text style={[styles.text, isEnabled && styles.enabled]}>
-          저장
-        </Text>
-      </Button>
-    );
-  }
-}
+const ProfileSaveButton: React.FunctionComponent<Props> = ({
+  isEnabled,
+  isLoading,
+  updateProfile,
+}) => {
+  return (
+    <Button
+      hitSlop={HIT_SLOP}
+      disabled={!isEnabled}
+      onPress={updateProfile}
+      isLoading={isLoading}
+      style={styles.button}
+    >
+      <Text style={[styles.text, isEnabled && styles.enabled]}>
+        저장
+      </Text>
+    </Button>
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -60,4 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileSaveButton;
+export default React.memo(ProfileSaveButton);

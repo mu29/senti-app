@@ -14,6 +14,7 @@ export { default as MessageReply } from './message/MessageReply';
 
 export { default as EditProfileInfo } from './profile/EditProfileInfo';
 export { default as EditProfilePhoto } from './profile/EditProfilePhoto';
+export { default as ProfileSaveButton } from './profile/ProfileSaveButton';
 export { default as UserInfo } from './profile/UserInfo';
 
 export { default as SearchBar } from './search/SearchBar';

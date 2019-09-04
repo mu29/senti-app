@@ -33,8 +33,14 @@ export const FETCH_CANDIDATE = gql`
 `;
 
 export const UPDATE_CANDIDATE = gql`
-  mutation updateCandidate($name: String, $profile: String) {
-    updateCandidate(name: $name, profile: $profile) @client
+  mutation updateCandidate($name: String, $gender: String) {
+    updateCandidate(name: $name, gender: $gender) @client
+  }
+`;
+
+export const CLEAR_CANDIDATE = gql`
+  mutation clearCandidate {
+    clearCandidate @client
   }
 `;
 
