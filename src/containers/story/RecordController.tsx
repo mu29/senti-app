@@ -1,9 +1,17 @@
 import React, { useCallback } from 'react';
 import uuidv4 from 'uuid/v4';
 import firebase from 'react-native-firebase';
+import {
+  useQuery,
+  useMutation,
+} from '@apollo/react-hooks';
 import { RecordController } from 'components';
 import { useRecord } from 'containers';
 import { Alert } from 'react-native';
+import {
+  SHOW_MODAL,
+  FETCH_PROFILE,
+} from 'graphqls';
 
 interface Props {
   setIsLoading: (isLoading: boolean) => void;
@@ -17,11 +25,20 @@ interface Props {
   onFinish?: () => void;
 }
 
-const RecordControllerContainer: React.FunctionComponent<Props> = ({
+const Container: React.FunctionComponent<Props> = ({
   setIsLoading,
   onCreate,
   onFinish,
 }) => {
+  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+    skip: !firebase.auth().currentUser,
+    fetchPolicy: 'cache-only',
+  });
+
+  const [showAuthModal] = useMutation(SHOW_MODAL, {
+    variables: { id: 'Auth' },
+  });
+
   const {
     data,
     isStarted,
@@ -31,8 +48,12 @@ const RecordControllerContainer: React.FunctionComponent<Props> = ({
   } = useRecord();
 
   const upload = useCallback(async () => {
+    if (!(profile && profile.me)) {
+      throw new Error('로그인 후 이용해주세요.');
+    }
+
     if (!isRecorded || !data) {
-      return Promise.reject();
+      throw new Error('녹음 파일이 없습니다.');
     }
 
     const id = uuidv4();
@@ -55,7 +76,11 @@ const RecordControllerContainer: React.FunctionComponent<Props> = ({
       .then(() => onFinish && onFinish())
       .catch((error) => {
         setIsLoading(false);
-        Alert.alert('알림', `녹음 파일 업로드에 실패했습니다.\n${error.message}`);
+        if (error.message === '로그인 후 이용해주세요.') {
+          showAuthModal();
+        } else {
+          Alert.alert('알림', `녹음 파일 업로드에 실패했습니다.\n${error.message}`);
+        }
       });
   }, [upload, onCreate]);
 
@@ -70,4 +95,4 @@ const RecordControllerContainer: React.FunctionComponent<Props> = ({
   );
 };
 
-export default React.memo(RecordControllerContainer);
+export default React.memo(Container);

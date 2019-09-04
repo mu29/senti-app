@@ -56,9 +56,6 @@ const MainTabNavigator = createBottomTabNavigator({
       ),
       tabBarOnPress: ({ navigation }: { navigation: any }) => navigation.navigate('CreateStory'),
     },
-    params: {
-      private: true,
-    },
   },
   Chatting: {
     screen: ChattingScreen,
