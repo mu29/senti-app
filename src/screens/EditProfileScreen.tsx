@@ -4,9 +4,11 @@ import {
   Header,
   ProfileSaveButton,
   EditProfileInfo,
-  EditProfilePhoto,
   withSafeArea,
 } from 'components';
+import {
+  EditProfilePhoto,
+} from 'containers';
 
 const EditProfileScreen = () => (
   <React.Fragment>

@@ -77,7 +77,7 @@ const UserInfo: React.FunctionComponent<Props> = ({
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -1,62 +1,64 @@
-import React from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   View,
-  Image,
+  ActivityIndicator,
+  ImageBackground,
   StyleSheet,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import {
-  inject,
-  observer,
-} from 'mobx-react/native';
-import {
   Button,
   Text,
 } from 'components';
-import { uploadProfilePhotoAction } from 'stores/actions';
-import { AuthState } from 'stores/states';
-import { typography } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
-interface EditProfilePhotoProps {
-  authState?: AuthState;
+interface Props {
+  photoUrl: string | null;
+  isLoading: boolean;
+  updateProfilePhoto: (path: string) => void;
 }
 
-@inject('authState')
-@observer
-class EditProfilePhoto extends React.Component<EditProfilePhotoProps> {
-  public render() {
-    const { user } = this.props.authState!;
+const EditProfilePhoto: React.FunctionComponent<Props> = ({
+  photoUrl,
+  isLoading,
+  updateProfilePhoto,
+}) => {
+  const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
 
-    if (!user) {
-      return null;
-    }
-
-    return (
-      <View style={styles.container}>
-        <Button onPress={this.openImagePicker} style={styles.button}>
-          <Image
-            source={{ uri: user.photoUrl || '' }}
-            style={styles.photo}
-          />
-          <Text style={[typography.tiny3, styles.description]}>
-            프로필 사진 변경
-          </Text>
-        </Button>
-      </View>
-    );
-  }
-
-  private openImagePicker = () => {
+  const openImagePicker = useCallback(() => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 300,
+      width: 200,
+      height: 200,
       cropping: true,
-    }).then(image => {
+    }).then((image) => {
       const target = Array.isArray(image) ? image[0] : image;
-      uploadProfilePhotoAction(target.path);
+      updateProfilePhoto(target.path);
     });
-  }
-}
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Button onPress={openImagePicker} disabled={isLoading} style={styles.button}>
+        <ImageBackground source={profileImage} style={styles.photo}>
+          {isLoading && (
+            <View style={styles.loading}>
+              <ActivityIndicator color={palette.yellow.default} size="small" />
+            </View>
+          )}
+        </ImageBackground>
+        <Text style={[typography.tiny3, styles.description]}>
+          프로필 사진 변경
+        </Text>
+      </Button>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -73,6 +75,13 @@ const styles = StyleSheet.create({
     width: 72,
     height: 72,
     borderRadius: 36,
+    overflow: 'hidden',
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: palette.transparent.black[60],
   },
   description: {
     marginTop: 16,
