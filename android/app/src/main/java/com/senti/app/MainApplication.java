@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.taluttasgiran.actionsheet.RNActionsheetPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -42,6 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCViewPagerPackage(),
             new AsyncStoragePackage(),
             new RNActionsheetPackage(),
             new PickerPackage(),
