@@ -1,5 +1,9 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import {
+  View,
+  StatusBar,
+  StyleSheet,
+} from 'react-native';
 import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -7,8 +11,11 @@ import firebase, { RNFirebase } from 'react-native-firebase';
 import Sound from 'react-native-sound';
 import moment from 'moment';
 import 'moment/locale/ko';
+
 import { AuthModal } from 'containers';
-import { FETCH_PROFILE } from './graphqls';
+import { FETCH_PROFILE } from 'graphqls';
+import { palette } from 'constants/style';
+
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
 import configureClient from './apollo';
@@ -82,7 +89,7 @@ class App extends React.PureComponent<{}, State> {
     } = this.state;
 
     if (!client || !hasCacheLoaded || !hasAuthTriggered) {
-      return null;
+      return <View style={styles.splash} />;
     }
 
     return (
@@ -102,5 +109,12 @@ class App extends React.PureComponent<{}, State> {
     NavigationService.setTopLevelNavigator(ref);
   }
 }
+
+const styles = StyleSheet.create({
+  splash: {
+    flex: 1,
+    backgroundColor: palette.black.default,
+  },
+});
 
 export default App;
