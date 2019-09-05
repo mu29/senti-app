@@ -1,0 +1,4 @@
+CFBundleDisplayName = "Senti";
+CFBundleName="Senti";
+NSMicrophoneUsageDescription="Record your Story";
+NSPhotoLibraryUsageDescription="Upload new profile photo";

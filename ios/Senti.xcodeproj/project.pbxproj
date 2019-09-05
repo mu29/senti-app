@@ -24,6 +24,7 @@
 		222D895FFDE94929937459F3 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EEBB0AEB234603A058473D /* libRNGestureHandler.a */; };
 		3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28A995E4F756430E8F7C78AF /* Ionicons.ttf */; };
 		44B06AA06BC14F67AD74D80B /* libRNSoundRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */; };
+		5B1C9B6D23215A4500AD118C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1C9B6F23215A4500AD118C /* InfoPlist.strings */; };
 		5B468A1222991F1E00B7D83B /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B468A0722991F1100B7D83B /* libRNFetchBlob.a */; };
 		5B4D58802294E93D00853F25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */; };
 		5B52F92D22963C5F00E2B39A /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F92822963C4900E2B39A /* libRNGoogleSignin.a */; };
@@ -419,6 +420,8 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3866BD4E3D20487989BA6204 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
 		51EEBB0AEB234603A058473D /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
+		5B1C9B6E23215A4500AD118C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5B1C9B7023215A4800AD118C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5B4689DC22991F1100B7D83B /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B52F8F922963C4900E2B39A /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNGoogleSignin.xcodeproj; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; };
@@ -578,6 +581,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				5B4D587F2294E93D00853F25 /* GoogleService-Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				5B1C9B6F23215A4500AD118C /* InfoPlist.strings */,
 			);
 			name = Senti;
 			sourceTree = "<group>";
@@ -864,6 +868,7 @@
 				English,
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -1327,6 +1332,7 @@
 				5B4D58802294E93D00853F25 /* GoogleService-Info.plist in Resources */,
 				5BE7140F2320A28700E9DF50 /* LaunchScreen.storyboard in Resources */,
 				3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */,
+				5B1C9B6D23215A4500AD118C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1408,6 +1414,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5B1C9B6F23215A4500AD118C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B1C9B6E23215A4500AD118C /* en */,
+				5B1C9B7023215A4800AD118C /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
