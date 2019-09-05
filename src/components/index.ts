@@ -1,5 +1,6 @@
 export { default as Button } from './bootstrap/Button';
 export { default as Text } from './bootstrap/Text';
+export { default as ViewPager } from './bootstrap/ViewPager';
 
 export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as ErrorView } from './common/ErrorView';
@@ -16,11 +17,14 @@ export { default as ChattingItem } from './chatting/ChattingItem';
 export { default as ChattingList } from './chatting/ChattingList';
 export { default as ReplyModal } from './chatting/ReplyModal';
 
+export { default as CoinChargeView } from './coin/CoinChargeView';
+export { default as CoinInventory } from './coin/CoinInventory';
+export { default as CoinModal } from './coin/CoinModal';
+
 export { default as MessageItem } from './message/MessageItem';
 export { default as MessageList } from './message/MessageList';
 export { default as MessageReply } from './message/MessageReply';
 
-export { default as CoinInventory } from './profile/CoinInventory';
 export { default as EditProfileInfo } from './profile/EditProfileInfo';
 export { default as EditProfilePhoto } from './profile/EditProfilePhoto';
 export { default as ProfileSaveButton } from './profile/ProfileSaveButton';

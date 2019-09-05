@@ -74,6 +74,11 @@ export async function configureClient() {
         id: 'Cover',
         params: null,
         isVisible: false,
+      }, {
+        __typename: 'Modal',
+        id: 'Coin',
+        params: null,
+        isVisible: false,
       }],
       searchQuery: '',
       covers,

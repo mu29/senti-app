@@ -21,16 +21,25 @@ const HITSLOP = {
   right: 10,
 };
 
-const CoinInventory: React.FunctionComponent<{}> = () => (
+interface Props {
+  amount: number;
+  showModal: () => void;
+}
+
+const CoinInventory: React.FunctionComponent<Props> = ({
+  amount,
+  showModal,
+}) => (
   <View style={styles.container}>
     <Image source={COIN_ICON} style={styles.icon} />
     <View style={styles.divider} />
     <Text style={[typography.heading3, styles.amount]}>
-      16코인
+      {amount}코인
     </Text>
     <TouchableOpacity
       activeOpacity={0.8}
       hitSlop={HITSLOP}
+      onPress={showModal}
       style={styles.button}
     >
       <Text style={styles.shop}>
@@ -80,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CoinInventory;
+export default React.memo(CoinInventory);

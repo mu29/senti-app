@@ -7,11 +7,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {
   Text,
   Header,
-  CoinInventory,
   withSafeArea,
 } from 'components';
 import {
   UserInfo,
+  CoinInventory,
+  CoinModal,
   MyStoryGrid,
 } from 'containers';
 import {
@@ -36,6 +37,7 @@ const ProfileScreen = () => (
       </Text>
     </View>
     <MyStoryGrid />
+    <CoinModal />
   </React.Fragment>
 );
 
