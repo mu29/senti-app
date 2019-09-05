@@ -13,7 +13,10 @@ import {
   Text,
   Button,
 } from 'components';
-import { palette, typography } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
 
 const GENDERS = {
   male: '남성',

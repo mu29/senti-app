@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import firebase from 'react-native-firebase';
 import {
   withNavigation,
@@ -38,12 +38,13 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
 
   const signOut = useCallback(async () => {
     await firebase.auth().signOut();
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'MainStack' })],
+    client.resetStore().then(() => {
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'MainStack' })],
+      });
+      navigation.dispatch(resetAction);
     });
-    navigation.dispatch(resetAction);
-    client.resetStore();
   }, []);
 
   if (!profile || !profile.me || !data || !data.candidate) {
