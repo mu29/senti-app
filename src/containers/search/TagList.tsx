@@ -16,6 +16,7 @@ import {
   FETCH_SEARCH_QUERY,
   SEARCH_TAGS,
 } from 'graphqls';
+import { isFetching } from 'utils';
 
 const EMPTY_LIST: Tag[] = [];
 
@@ -26,13 +27,16 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
     data: {
       searchQuery,
     },
-  } = useQuery(FETCH_SEARCH_QUERY) as { data: { searchQuery: string } };
+  } = useQuery(FETCH_SEARCH_QUERY, {
+    fetchPolicy: 'network-only',
+  }) as { data: { searchQuery: string } };
 
   const [searchTags, searchResult] = useLazyQuery(SEARCH_TAGS, {
     notifyOnNetworkStatusChange: true,
   });
 
   const popularTagResult = useQuery(FETCH_POPULAR_TAGS, {
+    fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   });
 
@@ -61,14 +65,14 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (networkStatus === NetworkStatus.loading || !data || !tags) {
+  if (!tags) {
     return <LoadingView />;
   }
 
   return (
     <TagList
       items={isLoading || searchResult.loading ? EMPTY_LIST : tags}
-      isLoading={isLoading || searchResult.loading}
+      isLoading={isLoading || isFetching(networkStatus)}
     />
   );
 };

@@ -7,6 +7,7 @@ import {
   StoryList,
 } from 'components';
 import { FETCH_TAG_STORY_FEED } from 'graphqls';
+import { canFetchMore } from 'utils';
 
 const EMPTY_LIST: Story[] = [];
 
@@ -34,6 +35,7 @@ const Container: React.FunctionComponent<Props> = ({
     variables: {
       tagId,
     },
+    fetchPolicy: 'network-only',
     notifyOnNetworkStatusChange: true,
   });
 
@@ -59,7 +61,7 @@ const Container: React.FunctionComponent<Props> = ({
       isLoading={networkStatus === NetworkStatus.fetchMore}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
+      onFetchMore={() => canFetchMore(networkStatus, error) && fetchMore({
         variables: {
           tagId,
           cursor,
@@ -88,7 +90,7 @@ const Container: React.FunctionComponent<Props> = ({
             },
           });
         },
-      })}
+      }).catch(() => {})}
     />
   );
 };

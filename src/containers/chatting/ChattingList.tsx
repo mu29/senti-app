@@ -8,6 +8,10 @@ import {
   ChattingEmptyList,
 } from 'components';
 import { FETCH_CHATTING_FEED } from 'graphqls';
+import {
+  isFetching,
+  canFetchMore,
+} from 'utils';
 
 const EMPTY_LIST: Chatting[] = [];
 
@@ -26,6 +30,7 @@ const Container: React.FunctionComponent<{}> = () => {
     fetchMore,
     refetch,
   } = useQuery<ChattingFeedResult>(FETCH_CHATTING_FEED, {
+    fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   });
 
@@ -34,7 +39,7 @@ const Container: React.FunctionComponent<{}> = () => {
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (networkStatus === NetworkStatus.loading || !data || !data.chattingFeed) {
+  if (!data || !data.chattingFeed) {
     return <LoadingView />;
   }
 
@@ -52,10 +57,10 @@ const Container: React.FunctionComponent<{}> = () => {
   return (
     <ChattingList
       items={chattings || EMPTY_LIST}
-      isLoading={networkStatus === NetworkStatus.fetchMore}
+      isLoading={isFetching(networkStatus)}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
+      onFetchMore={() => canFetchMore(networkStatus, error) && fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
@@ -81,7 +86,7 @@ const Container: React.FunctionComponent<{}> = () => {
             },
           });
         },
-      })}
+      }).catch(() => {})}
     />
   );
 };

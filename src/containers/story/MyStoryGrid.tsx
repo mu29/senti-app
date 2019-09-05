@@ -7,6 +7,10 @@ import {
   StoryGrid,
 } from 'components';
 import { FETCH_MY_STORY_FEED } from 'graphqls';
+import {
+  isFetching,
+  canFetchMore,
+} from 'utils';
 
 const EMPTY_LIST: Story[] = [];
 
@@ -25,6 +29,7 @@ const Container: React.FunctionComponent<{}> = () => {
     fetchMore,
     refetch,
   } = useQuery<MyStoryFeedResult>(FETCH_MY_STORY_FEED, {
+    fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   });
 
@@ -33,7 +38,7 @@ const Container: React.FunctionComponent<{}> = () => {
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (networkStatus === NetworkStatus.loading || !data || !data.myStoryFeed) {
+  if (!data || !data.myStoryFeed) {
     return <LoadingView />;
   }
 
@@ -47,10 +52,10 @@ const Container: React.FunctionComponent<{}> = () => {
   return (
     <StoryGrid
       items={stories || EMPTY_LIST}
-      isLoading={networkStatus === NetworkStatus.fetchMore}
+      isLoading={isFetching(networkStatus)}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
+      onFetchMore={() => canFetchMore(networkStatus, error) && fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
@@ -76,7 +81,7 @@ const Container: React.FunctionComponent<{}> = () => {
             },
           });
         },
-      })}
+      }).catch(() => {})}
     />
   );
 };

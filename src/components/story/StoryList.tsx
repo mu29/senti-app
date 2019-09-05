@@ -66,6 +66,7 @@ class StoryList extends React.PureComponent<Props> {
           keyExtractor={this.keyExtractor}
           initialScrollIndex={initialIndex}
           onEndReached={onFetchMore}
+          onEndReachedThreshold={1}
           onRefresh={onRefresh}
           refreshing={isRefreshing}
           onScroll={Animated.event(

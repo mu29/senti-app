@@ -7,6 +7,10 @@ import {
   MessageList,
 } from 'components';
 import { FETCH_MESSAGE_FEED } from 'graphqls';
+import {
+  isFetching,
+  canFetchMore,
+} from 'utils';
 
 const EMPTY_LIST: Message[] = [];
 
@@ -34,6 +38,7 @@ const Container: React.FunctionComponent<Props> = ({
     variables: {
       chattingId,
     },
+    fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   });
 
@@ -42,7 +47,7 @@ const Container: React.FunctionComponent<Props> = ({
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (networkStatus === NetworkStatus.loading || !data || !data.messageFeed) {
+  if (!data || !data.messageFeed) {
     return <LoadingView />;
   }
 
@@ -57,10 +62,10 @@ const Container: React.FunctionComponent<Props> = ({
     <MessageList
       chattingId={chattingId}
       items={messages || EMPTY_LIST}
-      isLoading={networkStatus === NetworkStatus.fetchMore}
+      isLoading={isFetching(networkStatus)}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
+      onFetchMore={() => canFetchMore(networkStatus, error) && fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
@@ -86,7 +91,7 @@ const Container: React.FunctionComponent<Props> = ({
             },
           });
         },
-      })}
+      }).catch(() => {})}
     />
   );
 };

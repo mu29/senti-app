@@ -7,6 +7,7 @@ import {
   StoryList,
 } from 'components';
 import { FETCH_MY_STORY_FEED } from 'graphqls';
+import { canFetchMore } from 'utils';
 
 const EMPTY_LIST: Story[] = [];
 
@@ -54,7 +55,7 @@ const Container: React.FunctionComponent<Props> = (props) => {
       isLoading={networkStatus === NetworkStatus.fetchMore}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      onFetchMore={() => networkStatus !== NetworkStatus.fetchMore && fetchMore({
+      onFetchMore={() => canFetchMore(networkStatus, error) && fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
@@ -80,7 +81,7 @@ const Container: React.FunctionComponent<Props> = (props) => {
             },
           });
         },
-      })}
+      }).catch(() => {})}
       {...props}
     />
   );
