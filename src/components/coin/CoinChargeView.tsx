@@ -31,7 +31,7 @@ const CoinChargeView: React.FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: palette.white.default,
+    backgroundColor: palette.gray[100],
   },
   contentContainer: {
     paddingVertical: 6,

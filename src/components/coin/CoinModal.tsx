@@ -13,8 +13,8 @@ import {
 import { palette } from 'constants/style';
 
 const ROUTES = [
-  { key: 'charge', title: '충전' },
-  { key: 'history', title: '내역' },
+  { key: 'charge', title: '코인 충전' },
+  { key: 'history', title: '사용 내역' },
 ];
 
 const SAFE_AREA_INSET: {
@@ -37,14 +37,9 @@ const COINS = [{
   retailPrice: 8200,
 }, {
   id: '3',
-  amount: 100,
-  price: 30000,
-  retailPrice: 25900,
-}, {
-  id: '4',
-  amount: 500,
-  price: 150000,
-  retailPrice: 119000,
+  amount: 200,
+  price: 60000,
+  retailPrice: 51900,
 }];
 
 interface Props {
@@ -66,7 +61,7 @@ const CoinModal: React.FunctionComponent<Props> = ({
         onBackdropPress={hide}
         onBackButtonPress={hide}
         style={styles.modal}
-        backdropOpacity={0}
+        backdropOpacity={0.4}
         animationInTiming={400}
         animationOutTiming={600}
         hideModalContentWhileAnimating={true}
@@ -89,7 +84,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   container: {
-    height: 364,
+    height: 288,
     padding: 0,
     overflow: 'hidden',
     backgroundColor: palette.white.default,

@@ -54,15 +54,15 @@ const CoinItem: React.FunctionComponent<Props> = ({
 const styles = StyleSheet.create({
   container: {
     marginVertical: 6,
-    marginHorizontal: 12,
+    marginHorizontal: 10,
     padding: 1,
-    backgroundColor: palette.gray[10],
+    backgroundColor: palette.gray[80],
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 12,
-    backgroundColor: palette.white.default,
+    backgroundColor: palette.gray[90],
   },
   icon: {
     width: 24,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   discountPercent: {
-    marginRight: 2,
+    marginRight: 4,
     fontSize: 12,
     fontWeight: 'bold',
     color: palette.yellow.default,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   retailPrice: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: palette.black.default,
+    color: palette.gray[10],
   },
 });
 
