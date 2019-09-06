@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     borderBottomColor: palette.gray[90],
   },
   title: {
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
   form: {
     flexDirection: 'row',

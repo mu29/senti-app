@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     marginVertical: 2,
     color: palette.gray[30],
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
   controller: {
     alignSelf: 'stretch',

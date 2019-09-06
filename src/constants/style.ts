@@ -50,22 +50,22 @@ export const typography: {
 } = {
   heading1: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: palette.gray[10],
   },
   heading2: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: palette.gray[20],
   },
   heading3: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: palette.gray[20],
   },
   heading4: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: palette.gray[20],
   },
   body1: {
