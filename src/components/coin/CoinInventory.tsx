@@ -2,11 +2,13 @@ import React from 'react';
 import {
   View,
   Image,
-  TouchableOpacity,
   StyleSheet,
   Platform,
 } from 'react-native';
-import { Text } from 'components';
+import {
+  Text,
+  Button,
+} from 'components';
 import {
   palette,
   typography,
@@ -36,8 +38,7 @@ const CoinInventory: React.FunctionComponent<Props> = ({
     <Text style={[typography.heading3, styles.amount]}>
       {amount}코인
     </Text>
-    <TouchableOpacity
-      activeOpacity={0.8}
+    <Button
       hitSlop={HITSLOP}
       onPress={showModal}
       style={styles.button}
@@ -45,7 +46,7 @@ const CoinInventory: React.FunctionComponent<Props> = ({
       <Text style={styles.shop}>
         충전
       </Text>
-    </TouchableOpacity>
+    </Button>
   </View>
 );
 
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
       ios: 2,
       android: 0,
     }),
+    marginRight: 'auto',
   },
   divider: {
     width: 1,
@@ -77,7 +79,6 @@ const styles = StyleSheet.create({
     backgroundColor: palette.gray[90],
   },
   button: {
-    marginLeft: 'auto',
     paddingVertical: 6,
     paddingHorizontal: 8,
     borderRadius: 2,
