@@ -1,6 +1,7 @@
 export * from './Audio';
 export * from './Auth';
 export * from './Chatting';
+export * from './Coin';
 export * from './Extra';
 export * from './Message';
 export * from './Modal';

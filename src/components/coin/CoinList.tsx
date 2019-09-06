@@ -1,5 +1,8 @@
 import React, { useCallback } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 import { CoinItem } from 'components';
 import { palette } from 'constants/style';
 
@@ -7,7 +10,7 @@ interface Props {
   items: Coin[];
 }
 
-const CoinChargeView: React.FunctionComponent<Props> = ({
+const CoinList: React.FunctionComponent<Props> = ({
   items,
 }) => {
   const renderItem = useCallback(({ item }: { item: Coin }) => (
@@ -38,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(CoinChargeView);
+export default React.memo(CoinList);
