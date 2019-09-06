@@ -42,15 +42,14 @@ const TabBar: React.FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   focused: {
-    color: palette.gray[10],
+    color: palette.gray[90],
     fontWeight: 'bold',
   },
   container: {
     height: 48,
-    backgroundColor: palette.gray[100],
+    backgroundColor: palette.white.default,
   },
   indicator: {
-    // height: 1,
     backgroundColor: palette.yellow.default,
   },
 });

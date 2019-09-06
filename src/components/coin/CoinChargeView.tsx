@@ -1,29 +1,41 @@
 import React, { useCallback } from 'react';
-import { FlatList } from 'react-native';
-import { Text } from 'components';
+import { FlatList, StyleSheet } from 'react-native';
+import { CoinItem } from 'components';
+import { palette } from 'constants/style';
 
 interface Props {
-  items: string[];
+  items: Coin[];
 }
 
 const CoinChargeView: React.FunctionComponent<Props> = ({
   items,
 }) => {
-  const renderItem = useCallback(({ item }) => (
-    <Text>
-      {item}
-    </Text>
+  const renderItem = useCallback(({ item }: { item: Coin }) => (
+    <CoinItem item={item} purchase={() => {}} />
   ), []);
 
-  const keyExtractor = (item: string) => `coin-${item}`;
+  const keyExtractor = (item: Coin) => `coin-${item.id}`;
 
   return (
     <FlatList
       data={items}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: palette.white.default,
+  },
+  contentContainer: {
+    paddingVertical: 6,
+  },
+});
 
 export default React.memo(CoinChargeView);

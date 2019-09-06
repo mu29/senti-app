@@ -1,10 +1,51 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import {
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
+} from 'react-navigation';
 import Modal from 'react-native-modal';
-import { LoadingLayer } from 'components';
+import {
+  TabView,
+  LoadingLayer,
+  CoinChargeView,
+} from 'components';
 import { palette } from 'constants/style';
-import CoinChargeView from './CoinChargeView';
+
+const ROUTES = [
+  { key: 'charge', title: '충전' },
+  { key: 'history', title: '내역' },
+];
+
+const SAFE_AREA_INSET: {
+  top: SafeAreaViewForceInsetValue;
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  top: 'never',
+  bottom: 'always',
+};
+
+const COINS = [{
+  id: '1',
+  amount: 10,
+  price: 3000,
+  retailPrice: 2900,
+}, {
+  id: '2',
+  amount: 30,
+  price: 9000,
+  retailPrice: 8200,
+}, {
+  id: '3',
+  amount: 100,
+  price: 30000,
+  retailPrice: 25900,
+}, {
+  id: '4',
+  amount: 500,
+  price: 150000,
+  retailPrice: 119000,
+}];
 
 interface Props {
   isVisible: boolean;
@@ -25,14 +66,17 @@ const CoinModal: React.FunctionComponent<Props> = ({
         onBackdropPress={hide}
         onBackButtonPress={hide}
         style={styles.modal}
-        backdropOpacity={0.4}
+        backdropOpacity={0}
         animationInTiming={400}
         animationOutTiming={600}
         hideModalContentWhileAnimating={true}
         useNativeDriver
       >
-        <SafeAreaView style={styles.container} pointerEvents="auto">
-          <CoinChargeView items={['30', '60', '100']} />
+        <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
+          <TabView routes={ROUTES}>
+            <CoinChargeView items={COINS} />
+            <CoinChargeView items={COINS} />
+          </TabView>
         </SafeAreaView>
       </Modal>
     </React.Fragment>
@@ -45,8 +89,9 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   container: {
-    padding: 24,
-    paddingTop: 0,
+    height: 364,
+    padding: 0,
+    overflow: 'hidden',
     backgroundColor: palette.white.default,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,

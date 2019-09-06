@@ -19,6 +19,13 @@ declare global {
     gender?: 'male' | 'female' | null;
   }
 
+  interface Coin {
+    id: string;
+    amount: number;
+    price: number;
+    retailPrice: number;
+  }
+
   interface Tag {
     id: string;
     name: string;
