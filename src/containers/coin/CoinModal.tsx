@@ -11,11 +11,11 @@ import {
 
 const Container: React.FunctionComponent<{}> = () => {
   const { data } = useQuery(FETCH_MODAL, {
-    variables: { id: 'Reply' },
+    variables: { id: 'Coin' },
   });
 
   const [hideModal] = useMutation(HIDE_MODAL, {
-    variables: { id: 'Reply' },
+    variables: { id: 'Coin' },
   });
 
   if (!data || !data.modal) {
