@@ -8,8 +8,11 @@ import Modal from 'react-native-modal';
 import {
   TabView,
   LoadingLayer,
-  CoinChargeView,
 } from 'components';
+import {
+  CoinList,
+  CoinHistoryList,
+} from 'containers';
 import { palette } from 'constants/style';
 
 const ROUTES = [
@@ -24,23 +27,6 @@ const SAFE_AREA_INSET: {
   top: 'never',
   bottom: 'always',
 };
-
-const COINS = [{
-  id: '1',
-  amount: 10,
-  price: 3000,
-  retailPrice: 2900,
-}, {
-  id: '2',
-  amount: 30,
-  price: 9000,
-  retailPrice: 8200,
-}, {
-  id: '3',
-  amount: 200,
-  price: 60000,
-  retailPrice: 51900,
-}];
 
 interface Props {
   isVisible: boolean;
@@ -69,8 +55,8 @@ const CoinModal: React.FunctionComponent<Props> = ({
       >
         <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
           <TabView routes={ROUTES}>
-            <CoinChargeView items={COINS} />
-            <CoinChargeView items={COINS} />
+            <CoinList />
+            <CoinHistoryList />
           </TabView>
         </SafeAreaView>
       </Modal>

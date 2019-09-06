@@ -26,6 +26,13 @@ declare global {
     retailPrice: number;
   }
 
+  interface CoinHistory {
+    id: string;
+    description: string;
+    amount: number;
+    createdAt: number;
+  }
+
   interface Tag {
     id: string;
     name: string;
