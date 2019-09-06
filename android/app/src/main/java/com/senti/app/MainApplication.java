@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
+import net.yeoubi.iap.RNInAppPurchasePackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -44,6 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNInAppPurchasePackage(),
             new ReanimatedPackage(),
             new RNCViewPagerPackage(),
             new AsyncStoragePackage(),

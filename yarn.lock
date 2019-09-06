@@ -5699,6 +5699,10 @@ react-native-image-crop-picker@^0.24.1:
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.24.1.tgz#4408e2bb20e3c082c0191e0acf0c8c7a1e9804ea"
   integrity sha512-M+6iFhDXPDtf++X+fvb5mKkLw2978SbyPVVQHigktgKONxtTZtBiOOtYfBUIkPaSetP20P9q4iwOu+iTaZ/R+w==
 
+"react-native-in-app-purchase@https://github.com/mu29/react-native-in-app-purchase":
+  version "1.0.0"
+  resolved "https://github.com/mu29/react-native-in-app-purchase#990c5a84b251d4586726b7f7fe9fb55dd1926fa8"
+
 react-native-modal@^11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.0.1.tgz#0c7e546557938981f188c56b80474ddfe7c9835c"
