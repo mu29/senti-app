@@ -7,6 +7,7 @@ export const FETCH_COIN_LIST = gql`
       amount
       price
       retailPrice
+      currency
     }
   }
 `;

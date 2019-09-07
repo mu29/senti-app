@@ -24,6 +24,7 @@ declare global {
     amount: number;
     price: number;
     retailPrice: number;
+    currency: string;
   }
 
   interface CoinHistory {

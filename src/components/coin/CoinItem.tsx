@@ -23,6 +23,7 @@ const CoinItem: React.FunctionComponent<Props> = ({
     amount,
     price,
     retailPrice,
+    currency,
   },
   purchase,
 }) => {
@@ -43,7 +44,7 @@ const CoinItem: React.FunctionComponent<Props> = ({
             </Text>
           </View>
           <Text style={styles.retailPrice}>
-            {retailPrice.toLocaleString()}원
+            {currency} {retailPrice.toLocaleString()}
           </Text>
         </View>
       </Button>
