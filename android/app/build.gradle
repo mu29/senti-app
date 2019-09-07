@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-splash-screen')
     implementation project(':react-native-in-app-purchase')
     implementation project(':react-native-reanimated')
     implementation project(':@react-native-community_viewpager')

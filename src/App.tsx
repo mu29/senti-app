@@ -1,14 +1,11 @@
 import React from 'react';
-import {
-  View,
-  StatusBar,
-  StyleSheet,
-} from 'react-native';
+import { StatusBar } from 'react-native';
 import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloProvider } from '@apollo/react-hooks';
 import firebase, { RNFirebase } from 'react-native-firebase';
 import Sound from 'react-native-sound';
+import SplashScreen from 'react-native-splash-screen';
 import moment from 'moment';
 import 'moment/locale/ko';
 
@@ -29,16 +26,12 @@ moment.locale('ko');
 interface State {
   user: RNFirebase.User | null;
   client?: ApolloClient<NormalizedCacheObject>;
-  hasCacheLoaded: boolean;
-  hasAuthTriggered: boolean;
 }
 
 class App extends React.PureComponent<{}, State> {
   public state: State = {
     user: null,
     client: undefined,
-    hasCacheLoaded: false,
-    hasAuthTriggered: false,
   };
 
   private isReady = false;
@@ -58,10 +51,7 @@ class App extends React.PureComponent<{}, State> {
 
   public async componentDidMount() {
     this.isReady = true;
-    this.setState({
-      client: await configureClient(),
-      hasCacheLoaded: true,
-    });
+    this.setState({ client: await configureClient() });
   }
 
   public componentDidUpdate() {
@@ -71,7 +61,7 @@ class App extends React.PureComponent<{}, State> {
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
       })
-      .finally(() => this.setState({ hasAuthTriggered: true }));
+      .finally(() => SplashScreen.hide());
     }
   }
 
@@ -82,14 +72,10 @@ class App extends React.PureComponent<{}, State> {
   }
 
   public render() {
-    const {
-      client,
-      hasCacheLoaded,
-      hasAuthTriggered,
-    } = this.state;
+    const { client } = this.state;
 
-    if (!client || !hasCacheLoaded || !hasAuthTriggered) {
-      return <View style={styles.splash} />;
+    if (!client) {
+      return null;
     }
 
     return (
@@ -109,12 +95,5 @@ class App extends React.PureComponent<{}, State> {
     NavigationService.setTopLevelNavigator(ref);
   }
 }
-
-const styles = StyleSheet.create({
-  splash: {
-    flex: 1,
-    backgroundColor: palette.black.default,
-  },
-});
 
 export default App;

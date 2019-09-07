@@ -17,7 +17,20 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_splash" translatesAutoresizingMaskIntoConstraints="NO" id="NmB-Ow-kdV">
+                                <rect key="frame" x="171" y="412" width="72" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="Wab-1T-atm"/>
+                                    <constraint firstAttribute="height" constant="72" id="pal-9d-kNh"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="NmB-Ow-kdV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4EX-g9-Nuf"/>
+                            <constraint firstItem="NmB-Ow-kdV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="JYY-d6-Gh7"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
                 </viewController>
@@ -26,4 +39,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_splash" width="72" height="72"/>
+    </resources>
 </document>
