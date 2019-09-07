@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     height: 288,
     padding: 0,
     overflow: 'hidden',
-    backgroundColor: palette.white.default,
+    backgroundColor: palette.gray[100],
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
