@@ -24,9 +24,8 @@ type CoinListResult = {
   coins: Coin[];
 };
 
-function useCoin() {
+function useCoin(setIsLoading: (isLoading: boolean) => void) {
   const [coins, setCoins] = useState<Coin[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const {
     data,
@@ -102,7 +101,6 @@ function useCoin() {
     networkStatus,
     refetch,
     purchase,
-    isLoading,
   };
 }
 

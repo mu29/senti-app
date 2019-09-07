@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Image,
@@ -15,11 +15,12 @@ const COIN_ICON = { uri: 'ic_coin' };
 
 interface Props {
   item: Coin;
-  purchase: () => void;
+  purchase: (productId: string) => void;
 }
 
 const CoinItem: React.FunctionComponent<Props> = ({
   item: {
+    id,
     amount,
     price,
     retailPrice,
@@ -27,9 +28,13 @@ const CoinItem: React.FunctionComponent<Props> = ({
   },
   purchase,
 }) => {
+  const onPress = useCallback(() => {
+    purchase(id);
+  }, [id]);
+
   return (
     <View style={styles.container}>
-      <Button onPress={purchase} style={styles.button}>
+      <Button onPress={onPress} style={styles.button}>
         <Image source={COIN_ICON} style={styles.icon} />
         <Text style={styles.amount}>
           {amount}
@@ -106,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CoinItem;
+export default React.memo(CoinItem);

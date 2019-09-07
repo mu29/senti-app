@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   SafeAreaView,
@@ -30,15 +30,15 @@ const SAFE_AREA_INSET: {
 
 interface Props {
   isVisible: boolean;
-  isLoading: boolean;
   hide: () => void;
 }
 
 const CoinModal: React.FunctionComponent<Props> = ({
   isVisible,
-  isLoading,
   hide,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <React.Fragment>
       {isLoading && <LoadingLayer />}
@@ -55,7 +55,7 @@ const CoinModal: React.FunctionComponent<Props> = ({
       >
         <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
           <TabView routes={ROUTES}>
-            <CoinList />
+            <CoinList setIsLoading={setIsLoading} />
             <CoinHistoryList />
           </TabView>
         </SafeAreaView>

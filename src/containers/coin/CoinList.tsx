@@ -7,13 +7,20 @@ import {
 } from 'components';
 import { useCoin } from 'containers';
 
-const Container: React.FunctionComponent<{}> = () => {
+interface Props {
+  setIsLoading: (isLoading: boolean) => void;
+}
+
+const Container: React.FunctionComponent<Props> = ({
+  setIsLoading,
+}) => {
   const {
     coins,
     error,
     networkStatus,
     refetch,
-  } = useCoin();
+    purchase,
+  } = useCoin(setIsLoading);
 
   if (error || networkStatus === NetworkStatus.error) {
     const reload = () => refetch().catch(() => {});
@@ -25,7 +32,7 @@ const Container: React.FunctionComponent<{}> = () => {
   }
 
   return (
-    <CoinList items={coins} />
+    <CoinList items={coins} purchase={purchase} />
   );
 };
 

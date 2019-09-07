@@ -8,7 +8,6 @@ export { default as BottomTabBar } from './common/BottomTabBar';
 
 export { default as CoinInventory } from './coin/CoinInventory';
 export { default as CoinHistoryList } from './coin/CoinHistoryList';
-export { default as CoinItem } from './coin/CoinItem';
 export { default as CoinList } from './coin/CoinList';
 export { default as CoinModal } from './coin/CoinModal';
 
