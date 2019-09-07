@@ -27,7 +27,7 @@ declare global {
     currency: string;
   }
 
-  interface CoinHistory {
+  interface Transaction {
     id: string;
     description: string;
     amount: number;
@@ -51,7 +51,8 @@ declare global {
     gender?: 'male' | 'female';
     tags: Array<Partial<Tag>>;
     createdAt: number;
-    useFreeTicketAt: number;
+    coin: number;
+    useFreeCoinAt: number;
   }
 
   interface Audio {

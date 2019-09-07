@@ -1,8 +1,5 @@
 import React, { useCallback } from 'react';
-import {
-  useQuery,
-  useMutation,
-} from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { MessageReply } from 'components';
 import {
   CREATE_MESSAGE,

@@ -18,7 +18,8 @@ export const FETCH_PROFILE = gql`
         id
         name
       }
-      useFreeTicketAt
+      coin
+      useFreeCoinAt
     }
   }
 `;

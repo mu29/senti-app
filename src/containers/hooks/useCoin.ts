@@ -18,10 +18,19 @@ import {
 import {
   FETCH_COIN_LIST,
   VERIFY_COIN_RECEIPT,
+  FETCH_PROFILE,
+  FETCH_TRANSACTION_FEED,
 } from 'graphqls';
 
 type CoinListResult = {
   coins: Coin[];
+};
+
+type TransactionFeedResult = {
+  transactionFeed: {
+    transactions: Transaction[];
+    cursor: string;
+  };
 };
 
 function useCoin(setIsLoading: (isLoading: boolean) => void) {
@@ -37,7 +46,38 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     notifyOnNetworkStatusChange: true,
   });
 
-  const [verifyCoinReceipt] = useMutation(VERIFY_COIN_RECEIPT);
+  const [verifyCoinReceipt] = useMutation(VERIFY_COIN_RECEIPT, {
+    update: (cache, { data: { verifyCoinReceipt: transaction } }) => {
+      const savedFeed = cache.readQuery<TransactionFeedResult>({
+        query: FETCH_TRANSACTION_FEED,
+      });
+
+      const savedProfile = cache.readQuery<{ me: Profile }>({
+        query: FETCH_PROFILE,
+      });
+
+      if (!savedFeed || !savedProfile) {
+        return;
+      }
+
+      savedFeed.transactionFeed.transactions.unshift(transaction);
+
+      cache.writeQuery({
+        query: FETCH_TRANSACTION_FEED,
+        data: savedFeed,
+      });
+
+      cache.writeQuery({
+        query: FETCH_PROFILE,
+        data: {
+          me: {
+            ...savedProfile.me,
+            coin: (savedProfile.me.coin || 0) + transaction.amount,
+          },
+        },
+      });
+    },
+  });
 
   const onFetchProducts = useCallback((products: Product[]) => {
     if (!data || !data.coins) {
