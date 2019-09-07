@@ -66,12 +66,6 @@ const StoryItem: React.FunctionComponent<Props> = ({
     audio.isPlaying ? pause() : play();
   }, [item, audio.isPlaying]);
 
-  const renderTag = useCallback((tag: string, i: number) => (
-    <Text key={`${tag}-${i}`} style={styles.tag}>
-      {tag}
-    </Text>
-  ), []);
-
   const pauseAnimation = useAnimation({
     type: 'timing',
     toValue: Number(!audio.isPlaying),
@@ -97,6 +91,16 @@ const StoryItem: React.FunctionComponent<Props> = ({
 
   const iconStyle = useMemo(() => ({ opacity: pauseAnimation }), [pauseAnimation]);
 
+  const Tags = useMemo(() => {
+    return item.tags
+      .map(tag => `#${tag}`)
+      .map((tag: string, i: number) => (
+        <Text key={`${tag}-${i}`} style={styles.tag}>
+          {tag}
+        </Text>
+      ));
+  }, [item]);
+
   return (
     <View style={styles.container}>
       <Animated.View style={parallexStyle}>
@@ -117,7 +121,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
               {item.message.replace(/#[^ ]+/g, '').trim()}
             </Text>
             <View style={styles.tags}>
-              {item.tags.map(tag => `#${tag}`).map(renderTag)}
+              {Tags}
             </View>
           </TouchableOpacity>
           <View style={[styles.controller, hasBottom && styles.bottomSpace]}>
