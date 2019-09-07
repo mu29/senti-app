@@ -3,7 +3,7 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import { CoinItem } from 'components';
+import { CoinItem } from 'containers';
 import { palette } from 'constants/style';
 
 interface Props {
@@ -14,7 +14,7 @@ const CoinList: React.FunctionComponent<Props> = ({
   items,
 }) => {
   const renderItem = useCallback(({ item }: { item: Coin }) => (
-    <CoinItem item={item} purchase={() => {}} />
+    <CoinItem item={item} />
   ), []);
 
   const keyExtractor = (item: Coin) => `coin-${item.id}`;

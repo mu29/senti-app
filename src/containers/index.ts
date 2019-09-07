@@ -1,5 +1,6 @@
 export { default as useAudio } from './hooks/useAudio';
 export { default as useAuth } from './hooks/useAuth';
+export { default as useCoin } from './hooks/useCoin';
 export { default as useRecord } from './hooks/useRecord';
 
 export { default as AuthModal } from './common/AuthModal';
@@ -7,6 +8,7 @@ export { default as BottomTabBar } from './common/BottomTabBar';
 
 export { default as CoinInventory } from './coin/CoinInventory';
 export { default as CoinHistoryList } from './coin/CoinHistoryList';
+export { default as CoinItem } from './coin/CoinItem';
 export { default as CoinList } from './coin/CoinList';
 export { default as CoinModal } from './coin/CoinModal';
 

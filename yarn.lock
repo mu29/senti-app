@@ -5701,7 +5701,7 @@ react-native-image-crop-picker@^0.24.1:
 
 "react-native-in-app-purchase@https://github.com/mu29/react-native-in-app-purchase":
   version "1.0.0"
-  resolved "https://github.com/mu29/react-native-in-app-purchase#990c5a84b251d4586726b7f7fe9fb55dd1926fa8"
+  resolved "https://github.com/mu29/react-native-in-app-purchase#ba29884d039e1c52e7a66b62a5600a243b676e7e"
 
 react-native-modal@^11.0.1:
   version "11.0.1"
