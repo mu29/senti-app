@@ -8,10 +8,10 @@ import { Text } from 'components';
 import { palette } from 'constants/style';
 
 interface Props {
-  item: CoinHistory;
+  item: Transaction;
 }
 
-const CoinHistoryItem: React.FunctionComponent<Props> = ({
+const TransactionItem: React.FunctionComponent<Props> = ({
   item: {
     amount,
     description,
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(CoinHistoryItem);
+export default React.memo(TransactionItem);

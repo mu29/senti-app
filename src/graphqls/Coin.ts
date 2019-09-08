@@ -14,13 +14,15 @@ export const FETCH_COIN_LIST = gql`
 
 export const FETCH_TRANSACTION_FEED = gql`
   query transactionFeed($cursor: ID) {
-    transactions {
-      id
-      description
-      amount
-      createdAt
+    transactionFeed(cursor: $cursor) {
+      transactions {
+        id
+        description
+        amount
+        createdAt
+      }
+      cursor
     }
-    cursor
   }
 `;
 

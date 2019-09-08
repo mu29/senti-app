@@ -11,7 +11,7 @@ import {
 } from 'components';
 import {
   CoinList,
-  CoinHistoryList,
+  TransactionList,
 } from 'containers';
 import { palette } from 'constants/style';
 
@@ -56,7 +56,7 @@ const CoinModal: React.FunctionComponent<Props> = ({
         <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
           <TabView routes={ROUTES}>
             <CoinList setIsLoading={setIsLoading} />
-            <CoinHistoryList />
+            <TransactionList />
           </TabView>
         </SafeAreaView>
       </Modal>
