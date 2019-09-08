@@ -25,7 +25,6 @@ const Container: React.FunctionComponent<{}> = () => {
   return (
     <CoinModal
       isVisible={data.modal.isVisible}
-      isLoading={false}
       hide={hideModal}
     />
   );

@@ -91,19 +91,23 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
   const onPurchase = useCallback((result: Purchase) => {
     verifyCoinReceipt({
       variables: {
-        platform: Platform.select({
-          ios: 'apple',
-          android: 'google',
-        }),
-        productId: result.productId,
-        receipt: Platform.select({
-          ios: result.receipt,
-          android: result.purchaseToken,
-        }),
+        input: {
+          platform: Platform.select({
+            ios: 'apple',
+            android: 'google',
+          }),
+          productId: result.productId,
+          receipt: Platform.select({
+            ios: result.receipt,
+            android: result.purchaseToken,
+          }),
+        },
       },
     })
     .then(() => InAppPurchase.finalize(result))
-    .then(() => Alert.alert('알림', '코인 구매를 완료했습니다'));
+    .then(() => Alert.alert('알림', '코인 구매를 완료했습니다'))
+    .catch(e => Alert.alert('오류', e.message))
+    .finally(() => setIsLoading(false));
   }, []);
 
   const purchase = useCallback((productId: string) => {
