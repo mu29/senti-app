@@ -8,7 +8,7 @@ import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import {
   Text,
   Button,
@@ -64,7 +64,7 @@ const ChattingItem: React.FunctionComponent<Props> = ({
               이야기 {withComma(messageCount)}개
             </Text>
             <Text style={styles.date}>
-              {moment(updatedAt).fromNow()}
+              {dayjs(updatedAt).fromNow()}
             </Text>
           </View>
         </View>

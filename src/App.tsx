@@ -6,11 +6,14 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import firebase, { RNFirebase } from 'react-native-firebase';
 import Sound from 'react-native-sound';
 import SplashScreen from 'react-native-splash-screen';
-import moment from 'moment';
-import 'moment/locale/ko';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/en';
+import 'dayjs/locale/ko';
 
 import { AuthModal } from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
+import { getLanguage } from 'utils';
 
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
@@ -20,7 +23,8 @@ import configureClient from './apollo';
 Sound.enableInSilenceMode(true);
 Sound.setActive(true);
 
-moment.locale('ko');
+dayjs.locale(getLanguage());
+dayjs.extend(relativeTime);
 
 interface State {
   user: RNFirebase.User | null;

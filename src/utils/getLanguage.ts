@@ -10,5 +10,5 @@ export default () => {
   } else {
     locale = NativeModules.I18nManager.localeIdentifier;
   }
-  return locale.replace(/[_-].*/, '');
+  return locale.replace(/[_-].*/, '') || 'en';
 };

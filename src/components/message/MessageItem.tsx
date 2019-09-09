@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import {
   Text,
   Button,
@@ -94,7 +94,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
             </Text>
           </View>
           <Text style={typography.tiny4}>
-            {moment(createdAt).fromNow()}
+            {dayjs(createdAt).fromNow()}
           </Text>
         </View>
       </Button>

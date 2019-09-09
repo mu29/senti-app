@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Text } from 'components';
 import { palette } from 'constants/style';
 
@@ -24,7 +24,7 @@ const TransactionItem: React.FunctionComponent<Props> = ({
         {description}
       </Text>
       <Text style={styles.date}>
-        {moment(createdAt).format('YYYY년 M월 D일 HH시')}
+        {dayjs(createdAt).format('YYYY년 M월 D일 HH시')}
       </Text>
     </View>
     <Text style={[styles.amount, amount < 0 && styles.minus]}>

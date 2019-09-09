@@ -33,6 +33,7 @@ export const FETCH_MAIN_STORY_FEED = gql`
           url
           duration
         }
+        createdAt
       }
       cursor
     }

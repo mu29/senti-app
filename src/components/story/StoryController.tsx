@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Text } from 'components';
 import {
   palette,
@@ -66,7 +66,7 @@ const StoryController: React.FunctionComponent<Props> = ({
           {name}
         </Text>
         <Text style={styles.date}>
-          {moment(createdAt).fromNow()}
+          {dayjs(createdAt).fromNow()}
         </Text>
       </View>
       <TouchableOpacity
