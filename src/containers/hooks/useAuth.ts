@@ -30,7 +30,7 @@ async function initGoogleSignin() {
       showPlayServicesUpdateDialog: true,
     });
 
-    await GoogleSignin.configure({
+    GoogleSignin.configure({
       iosClientId: FIREBASE_IOS_CLIENT_ID,
       webClientId: FIREBASE_WEB_CLIENT_ID,
       offlineAccess: true,
@@ -50,7 +50,7 @@ function useAuth(onSuccess?: () => void) {
 
   const client = useApolloClient();
 
-  const resultHandler = useCallback((result) => {
+  const resultHandler = useCallback(async (result) => {
     if (!result) {
       throw new Error('');
     }
@@ -59,7 +59,7 @@ function useAuth(onSuccess?: () => void) {
       throw new Error(result.errors[0]);
     }
 
-    client.query({
+    await client.query({
       query: FETCH_PROFILE,
       fetchPolicy: 'network-only',
     });
