@@ -1,6 +1,8 @@
 import {
+  useRef,
   useState,
   useCallback,
+  useEffect,
 } from 'react';
 import {
   Alert,
@@ -9,6 +11,7 @@ import {
 import { RecordService } from 'services';
 
 function useRecord() {
+  const timer = useRef<NodeJS.Timeout>();
   const [data, setData] = useState<{ path: string; duration: number }>();
   const [isRecorded, setIsRecorded] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
@@ -53,6 +56,20 @@ function useRecord() {
     RecordService.release();
     setIsRecorded(false);
   }, []);
+
+  useEffect(() => {
+    if (isStarted && !isRecorded) {
+      timer.current = setTimeout(() => {
+        stop();
+      }, 60 * 1000);
+    }
+
+    return () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+    };
+  }, [isStarted, isRecorded]);
 
   return {
     data,
