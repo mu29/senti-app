@@ -46,6 +46,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
         backgroundColor={palette.brand.facebook}
         onPress={signInWithFacebook}
         isLoading={provider === 'facebook'}
+        disabled={!!provider}
       >
         페이스북으로 시작하기
       </SocialProviderButton>
@@ -54,6 +55,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
         backgroundColor={palette.brand.google}
         onPress={signInWithGoogle}
         isLoading={provider === 'google'}
+        disabled={!!provider}
       >
         구글 계정으로 시작하기
       </SocialProviderButton>
