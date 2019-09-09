@@ -41,7 +41,6 @@ const CoinModal: React.FunctionComponent<Props> = ({
 
   return (
     <React.Fragment>
-      {isLoading && <LoadingLayer />}
       <Modal
         isVisible={isVisible}
         onBackdropPress={hide}
@@ -59,6 +58,7 @@ const CoinModal: React.FunctionComponent<Props> = ({
             <TransactionList />
           </TabView>
         </SafeAreaView>
+        {isLoading && <LoadingLayer />}
       </Modal>
     </React.Fragment>
   );

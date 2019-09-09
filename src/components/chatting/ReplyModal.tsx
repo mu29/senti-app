@@ -27,7 +27,6 @@ const ReplyModal: React.FunctionComponent<Props> = ({
 
   return (
     <React.Fragment>
-      {isLoading && <LoadingLayer />}
       <Modal
         isVisible={isVisible}
         onBackdropPress={hide}
@@ -39,13 +38,14 @@ const ReplyModal: React.FunctionComponent<Props> = ({
         hideModalContentWhileAnimating={true}
         useNativeDriver
       >
-        <SafeAreaView style={styles.container} pointerEvents="auto">
+        <SafeAreaView style={styles.container}>
           <RecordController
             setIsLoading={setIsLoading}
             onCreate={create}
             onFinish={hide}
           />
         </SafeAreaView>
+        {isLoading && <LoadingLayer />}
       </Modal>
     </React.Fragment>
   );
