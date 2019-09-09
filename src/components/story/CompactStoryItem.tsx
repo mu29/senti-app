@@ -1,7 +1,4 @@
-import React, {
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Image,
@@ -12,17 +9,12 @@ import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
-import imageCacheHoc from 'react-native-image-cache-hoc';
 import {
   Text,
   Button,
+  CachableImage,
 } from 'components';
 import { palette } from 'constants/style';
-
-const CachableImage = imageCacheHoc(Image, {
-  fileDirName: 'covers',
-  cachePruneTriggerLimit: 1024 * 1024 * 50,
-});
 
 interface Props extends NavigationInjectedProps {
   item: Story;
@@ -37,15 +29,13 @@ const CompactStoryItem: React.FunctionComponent<Props> = ({
   index,
   navigation,
 }) => {
-  const coverImage = useMemo(() => ({ uri: cover }), [cover]);
-
   const openMyStoryScreen = useCallback(() => {
     navigation.navigate('MyStory', { index });
   }, []);
 
   return (
     <Button onPress={openMyStoryScreen}>
-      <CachableImage source={coverImage} style={styles.image} permanent />
+      <CachableImage prefix="covers" source={cover} style={styles.image} />
       <View style={styles.filter}>
         <Text style={styles.message}>
           {message.trim()}

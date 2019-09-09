@@ -1,19 +1,13 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
   View,
-  Image,
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import imageCacheHoc from 'react-native-image-cache-hoc';
+import { CachableImage } from 'components';
 import { palette } from 'constants/style';
 
 const { width, height } = Dimensions.get('window');
-
-const CachableImage = imageCacheHoc(Image, {
-  fileDirName: 'covers',
-  cachePruneTriggerLimit: 1024 * 1024 * 50,
-});
 
 interface Props {
   cover: string;
@@ -21,20 +15,12 @@ interface Props {
 
 const CreateStoryCover: React.FunctionComponent<Props> = ({
   cover,
-}) => {
-  const coverImage = useMemo(() => ({ uri: cover }), [cover]);
-
-  return (
-    <React.Fragment>
-      <CachableImage
-        source={coverImage}
-        style={styles.background}
-        permanent
-      />
-      <View style={styles.filter} />
-    </React.Fragment>
-  );
-};
+}) => (
+  <React.Fragment>
+    <CachableImage prefix="covers" source={cover} style={styles.background} />
+    <View style={styles.filter} />
+  </React.Fragment>
+);
 
 const styles = StyleSheet.create({
   background: {

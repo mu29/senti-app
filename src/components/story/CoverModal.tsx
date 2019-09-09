@@ -1,27 +1,23 @@
 import React, { useCallback } from 'react';
 import {
   View,
-  Image,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import imageCacheHoc from 'react-native-image-cache-hoc';
 import Modal from 'react-native-modal';
 import { FlatGrid } from 'react-native-super-grid';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Text } from 'components';
+import {
+  Text,
+  CachableImage,
+} from 'components';
 import {
   palette,
   typography,
 } from 'constants/style';
 
 const ITEM_SIZE = Dimensions.get('window').width / 5;
-
-const CachableImage = imageCacheHoc(Image, {
-  fileDirName: 'covers',
-  cachePruneTriggerLimit: 1024 * 1024 * 50,
-});
 
 interface Props {
   isVisible: boolean;
@@ -42,7 +38,7 @@ const CoverModal: React.FunctionComponent<Props> = ({
       onPress={() => updateCover(item)}
       style={styles.item}
     >
-      <CachableImage source={{ uri: item }} style={styles.image} permanent />
+      <CachableImage prefix="covers" source={item} style={styles.image} />
     </TouchableOpacity>
   ), []);
 

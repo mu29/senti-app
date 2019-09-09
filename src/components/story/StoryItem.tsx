@@ -15,8 +15,10 @@ import {
   SafeAreaView,
   SafeAreaViewForceInsetValue,
 } from 'react-navigation';
-import imageCacheHoc from 'react-native-image-cache-hoc';
-import { Text } from 'components';
+import {
+  Text,
+  CachableImage,
+} from 'components';
 import {
   useAudio,
   StoryController,
@@ -37,11 +39,6 @@ const SAFE_AREA_INSET: {
   top: 'never',
   bottom: 'always',
 };
-
-const CachableImage = imageCacheHoc(Image, {
-  fileDirName: 'covers',
-  cachePruneTriggerLimit: 1024 * 1024 * 50,
-});
 
 interface Props {
   item: Story;
@@ -73,8 +70,6 @@ const StoryItem: React.FunctionComponent<Props> = ({
     useNativeDriver: true,
   });
 
-  const coverImage = useMemo(() => ({ uri: item.cover }), [item]);
-
   const parallexStyle = useMemo(() => ({
     transform: [{
       translateY: animatedValue!.interpolate({
@@ -104,11 +99,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
   return (
     <View style={styles.container}>
       <Animated.View style={parallexStyle}>
-        <CachableImage
-          source={coverImage}
-          style={styles.background}
-          permanent
-        />
+        <CachableImage prefix="covers" source={item.cover} style={styles.background} />
       </Animated.View>
       <View style={styles.filter}>
         <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.content}>

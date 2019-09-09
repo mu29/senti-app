@@ -1,10 +1,6 @@
-import React, {
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
-  Image,
   TouchableOpacity,
   StyleSheet,
   Platform,
@@ -13,8 +9,10 @@ import {
   withNavigation,
   NavigationInjectedProps,
 } from 'react-navigation';
-import imageCacheHoc from 'react-native-image-cache-hoc';
-import { Text } from 'components';
+import {
+  Text,
+  CachableImage,
+} from 'components';
 import {
   palette,
   typography,
@@ -26,11 +24,6 @@ const BUTTON_HITSLOP = {
   left: 10,
   right: 10,
 };
-
-const CachableImage = imageCacheHoc(Image, {
-  fileDirName: 'profile',
-  cachePruneTriggerLimit: 1024 * 1024 * 50,
-});
 
 interface Props extends NavigationInjectedProps {
   item: Profile;
@@ -44,19 +37,13 @@ const UserInfo: React.FunctionComponent<Props> = ({
   },
   navigation,
 }) => {
-  const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
-
   const openEditProfileScreen = useCallback(() => {
     navigation.navigate('EditProfile');
   }, []);
 
   return (
     <View style={styles.container}>
-      <CachableImage
-        source={profileImage}
-        style={styles.profile}
-        permanent
-      />
+      <CachableImage prefix="profiles" source={photoUrl} style={styles.profile} />
       <View>
         <Text style={[typography.heading2, styles.name]}>
           {name}

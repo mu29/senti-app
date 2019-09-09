@@ -1,17 +1,14 @@
-import React, {
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
-  ActivityIndicator,
-  ImageBackground,
   StyleSheet,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import {
   Button,
   Text,
+  CachableImage,
+  LoadingLayer,
 } from 'components';
 import {
   palette,
@@ -29,8 +26,6 @@ const EditProfilePhoto: React.FunctionComponent<Props> = ({
   isLoading,
   updateProfilePhoto,
 }) => {
-  const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
-
   const openImagePicker = useCallback(() => {
     ImagePicker.openPicker({
       width: 200,
@@ -43,20 +38,17 @@ const EditProfilePhoto: React.FunctionComponent<Props> = ({
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Button onPress={openImagePicker} disabled={isLoading} style={styles.button}>
-        <ImageBackground source={profileImage} style={styles.photo}>
-          {isLoading && (
-            <View style={styles.loading}>
-              <ActivityIndicator color={palette.yellow.default} size="small" />
-            </View>
-          )}
-        </ImageBackground>
-        <Text style={[typography.tiny3, styles.description]}>
-          프로필 사진 변경
-        </Text>
-      </Button>
-    </View>
+    <React.Fragment>
+      <View style={styles.container}>
+        <Button onPress={openImagePicker} disabled={isLoading} style={styles.button}>
+          <CachableImage prefix="profiles" source={photoUrl} style={styles.photo} />
+          <Text style={[typography.tiny3, styles.description]}>
+            프로필 사진 변경
+          </Text>
+        </Button>
+      </View>
+      {isLoading && <LoadingLayer />}
+    </React.Fragment>
   );
 };
 

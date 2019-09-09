@@ -1,10 +1,6 @@
-import React, {
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
-  Image,
   StyleSheet,
   Platform,
 } from 'react-native';
@@ -16,6 +12,7 @@ import moment from 'moment';
 import {
   Text,
   Button,
+  CachableImage,
 } from 'components';
 import {
   palette,
@@ -41,7 +38,6 @@ const ChattingItem: React.FunctionComponent<Props> = ({
   },
   navigation,
 }) => {
-  const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
   const openMessageScreen = useCallback(() => {
     navigation.navigate('Message', {
       chattingId: id,
@@ -53,10 +49,7 @@ const ChattingItem: React.FunctionComponent<Props> = ({
   return (
     <Button onPress={openMessageScreen}>
       <View style={[styles.row, styles.container]}>
-        <Image
-          source={profileImage}
-          style={styles.profile}
-        />
+        <CachableImage prefix="profiles" source={photoUrl} style={styles.profile} />
         <View style={styles.content}>
           <View style={styles.row}>
             <Text style={[typography.heading3, styles.partner]}>
