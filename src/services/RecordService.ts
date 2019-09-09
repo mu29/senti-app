@@ -28,25 +28,29 @@ class RecordService {
     path: string;
     duration: number;
   }> => {
-    const {
-      path,
-      duration,
-    } = await SoundRecorder.stop();
+    try {
+      const {
+        path,
+        duration,
+      } = await SoundRecorder.stop();
 
-    return new Promise((resolve, reject) => {
-      this.sound = new Sound('temp.aac', path.replace('/temp.aac', ''), (error) => {
-        this.isRecording = false;
+      return new Promise((resolve, reject) => {
+        this.sound = new Sound('temp.aac', path.replace('/temp.aac', ''), (error) => {
+          if (error) {
+            reject(error);
+          }
 
-        if (error) {
-          reject(error);
-        }
-
-        resolve({
-          path,
-          duration,
+          resolve({
+            path,
+            duration,
+          });
         });
       });
-    });
+    } catch (e) {
+      throw e;
+    } finally {
+      this.isRecording = false;
+    }
   }
 
   public play = (onEnd: () => void) => {
