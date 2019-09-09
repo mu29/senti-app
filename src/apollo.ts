@@ -4,12 +4,14 @@ import merge from 'lodash/merge';
 import ApolloClient from 'apollo-client';
 import { BatchHttpLink } from 'apollo-link-batch-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { persistCache } from 'apollo-cache-persist';
+import { CachePersistor } from 'apollo-cache-persist';
 import gql from 'graphql-tag';
-import covers from 'constants/covers';
-import { getLanguage } from 'utils';
+
 import * as resolvers from './resolvers';
+import covers from './constants/covers';
 import config from './config';
+import { getLanguage } from './utils';
+import { version } from '../package.json';
 
 export async function configureClient() {
   const customFetch = async (uri: RequestInfo, options?: RequestInit) => {
@@ -28,10 +30,19 @@ export async function configureClient() {
 
   const cache = new InMemoryCache();
 
-  await persistCache({
+  const persistor = new CachePersistor({
     cache,
     storage: AsyncStorage as any,
   });
+
+  const currentVersion = await AsyncStorage.getItem('@cacheVersion');
+
+  if (currentVersion === version) {
+    await persistor.restore();
+  } else {
+    await persistor.purge();
+    await AsyncStorage.setItem('@cacheVersion', version);
+  }
 
   const client = new ApolloClient({
     link,

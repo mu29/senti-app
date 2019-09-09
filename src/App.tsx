@@ -11,7 +11,6 @@ import 'moment/locale/ko';
 
 import { AuthModal } from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
-import { palette } from 'constants/style';
 
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
