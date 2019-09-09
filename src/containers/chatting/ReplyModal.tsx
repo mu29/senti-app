@@ -29,20 +29,22 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
 
   const [createChatting] = useMutation(CREATE_CHATTING, {
     update: (cache, { data: { createChatting: chatting } }) => {
-      const savedFeed = cache.readQuery<ChattingFeedResult>({
-        query: FETCH_CHATTING_FEED,
-      });
+      try {
+        const savedFeed = cache.readQuery<ChattingFeedResult>({
+          query: FETCH_CHATTING_FEED,
+        });
 
-      if (!savedFeed) {
-        return;
-      }
+        if (!savedFeed) {
+          return;
+        }
 
-      savedFeed.chattingFeed.chattings.unshift(chatting);
+        savedFeed.chattingFeed.chattings.unshift(chatting);
 
-      cache.writeQuery({
-        query: FETCH_CHATTING_FEED,
-        data: savedFeed,
-      });
+        cache.writeQuery({
+          query: FETCH_CHATTING_FEED,
+          data: savedFeed,
+        });
+      } catch {}
     },
   });
 

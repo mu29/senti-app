@@ -25,21 +25,23 @@ const Container: React.FunctionComponent<{}> = () => {
 
   const [updateProfile] = useMutation(UPDATE_PROFILE, {
     update: (cache, { data: { updateProfile: newProfile } }) => {
-      const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
+      try {
+        const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
 
-      if (!savedProfile) {
-        return;
-      }
+        if (!savedProfile) {
+          return;
+        }
 
-      cache.writeQuery({
-        query: FETCH_PROFILE,
-        data: {
-          me: {
-            ...savedProfile.me,
-            ...newProfile,
+        cache.writeQuery({
+          query: FETCH_PROFILE,
+          data: {
+            me: {
+              ...savedProfile.me,
+              ...newProfile,
+            },
           },
-        },
-      });
+        });
+      } catch {}
     },
   });
 

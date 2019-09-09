@@ -22,26 +22,28 @@ const Container: React.FunctionComponent<Props> = ({
 }) => {
   const [createMessage] = useMutation(CREATE_MESSAGE, {
     update: (cache, { data: { createMessage: message } }) => {
-      const savedFeed = cache.readQuery<MessageFeedResult>({
-        query: FETCH_MESSAGE_FEED,
-        variables: {
-          chattingId,
-        },
-      });
+      try {
+        const savedFeed = cache.readQuery<MessageFeedResult>({
+          query: FETCH_MESSAGE_FEED,
+          variables: {
+            chattingId,
+          },
+        });
 
-      if (!savedFeed) {
-        return;
-      }
+        if (!savedFeed) {
+          return;
+        }
 
-      savedFeed.messageFeed.messages.unshift(message);
+        savedFeed.messageFeed.messages.unshift(message);
 
-      cache.writeQuery({
-        query: FETCH_MESSAGE_FEED,
-        variables: {
-          chattingId,
-        },
-        data: savedFeed,
-      });
+        cache.writeQuery({
+          query: FETCH_MESSAGE_FEED,
+          variables: {
+            chattingId,
+          },
+          data: savedFeed,
+        });
+      } catch {}
     },
   });
 

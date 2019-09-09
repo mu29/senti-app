@@ -48,34 +48,36 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
 
   const [verifyCoinReceipt] = useMutation(VERIFY_COIN_RECEIPT, {
     update: (cache, { data: { verifyCoinReceipt: transaction } }) => {
-      const savedFeed = cache.readQuery<TransactionFeedResult>({
-        query: FETCH_TRANSACTION_FEED,
-      });
+      try {
+        const savedFeed = cache.readQuery<TransactionFeedResult>({
+          query: FETCH_TRANSACTION_FEED,
+        });
 
-      const savedProfile = cache.readQuery<{ me: Profile }>({
-        query: FETCH_PROFILE,
-      });
+        const savedProfile = cache.readQuery<{ me: Profile }>({
+          query: FETCH_PROFILE,
+        });
 
-      if (!savedFeed || !savedProfile) {
-        return;
-      }
+        if (!savedFeed || !savedProfile) {
+          return;
+        }
 
-      savedFeed.transactionFeed.transactions.unshift(transaction);
+        savedFeed.transactionFeed.transactions.unshift(transaction);
 
-      cache.writeQuery({
-        query: FETCH_TRANSACTION_FEED,
-        data: savedFeed,
-      });
+        cache.writeQuery({
+          query: FETCH_TRANSACTION_FEED,
+          data: savedFeed,
+        });
 
-      cache.writeQuery({
-        query: FETCH_PROFILE,
-        data: {
-          me: {
-            ...savedProfile.me,
-            coin: (savedProfile.me.coin || 0) + transaction.amount,
+        cache.writeQuery({
+          query: FETCH_PROFILE,
+          data: {
+            me: {
+              ...savedProfile.me,
+              coin: (savedProfile.me.coin || 0) + transaction.amount,
+            },
           },
-        },
-      });
+        });
+      } catch {}
     },
   });
 

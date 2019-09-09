@@ -33,21 +33,23 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
       tag: item.name,
     },
     update: (cache) => {
-      const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
+      try {
+        const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
 
-      if (!savedProfile) {
-        return;
-      }
+        if (!savedProfile) {
+          return;
+        }
 
-      cache.writeQuery({
-        query: FETCH_PROFILE,
-        data: {
-          me: {
-            ...savedProfile.me,
-            tags: savedProfile.me.tags.concat(item),
+        cache.writeQuery({
+          query: FETCH_PROFILE,
+          data: {
+            me: {
+              ...savedProfile.me,
+              tags: savedProfile.me.tags.concat(item),
+            },
           },
-        },
-      });
+        });
+      } catch {}
     },
   });
 
@@ -56,21 +58,23 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
       tag: item.name,
     },
     update: (cache) => {
-      const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
+      try {
+        const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
 
-      if (!savedProfile) {
-        return;
-      }
+        if (!savedProfile) {
+          return;
+        }
 
-      cache.writeQuery({
-        query: FETCH_PROFILE,
-        data: {
-          me: {
-            ...savedProfile.me,
-            tags: savedProfile.me.tags.filter(t => t.id !== item.id),
+        cache.writeQuery({
+          query: FETCH_PROFILE,
+          data: {
+            me: {
+              ...savedProfile.me,
+              tags: savedProfile.me.tags.filter(t => t.id !== item.id),
+            },
           },
-        },
-      });
+        });
+      } catch {}
     },
   });
 
