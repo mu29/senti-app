@@ -53,7 +53,7 @@ const StoryController: React.FunctionComponent<Props> = ({
 
     AudioService.pause();
     showReplyModal();
-  }, [item]);
+  }, [isLoggedIn]);
 
   return (
     <View style={styles.container}>

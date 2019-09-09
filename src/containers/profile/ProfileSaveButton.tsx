@@ -58,7 +58,7 @@ const Container: React.FunctionComponent<{}> = () => {
         },
       },
     });
-  }, [data, data && data.candidate]);
+  }, [data && data.candidate]);
 
   useEffect(() => {
     return () => {

@@ -65,7 +65,7 @@ const Container: React.FunctionComponent<Props> = ({
       url: snapshot.downloadURL,
       duration: data.duration,
     };
-  }, [data, isRecorded]);
+  }, [data, isRecorded, profile && profile.me]);
 
   const create = useCallback(() => {
     setIsLoading(true);

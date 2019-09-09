@@ -31,7 +31,7 @@ const CompactStoryItem: React.FunctionComponent<Props> = ({
 }) => {
   const openMyStoryScreen = useCallback(() => {
     navigation.navigate('MyStory', { index });
-  }, []);
+  }, [index]);
 
   return (
     <Button onPress={openMyStoryScreen}>

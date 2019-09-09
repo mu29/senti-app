@@ -100,7 +100,7 @@ function useAuth(onSuccess?: () => void) {
       .finally(() => {
         setProvider(undefined);
       });
-  }, []);
+  }, [provider]);
 
   const signInWithFacebook = useCallback(() => {
     if (provider) {
@@ -132,7 +132,7 @@ function useAuth(onSuccess?: () => void) {
       .finally(() => {
         setProvider(undefined);
       });
-  }, []);
+  }, [provider]);
 
   return {
     provider,

@@ -3,7 +3,6 @@ import { Alert } from 'react-native';
 import firebase from 'react-native-firebase';
 import {
   useQuery,
-  useLazyQuery,
   useApolloClient,
 } from '@apollo/react-hooks';
 import { MessageItem } from 'components';
@@ -41,7 +40,7 @@ const Container: React.FunctionComponent<Props> = ({
     })
     .catch(e => Alert.alert('오류', `메시지 재생에 실패했습니다.\n${e.message}`))
     .finally(() => setIsLoading(false));
-  }, [item.id]);
+  }, [chattingId, item.id]);
 
   if (!profile || !profile.me) {
     return null;

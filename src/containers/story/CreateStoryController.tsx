@@ -36,7 +36,7 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
         },
       },
     });
-  }, [data]);
+  }, [data && data.draft]);
 
   const finish = useCallback(() => navigation.goBack(), []);
 

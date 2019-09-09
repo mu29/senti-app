@@ -63,7 +63,7 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
         },
       },
     });
-  }, [data]);
+  }, [data && data.modal && data.modal.params]);
 
   if (!data || !data.modal) {
     return null;
