@@ -12,16 +12,16 @@ class RecordService {
 
   public start = () => {
     if (this.isRecording) {
-      return;
+      return Promise.resolve();
     }
 
     if (!this.requestMicrophonePermission()) {
-      return;
+      return Promise.reject('마이크 사용 권한을 허용해주세요.');
     }
 
     this.release();
     this.isRecording = true;
-    SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
+    return SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
   }
 
   public stop = async (): Promise<{

@@ -19,7 +19,8 @@ function useRecord() {
       RecordService.play(() => setIsStarted(false));
     } else {
       requestAnimationFrame(() => {
-        RecordService.start();
+        RecordService.start()
+          .catch(e => Alert.alert('알림', `녹음에 실패했습니다. 다시 시도해 주세요.\n${e.message}`));
       });
     }
   }, [isRecorded]);
@@ -34,7 +35,7 @@ function useRecord() {
             setData(result);
             setIsRecorded(true);
           })
-          .catch(() => Alert.alert('알림', '녹음에 실패했습니다. 다시 시도해 주세요.'));
+          .catch(e => Alert.alert('알림', `녹음에 실패했습니다. 다시 시도해 주세요.\n${e.message}`));
       });
     }
     setIsStarted(false);
