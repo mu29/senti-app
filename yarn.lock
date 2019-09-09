@@ -5728,10 +5728,9 @@ react-native-safe-area-view@^0.13.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
 
-react-native-sound-recorder@^1.3.3:
+react-native-sound-recorder@mu29/react-native-sound-recorder#fix/promise-reject:
   version "1.3.3"
-  resolved "https://registry.yarnpkg.com/react-native-sound-recorder/-/react-native-sound-recorder-1.3.3.tgz#f325385c626a75a59242c14d4b4f80de91816840"
-  integrity sha512-bXxgJC6sdAyeQ7Zv2WWSz3nVcOfLhqsGXs9ozKV5aJT6C1k2Vw6sQf/Lp8+Su0xxrX+r29B0uPteSOx1QZzVnA==
+  resolved "https://codeload.github.com/mu29/react-native-sound-recorder/tar.gz/d5c4b867e4813e384e4523cfd8d46bab92d06396"
 
 react-native-sound@^0.10.12:
   version "0.10.12"
