@@ -64,6 +64,7 @@ class StoryList extends React.PureComponent<Props> {
           data={items}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
+          getItemLayout={this.getItemLayout}
           initialScrollIndex={initialIndex}
           onEndReached={onFetchMore}
           onEndReachedThreshold={1}
@@ -106,6 +107,12 @@ class StoryList extends React.PureComponent<Props> {
   )
 
   private keyExtractor = (item: Story) => item.id;
+
+  private getItemLayout = (_: any, index: number) => ({
+    length: deviceHeight,
+    offset: deviceHeight * index,
+    index,
+  })
 
   private onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ item: Story }> }) => {
     if (viewableItems.length > 0) {
