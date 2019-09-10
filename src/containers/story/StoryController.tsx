@@ -15,8 +15,15 @@ import {
   FETCH_MY_STORY_FEED,
 } from 'graphqls';
 
-type StoryFeedResult = {
-  storyFeed: {
+type MainStoryFeedResult = {
+  mainStoryFeed: {
+    stories: Story[];
+    cursor: string;
+  };
+};
+
+type MyStoryFeedResult = {
+  myStoryFeed: {
     stories: Story[];
     cursor: string;
   };
@@ -24,10 +31,12 @@ type StoryFeedResult = {
 
 interface Props {
   item: Story;
+  hasBottom?: boolean;
 }
 
 const StoryControllerContainer: React.FunctionComponent<Props> = ({
   item,
+  ...props
 }) => {
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
     skip: !firebase.auth().currentUser,
@@ -47,34 +56,48 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
     },
   });
 
-  const [deleteStory] = useMutation(DELETE_STORY, {
+  const [deleteStory, { loading }] = useMutation(DELETE_STORY, {
     variables: {
       id: item.id,
     },
     update: (cache) => {
       try {
-        const savedMainFeed = cache.readQuery<StoryFeedResult>({
+        const savedMainFeed = cache.readQuery<MainStoryFeedResult>({
           query: FETCH_MAIN_STORY_FEED,
         });
-        const savedMyFeed = cache.readQuery<StoryFeedResult>({
-          query: FETCH_MY_STORY_FEED,
-        });
 
-        if (!savedMainFeed || !savedMyFeed) {
+        if (!savedMainFeed) {
           return;
         }
 
-        savedMainFeed.storyFeed.stories.filter(story => story.id !== item.id);
-        savedMyFeed.storyFeed.stories.filter(story => story.id !== item.id);
-
         cache.writeQuery({
           query: FETCH_MAIN_STORY_FEED,
-          data: savedMainFeed,
+          data: {
+            mainStoryFeed: {
+              ...savedMainFeed.mainStoryFeed,
+              stories: savedMainFeed.mainStoryFeed.stories.filter(story => story.id !== item.id),
+            },
+          },
         });
+      } catch {}
+
+      try {
+        const savedMyFeed = cache.readQuery<MyStoryFeedResult>({
+          query: FETCH_MY_STORY_FEED,
+        });
+
+        if (!savedMyFeed) {
+          return;
+        }
 
         cache.writeQuery({
           query: FETCH_MY_STORY_FEED,
-          data: savedMyFeed,
+          data: {
+            myStoryFeed: {
+              ...savedMyFeed.myStoryFeed,
+              stories: savedMyFeed.myStoryFeed.stories.filter(story => story.id !== item.id),
+            },
+          },
         });
       } catch {}
     },
@@ -102,9 +125,11 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
       item={item}
       isLoggedIn={isLoggedIn}
       isMyStory={isMyStory}
+      isLoading={loading}
       showAuthModal={showAuthModal}
       showReplyModal={showReplyModal}
       showDeleteAlert={showDeleteAlert}
+      {...props}
     />
   );
 };
