@@ -15,7 +15,7 @@ const config: {
     isDev: env === 'development',
   },
   development: {
-    apiUrl: 'http://localhost:5000/senti-development/us-central1/graphql',
+    apiUrl: 'http://127.0.0.1:5000/senti-development/us-central1/graphql',
   },
   staging: {
     apiUrl: 'https://us-central1-senti-development.cloudfunctions.net/graphql',

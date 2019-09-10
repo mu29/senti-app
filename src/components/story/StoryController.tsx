@@ -22,8 +22,8 @@ const HIT_SLOP = {
 };
 
 const REPLAY_ICON = { uri: 'ic_replay' };
-
 const CHAT_ICON = { uri: 'ic_chat_active' };
+const DELETE_ICON = { uri: 'ic_delete' };
 
 interface Props {
   item: Story;
@@ -93,7 +93,7 @@ const StoryController: React.FunctionComponent<Props> = ({
           hitSlop={HIT_SLOP}
           onPress={isMyStory ? showDeleteAlert : openReplyModal}
         >
-          <Image source={CHAT_ICON} style={styles.icon} />
+          <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />
         </TouchableOpacity>
       </View>
       {isLoading && <LoadingLayer />}
