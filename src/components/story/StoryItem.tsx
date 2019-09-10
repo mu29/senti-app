@@ -115,9 +115,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
               {Tags}
             </View>
           </TouchableOpacity>
-          <View style={[styles.controller, hasBottom && styles.bottomSpace]}>
-            <StoryController item={item} />
-          </View>
+          <StoryController item={item} hasBottom={hasBottom} />
           <Animated.View pointerEvents="none" style={[styles.iconContainer, iconStyle]}>
             <Image source={PLAY_ICON} style={styles.icon} />
           </Animated.View>

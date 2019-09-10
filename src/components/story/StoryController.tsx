@@ -6,7 +6,10 @@ import {
   StyleSheet,
 } from 'react-native';
 import dayjs from 'dayjs';
-import { Text } from 'components';
+import {
+  Text,
+  LoadingLayer,
+} from 'components';
 import {
   palette,
   typography,
@@ -26,6 +29,8 @@ interface Props {
   item: Story;
   isLoggedIn: boolean;
   isMyStory: boolean;
+  isLoading: boolean;
+  hasBottom?: boolean;
   showAuthModal: () => void;
   showReplyModal: () => void;
   showDeleteAlert: () => void;
@@ -35,6 +40,8 @@ const StoryController: React.FunctionComponent<Props> = ({
   item,
   isLoggedIn,
   isMyStory,
+  isLoading,
+  hasBottom,
   showAuthModal,
   showReplyModal,
   showDeleteAlert,
@@ -60,34 +67,37 @@ const StoryController: React.FunctionComponent<Props> = ({
   }, [isLoggedIn]);
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={profileImage}
-        style={styles.photo}
-      />
-      <View style={styles.profile}>
-        <Text style={[typography.heading3, styles.name]}>
-          {name}
-        </Text>
-        <Text style={styles.date}>
-          {dayjs(createdAt).fromNow()}
-        </Text>
+    <React.Fragment>
+      <View style={[styles.container, hasBottom && styles.withBottom]}>
+        <Image
+          source={profileImage}
+          style={styles.photo}
+        />
+        <View style={styles.profile}>
+          <Text style={[typography.heading3, styles.name]}>
+            {name}
+          </Text>
+          <Text style={styles.date}>
+            {dayjs(createdAt).fromNow()}
+          </Text>
+        </View>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          hitSlop={HIT_SLOP}
+          onPress={AudioService.replay}
+        >
+          <Image source={REPLAY_ICON} style={styles.icon} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          hitSlop={HIT_SLOP}
+          onPress={isMyStory ? showDeleteAlert : openReplyModal}
+        >
+          <Image source={CHAT_ICON} style={styles.icon} />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        activeOpacity={0.6}
-        hitSlop={HIT_SLOP}
-        onPress={AudioService.replay}
-      >
-        <Image source={REPLAY_ICON} style={styles.icon} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.6}
-        hitSlop={HIT_SLOP}
-        onPress={isMyStory ? showDeleteAlert : openReplyModal}
-      >
-        <Image source={CHAT_ICON} style={styles.icon} />
-      </TouchableOpacity>
-    </View>
+      {isLoading && <LoadingLayer />}
+    </React.Fragment>
   );
 };
 
@@ -97,6 +107,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 24,
     paddingRight: 8,
+  },
+  withBottom: {
+    marginBottom: 48,
   },
   photo: {
     width: 40,
