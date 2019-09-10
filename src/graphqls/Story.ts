@@ -108,3 +108,9 @@ export const CREATE_STORY = gql`
     }
   }
 `;
+
+export const DELETE_STORY = gql`
+  mutation deleteStory($id: ID!) {
+    deleteStory(id: $id)
+  }
+`;

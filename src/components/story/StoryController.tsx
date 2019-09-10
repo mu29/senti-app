@@ -25,15 +25,19 @@ const CHAT_ICON = { uri: 'ic_chat_active' };
 interface Props {
   item: Story;
   isLoggedIn: boolean;
+  isMyStory: boolean;
   showAuthModal: () => void;
   showReplyModal: () => void;
+  showDeleteAlert: () => void;
 }
 
 const StoryController: React.FunctionComponent<Props> = ({
   item,
   isLoggedIn,
+  isMyStory,
   showAuthModal,
   showReplyModal,
+  showDeleteAlert,
 }) => {
   const {
     user: {
@@ -79,7 +83,7 @@ const StoryController: React.FunctionComponent<Props> = ({
       <TouchableOpacity
         activeOpacity={0.6}
         hitSlop={HIT_SLOP}
-        onPress={openReplyModal}
+        onPress={isMyStory ? showDeleteAlert : openReplyModal}
       >
         <Image source={CHAT_ICON} style={styles.icon} />
       </TouchableOpacity>

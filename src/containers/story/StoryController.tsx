@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { Alert } from 'react-native';
 import firebase from 'react-native-firebase';
+import ActionSheet from 'rn-actionsheet-module';
 import {
   useQuery,
   useMutation,
@@ -8,13 +10,25 @@ import { StoryController } from 'components';
 import {
   SHOW_MODAL,
   FETCH_PROFILE,
+  DELETE_STORY,
+  FETCH_MAIN_STORY_FEED,
+  FETCH_MY_STORY_FEED,
 } from 'graphqls';
+
+type StoryFeedResult = {
+  storyFeed: {
+    stories: Story[];
+    cursor: string;
+  };
+};
 
 interface Props {
   item: Story;
 }
 
-const StoryControllerContainer: React.FunctionComponent<Props> = (props) => {
+const StoryControllerContainer: React.FunctionComponent<Props> = ({
+  item,
+}) => {
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
     skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
@@ -28,17 +42,69 @@ const StoryControllerContainer: React.FunctionComponent<Props> = (props) => {
     variables: {
       id: 'Reply',
       params: JSON.stringify({
-        id: props.item.id,
+        id: item.id,
       }),
     },
   });
 
+  const [deleteStory] = useMutation(DELETE_STORY, {
+    variables: {
+      id: item.id,
+    },
+    update: (cache) => {
+      try {
+        const savedMainFeed = cache.readQuery<StoryFeedResult>({
+          query: FETCH_MAIN_STORY_FEED,
+        });
+        const savedMyFeed = cache.readQuery<StoryFeedResult>({
+          query: FETCH_MY_STORY_FEED,
+        });
+
+        if (!savedMainFeed || !savedMyFeed) {
+          return;
+        }
+
+        savedMainFeed.storyFeed.stories.filter(story => story.id !== item.id);
+        savedMyFeed.storyFeed.stories.filter(story => story.id !== item.id);
+
+        cache.writeQuery({
+          query: FETCH_MAIN_STORY_FEED,
+          data: savedMainFeed,
+        });
+
+        cache.writeQuery({
+          query: FETCH_MY_STORY_FEED,
+          data: savedMyFeed,
+        });
+      } catch {}
+    },
+  });
+
+  const showDeleteAlert = useCallback(() => {
+    ActionSheet({
+      title: '정말 삭제하시겠습니까?',
+      optionsIOS: ['삭제', '취소'],
+      optionsAndroid: ['삭제'],
+      cancelButtonIndex: 1,
+      onCancelAndroidIndex: 1,
+    }, (index: number) => {
+      if (index === 0) {
+        deleteStory().catch(e => Alert.alert('오류', `이야기 삭제에 실패했습니다.\n${e.message}`));
+      }
+    });
+  }, []);
+
+  const isLoggedIn = !!(profile && profile.me);
+  const isMyStory = isLoggedIn && profile!.me.id === item.user.id;
+
   return (
     <StoryController
-      isLoggedIn={!!(profile && profile.me)}
+      item={item}
+      isLoggedIn={isLoggedIn}
+      isMyStory={isMyStory}
       showAuthModal={showAuthModal}
       showReplyModal={showReplyModal}
-      {...props}
+      showDeleteAlert={showDeleteAlert}
     />
   );
 };
