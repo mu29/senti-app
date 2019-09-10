@@ -13,10 +13,7 @@ import {
   AccessToken,
   LoginManager,
 } from 'react-native-fbsdk';
-import {
-  FIREBASE_IOS_CLIENT_ID,
-  FIREBASE_WEB_CLIENT_ID,
-} from 'constants/env';
+import { FIREBASE_WEB_CLIENT_ID } from 'constants/env';
 import {
   CREATE_USER,
   FETCH_PROFILE,
@@ -31,7 +28,6 @@ async function initGoogleSignin() {
     });
 
     GoogleSignin.configure({
-      iosClientId: FIREBASE_IOS_CLIENT_ID,
       webClientId: FIREBASE_WEB_CLIENT_ID,
       offlineAccess: true,
       forceConsentPrompt: true,

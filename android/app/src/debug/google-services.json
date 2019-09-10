@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "190892997297",
+    "firebase_url": "https://senti-development.firebaseio.com",
+    "project_id": "senti-development",
+    "storage_bucket": "senti-development.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190892997297:android:9cab02051ac89583bc4090",
+        "android_client_info": {
+          "package_name": "com.senti.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190892997297-gc9opiepuhqoia8mj5hrcnsa5i68i7rd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.senti.app.dev",
+            "certificate_hash": "1dcbc727102485f763c4f07dd46625ae6038524f"
+          }
+        },
+        {
+          "client_id": "190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKQ_CWxxP7vI3kNZhgcGWxlMdTbSc-pvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "190892997297-46cld24icu0a89eqjo6gbqdqqlldokmj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.senti.app.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

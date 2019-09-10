@@ -13,13 +13,15 @@ const config: {
   all: {
     env,
     isDev: env === 'development',
-    apiUrl: 'http://127.0.0.1:5000/senti-ee110/us-central1/graphql',
   },
   development: {
-    apiUrl: 'http://127.0.0.1:5000/senti-ee110/us-central1/graphql',
+    apiUrl: 'http://localhost:5000/senti-development/us-central1/graphql',
+  },
+  staging: {
+    apiUrl: 'https://us-central1-senti-development.cloudfunctions.net/graphql',
   },
   production: {
-    apiUrl: 'https://us-central1-senti-ee110.cloudfunctions.net/graphql',
+    apiUrl: 'https://api.senti.in',
   },
 };
 

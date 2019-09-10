@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Senti</string>
+    <string name="app_name_debug">Senti (D)</string>
+    <string name="app_name_release">Senti</string>
     <string name="facebook_app_id">2247161082214684</string>
 </resources>

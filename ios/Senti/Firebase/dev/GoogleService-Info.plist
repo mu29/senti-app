@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>190892997297-46cld24icu0a89eqjo6gbqdqqlldokmj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.190892997297-46cld24icu0a89eqjo6gbqdqqlldokmj</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>190892997297-gc9opiepuhqoia8mj5hrcnsa5i68i7rd.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDP52yjTxbPwbyIMy4IIq0xdpJEgD7D4GE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>190892997297</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.senti.app.dev</string>
+	<key>PROJECT_ID</key>
+	<string>senti-development</string>
+	<key>STORAGE_BUCKET</key>
+	<string>senti-development.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:190892997297:ios:70affea2601c4a34bc4090</string>
+	<key>DATABASE_URL</key>
+	<string>https://senti-development.firebaseio.com</string>
+</dict>
+</plist>
