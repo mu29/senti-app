@@ -9,8 +9,10 @@ import gql from 'graphql-tag';
 
 import * as resolvers from './resolvers';
 import covers from './constants/covers';
-import config from './config';
-import { getLanguage } from './utils';
+import {
+  API_URL,
+  LANGUAGE,
+} from './constants/config';
 import { version } from '../package.json';
 
 export async function configureClient() {
@@ -24,7 +26,7 @@ export async function configureClient() {
   };
 
   const link = new BatchHttpLink({
-    uri: `${config.apiUrl}?language=${getLanguage()}`,
+    uri: `${API_URL}?language=${LANGUAGE}`,
     fetch: customFetch,
   });
 

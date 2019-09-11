@@ -110,6 +110,13 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates.bundle"
 fi
+if [[ "$CONFIGURATION" == "Staging" ]]; then
+  install_resource "${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle"
+  install_resource "${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/QBImagePickerController/QBImagePicker.bundle"
+  install_resource "${PODS_ROOT}/RSKImageCropper/RSKImageCropper/RSKImageCropperStrings.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates.bundle"
+fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

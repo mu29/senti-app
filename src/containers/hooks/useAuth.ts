@@ -13,7 +13,7 @@ import {
   AccessToken,
   LoginManager,
 } from 'react-native-fbsdk';
-import { FIREBASE_WEB_CLIENT_ID } from 'constants/env';
+import { FIREBASE_WEB_CLIENT_ID } from 'constants/config';
 import {
   CREATE_USER,
   FETCH_PROFILE,

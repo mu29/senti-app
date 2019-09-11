@@ -72,7 +72,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNSoundRecorderPackage(),
             new RNFSPackage(),
             new VectorIconsPackage(),
-            new RNGestureHandlerPackage()
+            new RNGestureHandlerPackage(),
+            new RNConfigPackage()
       );
     }
 

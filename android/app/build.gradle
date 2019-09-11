@@ -126,28 +126,53 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            keyAlias SENTI_RELEASE_KEY_ALIAS
+            keyPassword SENTI_RELEASE_KEY_PASSWORD
+            storeFile file(SENTI_RELEASE_STORE_FILE)
+            storePassword SENTI_RELEASE_STORE_PASSWORD
+        }
+    }
+
     buildTypes {
         debug {
-            resValue "string", "app_name", "@string/app_name_debug"
             applicationIdSuffix ".dev"
+            resValue "string", "app_name", "@string/app_name_debug"
+            buildConfigField "String", 'API_URL', '"http://127.0.0.1:5000/senti-development/us-central1/graphql"'
+            buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
+            buildConfigField "String", "CODEPUSH_KEY", '""'
         }
         releaseStaging {
-            buildConfigField "String", "CODEPUSH_KEY", '"Zi65HdwYs1JHXN6zLmSbmfozZOig180a8f7e-a595-471d-ba74-a122212012fa"'
-            resValue "string", "app_name", "@string/app_name_staging"
             applicationIdSuffix ".dev"
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            resValue "string", "app_name", "@string/app_name_staging"
+            buildConfigField "String", 'API_URL', '"https://senti-development.firebaseapp.com"'
+            buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
+            buildConfigField "String", "CODEPUSH_KEY", '"Zi65HdwYs1JHXN6zLmSbmfozZOig180a8f7e-a595-471d-ba74-a122212012fa"'
+            signingConfig signingConfigs.release
+            matchingFallbacks = ["release"]
         }
         release {
-            buildConfigField "String", "CODEPUSH_KEY", '"uVn_lkorIVD9UpJwGA3LC0y8UpRJ180a8f7e-a595-471d-ba74-a122212012fa"'
             resValue "string", "app_name", "@string/app_name_release"
+            buildConfigField "String", 'API_URL', '"https://api.senti.in"'
+            buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"40292466641-64028mpglrg6a3ai14s7t4n03u8ejbql.apps.googleusercontent.com"'
+            buildConfigField "String", "CODEPUSH_KEY", '"uVn_lkorIVD9UpJwGA3LC0y8UpRJ180a8f7e-a595-471d-ba74-a122212012fa"'
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
+            shrinkResources false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
+        copy {
+            println "Switches to $variant google-services.json"
+            from "src/$variant"
+            include "google-services.json"
+            into "."
+        }
+
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits

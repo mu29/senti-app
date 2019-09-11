@@ -33,6 +33,7 @@
 		5B52F94722963CF700E2B39A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94622963CF700E2B39A /* SystemConfiguration.framework */; };
 		5B52F94922963D0900E2B39A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F94822963D0800E2B39A /* libz.tbd */; };
 		5B52F9922296689500E2B39A /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F9912296688C00E2B39A /* libRCTFBSDK.a */; };
+		5B80E2EE2328B0BD008A0CB5 /* RNConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80E2ED2328B0BD008A0CB5 /* RNConfig.m */; };
 		5BD09CF222D1AB9800336194 /* libQBImagePickerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD09CF122D1AB9800336194 /* libQBImagePickerController.a */; };
 		5BD09CF422D1AB9800336194 /* libRSKImageCropper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD09CF322D1AB9800336194 /* libRSKImageCropper.a */; };
 		5BDB3A65232335DC00B8175A /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BDB3A64232335CF00B8175A /* libSplashScreen.a */; };
@@ -477,6 +478,7 @@
 		5B52F94622963CF700E2B39A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5B52F94822963D0800E2B39A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5B52F98C2296688C00E2B39A /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBSDK.xcodeproj; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; };
+		5B80E2ED2328B0BD008A0CB5 /* RNConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNConfig.m; path = Senti/RNConfig.m; sourceTree = "<group>"; };
 		5BAF56B622CA56E600B9EF25 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BAF56B822CA56EC00B9EF25 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD09CF122D1AB9800336194 /* libQBImagePickerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libQBImagePickerController.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -503,6 +505,7 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		C295EB3F04AE41439F9879F9 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		C47E8C21B8A94790B875EF14 /* RNInAppPurchase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNInAppPurchase.xcodeproj; path = "../node_modules/react-native-in-app-purchase/ios/RNInAppPurchase.xcodeproj"; sourceTree = "<group>"; };
+		CE8E7DE079F1BC2F4D983D59 /* Pods-Senti.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Senti.staging.xcconfig"; path = "Pods/Target Support Files/Pods-Senti/Pods-Senti.staging.xcconfig"; sourceTree = "<group>"; };
 		DB7B50EB5DBCB9E16F3C81C4 /* libPods-Senti.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Senti.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6B514B2F1CD4B1E90F8FA75 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -604,6 +607,7 @@
 			children = (
 				A00FF6EA33CE2A7E5AB3DABC /* Pods-Senti.debug.xcconfig */,
 				876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */,
+				CE8E7DE079F1BC2F4D983D59 /* Pods-Senti.staging.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -636,6 +640,7 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				5B80E2ED2328B0BD008A0CB5 /* RNConfig.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -1579,7 +1584,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\nGOOGLESERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET_NAME}/Firebase/dev/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_PROD=${PROJECT_DIR}/${TARGET_NAME}/Firebase/prod/${GOOGLESERVICE_INFO_PLIST}\n\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLESERVICE_INFO_DEV ]\nthen\necho \"No Development GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_PROD}\"\nif [ ! -f $GOOGLESERVICE_INFO_PROD ]\nthen\necho \"No Production GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\nif [ \"${CONFIGURATION}\" == \"Debug\" ]\nthen\necho \"Using ${GOOGLESERVICE_INFO_DEV}\"\ncp \"${GOOGLESERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nelse\necho \"Using ${GOOGLESERVICE_INFO_PROD}\"\ncp \"${GOOGLESERVICE_INFO_PROD}\" \"${PLIST_DESTINATION}\"\nfi\n";
+			shellScript = "GOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\nGOOGLESERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET_NAME}/Firebase/dev/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_PROD=${PROJECT_DIR}/${TARGET_NAME}/Firebase/prod/${GOOGLESERVICE_INFO_PLIST}\n\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_DEV}\"\nif [ ! -f $GOOGLESERVICE_INFO_DEV ]\nthen\necho \"No Development GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\necho \"Looking for ${GOOGLESERVICE_INFO_PLIST} in ${GOOGLESERVICE_INFO_PROD}\"\nif [ ! -f $GOOGLESERVICE_INFO_PROD ]\nthen\necho \"No Production GoogleService-Info.plist found. Please ensure it's in the proper directory.\"\nexit 1\nfi\n\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\nif [ \"${CONFIGURATION}\" == \"Release\" ]\nthen\necho \"Using ${GOOGLESERVICE_INFO_PROD}\"\ncp \"${GOOGLESERVICE_INFO_PROD}\" \"${PLIST_DESTINATION}\"\nelse\necho \"Using ${GOOGLESERVICE_INFO_DEV}\"\ncp \"${GOOGLESERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nfi\n";
 		};
 		86A84353DB08EFCE6F40EDA1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1614,6 +1619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B80E2EE2328B0BD008A0CB5 /* RNConfig.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -1638,12 +1644,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A00FF6EA33CE2A7E5AB3DABC /* Pods-Senti.debug.xcconfig */;
 			buildSettings = {
+				API_URL = "http://10.78.64.47:5000/senti-development/us-central1/graphql";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = " (D)";
+				FIREBASE_WEB_CLIENT_ID = "190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1654,13 +1662,12 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-in-app-purchase/ios",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-code-push/**",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/**",
 				);
 				INFOPLIST_FILE = Senti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Senti\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1677,11 +1684,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */;
 			buildSettings = {
+				API_URL = "https://api.senti.in";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "40iKzqw15Z-5hiyj0PZAl_bh-_KS180a8f7e-a595-471d-ba74-a122212012fa";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = "";
+				FIREBASE_WEB_CLIENT_ID = "40292466641-64028mpglrg6a3ai14s7t4n03u8ejbql.apps.googleusercontent.com";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1692,13 +1701,12 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-in-app-purchase/ios",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-code-push/**",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/**",
 				);
 				INFOPLIST_FILE = Senti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Senti\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1739,6 +1747,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1759,13 +1768,15 @@
 		};
 		5B115CB4232889160041FF21 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */;
+			baseConfigurationReference = CE8E7DE079F1BC2F4D983D59 /* Pods-Senti.staging.xcconfig */;
 			buildSettings = {
+				API_URL = "https://senti-development.firebaseapp.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "p-Pp3q7mZmDO8kp0Es_Al5yGkoTC180a8f7e-a595-471d-ba74-a122212012fa";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = " (I)";
+				FIREBASE_WEB_CLIENT_ID = "190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1776,13 +1787,12 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-in-app-purchase/ios",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-code-push/**",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/**",
 				);
 				INFOPLIST_FILE = Senti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Senti\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
