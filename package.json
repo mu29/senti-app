@@ -1,11 +1,17 @@
 {
-  "name": "about",
+  "name": "senti",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "lint": "tslint --project .",
-    "lint:fix": "tslint --fix --project ."
+    "lint:fix": "tslint --fix --project .",
+    "deploy:android:staging": "code-push release-react Yeoubi/Senti-Android Android -d \"Staging\"",
+    "deploy:ios:staging": "code-push release-react Yeoubi/Senti-iOS iOS -d \"Staging\"",
+    "deploy:android:prod": "code-push release-react Yeoubi/Senti-Android Android -d \"Production\"",
+    "deploy:ios:prod": "code-push release-react Yeoubi/Senti-iOS iOS -d \"Production\"",
+    "deploy:staging": "yarn deploy:android:staging && yarn deploy:ios:staging",
+    "deploy:prod": "yarn deploy:android:prod && yarn deploy:ios:prod"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.0",
@@ -23,6 +29,7 @@
     "react-apollo": "^3.0.0",
     "react-native": "0.59.4",
     "react-native-animation-hooks": "^1.0.1",
+    "react-native-code-push": "^5.7.0",
     "react-native-fbsdk": "^0.8.0",
     "react-native-firebase": "^5.3.1",
     "react-native-fs": "^2.13.3",

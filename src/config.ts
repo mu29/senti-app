@@ -18,7 +18,7 @@ const config: {
     apiUrl: 'http://127.0.0.1:5000/senti-development/us-central1/graphql',
   },
   staging: {
-    apiUrl: 'https://us-central1-senti-development.cloudfunctions.net/graphql',
+    apiUrl: 'https://senti-development.firebaseapp.com',
   },
   production: {
     apiUrl: 'https://api.senti.in',

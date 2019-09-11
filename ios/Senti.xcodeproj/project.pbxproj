@@ -24,6 +24,7 @@
 		222D895FFDE94929937459F3 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51EEBB0AEB234603A058473D /* libRNGestureHandler.a */; };
 		3F7BAB4E43024DAB9BF8CA56 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28A995E4F756430E8F7C78AF /* Ionicons.ttf */; };
 		44B06AA06BC14F67AD74D80B /* libRNSoundRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AE189F8EC45A8AA4CDACB /* libRNSoundRecorder.a */; };
+		5B115CB623288E950041FF21 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B115C752328880C0041FF21 /* libCodePush.a */; };
 		5B1C9B6D23215A4500AD118C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1C9B6F23215A4500AD118C /* InfoPlist.strings */; };
 		5B468A1222991F1E00B7D83B /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B468A0722991F1100B7D83B /* libRNFetchBlob.a */; };
 		5B52F92D22963C5F00E2B39A /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B52F92822963C4900E2B39A /* libRNGoogleSignin.a */; };
@@ -246,6 +247,20 @@
 			remoteGlobalIDString = 3D3CD9321DE5FBEE00167DC4;
 			remoteInfo = "cxxreact-tvOS";
 		};
+		5B115C742328880C0041FF21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B115C6F2328880B0041FF21 /* CodePush.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = CodePush;
+		};
+		5B115C762328880C0041FF21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B115C6F2328880B0041FF21 /* CodePush.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F886647B1F4ADB500036D01B;
+			remoteInfo = "CodePush-tvOS";
+		};
 		5B468A0622991F1100B7D83B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5B4689DC22991F1100B7D83B /* RNFetchBlob.xcodeproj */;
@@ -452,6 +467,7 @@
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3866BD4E3D20487989BA6204 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
 		51EEBB0AEB234603A058473D /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
+		5B115C6F2328880B0041FF21 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		5B1C9B6E23215A4500AD118C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5B1C9B7023215A4800AD118C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5B4689DC22991F1100B7D83B /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -500,6 +516,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B115CB623288E950041FF21 /* libCodePush.a in Frameworks */,
 				5BDB3A65232335DC00B8175A /* libSplashScreen.a in Frameworks */,
 				5BE714632321D8D300E9DF50 /* libRNReanimated.a in Frameworks */,
 				5BE7140D2320909700E9DF50 /* libRNCAsyncStorage.a in Frameworks */,
@@ -668,6 +685,15 @@
 				DB7B50EB5DBCB9E16F3C81C4 /* libPods-Senti.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5B115C702328880B0041FF21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5B115C752328880C0041FF21 /* libCodePush.a */,
+				5B115C772328880C0041FF21 /* libCodePush.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5B4689DD22991F1100B7D83B /* Products */ = {
@@ -842,6 +868,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5B115C6F2328880B0041FF21 /* CodePush.xcodeproj */,
 				5BDB3A2A232335CF00B8175A /* SplashScreen.xcodeproj */,
 				5BE714282321D8C300E9DF50 /* RNReanimated.xcodeproj */,
 				5BE713D42320908E00E9DF50 /* RNCAsyncStorage.xcodeproj */,
@@ -978,6 +1005,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 5B115C702328880B0041FF21 /* Products */;
+					ProjectRef = 5B115C6F2328880B0041FF21 /* CodePush.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1281,6 +1312,20 @@
 			fileType = archive.ar;
 			path = libcxxreact.a;
 			remoteRef = 3DAD3EAA1DF850E9000B6D8A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5B115C752328880C0041FF21 /* libCodePush.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCodePush.a;
+			remoteRef = 5B115C742328880C0041FF21 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5B115C772328880C0041FF21 /* libCodePush.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCodePush.a;
+			remoteRef = 5B115C762328880C0041FF21 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5B468A0722991F1100B7D83B /* libRNFetchBlob.a */ = {
@@ -1594,6 +1639,7 @@
 			baseConfigurationReference = A00FF6EA33CE2A7E5AB3DABC /* Pods-Senti.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODEPUSH_KEY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
@@ -1632,6 +1678,7 @@
 			baseConfigurationReference = 876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODEPUSH_KEY = "40iKzqw15Z-5hiyj0PZAl_bh-_KS180a8f7e-a595-471d-ba74-a122212012fa";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = "";
@@ -1663,6 +1710,90 @@
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
+		};
+		5B115CB3232889160041FF21 /* Staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Staging;
+		};
+		5B115CB4232889160041FF21 /* Staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODEPUSH_KEY = "p-Pp3q7mZmDO8kp0Es_Al5yGkoTC180a8f7e-a595-471d-ba74-a122212012fa";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AVXKHR4MKC;
+				DISPLAY_NAME_SUFFIX = " (I)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-fs/**",
+					"$(SRCROOT)/../node_modules/react-native-sound-recorder/ios",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-in-app-purchase/ios",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+				);
+				INFOPLIST_FILE = Senti/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Senti\"",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.senti.app.dev;
+				PRODUCT_NAME = Senti;
+				REVERSED_CLIENT_ID = "com.googleusercontent.apps.190892997297-46cld24icu0a89eqjo6gbqdqqlldokmj";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Staging;
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1771,6 +1902,7 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				5B115CB4232889160041FF21 /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1780,6 +1912,7 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				5B115CB3232889160041FF21 /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

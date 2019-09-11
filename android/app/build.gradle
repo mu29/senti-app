@@ -81,6 +81,7 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -130,7 +131,15 @@ android {
             resValue "string", "app_name", "@string/app_name_debug"
             applicationIdSuffix ".dev"
         }
+        releaseStaging {
+            buildConfigField "String", "CODEPUSH_KEY", '"Zi65HdwYs1JHXN6zLmSbmfozZOig180a8f7e-a595-471d-ba74-a122212012fa"'
+            resValue "string", "app_name", "@string/app_name_staging"
+            applicationIdSuffix ".dev"
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
         release {
+            buildConfigField "String", "CODEPUSH_KEY", '"uVn_lkorIVD9UpJwGA3LC0y8UpRJ180a8f7e-a595-471d-ba74-a122212012fa"'
             resValue "string", "app_name", "@string/app_name_release"
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -153,6 +162,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-code-push')
     implementation project(':react-native-splash-screen')
     implementation project(':react-native-in-app-purchase')
     implementation project(':react-native-reanimated')
@@ -189,3 +199,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
