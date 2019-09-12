@@ -1688,7 +1688,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = "";
-				FIREBASE_WEB_CLIENT_ID = "40292466641-64028mpglrg6a3ai14s7t4n03u8ejbql.apps.googleusercontent.com";
+				FIREBASE_WEB_CLIENT_ID = "62655293862-mjb6i6qdl8ki4gpmes6l2pvumc3g9jff.apps.googleusercontent.com";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1712,7 +1712,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.senti.app;
 				PRODUCT_NAME = Senti;
-				REVERSED_CLIENT_ID = "com.googleusercontent.apps.40292466641-u3mdds8lvtdqqvg9bhuu67eh8fk4oi0e";
+				REVERSED_CLIENT_ID = "com.googleusercontent.apps.62655293862-k0j5qo832gheoqrjc1ogfei0i9pp7g1q";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1768,7 +1768,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE8E7DE079F1BC2F4D983D59 /* Pods-Senti.staging.xcconfig */;
 			buildSettings = {
-				API_URL = "https://senti-development.firebaseapp.com";
+				API_URL = "https://staging-api.senti.in";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "p-Pp3q7mZmDO8kp0Es_Al5yGkoTC180a8f7e-a595-471d-ba74-a122212012fa";
 				CURRENT_PROJECT_VERSION = 1;

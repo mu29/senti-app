@@ -1,21 +1,29 @@
 {
   "project_info": {
-    "project_number": "40292466641",
-    "firebase_url": "https://senti-ee110.firebaseio.com",
-    "project_id": "senti-ee110",
-    "storage_bucket": "senti-ee110.appspot.com"
+    "project_number": "62655293862",
+    "firebase_url": "https://senti-production.firebaseio.com",
+    "project_id": "senti-production",
+    "storage_bucket": "senti-production.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:40292466641:android:62ad51c535020a86",
+        "mobilesdk_app_id": "1:62655293862:android:55329762de9586fef84767",
         "android_client_info": {
           "package_name": "com.senti.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "40292466641-39uug7vh94j9ce1vt7k41nr3uq4kimeq.apps.googleusercontent.com",
+          "client_id": "62655293862-851j1141ghkmg4427efe2au03d7ktpi8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.senti.app",
+            "certificate_hash": "29cde959d79d68ee8231cc9ee52d1784937e1915"
+          }
+        },
+        {
+          "client_id": "62655293862-cc61juqhc7hm3u4krfo1l46abm75auvv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.senti.app",
@@ -23,24 +31,32 @@
           }
         },
         {
-          "client_id": "40292466641-64028mpglrg6a3ai14s7t4n03u8ejbql.apps.googleusercontent.com",
+          "client_id": "62655293862-dvq42fqbgfusahcafld94usp7vv2hpjs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.senti.app",
+            "certificate_hash": "ae3bc9379a7fe087705bfba0a7530a38a4a93366"
+          }
+        },
+        {
+          "client_id": "62655293862-mjb6i6qdl8ki4gpmes6l2pvumc3g9jff.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAA18-nhLoHWC5wHgskfZCp9qmdSrj3l4Q"
+          "current_key": "AIzaSyB9ea0qdSMsRsIyxvP7YHqMXqDQ1w0HpPo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "40292466641-64028mpglrg6a3ai14s7t4n03u8ejbql.apps.googleusercontent.com",
+              "client_id": "62655293862-mjb6i6qdl8ki4gpmes6l2pvumc3g9jff.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "40292466641-u3mdds8lvtdqqvg9bhuu67eh8fk4oi0e.apps.googleusercontent.com",
+              "client_id": "62655293862-k0j5qo832gheoqrjc1ogfei0i9pp7g1q.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.senti.app"

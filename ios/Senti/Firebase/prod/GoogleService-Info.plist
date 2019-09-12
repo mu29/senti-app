@@ -3,36 +3,36 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>40292466641-u3mdds8lvtdqqvg9bhuu67eh8fk4oi0e.apps.googleusercontent.com</string>
+	<string>62655293862-k0j5qo832gheoqrjc1ogfei0i9pp7g1q.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.40292466641-u3mdds8lvtdqqvg9bhuu67eh8fk4oi0e</string>
+	<string>com.googleusercontent.apps.62655293862-k0j5qo832gheoqrjc1ogfei0i9pp7g1q</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>40292466641-39uug7vh94j9ce1vt7k41nr3uq4kimeq.apps.googleusercontent.com</string>
+	<string>62655293862-851j1141ghkmg4427efe2au03d7ktpi8.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCWi5GNy_YxDSlIPeY2KyCys99_RUzn0Hc</string>
+	<string>AIzaSyBd_hY-6lMeYBHzOZRjDIKfbOc24uJUSmE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>40292466641</string>
+	<string>62655293862</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.senti.app</string>
 	<key>PROJECT_ID</key>
-	<string>senti-ee110</string>
+	<string>senti-production</string>
 	<key>STORAGE_BUCKET</key>
-	<string>senti-ee110.appspot.com</string>
+	<string>senti-production.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:40292466641:ios:62ad51c535020a86</string>
+	<string>1:62655293862:ios:b44fc0c5acf0b41ff84767</string>
 	<key>DATABASE_URL</key>
-	<string>https://senti-ee110.firebaseio.com</string>
+	<string>https://senti-production.firebaseio.com</string>
 </dict>
 </plist>

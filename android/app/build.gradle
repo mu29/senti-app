@@ -145,7 +145,7 @@ android {
         releaseStaging {
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "@string/app_name_staging"
-            buildConfigField "String", 'API_URL', '"https://senti-development.firebaseapp.com"'
+            buildConfigField "String", 'API_URL', '"https://staging-api.senti.in"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '"Zi65HdwYs1JHXN6zLmSbmfozZOig180a8f7e-a595-471d-ba74-a122212012fa"'
             signingConfig signingConfigs.release
@@ -154,7 +154,7 @@ android {
         release {
             resValue "string", "app_name", "@string/app_name_release"
             buildConfigField "String", 'API_URL', '"https://api.senti.in"'
-            buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"40292466641-64028mpglrg6a3ai14s7t4n03u8ejbql.apps.googleusercontent.com"'
+            buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"62655293862-mjb6i6qdl8ki4gpmes6l2pvumc3g9jff.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '"uVn_lkorIVD9UpJwGA3LC0y8UpRJ180a8f7e-a595-471d-ba74-a122212012fa"'
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
