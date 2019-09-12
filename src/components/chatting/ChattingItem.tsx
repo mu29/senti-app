@@ -18,7 +18,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { withComma } from 'services/utils';
+import { withComma } from 'utils';
 
 interface Props extends NavigationInjectedProps {
   item: Chatting;

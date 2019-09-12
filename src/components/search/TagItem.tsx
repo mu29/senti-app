@@ -11,7 +11,7 @@ import {
   Button,
 } from 'components';
 import { palette } from 'constants/style';
-import { withComma } from 'services/utils';
+import { withComma } from 'utils';
 
 const TAG_ICON = { uri: 'ic_tag' };
 

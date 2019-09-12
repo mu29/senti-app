@@ -16,7 +16,7 @@ import {
   Button,
 } from 'components';
 import { typography, palette } from 'constants/style';
-import { toTimeText } from 'services/utils';
+import { toTimeText } from 'utils';
 import { useAudio } from 'containers';
 
 const PLAY_ICON = { uri: 'ic_play_active' };
