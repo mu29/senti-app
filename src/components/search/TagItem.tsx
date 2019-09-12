@@ -11,7 +11,6 @@ import {
   Button,
 } from 'components';
 import { palette } from 'constants/style';
-import { withComma } from 'utils';
 
 const TAG_ICON = { uri: 'ic_tag' };
 
@@ -54,7 +53,7 @@ const TagItem: React.FunctionComponent<Props> = ({
           {name}
         </Text>
         <Text style={styles.count}>
-          이야기 {withComma(storyCount)}개
+          이야기 {storyCount.toLocaleString()}개
         </Text>
       </View>
       <Button

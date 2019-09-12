@@ -14,7 +14,7 @@ import 'dayjs/locale/ko';
 
 import { AuthModal } from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
-import { getLanguage } from 'utils';
+import { LANGUAGE } from 'constants/config';
 
 import Navigator from './Navigator';
 import NavigationService from './NavigationService';
@@ -24,7 +24,7 @@ import configureClient from './apollo';
 Sound.enableInSilenceMode(true);
 Sound.setActive(true);
 
-dayjs.locale(getLanguage());
+dayjs.locale(LANGUAGE);
 dayjs.extend(relativeTime);
 
 interface State {

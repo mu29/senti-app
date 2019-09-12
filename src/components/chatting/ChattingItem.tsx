@@ -18,7 +18,6 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { withComma } from 'utils';
 
 interface Props extends NavigationInjectedProps {
   item: Chatting;
@@ -61,7 +60,7 @@ const ChattingItem: React.FunctionComponent<Props> = ({
           </View>
           <View style={styles.row}>
             <Text style={styles.messageCount}>
-              이야기 {withComma(messageCount)}개
+              이야기 {messageCount.toLocaleString()}개
             </Text>
             <Text style={styles.date}>
               {dayjs(updatedAt).fromNow()}
