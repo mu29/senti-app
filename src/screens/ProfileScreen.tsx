@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { NavigationEvents } from 'react-navigation';
 import {
   View,
   StyleSheet,
@@ -19,27 +20,35 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { AnalyticsService } from 'services';
 
-const ProfileScreen = () => (
-  <React.Fragment>
-    <Header>
-      프로필
-    </Header>
-    <View style={styles.info}>
-      <UserInfo />
-      <View style={styles.divider} />
-      <CoinInventory />
-    </View>
-    <View style={styles.stories}>
-      <Icon name="ios-albums" size={16} color={palette.gray[20]} />
-      <Text style={[typography.heading3, styles.title]}>
-        나의 이야기
-      </Text>
-    </View>
-    <MyStoryGrid />
-    <CoinModal />
-  </React.Fragment>
-);
+const ProfileScreen: React.FunctionComponent<{}> = () => {
+  const onDidFocus = useCallback(() => {
+    AnalyticsService.setScreen(ProfileScreen.name);
+  }, []);
+
+  return (
+    <React.Fragment>
+      <Header>
+        프로필
+      </Header>
+      <View style={styles.info}>
+        <UserInfo />
+        <View style={styles.divider} />
+        <CoinInventory />
+      </View>
+      <View style={styles.stories}>
+        <Icon name="ios-albums" size={16} color={palette.gray[20]} />
+        <Text style={[typography.heading3, styles.title]}>
+          나의 이야기
+        </Text>
+      </View>
+      <MyStoryGrid />
+      <CoinModal />
+      <NavigationEvents onDidFocus={onDidFocus} />
+    </React.Fragment>
+  );
+};
 
 const styles = StyleSheet.create({
   info: {

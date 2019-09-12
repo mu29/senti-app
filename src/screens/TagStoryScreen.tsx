@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   Image,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
 import {
   SafeAreaView,
   withNavigation,
+  NavigationEvents,
   SafeAreaViewForceInsetValue,
   NavigationScreenProps,
 } from 'react-navigation';
@@ -15,6 +16,10 @@ import {
   ReplyModal,
 } from 'containers';
 import { palette } from 'constants/style';
+import {
+  AudioService,
+  AnalyticsService,
+} from 'services';
 
 const SAFE_AREA_INSET: {
   top: SafeAreaViewForceInsetValue;
@@ -31,27 +36,31 @@ const HIT_SLOP = {
 
 const BACK_ICON = { uri: 'ic_back' };
 
-class TagStoryScreen extends React.Component<NavigationScreenProps> {
-  public render() {
-    const tagId = this.props.navigation.getParam('tagId', '');
+const TagStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
+  navigation,
+}) => {
+  const onDidFocus = useCallback(() => {
+    AnalyticsService.setScreen(TagStoryScreen.name);
+  }, []);
 
-    return (
-      <React.Fragment>
-        <TagStoryList tagId={tagId} />
-        <SafeAreaView style={styles.container} forceInset={SAFE_AREA_INSET}>
-          <Button onPress={this.goBack} hitSlop={HIT_SLOP} round>
-            <Image style={styles.icon} source={BACK_ICON} />
-          </Button>
-        </SafeAreaView>
-        <ReplyModal />
-      </React.Fragment>
-    );
-  }
+  const goBack = useCallback(() => navigation.goBack(), []);
 
-  private goBack = () => {
-    this.props.navigation.goBack();
-  }
-}
+  const tagId = navigation.getParam('tagId', '');
+
+  return (
+    <React.Fragment>
+      <TagStoryList tagId={tagId} />
+      <SafeAreaView style={styles.container} forceInset={SAFE_AREA_INSET}>
+        <Button onPress={goBack} hitSlop={HIT_SLOP} round>
+          <Image style={styles.icon} source={BACK_ICON} />
+        </Button>
+      </SafeAreaView>
+      <ReplyModal />
+      <NavigationEvents onDidFocus={onDidFocus} />
+      <NavigationEvents onWillBlur={AudioService.pause} />
+    </React.Fragment>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

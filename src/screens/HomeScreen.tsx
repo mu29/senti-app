@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { NavigationEvents } from 'react-navigation';
 import {
   StoryList,
   ReplyModal,
 } from 'containers';
-import { AudioService } from 'services';
+import {
+  AudioService,
+  AnalyticsService,
+} from 'services';
 
-const HomeScreen: React.FunctionComponent<{}> = () => (
-  <React.Fragment>
-    <NavigationEvents onWillBlur={AudioService.pause} />
-    <StoryList />
-    <ReplyModal />
-  </React.Fragment>
-);
+const HomeScreen: React.FunctionComponent<{}> = () => {
+  const onDidFocus = useCallback(() => {
+    AnalyticsService.setScreen(HomeScreen.name);
+  }, []);
+
+  return (
+    <React.Fragment>
+      <StoryList />
+      <ReplyModal />
+      <NavigationEvents onDidFocus={onDidFocus} />
+      <NavigationEvents onWillBlur={AudioService.pause} />
+    </React.Fragment>
+  );
+};
 
 export default HomeScreen;

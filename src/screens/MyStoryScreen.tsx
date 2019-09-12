@@ -6,12 +6,17 @@ import {
 import {
   SafeAreaView,
   withNavigation,
+  NavigationEvents,
   SafeAreaViewForceInsetValue,
   NavigationScreenProps,
 } from 'react-navigation';
 import { Button } from 'components';
 import { MyStoryList } from 'containers';
 import { palette } from 'constants/style';
+import {
+  AudioService,
+  AnalyticsService,
+} from 'services';
 
 const SAFE_AREA_INSET: {
   top: SafeAreaViewForceInsetValue;
@@ -31,6 +36,10 @@ const BACK_ICON = { uri: 'ic_back' };
 const MyStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
   navigation,
 }) => {
+  const onDidFocus = useCallback(() => {
+    AnalyticsService.setScreen(MyStoryScreen.name);
+  }, []);
+
   const goBack = useCallback(() => navigation.goBack(), []);
 
   const index = navigation.getParam('index', 0);
@@ -43,6 +52,8 @@ const MyStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
           <Image style={styles.icon} source={BACK_ICON} />
         </Button>
       </SafeAreaView>
+      <NavigationEvents onDidFocus={onDidFocus} />
+      <NavigationEvents onWillBlur={AudioService.pause} />
     </React.Fragment>
   );
 };
