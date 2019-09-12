@@ -1,1 +1,0 @@
-../../../FirebaseFirestore/Firestore/core/src/firebase/firestore/remote/grpc_root_certificate_finder.h

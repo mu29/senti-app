@@ -17,9 +17,7 @@ import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
-import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
-import io.invertase.firebase.functions.RNFirebaseFunctionsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.kevinresol.react_native_sound_recorder.RNSoundRecorderPackage;
 import com.rnfs.RNFSPackage;
@@ -65,9 +63,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNGoogleSigninPackage(),
             new RNFirebasePackage(),
             new RNFirebaseAuthPackage(),
-            new RNFirebaseFirestorePackage(),
             new RNFirebaseStoragePackage(),
-            new RNFirebaseFunctionsPackage(),
             new RNSoundPackage(),
             new RNSoundRecorderPackage(),
             new RNFSPackage(),

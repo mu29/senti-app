@@ -1,1 +1,0 @@
-../../../FirebaseFirestore/Firestore/core/src/firebase/firestore/local/index_manager.h

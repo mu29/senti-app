@@ -1,1 +1,0 @@
-../../../FirebaseFirestore/Firestore/core/src/firebase/firestore/local/leveldb_query_cache.h
