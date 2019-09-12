@@ -2,6 +2,7 @@ import React, {
   useMemo,
   useEffect,
   useRef,
+  useCallback,
 } from 'react';
 import {
   View,
@@ -18,6 +19,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -54,6 +56,16 @@ const RecordController: React.FunctionComponent<Props> = ({
     transform: [{ scale: progressAnimation.current }],
   }), [progressAnimation.current]);
 
+  const onPressReset = useCallback(() => {
+    release();
+    AnalyticsService.logEvent('click_record_reset');
+  }, [release]);
+
+  const onPressCreate = useCallback(() => {
+    create();
+    AnalyticsService.logEvent('click_record_upload');
+  }, [create]);
+
   useEffect(() => {
     if (!isStarted) {
       Animated.timing(progressAnimation.current, {
@@ -89,7 +101,7 @@ const RecordController: React.FunctionComponent<Props> = ({
     <Animated.View style={styles.container}>
       <View style={styles.controller}>
         <Button
-          onPress={release}
+          onPress={onPressReset}
           disabled={!isRecorded}
           style={[styles.button, isRecorded && styles.enabled]}
           round
@@ -105,7 +117,7 @@ const RecordController: React.FunctionComponent<Props> = ({
           />
         </View>
         <Button
-          onPress={create}
+          onPress={onPressCreate}
           disabled={!isRecorded}
           style={[styles.button, isRecorded && styles.enabled]}
           round

@@ -10,6 +10,7 @@ import {
   NavigationInjectedProps,
 } from 'react-navigation';
 import { palette } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 const ALBUM_ICON = { uri: 'ic_grid' };
 const CLOSE_ICON = { uri: 'ic_close' };
@@ -28,12 +29,17 @@ const CreateStoryHeader: React.FunctionComponent<Props> = ({
   navigation,
   showCoverModal,
 }) => {
+  const onPressAlbum = useCallback(() => {
+    showCoverModal();
+    AnalyticsService.logEvent('show_cover_modal');
+  }, [showCoverModal]);
+
   const goBack = useCallback(() => navigation.goBack(), []);
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={showCoverModal}
+        onPress={onPressAlbum}
         hitSlop={TOUCH_HITSLOP}
       >
         <Animated.Image

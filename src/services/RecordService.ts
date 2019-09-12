@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
+import { AnalyticsService } from 'services';
 
 class RecordService {
   private isRecording = false;
@@ -21,6 +22,7 @@ class RecordService {
 
     this.release();
     this.isRecording = true;
+    AnalyticsService.logEvent('start_record');
     return SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
   }
 
@@ -50,18 +52,21 @@ class RecordService {
       throw e;
     } finally {
       this.isRecording = false;
+      AnalyticsService.logEvent('stop_record');
     }
   }
 
   public play = (onEnd: () => void) => {
     if (this.sound && this.sound.isLoaded() && !this.sound.isPlaying()) {
       this.sound.play(onEnd);
+      AnalyticsService.logEvent('play_recorded');
     }
   }
 
   public pause = () => {
     if (this.sound && this.sound.isLoaded() && this.sound.isPlaying()) {
       this.sound.stop();
+      AnalyticsService.logEvent('stop_recorded');
     }
   }
 

@@ -14,7 +14,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { AudioService } from 'services';
+import { AudioService, AnalyticsService } from 'services';
 
 const HIT_SLOP = {
   top: 16,
@@ -57,14 +57,27 @@ const StoryController: React.FunctionComponent<Props> = ({
   const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
 
   const openReplyModal = useCallback(() => {
+    AnalyticsService.logEvent('click_story_reply');
+
     if (!isLoggedIn) {
       showAuthModal();
       return;
     }
 
-    AudioService.pause();
     showReplyModal();
+    AudioService.pause();
+    AnalyticsService.logEvent('show_reply_modal');
   }, [isLoggedIn]);
+
+  const onPressReplay = useCallback(() => {
+    AudioService.replay();
+    AnalyticsService.logEvent('click_story_replay');
+  }, []);
+
+  const onPressDelete = useCallback(() => {
+    showDeleteAlert();
+    AnalyticsService.logEvent('click_story_delete');
+  }, [showDeleteAlert]);
 
   return (
     <React.Fragment>
@@ -84,14 +97,14 @@ const StoryController: React.FunctionComponent<Props> = ({
         <TouchableOpacity
           activeOpacity={0.6}
           hitSlop={HIT_SLOP}
-          onPress={AudioService.replay}
+          onPress={onPressReplay}
         >
           <Image source={REPLAY_ICON} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity
           activeOpacity={0.6}
           hitSlop={HIT_SLOP}
-          onPress={isMyStory ? showDeleteAlert : openReplyModal}
+          onPress={isMyStory ? onPressDelete : openReplyModal}
         >
           <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />
         </TouchableOpacity>

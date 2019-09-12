@@ -6,7 +6,8 @@ class AnalyticsService {
     firebase.analytics().setCurrentScreen(screen);
   }
 
-  public logEvent(event: string, params: { [key: string]: string | number }) {
+  public logEvent(event: string, params?: { [key: string]: string | number }) {
+    console.info(`[Analytics] ${event}${params ? ` with params: ${JSON.stringify(params)}` : ''}`);
     firebase.analytics().logEvent(event, params);
   }
 }

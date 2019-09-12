@@ -14,7 +14,10 @@ import {
   LoadingBar,
   StoryItem,
 } from 'components';
-import { AudioService } from 'services';
+import {
+  AudioService,
+  AnalyticsService,
+} from 'services';
 import { palette } from 'constants/style';
 
 const {
@@ -119,6 +122,7 @@ class StoryList extends React.PureComponent<Props> {
       const currentItem = viewableItems[0].item;
       if (this.previousItem !== currentItem) {
         AudioService.play(currentItem.audio.url);
+        AnalyticsService.logEvent('automatic_story_play');
         this.previousItem = currentItem;
       }
     }

@@ -24,6 +24,7 @@ import {
   StoryController,
 } from 'containers';
 import { palette } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 const {
   width: deviceWidth,
@@ -61,6 +62,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
 
   const toggle = useCallback(() => {
     audio.isPlaying ? pause() : play();
+    AnalyticsService.logEvent(audio.isPlaying ? 'click_story_pause' : 'click_story_play');
   }, [item, audio.isPlaying]);
 
   const pauseAnimation = useAnimation({

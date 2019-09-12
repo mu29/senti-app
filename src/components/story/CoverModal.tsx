@@ -16,6 +16,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 const ITEM_SIZE = Dimensions.get('window').width / 5;
 
@@ -32,10 +33,15 @@ const CoverModal: React.FunctionComponent<Props> = ({
   updateCover,
   hide,
 }) => {
+  const onPressItem = useCallback((item) => {
+    updateCover(item);
+    AnalyticsService.logEvent('update_story_cover');
+  }, [updateCover]);
+
   const renderItem = useCallback(({ item }: { item: string }) => (
     <TouchableOpacity
       activeOpacity={0.6}
-      onPress={() => updateCover(item)}
+      onPress={() => onPressItem(item)}
       style={styles.item}
     >
       <CachableImage prefix="covers" source={item} style={styles.image} />
