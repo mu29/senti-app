@@ -16,8 +16,10 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
+import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.kevinresol.react_native_sound_recorder.RNSoundRecorderPackage;
 import com.rnfs.RNFSPackage;
@@ -61,9 +63,11 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFetchBlobPackage(),
             new FBSDKPackage(mCallbackManager),
             new RNGoogleSigninPackage(),
+            new RNFirebaseAnalyticsPackage(),
             new RNFirebasePackage(),
             new RNFirebaseAuthPackage(),
             new RNFirebaseStoragePackage(),
+            new RNFirebaseCrashlyticsPackage(),
             new RNSoundPackage(),
             new RNSoundRecorderPackage(),
             new RNFSPackage(),
