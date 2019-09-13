@@ -16,6 +16,7 @@ import {
   FETCH_DRAFT,
   CREATE_STORY,
 } from 'graphqls';
+import { AnalyticsService } from 'services';
 
 const Container: React.FunctionComponent<NavigationInjectedProps> = ({
   navigation,
@@ -36,6 +37,7 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
         },
       },
     });
+    AnalyticsService.logEvent('finish_create_story');
   }, [data && data.draft]);
 
   const finish = useCallback(() => navigation.goBack(), []);

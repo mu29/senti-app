@@ -12,6 +12,7 @@ import {
   SHOW_MODAL,
   FETCH_PROFILE,
 } from 'graphqls';
+import { AnalyticsService } from 'services';
 
 interface Props {
   setIsLoading: (isLoading: boolean) => void;
@@ -78,6 +79,7 @@ const Container: React.FunctionComponent<Props> = ({
         setIsLoading(false);
         if (error.message === '로그인 후 이용해주세요.') {
           showAuthModal();
+          AnalyticsService.logEvent('show_auth_modal_before_upload');
         } else {
           Alert.alert('알림', `녹음 파일 업로드에 실패했습니다.\n${error.message}`);
         }

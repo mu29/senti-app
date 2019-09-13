@@ -22,7 +22,7 @@ class RecordService {
 
     this.release();
     this.isRecording = true;
-    AnalyticsService.logEvent('start_record');
+    AnalyticsService.logEvent('click_start_record');
     return SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
   }
 
@@ -52,21 +52,21 @@ class RecordService {
       throw e;
     } finally {
       this.isRecording = false;
-      AnalyticsService.logEvent('stop_record');
+      AnalyticsService.logEvent('click_stop_record');
     }
   }
 
   public play = (onEnd: () => void) => {
     if (this.sound && this.sound.isLoaded() && !this.sound.isPlaying()) {
       this.sound.play(onEnd);
-      AnalyticsService.logEvent('play_recorded');
+      AnalyticsService.logEvent('click_play_recorded');
     }
   }
 
   public pause = () => {
     if (this.sound && this.sound.isLoaded() && this.sound.isPlaying()) {
       this.sound.stop();
-      AnalyticsService.logEvent('stop_recorded');
+      AnalyticsService.logEvent('click_pause_recorded');
     }
   }
 
