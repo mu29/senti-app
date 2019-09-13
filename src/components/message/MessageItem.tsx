@@ -18,6 +18,7 @@ import {
 import { typography, palette } from 'constants/style';
 import { toTimeText } from 'utils';
 import { useAudio } from 'containers';
+import { AnalyticsService } from 'services';
 
 const PLAY_ICON = { uri: 'ic_play_active' };
 const PAUSE_ICON = { uri: 'ic_pause' };
@@ -55,11 +56,13 @@ const MessageItem: React.FunctionComponent<Props> = ({
 
   const toggle = useCallback(() => {
     if (!url) {
+      AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_play`);
       return loadAudio();
     }
 
     audio.isPlaying ? pause() : play();
-  }, [url, audio.isPlaying]);
+    AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_${audio.isPlaying ? 'pause' : 'play'}`);
+  }, [url, audio.isPlaying, isMyMessage]);
 
   useEffect(() => {
     if (!isInitialLoaded.current) {

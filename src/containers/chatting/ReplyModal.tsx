@@ -10,6 +10,7 @@ import {
   CREATE_CHATTING,
   FETCH_CHATTING_FEED,
 } from 'graphqls';
+import { AnalyticsService } from 'services';
 
 type ChattingFeedResult = {
   chattingFeed: {
@@ -63,6 +64,7 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
         },
       },
     });
+    AnalyticsService.logEvent('finish_create_chatting');
   }, [data && data.modal && data.modal.params]);
 
   if (!data || !data.modal) {

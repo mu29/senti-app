@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import {
+  View,
+  StyleSheet,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import { LoadingLayer } from 'components';
 import { RecordController } from 'containers';
@@ -38,13 +40,13 @@ const ReplyModal: React.FunctionComponent<Props> = ({
         hideModalContentWhileAnimating={true}
         useNativeDriver
       >
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           <RecordController
             setIsLoading={setIsLoading}
             onCreate={create}
             onFinish={hide}
           />
-        </SafeAreaView>
+        </View>
         {isLoading && <LoadingLayer />}
       </Modal>
     </React.Fragment>
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingTop: 48,
-    paddingBottom: 24,
+    paddingBottom: 32,
     backgroundColor: palette.black.default,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,

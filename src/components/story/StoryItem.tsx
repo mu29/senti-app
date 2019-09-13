@@ -62,7 +62,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
 
   const toggle = useCallback(() => {
     audio.isPlaying ? pause() : play();
-    AnalyticsService.logEvent(audio.isPlaying ? 'click_story_pause' : 'click_story_play');
+    AnalyticsService.logEvent(`click_story_${audio.isPlaying ? 'pause' : 'play'}`);
   }, [item, audio.isPlaying]);
 
   const pauseAnimation = useAnimation({

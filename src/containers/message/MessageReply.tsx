@@ -5,6 +5,7 @@ import {
   CREATE_MESSAGE,
   FETCH_MESSAGE_FEED,
 } from 'graphqls';
+import { AnalyticsService } from 'services';
 
 type MessageFeedResult = {
   messageFeed: {
@@ -56,6 +57,7 @@ const Container: React.FunctionComponent<Props> = ({
         },
       },
     });
+    AnalyticsService.logEvent('finish_create_message');
   }, [chattingId]);
 
   return (
