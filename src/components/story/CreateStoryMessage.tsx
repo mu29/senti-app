@@ -30,8 +30,8 @@ const CreateStoryMessage: React.FunctionComponent<Props> = ({
         autoCorrect={false}
         numberOfLines={5}
         multiline
-        placeholder="덧붙이고 싶은 말이 있나요?"
-        placeholderTextColor={palette.white.default}
+        placeholder="여기를 눌러 #태그를 추가해 보세요"
+        placeholderTextColor={palette.gray[30]}
         selectionColor={palette.white.default}
         onChangeText={onChangeText}
         style={styles.input}
