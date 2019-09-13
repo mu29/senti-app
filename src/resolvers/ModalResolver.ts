@@ -23,7 +23,7 @@ export default {
         id: `Modal:${id}`,
         data: {
           __typename: 'Modal',
-          id: `Modal:${id}`,
+          id,
           params: params || null,
           isVisible: true,
         },
@@ -36,7 +36,7 @@ export default {
         id: `Modal:${id}`,
         data: {
           __typename: 'Modal',
-          id: `Modal:${id}`,
+          id,
           params: null,
           isVisible: false,
         },
