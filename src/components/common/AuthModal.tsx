@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import {
+  View,
+  StyleSheet,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import {
   Text,
@@ -37,7 +39,10 @@ const AuthModal: React.FunctionComponent<Props> = ({
     hideModalContentWhileAnimating={true}
     useNativeDriver
   >
-    <SafeAreaView style={styles.container} pointerEvents="auto">
+    <View
+      style={styles.container}
+      pointerEvents="auto"
+    >
       <Text style={[typography.heading1, styles.title]}>
         로그인하고 모든 기능을 사용하세요!
       </Text>
@@ -62,7 +67,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
       <Text style={styles.description}>
         로그인하면 이용약관 및 개인정보처리방침에{'\n'}동의하는 것으로 간주합니다.
       </Text>
-    </SafeAreaView>
+    </View>
   </Modal>
 );
 
