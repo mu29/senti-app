@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Image,
@@ -11,6 +11,7 @@ import {
   Button,
 } from 'components';
 import { palette } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 const TAG_ICON = { uri: 'ic_tag' };
 
@@ -42,33 +43,40 @@ const TagItem: React.FunctionComponent<Props> = ({
   isSubscribed,
   toggle,
   openTagStoryScreen,
-}) => (
-  <TouchableOpacity onPress={openTagStoryScreen} activeOpacity={0.8}>
-    <View style={styles.container}>
-      <View style={styles.tag}>
-        <Image source={TAG_ICON} style={styles.icon} />
+}) => {
+  const onPress = useCallback(() => {
+    toggle();
+    AnalyticsService.logEvent(`click_${isSubscribed ? 'unsubscribe' : 'subscribe'}_tag`);
+  }, [toggle, isSubscribed]);
+
+  return (
+    <TouchableOpacity onPress={openTagStoryScreen} activeOpacity={0.8}>
+      <View style={styles.container}>
+        <View style={styles.tag}>
+          <Image source={TAG_ICON} style={styles.icon} />
+        </View>
+        <View style={styles.content}>
+          <Text style={styles.name}>
+            {name}
+          </Text>
+          <Text style={styles.count}>
+            이야기 {storyCount.toLocaleString()}개
+          </Text>
+        </View>
+        <Button
+          hitSlop={TAG_HITSLOP}
+          isLoading={isLoading}
+          onPress={onPress}
+          style={styles.button}
+        >
+          <Text style={[styles.normalText, isSubscribed && styles.subscribedText]}>
+            관심
+          </Text>
+        </Button>
       </View>
-      <View style={styles.content}>
-        <Text style={styles.name}>
-          {name}
-        </Text>
-        <Text style={styles.count}>
-          이야기 {storyCount.toLocaleString()}개
-        </Text>
-      </View>
-      <Button
-        hitSlop={TAG_HITSLOP}
-        isLoading={isLoading}
-        onPress={toggle}
-        style={styles.button}
-      >
-        <Text style={[styles.normalText, isSubscribed && styles.subscribedText]}>
-          관심
-        </Text>
-      </Button>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

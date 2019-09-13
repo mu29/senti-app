@@ -5,7 +5,10 @@ import React, {
 } from 'react';
 import debounce from 'lodash/debounce';
 import { NetworkStatus } from 'apollo-client';
-import { useQuery, useLazyQuery } from '@apollo/react-hooks';
+import {
+  useQuery,
+  useLazyQuery,
+} from '@apollo/react-hooks';
 import {
   ErrorView,
   LoadingView,
@@ -16,6 +19,7 @@ import {
   FETCH_SEARCH_QUERY,
   SEARCH_TAGS,
 } from 'graphqls';
+import { AnalyticsService } from 'services';
 import { isFetching } from 'utils';
 
 const EMPTY_LIST: Tag[] = [];
@@ -43,13 +47,17 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
   const debouncedSearch = useRef(debounce((tag) => {
     searchTags({ variables: { tag } });
     setIsLoading(false);
+    AnalyticsService.logEvent('search_tag_list');
   }, 1000));
 
   useEffect(() => {
-    if (searchQuery && !isLoading) {
-      setIsLoading(true);
+    if (searchQuery) {
+      if (!isLoading) {
+        setIsLoading(true);
+      }
+
+      debouncedSearch.current(searchQuery);
     }
-    debouncedSearch.current(searchQuery);
   }, [searchQuery]);
 
   const {
