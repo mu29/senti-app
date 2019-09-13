@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   Button,
   Text,
 } from 'components';
 import { palette } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 const HIT_SLOP = {
   top: 16,
@@ -24,11 +25,16 @@ const ProfileSaveButton: React.FunctionComponent<Props> = ({
   isLoading,
   updateProfile,
 }) => {
+  const onPress = useCallback(() => {
+    updateProfile();
+    AnalyticsService.logEvent('click_update_profile_info');
+  }, [updateProfile]);
+
   return (
     <Button
       hitSlop={HIT_SLOP}
       disabled={!isEnabled}
-      onPress={updateProfile}
+      onPress={onPress}
       isLoading={isLoading}
       style={styles.button}
     >

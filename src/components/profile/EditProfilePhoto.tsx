@@ -14,6 +14,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 interface Props {
   photoUrl: string | null;
@@ -34,7 +35,8 @@ const EditProfilePhoto: React.FunctionComponent<Props> = ({
     }).then((image) => {
       const target = Array.isArray(image) ? image[0] : image;
       updateProfilePhoto(target.path);
-    });
+    }).catch(() => {});
+    AnalyticsService.logEvent('click_update_profile_photo');
   }, []);
 
   return (

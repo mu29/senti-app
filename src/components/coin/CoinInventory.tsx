@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Image,
@@ -13,6 +13,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 const COIN_ICON = { uri: 'ic_coin' };
 
@@ -31,24 +32,31 @@ interface Props {
 const CoinInventory: React.FunctionComponent<Props> = ({
   amount,
   showModal,
-}) => (
-  <View style={styles.container}>
-    <Image source={COIN_ICON} style={styles.icon} />
-    <View style={styles.divider} />
-    <Text style={[typography.heading3, styles.amount]}>
-      {amount}코인
-    </Text>
-    <Button
-      hitSlop={HITSLOP}
-      onPress={showModal}
-      style={styles.button}
-    >
-      <Text style={styles.shop}>
-        충전
+}) => {
+  const onPress = useCallback(() => {
+    showModal();
+    AnalyticsService.logEvent('show_coin_modal');
+  }, [showModal]);
+
+  return (
+    <View style={styles.container}>
+      <Image source={COIN_ICON} style={styles.icon} />
+      <View style={styles.divider} />
+      <Text style={[typography.heading3, styles.amount]}>
+        {amount}코인
       </Text>
-    </Button>
-  </View>
-);
+      <Button
+        hitSlop={HITSLOP}
+        onPress={onPress}
+        style={styles.button}
+      >
+        <Text style={styles.shop}>
+          충전
+        </Text>
+      </Button>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

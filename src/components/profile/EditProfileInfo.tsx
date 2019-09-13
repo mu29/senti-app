@@ -17,6 +17,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { AnalyticsService } from 'services';
 
 const GENDERS = {
   male: '남성',
@@ -62,6 +63,11 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
     }
   }, []);
 
+  const onPressSignOut = useCallback(() => {
+    signOut();
+    AnalyticsService.logEvent('click_sign_out');
+  }, [signOut]);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -98,7 +104,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
           {GENDERS[candidate.gender || profile.gender || 'none']}
         </Text>
       </Button>
-      <Button onPress={signOut} style={styles.form}>
+      <Button onPress={onPressSignOut} style={styles.form}>
         <View style={styles.icon}>
           <Icon name="md-exit" size={20} color={palette.gray[60]} />
         </View>
