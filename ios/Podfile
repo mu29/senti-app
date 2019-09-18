@@ -32,9 +32,9 @@ target 'Senti' do
   pod 'Fabric', '~> 1.10.2'
   pod 'Crashlytics', '~> 3.13.4'
   pod 'GoogleSignIn', '4.4.0'
-  pod 'FBSDKCoreKit', '4.40.0'
-  pod 'FBSDKLoginKit', '4.40.0'
-  pod 'FBSDKShareKit', '4.40.0'
+  pod 'FBSDKCoreKit', '5.6.0'
+  pod 'FBSDKLoginKit', '5.6.0'
+  pod 'FBSDKShareKit', '5.6.0'
 
   use_native_modules!
 end

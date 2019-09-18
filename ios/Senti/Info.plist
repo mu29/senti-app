@@ -4,8 +4,6 @@
 <dict>
 	<key>API_URL</key>
 	<string>$(API_URL)</string>
-	<key>FIREBASE_WEB_CLIENT_ID</key>
-	<string>$(FIREBASE_WEB_CLIENT_ID)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -47,6 +45,10 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CodePushDeploymentKey</key>
+	<string>$(CODEPUSH_KEY)</string>
+	<key>FIREBASE_WEB_CLIENT_ID</key>
+	<string>$(FIREBASE_WEB_CLIENT_ID)</string>
 	<key>FacebookAppID</key>
 	<string>2247161082214684</string>
 	<key>FacebookDisplayName</key>
@@ -93,7 +95,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CodePushDeploymentKey</key>
-	<string>$(CODEPUSH_KEY)</string>
 </dict>
 </plist>

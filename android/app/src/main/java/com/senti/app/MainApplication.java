@@ -3,11 +3,8 @@ package com.senti.app;
 import android.app.Application;
 import android.util.Log;
 
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.PackageList;
-import com.facebook.CallbackManager;
 import com.facebook.react.ReactApplication;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -21,8 +18,6 @@ import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
 public class MainApplication extends Application implements ReactApplication {
-
-  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -39,8 +34,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       packages.add(new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG));
-      packages.add(new FBSDKPackage(mCallbackManager));
-      packages.add(new RNFetchBlobPackage());
       packages.add(new RNFirebaseAnalyticsPackage());
       packages.add(new RNFirebaseAuthPackage());
       try {
@@ -68,9 +61,5 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-  }
-
-  protected static CallbackManager getCallbackManager() {
-    return mCallbackManager;
   }
 }
