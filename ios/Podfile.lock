@@ -228,8 +228,6 @@ PODS:
     - React-Core
     - React-RCTImage
     - RSKImageCropper
-  - RNInAppPurchase (1.0.0):
-    - React
   - RNReanimated (1.2.0):
     - React
   - RNSound (0.11.0):
@@ -286,7 +284,6 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNGoogleSignin (from `../node_modules/react-native-google-signin`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
-  - RNInAppPurchase (from `../node_modules/react-native-in-app-purchase`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNSound (from `../node_modules/react-native-sound`)
   - RNSoundRecorder (from `../node_modules/react-native-sound-recorder`)
@@ -383,8 +380,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-google-signin"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
-  RNInAppPurchase:
-    :path: "../node_modules/react-native-in-app-purchase"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNSound:
@@ -450,7 +445,6 @@ SPEC CHECKSUMS:
   RNGestureHandler: b65d391f4f570178d657b99a16ec99d09b8656b0
   RNGoogleSignin: d030c6c6591db24c3cee649f64c7babf0a1699a0
   RNImageCropPicker: f675353bbe18f66113a39b319c0aeb36655a6e4c
-  RNInAppPurchase: 05648492ba2cb7d9562688c591c855666375cd16
   RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
   RNSound: da030221e6ac7e8290c6b43f2b5f2133a8e225b0
   RNSoundRecorder: 9a7dd93152b08d4a560cbd7b70f074af05c6d720
