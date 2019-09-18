@@ -3,7 +3,7 @@ import firebase from 'react-native-firebase';
 class AnalyticsService {
   public setScreen(screen: string) {
     console.info(`[Analytics] Set current screen: ${screen}`);
-    firebase.analytics().setCurrentScreen(screen);
+    firebase.analytics().setCurrentScreen(screen, screen);
   }
 
   public logEvent(event: string, params?: { [key: string]: string | number }) {
