@@ -1,8 +1,5 @@
 {
   "root": true,
   "extends": "@react-native-community",
-  "plugins": ["react-hooks"],
-  "rules": {
-    "prettier/prettier": 0
-  }
+  "plugins": ["react-hooks"]
 }
