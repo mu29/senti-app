@@ -16,8 +16,9 @@ const tinifyAsset = async (folder, file) => {
   }
 
   const path = `${folder}/${file}`;
+  const targetFile = `${file.replace('.jpg', '')}-tiny.jpg`;
 
-  console.info(`tinify ${path}`);
+  console.log(targetFile);
 
   await tinify
     .fromFile(path)
@@ -26,7 +27,7 @@ const tinifyAsset = async (folder, file) => {
       width: 540,
       height: 720,
     })
-    .toFile(`${targetFolder}/${file.replace('.jpg', '')}-tiny.jpg`);
+    .toFile(`${targetFolder}/${targetFile}`);
 }
 
 if (!fs.existsSync(targetFolder)){
