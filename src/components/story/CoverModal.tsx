@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   container: {
     height: 256,
-    backgroundColor: palette.transparent.black[40],
+    backgroundColor: palette.black.default,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 14,
-    backgroundColor: palette.transparent.black[40],
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
