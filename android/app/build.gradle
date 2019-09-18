@@ -228,14 +228,16 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation project(':react-native-code-push')
-    implementation project(':react-native-fbsdk')
-    implementation project(':rn-fetch-blob')
 
+    // Firebase
     implementation "com.google.android.gms:play-services-base:17.1.0"
     implementation "com.google.firebase:firebase-core:17.2.0"
     implementation "com.google.firebase:firebase-auth:19.0.0"
     implementation "com.google.firebase:firebase-storage:19.0.1"
-    implementation "com.crashlytics.sdk.android:crashlytics:2.9.9"
+    implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
+
+    // Facebook
+    implementation "com.facebook.android:facebook-core:5.5.1"
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermesvm/android/";
@@ -253,6 +255,8 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply plugin: 'com.google.gms.google-services'
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
