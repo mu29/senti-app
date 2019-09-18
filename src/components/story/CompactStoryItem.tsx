@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import {
   View,
-  Image,
   Dimensions,
   StyleSheet,
 } from 'react-native';
@@ -31,7 +30,7 @@ const CompactStoryItem: React.FunctionComponent<Props> = ({
 }) => {
   const openMyStoryScreen = useCallback(() => {
     navigation.navigate('MyStory', { index });
-  }, [index]);
+  }, [index, navigation]);
 
   return (
     <Button onPress={openMyStoryScreen}>

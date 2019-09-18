@@ -54,7 +54,7 @@ const RecordController: React.FunctionComponent<Props> = ({
 
   const progressStyle = useMemo(() => ({
     transform: [{ scale: progressAnimation.current }],
-  }), [progressAnimation.current]);
+  }), []);
 
   const onPressReset = useCallback(() => {
     release();
@@ -95,7 +95,7 @@ const RecordController: React.FunctionComponent<Props> = ({
   useEffect(() => {
     release();
     return release();
-  }, []);
+  }, [release]);
 
   return (
     <Animated.View style={styles.container}>

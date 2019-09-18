@@ -11,7 +11,7 @@ module.exports = {
         'services': './src/services',
         'graphqls': './src/graphqls',
         'stores': './src/stores',
-        'utils': './src/utils'
+        'utils': './src/utils',
       },
     }],
   ],

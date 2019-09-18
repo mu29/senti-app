@@ -17,7 +17,7 @@ const CoinList: React.FunctionComponent<Props> = ({
 }) => {
   const renderItem = useCallback(({ item }: { item: Coin }) => (
     <CoinItem item={item} purchase={purchase} />
-  ), []);
+  ), [purchase]);
 
   const keyExtractor = (item: Coin) => `coin-${item.id}`;
 

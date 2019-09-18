@@ -58,13 +58,13 @@ const Container: React.FunctionComponent<{}> = () => {
         },
       },
     });
-  }, [data && data.candidate]);
+  }, [data, updateProfile]);
 
   useEffect(() => {
     return () => {
       clearCandidate();
     };
-  }, []);
+  }, [clearCandidate]);
 
   const isEnabled = !!(data && data.candidate && (data.candidate.name || data.candidate.gender));
 

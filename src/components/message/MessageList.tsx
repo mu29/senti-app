@@ -27,7 +27,7 @@ const MessageList: React.FunctionComponent<Props> = ({
 }) => {
   const renderItem = useCallback(({ item }: { item: Message }) => (
     <MessageItem chattingId={chattingId} item={item} />
-  ), []);
+  ), [chattingId]);
 
   const keyExtractor = useCallback((item: Message) => `message-${item.id}`, []);
 

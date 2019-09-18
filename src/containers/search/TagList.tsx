@@ -58,7 +58,7 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
 
       debouncedSearch.current(searchQuery);
     }
-  }, [searchQuery]);
+  }, [isLoading, searchQuery]);
 
   const {
     data = {},

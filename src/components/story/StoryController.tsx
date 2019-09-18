@@ -67,7 +67,7 @@ const StoryController: React.FunctionComponent<Props> = ({
     showReplyModal();
     AudioService.pause();
     AnalyticsService.logEvent('show_reply_modal');
-  }, [isLoggedIn]);
+  }, [isLoggedIn, showAuthModal, showReplyModal]);
 
   const onPressReplay = useCallback(() => {
     AudioService.replay();

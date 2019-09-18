@@ -7,7 +7,7 @@ const SearchBarContainer: React.FunctionComponent<{}> = () => {
 
   const updateQuery = useCallback((searchQuery: string) => {
     client.writeData({ data: { searchQuery } });
-  }, []);
+  }, [client]);
 
   return (
     <SearchBar updateQuery={updateQuery} />

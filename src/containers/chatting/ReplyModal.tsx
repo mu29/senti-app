@@ -65,7 +65,7 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
       },
     });
     AnalyticsService.logEvent('finish_create_chatting');
-  }, [data && data.modal && data.modal.params]);
+  }, [createChatting, data]);
 
   if (!data || !data.modal) {
     return null;

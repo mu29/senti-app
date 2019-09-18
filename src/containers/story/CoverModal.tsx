@@ -34,7 +34,7 @@ const CoverModalContainer: React.FunctionComponent<{}> = () => {
 
   const updateCover = useCallback((cover: string) => {
     updateDraft({ variables: { cover } });
-  }, []);
+  }, [updateDraft]);
 
   if (!data || !data.modal) {
     return null;

@@ -1,4 +1,3 @@
-// tslint:disable
 export default [
   'https://firebasestorage.googleapis.com/v0/b/senti-production.appspot.com/o/covers%2Fballoon-991680_1280-tiny.jpg?alt=media&token=7707b408-1924-4405-bd26-c1057dcc7dfe',
   'https://firebasestorage.googleapis.com/v0/b/senti-production.appspot.com/o/covers%2Faircraft-4414576_1280-tiny.jpg?alt=media&token=62586b7c-3a62-4eda-bf84-ee85db799918',

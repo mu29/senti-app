@@ -27,7 +27,7 @@ const LoadingBar: React.FunctionComponent<Props> = ({
     styles.bar,
     { transform: [{ scaleX: scaleAnimation.current }] },
     { opacity: fadeAnimation.current },
-  ], [scaleAnimation.current, fadeAnimation.current]);
+  ], []);
 
   useEffect(() => {
     fadeAnimation.current.stopAnimation(() => {

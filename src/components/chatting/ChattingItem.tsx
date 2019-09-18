@@ -43,7 +43,7 @@ const ChattingItem: React.FunctionComponent<Props> = ({
       partnerId,
       partnerName: name,
     });
-  }, [id]);
+  }, [id, name, navigation, partnerId]);
 
   return (
     <Button onPress={openMessageScreen}>

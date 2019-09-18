@@ -40,7 +40,7 @@ const Container: React.FunctionComponent<Props> = ({
     })
     .catch(e => Alert.alert('오류', `메시지 재생에 실패했습니다.\n${e.message}`))
     .finally(() => setIsLoading(false));
-  }, [chattingId, item.id]);
+  }, [chattingId, client, item.id]);
 
   if (!profile || !profile.me) {
     return null;

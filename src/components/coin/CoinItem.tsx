@@ -30,7 +30,7 @@ const CoinItem: React.FunctionComponent<Props> = ({
 }) => {
   const onPress = useCallback(() => {
     purchase(id);
-  }, [id]);
+  }, [id, purchase]);
 
   return (
     <View style={styles.container}>

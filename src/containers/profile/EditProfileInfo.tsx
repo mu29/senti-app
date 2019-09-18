@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import firebase from 'react-native-firebase';
 import {
   withNavigation,
@@ -34,7 +34,7 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
 
   const update = useCallback((candidate: Candidate) => {
     updateCandidate({ variables: candidate });
-  }, []);
+  }, [updateCandidate]);
 
   const signOut = useCallback(async () => {
     await firebase.auth().signOut();
@@ -45,7 +45,7 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
       });
       navigation.dispatch(resetAction);
     });
-  }, []);
+  }, [client, navigation]);
 
   if (!profile || !profile.me || !data || !data.candidate) {
     return null;

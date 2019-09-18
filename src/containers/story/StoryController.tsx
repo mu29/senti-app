@@ -115,7 +115,7 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
         deleteStory().catch(e => Alert.alert('오류', `이야기 삭제에 실패했습니다.\n${e.message}`));
       }
     });
-  }, []);
+  }, [deleteStory]);
 
   const isLoggedIn = !!(profile && profile.me);
   const isMyStory = isLoggedIn && profile!.me.id === item.user.id;

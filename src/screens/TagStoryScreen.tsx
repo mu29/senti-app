@@ -43,7 +43,7 @@ const TagStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
     AnalyticsService.setScreen(TagStoryScreen.name);
   }, []);
 
-  const goBack = useCallback(() => navigation.goBack(), []);
+  const goBack = useCallback(() => navigation.goBack(), [navigation]);
 
   const tagId = navigation.getParam('tagId', '');
 

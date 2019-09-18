@@ -31,7 +31,7 @@ const TabView: React.FunctionComponent<Props> = ({
       ...m,
       [r.key]: () => children[i],
     }), {}),
-  ), []);
+  ), [children, routes]);
 
   const onIndexChange = useCallback((index: number) => {
     setNavigationState((prev) => ({

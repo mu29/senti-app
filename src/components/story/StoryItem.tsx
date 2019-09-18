@@ -63,7 +63,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
   const toggle = useCallback(() => {
     audio.isPlaying ? pause() : play();
     AnalyticsService.logEvent(`click_story_${audio.isPlaying ? 'pause' : 'play'}`);
-  }, [item, audio.isPlaying]);
+  }, [audio.isPlaying, pause, play]);
 
   const pauseAnimation = useAnimation({
     type: 'timing',
@@ -84,7 +84,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
         extrapolate: 'clamp',
       }),
     }],
-  }), [index]);
+  }), [animatedValue, index]);
 
   const iconStyle = useMemo(() => ({ opacity: pauseAnimation }), [pauseAnimation]);
 

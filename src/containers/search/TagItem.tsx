@@ -80,15 +80,15 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
 
   const isSubscribed = useMemo(() => {
     return profile && profile.me ? !!profile.me.tags.find(t => t.id === item.id) : false;
-  }, [profile]);
+  }, [item.id, profile]);
 
   const toggle = useCallback(() => {
     isSubscribed ? unsubscribeTag() : subscribeTag();
-  }, [isSubscribed]);
+  }, [isSubscribed, subscribeTag, unsubscribeTag]);
 
   const openTagStoryScreen = useCallback(() => {
     navigation.navigate('TagStory', { tagId: item.id });
-  }, [item.id]);
+  }, [item.id, navigation]);
 
   return (
     <TagItem

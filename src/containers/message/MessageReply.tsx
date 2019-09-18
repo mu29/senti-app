@@ -58,7 +58,7 @@ const Container: React.FunctionComponent<Props> = ({
       },
     });
     AnalyticsService.logEvent('finish_create_message');
-  }, [chattingId]);
+  }, [chattingId, createMessage]);
 
   return (
     <MessageReply

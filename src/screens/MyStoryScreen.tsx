@@ -40,7 +40,7 @@ const MyStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
     AnalyticsService.setScreen(MyStoryScreen.name);
   }, []);
 
-  const goBack = useCallback(() => navigation.goBack(), []);
+  const goBack = useCallback(() => navigation.goBack(), [navigation]);
 
   const index = navigation.getParam('index', 0);
 

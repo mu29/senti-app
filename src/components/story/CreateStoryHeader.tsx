@@ -34,7 +34,7 @@ const CreateStoryHeader: React.FunctionComponent<Props> = ({
     AnalyticsService.logEvent('show_cover_modal');
   }, [showCoverModal]);
 
-  const goBack = useCallback(() => navigation.goBack(), []);
+  const goBack = useCallback(() => navigation.goBack(), [navigation]);
 
   return (
     <View style={styles.container}>

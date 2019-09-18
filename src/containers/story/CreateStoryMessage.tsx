@@ -8,7 +8,7 @@ const Container: React.FunctionComponent<{}> = () => {
 
   const updateMessage = useCallback((message: string) => {
     updateDraft({ variables: { message } });
-  }, []);
+  }, [updateDraft]);
 
   return (
     <CreateStoryMessage onChangeText={updateMessage} />

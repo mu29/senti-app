@@ -64,7 +64,7 @@ const Container: React.FunctionComponent<{}> = () => {
       }))
       .catch(e => Alert.alert('알림', `프로필 사진 변경에 실패했습니다.\n${e.message}`))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [updateProfile]);
 
   if (!data || !data.me) {
     return null;

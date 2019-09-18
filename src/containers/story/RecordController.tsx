@@ -66,7 +66,7 @@ const Container: React.FunctionComponent<Props> = ({
       url: snapshot.downloadURL,
       duration: data.duration,
     };
-  }, [data, isRecorded, profile && profile.me]);
+  }, [data, isRecorded, profile]);
 
   const create = useCallback(() => {
     setIsLoading(true);
@@ -84,7 +84,7 @@ const Container: React.FunctionComponent<Props> = ({
           Alert.alert('알림', `녹음 파일 업로드에 실패했습니다.\n${error.message}`);
         }
       });
-  }, [upload, onCreate]);
+  }, [setIsLoading, upload, onCreate, release, onFinish, showAuthModal]);
 
   return (
     <RecordController

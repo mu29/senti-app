@@ -62,7 +62,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
 
     audio.isPlaying ? pause() : play();
     AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_${audio.isPlaying ? 'pause' : 'play'}`);
-  }, [url, audio.isPlaying, isMyMessage]);
+  }, [url, audio.isPlaying, pause, play, isMyMessage, loadAudio]);
 
   useEffect(() => {
     if (!isInitialLoaded.current) {
@@ -73,7 +73,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
     if (url) {
       play();
     }
-  }, [url]);
+  }, [play, url]);
 
   return (
     <View style={[styles.container, isMyMessage && styles.myMessage]}>

@@ -20,7 +20,7 @@ const Container: React.FunctionComponent<{}> = () => {
 
   useEffect(() => {
     shuffleCovers();
-  }, []);
+  }, [shuffleCovers]);
 
   if (!data.draft.cover) {
     return null;

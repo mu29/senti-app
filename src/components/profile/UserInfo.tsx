@@ -39,7 +39,7 @@ const UserInfo: React.FunctionComponent<Props> = ({
 }) => {
   const openEditProfileScreen = useCallback(() => {
     navigation.navigate('EditProfile');
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

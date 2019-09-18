@@ -38,9 +38,9 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
       },
     });
     AnalyticsService.logEvent('finish_create_story');
-  }, [data && data.draft]);
+  }, [createStory, data.draft.cover, data.draft.message]);
 
-  const finish = useCallback(() => navigation.goBack(), []);
+  const finish = useCallback(() => navigation.goBack(), [navigation]);
 
   return (
     <React.Fragment>

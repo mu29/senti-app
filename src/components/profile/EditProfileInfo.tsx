@@ -38,7 +38,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
   updateCandidate,
   signOut,
 }) => {
-  const updateCandidateName = useCallback((name: string) => updateCandidate({ name }), []);
+  const updateCandidateName = useCallback((name: string) => updateCandidate({ name }), [updateCandidate]);
 
   const showGenderSelectSheet = useCallback(() => {
     ActionSheet({
@@ -50,7 +50,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
     }, (index: number) => {
       updateCandidate({ gender: index === 0 ? 'male' : 'female' });
     });
-  }, []);
+  }, [updateCandidate]);
 
   const openEmail = useCallback(async () => {
     const subject = '[센치] 건의 & 불편 신고';
