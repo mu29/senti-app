@@ -65,6 +65,7 @@ class App extends React.PureComponent<{}, State> {
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
       })
+      .catch(() => {})
       .finally(() => SplashScreen.hide());
     }
   }
