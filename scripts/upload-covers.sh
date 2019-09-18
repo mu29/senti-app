@@ -3,4 +3,4 @@
 
 node tinify-cover.js $1
 
-gsutil -m cp $1/* gs://$2.appspot.com/covers
+gsutil -m cp $1-tinify/* gs://$2.appspot.com/covers

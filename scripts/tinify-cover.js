@@ -6,8 +6,12 @@ const path = require('path');
 
 tinify.key = 'nBOpq1cyCZDwDPjZVTfUGphdaVe5NxH8';
 
+const folder = process.argv[2];
+const files = fs.readdirSync(folder);
+const targetFolder = `${folder}-tinify`;
+
 const tinifyAsset = async (folder, file) => {
-  if (!file.includes('.jpg') && !file.includes('.jpeg')) {
+  if (!file.includes('.jpg') || file.includes('-tiny')) {
     return;
   }
 
@@ -22,11 +26,12 @@ const tinifyAsset = async (folder, file) => {
       width: 540,
       height: 720,
     })
-    .toFile(path);
+    .toFile(`${targetFolder}/${file.replace('.jpg', '')}-tiny.jpg`);
 }
 
-const folder = process.argv[2];
-const files = fs.readdirSync(folder);
+if (!fs.existsSync(targetFolder)){
+  fs.mkdirSync(targetFolder);
+}
 
 files.forEach(async (file) => {
   await tinifyAsset(folder, file);
