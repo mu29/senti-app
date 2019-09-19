@@ -17,7 +17,6 @@ import { FETCH_PROFILE } from 'graphqls';
 import { LANGUAGE } from 'constants/config';
 
 import Navigator from './Navigator';
-import NavigationService from './NavigationService';
 import configureClient from './apollo';
 
 // @ts-ignore
@@ -89,15 +88,11 @@ class App extends React.PureComponent<{}, State> {
         <ApolloProvider client={client}>
           <React.Fragment>
             <AuthModal />
-            <Navigator ref={this.setNavigationRef} />
+            <Navigator />
           </React.Fragment>
         </ApolloProvider>
       </React.Fragment>
     );
-  }
-
-  private setNavigationRef = (ref: any) => {
-    NavigationService.setTopLevelNavigator(ref);
   }
 }
 

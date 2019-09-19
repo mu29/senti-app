@@ -10,7 +10,6 @@ module.exports = {
         'containers': './src/containers',
         'services': './src/services',
         'graphqls': './src/graphqls',
-        'stores': './src/stores',
         'utils': './src/utils',
       },
     }],

@@ -3,12 +3,10 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {
-  createAppContainer,
-  createStackNavigator,
-  createBottomTabNavigator,
-  TabBarIconProps,
-} from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+
 import { BottomTabBar } from 'containers';
 import { palette } from 'constants/style';
 
@@ -26,7 +24,7 @@ const MainTabNavigator = createBottomTabNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
-      tabBarIcon: (options: TabBarIconProps) => (
+      tabBarIcon: (options) => (
         <Image
           source={{ uri: `ic_home${options.focused ? '_active' : ''}` }}
           style={[styles.icon, { tintColor: options.tintColor! }]}
@@ -37,7 +35,7 @@ const MainTabNavigator = createBottomTabNavigator({
   Search: {
     screen: SearchScreen,
     navigationOptions: {
-      tabBarIcon: (options: TabBarIconProps) => (
+      tabBarIcon: (options) => (
         <Image
           source={{ uri: `ic_search${options.focused ? '_active' : ''}` }}
           style={[styles.icon, { tintColor: options.tintColor! }]}
@@ -60,7 +58,7 @@ const MainTabNavigator = createBottomTabNavigator({
   Chatting: {
     screen: ChattingScreen,
     navigationOptions: {
-      tabBarIcon: (options: TabBarIconProps) => (
+      tabBarIcon: (options) => (
         <Image
           source={{ uri: `ic_chat${options.focused ? '_active' : ''}` }}
           style={[styles.icon, { tintColor: options.tintColor! }]}
@@ -74,7 +72,7 @@ const MainTabNavigator = createBottomTabNavigator({
   Profile: {
     screen: ProfileScreen,
     navigationOptions: {
-      tabBarIcon: (options: TabBarIconProps) => (
+      tabBarIcon: (options) => (
         <Image
           source={{ uri: `ic_profile${options.focused ? '_active' : ''}` }}
           style={[styles.icon, { tintColor: options.tintColor! }]}
@@ -104,9 +102,6 @@ const MainStackNavigator = createStackNavigator({
 }, {
   headerMode: 'none',
   initialRouteName: 'MainTab',
-  cardStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
 });
 
 const ModalNavigator = createStackNavigator({
@@ -121,9 +116,6 @@ const ModalNavigator = createStackNavigator({
   headerMode: 'none',
   mode: 'modal',
   initialRouteName: 'MainStack',
-  cardStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
 });
 
 const styles = StyleSheet.create({
