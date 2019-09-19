@@ -2,53 +2,22 @@
 # yarn lockfile v1
 
 
-"@apollo/react-common@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@apollo/react-common/-/react-common-3.0.0.tgz#2357518c4b3bf1fd680ee2ac114f565f527ec55d"
-  integrity sha512-EqHASkcmxipy2hU8rja+lD1S1HoTdodKKyJZZ3dgewnAHXnzXnnC3rw1+lkrgXPFsI2n2d2N2LYisD79OCdPmw==
+"@apollo/react-common@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@apollo/react-common/-/react-common-3.1.1.tgz#540619d8276d750ce4f381c9cf8f51a6f657f75d"
+  integrity sha512-lMiczOm4sD16eI9Ai+AUY+Jl3C/FNm4IpoZiAbe35TqMuD7HpZ4OJmXAbT3CzfrAqsKK8+rHgRvTiPI2kQjIWg==
   dependencies:
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-components@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@apollo/react-components/-/react-components-3.0.0.tgz#ca489ff8f70c6a7224f0c2a8a0baedda0448a815"
-  integrity sha512-IF5HZWT4Vc+6JXenFApjc+QsfZccd7UVSV1Z8l4Y5+EoXkLbmM3fuu8lUQamZqzdVVh6coA8bdI0gafB7PU+1A==
+"@apollo/react-hooks@3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@apollo/react-hooks/-/react-hooks-3.1.1.tgz#8e5a0f281a9778aaf17496ad38a178d23375077c"
+  integrity sha512-LwE4olNlKwqh1hl6iHr/igSDGRVs7c6Ik5MYZm9TzGj01f+ebhM1+Pn+UBNLsb3uRuytZsUOsEDBEXMABzC9Tw==
   dependencies:
-    "@apollo/react-common" "^3.0.0"
-    "@apollo/react-hooks" "^3.0.0"
-    prop-types "^15.7.2"
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
-"@apollo/react-hoc@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@apollo/react-hoc/-/react-hoc-3.0.0.tgz#cdcb81f1f28246de1c15d601b9c0c075df18e0f9"
-  integrity sha512-hZaxumdxHrHtTxzHwY1e7FA43x43dLNhZYLcib8ACbV1W3uH7betPdpzlMcL7aVEL7U+7YwQtbc++e1GxxvTQw==
-  dependencies:
-    "@apollo/react-common" "^3.0.0"
-    "@apollo/react-components" "^3.0.0"
-    hoist-non-react-statics "^3.3.0"
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
-"@apollo/react-hooks@3.0.0", "@apollo/react-hooks@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@apollo/react-hooks/-/react-hooks-3.0.0.tgz#5fe4ff7812020f3e1b91b8628af8c03276496d78"
-  integrity sha512-7kaV6rkx2WZjDYcBmp52oyhTxbNn5Jc4AUmsXZVEnDu9uuvNYURA8bLlJNF8yu4zS7ed8D+ZebC0y0bhrz8wIg==
-  dependencies:
-    "@apollo/react-common" "^3.0.0"
+    "@apollo/react-common" "^3.1.1"
     "@wry/equality" "^0.1.9"
     ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
-"@apollo/react-ssr@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@apollo/react-ssr/-/react-ssr-3.0.0.tgz#a31455f90ec87af0b3b597a6468a9e2732ce738b"
-  integrity sha512-lgEnvP4lwgqOv4rZA2dDyIcOLdCYkRms54aGxvErHxh7GGfsJFLnx6pRoa+uUvFjr8/edOVQtaHADnaMbtAMbA==
-  dependencies:
-    "@apollo/react-common" "^3.0.0"
-    "@apollo/react-hooks" "^3.0.0"
     tslib "^1.10.0"
 
 "@babel/code-frame@^7.0.0":
@@ -6408,17 +6377,6 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-apollo@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-3.0.0.tgz#2a0bccd32e11ce86b140d5d0284356972b7e8e11"
-  integrity sha512-dxUml6Z91kRg/dQhKac2aTwLkDNmDa6APd3jmeGE48nAg0/a282zQryX7HXk0M6l3qaRISclGDhLINqdSXBLyA==
-  dependencies:
-    "@apollo/react-common" "^3.0.0"
-    "@apollo/react-components" "^3.0.0"
-    "@apollo/react-hoc" "^3.0.0"
-    "@apollo/react-hooks" "^3.0.0"
-    "@apollo/react-ssr" "^3.0.0"
-
 react-deep-force-update@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.1.2.tgz#3d2ae45c2c9040cbb1772be52f8ea1ade6ca2ee1"
@@ -6569,10 +6527,10 @@ react-native-splash-screen@3.2.0:
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
   integrity sha512-Ls9qiNZzW/OLFoI25wfjjAcrf2DZ975hn2vr6U9gyuxi2nooVbzQeFoQS5vQcbCt9QX5NY8ASEEAtlLdIa6KVg==
 
-react-native-super-grid@3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-super-grid/-/react-native-super-grid-3.0.4.tgz#bc0888f68d0960557dfe445970f96e36a0d61a1d"
-  integrity sha512-aoK71FGP5sFcLujuODYkAqyFDAZZRpvTeEwwaoXsc0JENhExEG7rGg65T5ELqyykiDOLBihuCLKasK5gLb0WtQ==
+react-native-super-grid@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-super-grid/-/react-native-super-grid-3.1.0.tgz#c7a81ffc08587db9b01b27afbc52a473d4b76708"
+  integrity sha512-oiR/rWQcyQfEhJUZfILfKj3PKd/jwgvq36ZVefCnc+euk7EoxNoGQYGfkWVpda7nZiBBGMTeST2eADr0Xawktg==
   dependencies:
     prop-types "^15.6.0"
 

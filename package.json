@@ -15,7 +15,7 @@
     "deploy:prod": "yarn deploy:android:prod && yarn deploy:ios:prod"
   },
   "dependencies": {
-    "@apollo/react-hooks": "3.0.0",
+    "@apollo/react-hooks": "3.1.1",
     "@react-native-community/async-storage": "1.6.1",
     "@react-native-community/viewpager": "1.1.7",
     "apollo-cache-inmemory": "1.6.3",
@@ -27,7 +27,6 @@
     "graphql-tag": "2.10.1",
     "lodash": "4.17.11",
     "react": "16.8.6",
-    "react-apollo": "3.0.0",
     "react-native": "0.60.5",
     "react-native-animation-hooks": "1.0.1",
     "react-native-code-push": "5.7.0",
@@ -44,7 +43,7 @@
     "react-native-sound": "0.11.0",
     "react-native-sound-recorder": "mu29/react-native-sound-recorder#fix/promise-reject",
     "react-native-splash-screen": "3.2.0",
-    "react-native-super-grid": "3.0.4",
+    "react-native-super-grid": "3.1.0",
     "react-native-tab-view": "2.10.0",
     "react-native-vector-icons": "6.6.0",
     "react-navigation": "4.0.5",
