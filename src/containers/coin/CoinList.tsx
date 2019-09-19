@@ -24,7 +24,7 @@ const Container: React.FunctionComponent<Props> = ({
 
   if (error || networkStatus === NetworkStatus.error) {
     const reload = () => refetch().catch(() => {});
-    return <ErrorView reload={reload} message={error ? error.message : ''} />;
+    return <ErrorView reload={reload} message={error ? error.message : ''} scrollable />;
   }
 
   if (coins.length === 0) {

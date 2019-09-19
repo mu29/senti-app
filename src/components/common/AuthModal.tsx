@@ -39,10 +39,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
     hideModalContentWhileAnimating={true}
     useNativeDriver
   >
-    <View
-      style={styles.container}
-      pointerEvents="auto"
-    >
+    <View style={styles.container} pointerEvents="auto">
       <Text style={[typography.heading1, styles.title]}>
         로그인하고 모든 기능을 사용하세요!
       </Text>
