@@ -31,9 +31,7 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
     data: {
       searchQuery,
     },
-  } = useQuery(FETCH_SEARCH_QUERY, {
-    fetchPolicy: 'network-only',
-  }) as { data: { searchQuery: string } };
+  } = useQuery(FETCH_SEARCH_QUERY) as { data: { searchQuery: string } };
 
   const [searchTags, searchResult] = useLazyQuery(SEARCH_TAGS, {
     notifyOnNetworkStatusChange: true,
