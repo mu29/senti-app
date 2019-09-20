@@ -1,13 +1,19 @@
-import React, { useMemo, useCallback } from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   View,
   Image,
   TouchableOpacity,
+  Alert,
   StyleSheet,
 } from 'react-native';
+import ActionSheet from 'rn-actionsheet-module';
 import dayjs from 'dayjs';
 import {
   Text,
+  Button,
   LoadingLayer,
 } from 'components';
 import {
@@ -33,7 +39,8 @@ interface Props {
   hasBottom?: boolean;
   showAuthModal: () => void;
   showReplyModal: () => void;
-  showDeleteAlert: () => void;
+  reportUser: () => Promise<any>;
+  deleteStory: () => Promise<any>;
 }
 
 const StoryController: React.FunctionComponent<Props> = ({
@@ -44,7 +51,8 @@ const StoryController: React.FunctionComponent<Props> = ({
   hasBottom,
   showAuthModal,
   showReplyModal,
-  showDeleteAlert,
+  reportUser,
+  deleteStory,
 }) => {
   const {
     user: {
@@ -55,6 +63,36 @@ const StoryController: React.FunctionComponent<Props> = ({
   } = item;
 
   const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
+
+  const showReportSheet = useCallback(() => {
+    ActionSheet({
+      title: '이 사용자를..',
+      optionsIOS: ['신고하기', '취소'],
+      optionsAndroid: ['신고하기'],
+      destructiveButtonIndex: 0,
+      cancelButtonIndex: 1,
+      onCancelAndroidIndex: 1,
+    }, (index: number) => {
+      if (index === 0) {
+        reportUser().catch(e => Alert.alert('오류', `사용자 신고에 실패했습니다.\n${e.message}`));
+      }
+    });
+  }, [reportUser]);
+
+  const showDeleteAlert = useCallback(() => {
+    ActionSheet({
+      title: '정말 삭제하시겠습니까?',
+      optionsIOS: ['삭제', '취소'],
+      optionsAndroid: ['삭제'],
+      destructiveButtonIndex: 0,
+      cancelButtonIndex: 1,
+      onCancelAndroidIndex: 1,
+    }, (index: number) => {
+      if (index === 0) {
+        deleteStory().catch(e => Alert.alert('오류', `이야기 삭제에 실패했습니다.\n${e.message}`));
+      }
+    });
+  }, [deleteStory]);
 
   const openReplyModal = useCallback(() => {
     AnalyticsService.logEvent('click_story_reply');
@@ -82,32 +120,28 @@ const StoryController: React.FunctionComponent<Props> = ({
   return (
     <React.Fragment>
       <View style={[styles.container, hasBottom && styles.withBottom]}>
-        <Image
-          source={profileImage}
-          style={styles.photo}
-        />
-        <View style={styles.profile}>
-          <Text style={[typography.heading3, styles.name]}>
-            {name}
-          </Text>
-          <Text style={styles.date}>
-            {dayjs(createdAt).fromNow()}
-          </Text>
-        </View>
         <TouchableOpacity
-          activeOpacity={0.6}
-          hitSlop={HIT_SLOP}
-          onPress={onPressReplay}
+          activeOpacity={0.8}
+          style={styles.profile}
+          disabled={isMyStory}
+          onPress={showReportSheet}
         >
+          <Image source={profileImage} style={styles.photo} />
+          <View>
+            <Text style={[typography.heading3, styles.name]}>
+              {name}
+            </Text>
+            <Text style={styles.date}>
+              {dayjs(createdAt).fromNow()}
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <Button hitSlop={HIT_SLOP} onPress={onPressReplay}>
           <Image source={REPLAY_ICON} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          hitSlop={HIT_SLOP}
-          onPress={isMyStory ? onPressDelete : openReplyModal}
-        >
+        </Button>
+        <Button hitSlop={HIT_SLOP} onPress={isMyStory ? onPressDelete : openReplyModal}>
           <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />
-        </TouchableOpacity>
+        </Button>
       </View>
       {isLoading && <LoadingLayer />}
     </React.Fragment>
@@ -121,6 +155,11 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingRight: 8,
   },
+  profile: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   withBottom: {
     marginBottom: 48,
   },
@@ -131,9 +170,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: palette.gray[10],
-  },
-  profile: {
-    flex: 1,
   },
   name: {
     marginBottom: 2,

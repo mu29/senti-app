@@ -1,7 +1,5 @@
 import React, { useCallback } from 'react';
-import { Alert } from 'react-native';
 import firebase from 'react-native-firebase';
-import ActionSheet from 'rn-actionsheet-module';
 import {
   useQuery,
   useMutation,
@@ -10,6 +8,7 @@ import { StoryController } from 'components';
 import {
   SHOW_MODAL,
   FETCH_PROFILE,
+  REPORT_USER,
   DELETE_STORY,
   FETCH_MAIN_STORY_FEED,
   FETCH_MY_STORY_FEED,
@@ -56,7 +55,34 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
     },
   });
 
-  const [deleteStory, { loading }] = useMutation(DELETE_STORY, {
+  const [reportUser, { loading: reportLoading }] = useMutation(REPORT_USER, {
+    variables: {
+      id: item.user.id,
+    },
+    update: (cache) => {
+      try {
+        const savedMainFeed = cache.readQuery<MainStoryFeedResult>({
+          query: FETCH_MAIN_STORY_FEED,
+        });
+
+        if (!savedMainFeed) {
+          return;
+        }
+
+        cache.writeQuery({
+          query: FETCH_MAIN_STORY_FEED,
+          data: {
+            mainStoryFeed: {
+              ...savedMainFeed.mainStoryFeed,
+              stories: savedMainFeed.mainStoryFeed.stories.filter(story => story.user.id !== item.user.id),
+            },
+          },
+        });
+      } catch {}
+    },
+  });
+
+  const [deleteStory, { loading: deleteLoading }] = useMutation(DELETE_STORY, {
     variables: {
       id: item.id,
     },
@@ -103,20 +129,6 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
     },
   });
 
-  const showDeleteAlert = useCallback(() => {
-    ActionSheet({
-      title: '정말 삭제하시겠습니까?',
-      optionsIOS: ['삭제', '취소'],
-      optionsAndroid: ['삭제'],
-      cancelButtonIndex: 1,
-      onCancelAndroidIndex: 1,
-    }, (index: number) => {
-      if (index === 0) {
-        deleteStory().catch(e => Alert.alert('오류', `이야기 삭제에 실패했습니다.\n${e.message}`));
-      }
-    });
-  }, [deleteStory]);
-
   const isLoggedIn = !!(profile && profile.me);
   const isMyStory = isLoggedIn && profile!.me.id === item.user.id;
 
@@ -125,10 +137,11 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
       item={item}
       isLoggedIn={isLoggedIn}
       isMyStory={isMyStory}
-      isLoading={loading}
+      isLoading={reportLoading || deleteLoading}
       showAuthModal={showAuthModal}
       showReplyModal={showReplyModal}
-      showDeleteAlert={showDeleteAlert}
+      reportUser={reportUser}
+      deleteStory={deleteStory}
       {...props}
     />
   );

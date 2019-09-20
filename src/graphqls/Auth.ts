@@ -55,3 +55,9 @@ export const UPDATE_PROFILE = gql`
     }
   }
 `;
+
+export const REPORT_USER = gql`
+  mutation reportUser($id: ID!) {
+    reportUser(id: $id)
+  }
+`

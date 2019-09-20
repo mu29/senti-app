@@ -17,6 +17,7 @@ export interface Props extends TouchableOpacityProps, TouchableNativeFeedbackPro
   round?: boolean;
   isLoading?: boolean;
   style?: StyleProp<ViewStyle>;
+  buttonStyle?: StyleProp<ViewStyle>;
   children: React.ReactNode;
 }
 
@@ -31,6 +32,7 @@ class Button extends React.PureComponent<Props> {
       round,
       isLoading,
       style,
+      buttonStyle,
       children,
       ...props
     } = this.props;
@@ -41,6 +43,7 @@ class Button extends React.PureComponent<Props> {
         <TouchableOpacity
           activeOpacity={0.8}
           disabled={isLoading}
+          style={buttonStyle}
           {...props}
         >
           <View onLayout={this.onLayout} style={[style, this.layout]}>
@@ -55,6 +58,7 @@ class Button extends React.PureComponent<Props> {
             ? TouchableNativeFeedback.SelectableBackgroundBorderless()
             : TouchableNativeFeedback.SelectableBackground()
           }
+          style={buttonStyle}
           {...props}
         >
           <View onLayout={this.onLayout} style={[style, this.layout]}>
