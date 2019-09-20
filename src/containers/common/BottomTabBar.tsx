@@ -1,10 +1,10 @@
 import React from 'react';
 import firebase from 'react-native-firebase';
 import {
-  BottomTabBarProps,
   NavigationRoute,
   NavigationParams,
 } from 'react-navigation';
+import { BottomTabBar as RNBottomTabBar } from 'react-navigation-tabs';
 import {
   useQuery,
   useMutation,
@@ -15,11 +15,13 @@ import {
   FETCH_PROFILE,
 } from 'graphqls';
 
-interface Props extends BottomTabBarProps {
+type BottomTabBarProps = React.ComponentProps<typeof RNBottomTabBar>
+
+interface Props {
   onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
 }
 
-const BottomTabBarContainer: React.FunctionComponent<Props> = (props) => {
+const BottomTabBarContainer: React.FunctionComponent<Props & BottomTabBarProps> = (props) => {
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
     skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',

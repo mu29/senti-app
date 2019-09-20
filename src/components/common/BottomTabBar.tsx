@@ -9,10 +9,10 @@ import {
 import {
   SafeAreaView,
   SafeAreaViewForceInsetValue,
-  BottomTabBarProps,
   NavigationRoute,
   NavigationParams,
 } from 'react-navigation';
+import { BottomTabBar as RNBottomTabBar } from 'react-navigation-tabs';
 import { palette } from 'constants/style';
 
 const SAFE_AREA_INSET: {
@@ -23,13 +23,15 @@ const SAFE_AREA_INSET: {
   bottom: 'always',
 };
 
-interface Props extends BottomTabBarProps {
+type BottomTabBarProps = React.ComponentProps<typeof RNBottomTabBar>
+
+interface Props {
   isLoggedIn: boolean;
   onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
   showAuthModal: () => void;
 }
 
-class BottomTabBar extends React.PureComponent<Props> {
+class BottomTabBar extends React.PureComponent<Props & BottomTabBarProps> {
   public state = {
     isVisible: true,
   };
@@ -117,6 +119,7 @@ class BottomTabBar extends React.PureComponent<Props> {
           route,
           index: index,
           focused: navigationIndex === index,
+          // @ts-ignore
           tintColor: navigationIndex === index ? activeTintColor : inactiveTintColor,
         })}
       </TouchableOpacity>
