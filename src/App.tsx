@@ -52,9 +52,9 @@ class App extends React.PureComponent<{}, State> {
     });
   }
 
-  public async componentDidMount() {
+  public componentDidMount() {
     this.isReady = true;
-    this.setState({ client: await configureClient() });
+    configureClient().then(client => this.setState({ client }));
   }
 
   public componentDidUpdate() {

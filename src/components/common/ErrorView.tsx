@@ -47,7 +47,7 @@ const ErrorView: React.FunctionComponent<Props> = ({
       {ContentView}
     </ScrollView>
   ) : ContentView;
-}
+};
 
 const styles = StyleSheet.create({
   container: {

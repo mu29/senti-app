@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import firebase from 'react-native-firebase';
 import {
   useQuery,
