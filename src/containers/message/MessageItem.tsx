@@ -37,6 +37,7 @@ const Container: React.FunctionComponent<Props> = ({
         chattingId,
         id: item.id,
       },
+      fetchPolicy: 'network-only',
     })
     .catch(e => Alert.alert('오류', `메시지 재생에 실패했습니다.\n${e.message}`))
     .finally(() => setIsLoading(false));
