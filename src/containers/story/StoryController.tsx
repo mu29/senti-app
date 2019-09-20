@@ -58,6 +58,8 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
   const [reportUser, { loading: reportLoading }] = useMutation(REPORT_USER, {
     variables: {
       id: item.user.id,
+      storyId: item.id,
+      audioUrl: item.audio.url,
     },
     update: (cache) => {
       try {

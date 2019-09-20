@@ -57,7 +57,7 @@ export const UPDATE_PROFILE = gql`
 `;
 
 export const REPORT_USER = gql`
-  mutation reportUser($id: ID!) {
-    reportUser(id: $id)
+  mutation reportUser($id: ID!, $storyId: ID!, $audioUrl: String) {
+    reportUser(id: $id, storyId: $storyId, audioUrl: $audioUrl)
   }
 `
