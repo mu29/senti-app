@@ -50,13 +50,10 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
 
   useEffect(() => {
     if (searchQuery) {
-      if (!isLoading) {
-        setIsLoading(true);
-      }
-
+      setIsLoading(true);
       debouncedSearch.current(searchQuery);
     }
-  }, [isLoading, searchQuery]);
+  }, [searchQuery]);
 
   const {
     data = {},
