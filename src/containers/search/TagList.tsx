@@ -52,6 +52,9 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
     if (searchQuery) {
       setIsLoading(true);
       debouncedSearch.current(searchQuery);
+    } else {
+      setIsLoading(false);
+      debouncedSearch.current.cancel();
     }
   }, [searchQuery]);
 
