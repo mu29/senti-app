@@ -15,7 +15,7 @@
     "deploy:prod": "yarn deploy:android:prod && yarn deploy:ios:prod"
   },
   "dependencies": {
-    "@apollo/react-hooks": "3.1.1",
+    "@apollo/react-hooks": "3.0.1",
     "@react-native-community/async-storage": "1.6.1",
     "@react-native-community/viewpager": "1.1.7",
     "apollo-cache-inmemory": "1.6.3",
@@ -41,7 +41,7 @@
     "react-native-modal": "11.3.1",
     "react-native-reanimated": "1.2.0",
     "react-native-sound": "0.11.0",
-    "react-native-sound-recorder": "mu29/react-native-sound-recorder#fix/promise-reject",
+    "react-native-sound-recorder": "mu29/react-native-sound-recorder#d5c4b867e4813e384e4523cfd8d46bab92d06396",
     "react-native-splash-screen": "3.2.0",
     "react-native-super-grid": "3.1.0",
     "react-native-tab-view": "2.10.0",
@@ -50,7 +50,7 @@
     "react-navigation-stack": "1.8.0",
     "react-navigation-tabs": "2.5.3",
     "rn-actionsheet-module": "0.2.3",
-    "rn-fetch-blob": "^0.10.16",
+    "rn-fetch-blob": "0.10.16",
     "uuid": "3.3.2"
   },
   "devDependencies": {
@@ -72,7 +72,7 @@
     "eslint": "6.4.0",
     "eslint-plugin-react-hooks": "2.0.1",
     "jest": "24.8.0",
-    "jetifier": "^1.6.4",
+    "jetifier": "1.6.4",
     "metro-react-native-babel-preset": "0.56.0",
     "react-test-renderer": "16.8.6",
     "tinify": "1.6.0-beta.2",

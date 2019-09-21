@@ -7,7 +7,10 @@ import {
   StoryList,
 } from 'components';
 import { FETCH_MAIN_STORY_FEED } from 'graphqls';
-import { canFetchMore } from 'utils';
+import {
+  isFetching,
+  canFetchMore,
+} from 'utils';
 
 const EMPTY_LIST: Story[] = [];
 
@@ -49,7 +52,7 @@ const Container: React.FunctionComponent<{}> = () => {
   return (
     <StoryList
       items={stories || EMPTY_LIST}
-      isLoading={networkStatus === NetworkStatus.fetchMore}
+      isLoading={isFetching(networkStatus)}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
       hasBottom
