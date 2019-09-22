@@ -14,10 +14,11 @@ import {
   TransactionList,
 } from 'containers';
 import { palette } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 const ROUTES = [
-  { key: 'charge', title: '코인 충전' },
-  { key: 'history', title: '사용 내역' },
+  { key: 'charge', title: LocalizedStrings.COIN_CHARGE_TAB },
+  { key: 'history', title: LocalizedStrings.COIN_HISTORY_TAB },
 ];
 
 const SAFE_AREA_INSET: {

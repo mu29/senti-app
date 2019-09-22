@@ -21,6 +21,7 @@ import {
   FETCH_PROFILE,
   FETCH_TRANSACTION_FEED,
 } from 'graphqls';
+import { LocalizedStrings } from 'constants/translations';
 
 type CoinListResult = {
   coins: Coin[];
@@ -107,8 +108,8 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
       },
     })
     .then(() => InAppPurchase.finalize(result))
-    .then(() => Alert.alert('알림', '코인 구매를 완료했습니다'))
-    .catch(e => Alert.alert('오류', e.message))
+    .then(() => Alert.alert(LocalizedStrings.COIN_PURCHASE_SUCCSS_TITLE, LocalizedStrings.COIN_PURCHASE_SUCCSS_MESSAGE))
+    .catch(e => Alert.alert(LocalizedStrings.COMMON_ERROR_TITLE, e.message))
     .finally(() => setIsLoading(false));
   }, []);
 
@@ -136,7 +137,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
 
     InAppPurchase.onFetchProducts(onFetchProducts);
     InAppPurchase.onPurchase(onPurchase);
-    InAppPurchase.onError(e => Alert.alert('오류', e.message));
+    InAppPurchase.onError(e => Alert.alert(LocalizedStrings.COMMON_ERROR_TITLE, e.message));
 
     return InAppPurchase.clear;
   }, [data && data.coins]);
