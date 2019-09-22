@@ -4,14 +4,14 @@ export const FETCH_DRAFT = gql`
   query fetchDraft {
     draft @client {
       cover
-      message
+      tags
     }
   }
 `;
 
 export const UPDATE_DRAFT = gql`
-  mutation updateDraft($cover: String, $message: String) {
-    updateDraft(cover: $cover, message: $message) @client
+  mutation updateDraft($cover: String, $tags: [String]) {
+    updateDraft(cover: $cover, tags: $tags) @client
   }
 `;
 
@@ -21,7 +21,6 @@ export const FETCH_MAIN_STORY_FEED = gql`
       stories {
         id
         cover
-        message
         tags
         user {
           id
@@ -46,7 +45,6 @@ export const FETCH_TAG_STORY_FEED = gql`
       stories {
         id
         cover
-        message
         tags
         user {
           id
@@ -70,7 +68,6 @@ export const FETCH_MY_STORY_FEED = gql`
       stories {
         id
         cover
-        message
         tags
         user {
           id
@@ -93,7 +90,6 @@ export const CREATE_STORY = gql`
     createStory(input: $input) {
       id
       cover
-      message
       tags
       user {
         id

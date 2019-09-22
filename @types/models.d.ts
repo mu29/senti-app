@@ -64,7 +64,6 @@ declare global {
   interface Story {
     id: string;
     cover: string;
-    message: string;
     tags: string[];
     audio: Audio;
     user: User;

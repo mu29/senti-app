@@ -9,7 +9,7 @@ import {
   CoverModal,
   CreateStoryCover,
   CreateStoryHeader,
-  CreateStoryMessage,
+  CreateStoryTags,
   CreateStoryController,
 } from 'containers';
 import { AnalyticsService } from 'services';
@@ -24,7 +24,7 @@ const CreateStoryScreen: React.FunctionComponent<{}> = () => {
       <CreateStoryCover />
       <View style={styles.container}>
         <CreateStoryHeader />
-        <CreateStoryMessage />
+        <CreateStoryTags />
         <CreateStoryController />
       </View>
       <CoverModal />

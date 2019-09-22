@@ -110,17 +110,14 @@ const StoryItem: React.FunctionComponent<Props> = ({
             onPress={toggle}
             style={styles.button}
           >
-            <Text style={styles.message}>
-              {item.message.replace(/#[^ ]+/g, '').trim()}
-            </Text>
             <View style={styles.tags}>
               {Tags}
             </View>
+            <Animated.View pointerEvents="none" style={[styles.iconContainer, iconStyle]}>
+              <Image source={PLAY_ICON} style={styles.icon} />
+            </Animated.View>
           </TouchableOpacity>
           <StoryController item={item} hasBottom={hasBottom} />
-          <Animated.View pointerEvents="none" style={[styles.iconContainer, iconStyle]}>
-            <Image source={PLAY_ICON} style={styles.icon} />
-          </Animated.View>
         </SafeAreaView>
       </View>
     </View>
@@ -152,25 +149,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
   },
-  message: {
-    marginTop: 32,
-    color: palette.gray[10],
-    fontSize: 18,
-    textAlign: 'center',
-  },
   tags: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginVertical: 8,
-    marginHorizontal: 64,
+    alignItems: 'center',
+    marginHorizontal: 48,
+    paddingTop: 32,
   },
   tag: {
-    marginHorizontal: 4,
-    marginVertical: 2,
-    color: palette.gray[30],
-    fontSize: 16,
-    fontWeight: 'bold',
+    margin: 4,
+    color: palette.gray[10],
+    fontSize: 18,
   },
   controller: {
     alignSelf: 'stretch',
@@ -180,7 +170,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     position: 'absolute',
-    paddingBottom: 112,
+    paddingTop: 32,
   },
   icon: {
     width: 48,

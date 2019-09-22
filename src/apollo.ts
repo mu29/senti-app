@@ -98,7 +98,7 @@ export async function configureClient() {
       draft: {
         __typename: 'Draft',
         cover: '',
-        message: '',
+        tags: [],
       },
       candidate: {
         __typename: 'Candidate',

@@ -33,12 +33,12 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
         input: {
           audio,
           cover: data.draft.cover,
-          message: data.draft.message,
+          tags: data.draft.tags,
         },
       },
     });
     AnalyticsService.logEvent('finish_create_story');
-  }, [createStory, data.draft.cover, data.draft.message]);
+  }, [createStory, data.draft]);
 
   const finish = useCallback(() => navigation.goBack(), [navigation]);
 

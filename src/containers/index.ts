@@ -30,7 +30,7 @@ export { default as TagList } from './search/TagList';
 export { default as CoverModal } from './story/CoverModal';
 export { default as CreateStoryCover } from './story/CreateStoryCover';
 export { default as CreateStoryHeader } from './story/CreateStoryHeader';
-export { default as CreateStoryMessage } from './story/CreateStoryMessage';
+export { default as CreateStoryTags } from './story/CreateStoryTags';
 export { default as CreateStoryController } from './story/CreateStoryController';
 export { default as MyStoryGrid } from './story/MyStoryGrid';
 export { default as MyStoryList } from './story/MyStoryList';

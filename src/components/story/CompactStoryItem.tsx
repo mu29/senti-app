@@ -23,7 +23,7 @@ interface Props extends NavigationInjectedProps {
 const CompactStoryItem: React.FunctionComponent<Props> = ({
   item: {
     cover,
-    message,
+    tags,
   },
   index,
   navigation,
@@ -36,8 +36,8 @@ const CompactStoryItem: React.FunctionComponent<Props> = ({
     <Button onPress={openMyStoryScreen}>
       <CachableImage prefix="covers" source={cover} style={styles.image} />
       <View style={styles.filter}>
-        <Text style={styles.message}>
-          {message.trim()}
+        <Text style={styles.tags}>
+          {tags.map(tag => `#${tag}`).join(' ')}
         </Text>
       </View>
     </Button>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: palette.transparent.black[40],
   },
-  message: {
+  tags: {
     textAlign: 'center',
     color: palette.gray[10],
     fontSize: 12,
