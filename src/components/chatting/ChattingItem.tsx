@@ -18,6 +18,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 interface Props extends NavigationInjectedProps {
   item: Chatting;
@@ -60,7 +61,7 @@ const ChattingItem: React.FunctionComponent<Props> = ({
           </View>
           <View style={styles.row}>
             <Text style={styles.messageCount}>
-              이야기 {messageCount.toLocaleString()}개
+              {LocalizedStrings.CHATTING_MESSAGE_COUNT(messageCount.toLocaleString())}
             </Text>
             <Text style={styles.date}>
               {dayjs(updatedAt).fromNow()}

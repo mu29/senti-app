@@ -10,6 +10,7 @@ import {
   Button,
 } from 'components';
 import { palette } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 const COIN_ICON = { uri: 'ic_coin' };
 
@@ -24,7 +25,6 @@ const CoinItem: React.FunctionComponent<Props> = ({
     amount,
     price,
     retailPrice,
-    currency,
   },
   purchase,
 }) => {
@@ -42,14 +42,14 @@ const CoinItem: React.FunctionComponent<Props> = ({
         <View style={styles.price}>
           <View style={styles.discount}>
             <Text style={styles.discountPercent}>
-              {((1 - retailPrice / price) * 100).toFixed(1)}% 할인!
+              {LocalizedStrings.COIN_DISCOUNT_RATE(((1 - retailPrice / price) * 100).toFixed(1))}
             </Text>
             <Text style={styles.originalPrice}>
-              {price.toLocaleString()}원
+              {LocalizedStrings.COIN_PRICE(price.toLocaleString())}
             </Text>
           </View>
           <Text style={styles.retailPrice}>
-            {currency} {retailPrice.toLocaleString()}
+            {LocalizedStrings.COIN_PRICE(retailPrice.toLocaleString())}
           </Text>
         </View>
       </Button>

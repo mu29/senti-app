@@ -14,6 +14,7 @@ import {
   typography,
 } from 'constants/style';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const COIN_ICON = { uri: 'ic_coin' };
 
@@ -43,7 +44,7 @@ const CoinInventory: React.FunctionComponent<Props> = ({
       <Image source={COIN_ICON} style={styles.icon} />
       <View style={styles.divider} />
       <Text style={[typography.heading3, styles.amount]}>
-        {amount}코인
+        {LocalizedStrings.COIN_COUNT(amount)}
       </Text>
       <Button
         hitSlop={HITSLOP}
@@ -51,7 +52,7 @@ const CoinInventory: React.FunctionComponent<Props> = ({
         style={styles.button}
       >
         <Text style={styles.shop}>
-          충전
+          {LocalizedStrings.COIN_CHARGE_BUTTON}
         </Text>
       </Button>
     </View>
