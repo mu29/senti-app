@@ -1,21 +1,19 @@
-/* eslint-disable */
 // @ts-ignore
 const tinify = require('tinify');
 const fs = require('fs');
-const path = require('path');
 
-tinify.key = 'nBOpq1cyCZDwDPjZVTfUGphdaVe5NxH8';
+tinify.key = 'HVGFd85LnDnk5sgBX7pbzWQS64NW6mg1';
 
 const folder = process.argv[2];
 const files = fs.readdirSync(folder);
 const targetFolder = `${folder}-tinify`;
 
-const tinifyAsset = async (folder, file) => {
+const tinifyAsset = async (dir, file) => {
   if (!file.includes('.jpg') || file.includes('-tiny')) {
     return;
   }
 
-  const path = `${folder}/${file}`;
+  const path = `${dir}/${file}`;
   const targetFile = `${file.replace('.jpg', '')}-tiny.jpg`;
 
   console.log(targetFile);
@@ -24,11 +22,11 @@ const tinifyAsset = async (folder, file) => {
     .fromFile(path)
     .resize({
       method: 'thumb',
-      width: 540,
-      height: 720,
+      width: 1440,
+      height: 1920,
     })
     .toFile(`${targetFolder}/${targetFile}`);
-}
+};
 
 if (!fs.existsSync(targetFolder)){
   fs.mkdirSync(targetFolder);
