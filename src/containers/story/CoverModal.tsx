@@ -5,23 +5,13 @@ import {
 } from '@apollo/react-hooks';
 import { CoverModal } from 'components';
 import {
-  FETCH_COVERS,
   FETCH_MODAL,
   UPDATE_DRAFT,
   HIDE_MODAL,
 } from 'graphqls';
-
-type CoversResult = {
-  covers: string[];
-};
+import covers from 'constants/covers';
 
 const CoverModalContainer: React.FunctionComponent<{}> = () => {
-  const {
-    data: {
-      covers,
-    },
-  } = useQuery(FETCH_COVERS) as { data: CoversResult };
-
   const { data } = useQuery(FETCH_MODAL, {
     variables: { id: 'Cover' },
   });

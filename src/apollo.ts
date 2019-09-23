@@ -8,7 +8,6 @@ import { CachePersistor } from 'apollo-cache-persist';
 import gql from 'graphql-tag';
 
 import * as resolvers from './resolvers';
-import covers from './constants/covers';
 import {
   API_URL,
   LANGUAGE,
@@ -94,7 +93,6 @@ export async function configureClient() {
         isVisible: false,
       }],
       searchQuery: '',
-      covers,
       draft: {
         __typename: 'Draft',
         cover: '',

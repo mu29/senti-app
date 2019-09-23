@@ -22,7 +22,7 @@ const ITEM_SIZE = Dimensions.get('window').width / 5;
 
 interface Props {
   isVisible: boolean;
-  items: string[];
+  items: Array<{ thumb: string; original: string; }>;
   updateCover: (cover: string) => void;
   hide: () => void;
 }
@@ -38,13 +38,13 @@ const CoverModal: React.FunctionComponent<Props> = ({
     AnalyticsService.logEvent('update_story_cover');
   }, [updateCover]);
 
-  const renderItem = useCallback(({ item }: { item: string }) => (
+  const renderItem = useCallback(({ item }: { item: { thumb: string; original: string; } }) => (
     <TouchableOpacity
       activeOpacity={0.6}
-      onPress={() => onPressItem(item)}
+      onPress={() => onPressItem(item.original)}
       style={styles.item}
     >
-      <CachableImage prefix="covers" source={item} style={styles.image} />
+      <CachableImage prefix="covers" source={item.thumb} style={styles.image} />
     </TouchableOpacity>
   ), [onPressItem]);
 
@@ -70,6 +70,8 @@ const CoverModal: React.FunctionComponent<Props> = ({
           spacing={0}
           items={items}
           renderItem={renderItem}
+          initialNumToRender={items.length}
+          removeClippedSubviews
         />
       </View>
     </Modal>

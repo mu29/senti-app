@@ -1,25 +1,22 @@
-import {
-  FETCH_COVERS,
-  FETCH_DRAFT,
-} from 'graphqls';
+import { FETCH_DRAFT } from 'graphqls';
+import covers from 'constants/covers';
 
 export default {
   Mutation: {
     shuffleCovers: (_: any, _args: Params, { cache }: Context) => {
-      const coverData = cache.readQuery<{ covers: string[] }>({ query: FETCH_COVERS });
       const draftData = cache.readQuery<{ draft: Draft }>({ query: FETCH_DRAFT });
 
-      if (!coverData || !draftData) {
+      if (!draftData) {
         return false;
       }
 
-      const index = Math.floor(Math.random() * coverData.covers.length);
+      const index = Math.floor(Math.random() * covers.length);
 
       cache.writeData({
         data: {
           draft: {
             ...draftData.draft,
-            cover: coverData.covers[index],
+            cover: covers[index].original,
           },
         },
       });
