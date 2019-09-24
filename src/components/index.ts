@@ -25,6 +25,7 @@ export { default as CoinItem } from './coin/CoinItem';
 export { default as CoinList } from './coin/CoinList';
 export { default as CoinInventory } from './coin/CoinInventory';
 export { default as CoinModal } from './coin/CoinModal';
+export { default as FreeCoinTimer } from './coin/FreeCoinTimer';
 
 export { default as MessageItem } from './message/MessageItem';
 export { default as MessageList } from './message/MessageList';

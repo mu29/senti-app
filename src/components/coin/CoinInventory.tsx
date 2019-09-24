@@ -13,8 +13,8 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
+import { AnalyticsService } from 'services';
 
 const COIN_ICON = { uri: 'ic_coin' };
 

@@ -4,7 +4,10 @@ import {
   Header,
   withSafeArea,
 } from 'components';
-import { ChattingList } from 'containers';
+import {
+  FreeCoinTimer,
+  ChattingList,
+} from 'containers';
 import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
@@ -18,6 +21,7 @@ const ChattingScreen: React.FunctionComponent<{}> = () => {
       <Header>
         {LocalizedStrings.SCREEN_CHATTING}
       </Header>
+      <FreeCoinTimer />
       <ChattingList />
       <NavigationEvents onDidFocus={onDidFocus} />
     </React.Fragment>
