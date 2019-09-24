@@ -20,6 +20,7 @@ import {
   typography,
 } from 'constants/style';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -126,7 +127,7 @@ const RecordController: React.FunctionComponent<Props> = ({
         </Button>
       </View>
       <AnimatedText style={[typography.heading4, styles.hint, fadeStyle]}>
-        눌러서 {isRecorded ? '듣기' : '녹음'}
+        {isRecorded ? LocalizedStrings.RECORDER_PLAY_BUTTON : LocalizedStrings.RECORDER_RECORD_BUTTON}
       </AnimatedText>
     </Animated.View>
   );

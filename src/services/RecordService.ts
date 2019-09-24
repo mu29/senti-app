@@ -5,6 +5,7 @@ import {
 import SoundRecorder from 'react-native-sound-recorder';
 import Sound from 'react-native-sound';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 class RecordService {
   private isRecording = false;
@@ -17,7 +18,7 @@ class RecordService {
     }
 
     if (!this.requestMicrophonePermission()) {
-      return Promise.reject('마이크 사용 권한을 허용해주세요.');
+      return Promise.reject(LocalizedStrings.RECORD_FAILURE_REQUEST_PERMISSION);
     }
 
     this.release();

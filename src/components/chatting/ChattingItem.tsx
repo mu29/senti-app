@@ -61,7 +61,7 @@ const ChattingItem: React.FunctionComponent<Props> = ({
           </View>
           <View style={styles.row}>
             <Text style={styles.messageCount}>
-              {LocalizedStrings.CHATTING_MESSAGE_COUNT(messageCount.toLocaleString())}
+              {LocalizedStrings.CHATTING_MESSAGE_COUNT(messageCount)}
             </Text>
             <Text style={styles.date}>
               {dayjs(updatedAt).fromNow()}

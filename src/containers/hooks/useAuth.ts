@@ -18,6 +18,7 @@ import {
   CREATE_USER,
   FETCH_PROFILE,
 } from 'graphqls';
+import { LocalizedStrings } from 'constants/translations';
 
 type ProviderType = 'facebook' | 'google' | undefined;
 
@@ -73,7 +74,7 @@ function useAuth(onSuccess?: () => void) {
 
     const configureResult = await initGoogleSignin();
     if (!configureResult) {
-      Alert.alert('로그인', '구글 로그인에 실패했습니다.\n구글 플레이 서비스 초기화에 실패했습니다.');
+      Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.LOGIN_FAILURE_GOOGLE_PLAY_SERVICE);
       setProvider(undefined);
       return;
     }
@@ -90,7 +91,7 @@ function useAuth(onSuccess?: () => void) {
       .then(resultHandler)
       .catch((error) => {
         if (error.code !== '-5') {
-          Alert.alert('로그인', `구글 로그인에 실패했습니다.\n${error.message}`);
+          Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.LOGIN_FAILURE_GOOGLE(error.message));
         }
       })
       .finally(() => {
@@ -122,7 +123,7 @@ function useAuth(onSuccess?: () => void) {
       .then(resultHandler)
       .catch((error) => {
         if (error.code !== 'user_cancel') {
-          Alert.alert('로그인', `페이스북 로그인에 실패했습니다.\n${error.message}`);
+          Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.LOGIN_FAILURE_FACEBOOK(error.message));
         }
       })
       .finally(() => {

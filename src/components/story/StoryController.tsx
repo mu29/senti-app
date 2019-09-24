@@ -21,6 +21,7 @@ import {
   typography,
 } from 'constants/style';
 import { AudioService, AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const HIT_SLOP = {
   top: 16,
@@ -66,30 +67,36 @@ const StoryController: React.FunctionComponent<Props> = ({
 
   const showReportSheet = useCallback(() => {
     ActionSheet({
-      title: '이 사용자를..',
-      optionsIOS: ['신고하기', '취소'],
-      optionsAndroid: ['신고하기'],
+      title: LocalizedStrings.STORY_USER_ACTIONS,
+      optionsIOS: [LocalizedStrings.STORY_USER_ACTION_REPORT, LocalizedStrings.COMMON_CANCEL],
+      optionsAndroid: [LocalizedStrings.STORY_USER_ACTION_REPORT],
       destructiveButtonIndex: 0,
       cancelButtonIndex: 1,
       onCancelAndroidIndex: 1,
     }, (index: number) => {
       if (index === 0) {
-        reportUser().catch(e => Alert.alert('오류', `사용자 신고에 실패했습니다.\n${e.message}`));
+        reportUser().catch(e => Alert.alert(
+          LocalizedStrings.COMMON_ERROR,
+          LocalizedStrings.STORY_USER_ACTION_FAILURE(e.message),
+        ));
       }
     });
   }, [reportUser]);
 
   const showDeleteAlert = useCallback(() => {
     ActionSheet({
-      title: '정말 삭제하시겠습니까?',
-      optionsIOS: ['삭제', '취소'],
-      optionsAndroid: ['삭제'],
+      title: LocalizedStrings.STORY_DELETE_ALERT,
+      optionsIOS: [LocalizedStrings.COMMON_DELETE, LocalizedStrings.COMMON_CANCEL],
+      optionsAndroid: [LocalizedStrings.COMMON_DELETE],
       destructiveButtonIndex: 0,
       cancelButtonIndex: 1,
       onCancelAndroidIndex: 1,
     }, (index: number) => {
       if (index === 0) {
-        deleteStory().catch(e => Alert.alert('오류', `이야기 삭제에 실패했습니다.\n${e.message}`));
+        deleteStory().catch(e => Alert.alert(
+          LocalizedStrings.COMMON_ERROR,
+          LocalizedStrings.STORY_DELETE_FAILURE(e.message),
+        ));
       }
     });
   }, [deleteStory]);

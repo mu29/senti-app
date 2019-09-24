@@ -13,6 +13,7 @@ import {
   FETCH_PROFILE,
 } from 'graphqls';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 interface Props {
   setIsLoading: (isLoading: boolean) => void;
@@ -50,11 +51,11 @@ const Container: React.FunctionComponent<Props> = ({
 
   const upload = useCallback(async () => {
     if (!(profile && profile.me)) {
-      throw new Error('로그인 후 이용해주세요.');
+      throw new Error(LocalizedStrings.ERROR_AUTH_REQUIRED);
     }
 
     if (!isRecorded || !data) {
-      throw new Error('녹음 파일이 없습니다.');
+      throw new Error(LocalizedStrings.RECORD_UPLOAD_FAILURE_NOT_FOUND);
     }
 
     const id = uuidv4();
@@ -77,11 +78,11 @@ const Container: React.FunctionComponent<Props> = ({
       .then(() => onFinish && onFinish())
       .catch((error) => {
         setIsLoading(false);
-        if (error.message === '로그인 후 이용해주세요.') {
+        if (error.message === LocalizedStrings.ERROR_AUTH_REQUIRED) {
           showAuthModal();
           AnalyticsService.logEvent('show_auth_modal_before_upload');
         } else {
-          Alert.alert('알림', `녹음 파일 업로드에 실패했습니다.\n${error.message}`);
+          Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.RECORD_UPLOAD_FAILURE(error.message));
         }
       });
   }, [setIsLoading, upload, onCreate, release, onFinish, showAuthModal]);

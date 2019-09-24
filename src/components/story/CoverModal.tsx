@@ -17,6 +17,7 @@ import {
   typography,
 } from 'constants/style';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const ITEM_SIZE = Dimensions.get('window').width / 5;
 
@@ -62,7 +63,7 @@ const CoverModal: React.FunctionComponent<Props> = ({
         <View style={styles.header}>
           <Icon name="md-images" size={18} color={palette.white.default} />
           <Text style={[typography.heading4, styles.title]}>
-            배경 이미지
+            {LocalizedStrings.COVER_MODAL}
           </Text>
         </View>
         <FlatGrid

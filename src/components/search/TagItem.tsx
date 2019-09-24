@@ -12,6 +12,7 @@ import {
 } from 'components';
 import { palette } from 'constants/style';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const TAG_ICON = { uri: 'ic_tag' };
 
@@ -60,7 +61,7 @@ const TagItem: React.FunctionComponent<Props> = ({
             {name}
           </Text>
           <Text style={styles.count}>
-            이야기 {storyCount.toLocaleString()}개
+            {LocalizedStrings.TAG_STORY_COUNT(storyCount)}
           </Text>
         </View>
         <Button
@@ -70,7 +71,7 @@ const TagItem: React.FunctionComponent<Props> = ({
           style={styles.button}
         >
           <Text style={[styles.normalText, isSubscribed && styles.subscribedText]}>
-            관심
+            {LocalizedStrings.TAG_SUBSCRIBE_BUTTON}
           </Text>
         </Button>
       </View>

@@ -9,6 +9,7 @@ import {
   InteractionManager,
 } from 'react-native';
 import { RecordService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 function useRecord() {
   const timer = useRef<NodeJS.Timeout>();
@@ -23,7 +24,10 @@ function useRecord() {
     } else {
       requestAnimationFrame(() => {
         RecordService.start()
-          .catch(e => Alert.alert('알림', `녹음에 실패했습니다. 다시 시도해 주세요.\n${e.message}`));
+          .catch(e => Alert.alert(
+            LocalizedStrings.COMMON_ERROR,
+            LocalizedStrings.RECORD_FAILURE(e.message),
+          ));
       });
     }
   }, [isRecorded]);
@@ -38,7 +42,10 @@ function useRecord() {
             setData(result);
             setIsRecorded(true);
           })
-          .catch(e => Alert.alert('알림', `녹음에 실패했습니다. 다시 시도해 주세요.\n${e.message}`));
+          .catch(e => Alert.alert(
+            LocalizedStrings.COMMON_ERROR,
+            LocalizedStrings.RECORD_FAILURE(e.message),
+          ));
       });
     }
     setIsStarted(false);

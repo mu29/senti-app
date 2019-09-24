@@ -10,6 +10,7 @@ import {
   FETCH_PROFILE,
   FETCH_MESSAGE,
 } from 'graphqls';
+import { LocalizedStrings } from 'constants/translations';
 
 interface Props {
   chattingId: string;
@@ -39,7 +40,10 @@ const Container: React.FunctionComponent<Props> = ({
       },
       fetchPolicy: 'network-only',
     })
-    .catch(e => Alert.alert('오류', `메시지 재생에 실패했습니다.\n${e.message}`))
+    .catch(e => Alert.alert(
+      LocalizedStrings.COMMON_ERROR,
+      LocalizedStrings.MESSAGE_PLAY_FAILURE(e.message),
+    ))
     .finally(() => setIsLoading(false));
   }, [chattingId, client, item.id]);
 

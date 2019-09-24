@@ -6,6 +6,7 @@ import {
 } from 'components';
 import { ChattingList } from 'containers';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const ChattingScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
@@ -15,7 +16,7 @@ const ChattingScreen: React.FunctionComponent<{}> = () => {
   return (
     <React.Fragment>
       <Header>
-        대화
+        {LocalizedStrings.SCREEN_CHATTING}
       </Header>
       <ChattingList />
       <NavigationEvents onDidFocus={onDidFocus} />

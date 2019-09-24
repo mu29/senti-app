@@ -16,6 +16,7 @@ import {
   Button,
 } from 'components';
 import { palette } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 interface Props {
   updateTags: (tags: string[]) => void;
@@ -75,7 +76,7 @@ const CreateStoryTags: React.FunctionComponent<Props> = ({
         autoCorrect={false}
         numberOfLines={5}
         multiline
-        placeholder="여기에 #태그를 추가해 보세요"
+        placeholder={LocalizedStrings.ADD_TAG_PLACEHOLDER}
         placeholderTextColor={palette.gray[30]}
         selectionColor={palette.white.default}
         onChangeText={onChangeText}

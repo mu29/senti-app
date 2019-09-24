@@ -11,6 +11,7 @@ import {
   FETCH_CHATTING_FEED,
 } from 'graphqls';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 type ChattingFeedResult = {
   chattingFeed: {
@@ -53,7 +54,7 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
     const storyId = data && data.modal && data.modal.params && JSON.parse(data.modal.params).id;
 
     if (!storyId) {
-      throw new Error('이 이야기에는 답장할 수 없습니다.');
+      throw new Error(LocalizedStrings.STORY_REPLY_FAILURE);
     }
 
     await createChatting({

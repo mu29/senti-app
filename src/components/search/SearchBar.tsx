@@ -7,6 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import { palette } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 const SEARCH_ICON = { uri: 'ic_search_active' };
 
@@ -21,7 +22,7 @@ const SearchBar: React.FunctionComponent<Props> = ({
     <View style={styles.bar}>
       <Image source={SEARCH_ICON} style={styles.icon} />
       <TextInput
-        placeholder="검색"
+        placeholder={LocalizedStrings.SEARCH_PLACEHOLDER}
         placeholderTextColor={palette.gray[50]}
         onChangeText={updateQuery}
         spellCheck={false}
