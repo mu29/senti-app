@@ -7,6 +7,7 @@ import {
 import {
   FreeCoinTimer,
   ChattingList,
+  CoinModal,
 } from 'containers';
 import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
@@ -23,6 +24,7 @@ const ChattingScreen: React.FunctionComponent<{}> = () => {
       </Header>
       <FreeCoinTimer />
       <ChattingList />
+      <CoinModal />
       <NavigationEvents onDidFocus={onDidFocus} />
     </React.Fragment>
   );
