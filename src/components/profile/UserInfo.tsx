@@ -17,6 +17,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 const BUTTON_HITSLOP = {
   top: 16,
@@ -59,7 +60,7 @@ const UserInfo: React.FunctionComponent<Props> = ({
         style={styles.button}
       >
         <Text style={typography.heading4}>
-          정보 관리
+          {LocalizedStrings.PROFILE_EDIT}
         </Text>
       </TouchableOpacity>
     </View>

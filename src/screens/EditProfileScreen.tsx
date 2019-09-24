@@ -11,6 +11,7 @@ import {
   EditProfilePhoto,
 } from 'containers';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const EditProfileScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
@@ -20,7 +21,7 @@ const EditProfileScreen: React.FunctionComponent<{}> = () => {
   return (
     <React.Fragment>
       <Header canGoBack>
-        정보 관리
+        {LocalizedStrings.PROFILE_EDIT}
         <ProfileSaveButton />
       </Header>
       <ScrollView>

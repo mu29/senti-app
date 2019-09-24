@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { Text } from 'components';
 import { typography, palette } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 const CHAT_ICON = { uri: 'ic_chat_active' };
 
@@ -15,7 +16,7 @@ const ChattingEmptyList: React.FunctionComponent<{}> = () => (
       <Image source={CHAT_ICON} style={styles.icon} />
     </View>
     <Text style={[typography.body1, styles.description]}>
-      {'이야기에 답변해\n새로운 대화를 시작해 보세요.'}
+      {LocalizedStrings.CHATTING_EMPTY_MESSAGE}
     </Text>
   </View>
 );

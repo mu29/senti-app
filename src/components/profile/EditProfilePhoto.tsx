@@ -15,6 +15,7 @@ import {
   typography,
 } from 'constants/style';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 interface Props {
   photoUrl: string | null;
@@ -45,7 +46,7 @@ const EditProfilePhoto: React.FunctionComponent<Props> = ({
         <Button onPress={openImagePicker} disabled={isLoading} style={styles.button}>
           <CachableImage prefix="profiles" source={photoUrl} style={styles.photo} />
           <Text style={[typography.tiny3, styles.description]}>
-            프로필 사진 변경
+            {LocalizedStrings.PROFILE_PHOTO_CHANGE_BUTTON}
           </Text>
         </Button>
       </View>

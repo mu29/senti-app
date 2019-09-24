@@ -12,6 +12,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 interface Props {
   isVisible: boolean;
@@ -41,7 +42,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
   >
     <View style={styles.container} pointerEvents="auto">
       <Text style={[typography.heading1, styles.title]}>
-        로그인하고 모든 기능을 사용하세요!
+        {LocalizedStrings.LOGIN_TITLE}
       </Text>
       <SocialProviderButton
         icon="facebook"
@@ -50,7 +51,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
         isLoading={provider === 'facebook'}
         disabled={!!provider}
       >
-        페이스북으로 시작하기
+        {LocalizedStrings.LOGIN_WITH_FACEBOOK}
       </SocialProviderButton>
       <SocialProviderButton
         icon="google"
@@ -59,10 +60,10 @@ const AuthModal: React.FunctionComponent<Props> = ({
         isLoading={provider === 'google'}
         disabled={!!provider}
       >
-        구글 계정으로 시작하기
+        {LocalizedStrings.LOGIN_WITH_GOOGLE}
       </SocialProviderButton>
       <Text style={styles.description}>
-        로그인하면 이용약관 및 개인정보처리방침에{'\n'}동의하는 것으로 간주합니다.
+        {LocalizedStrings.LOGIN_AGREEMENT_MESSAGE}
       </Text>
     </View>
   </Modal>

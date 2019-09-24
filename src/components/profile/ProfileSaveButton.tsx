@@ -6,6 +6,7 @@ import {
 } from 'components';
 import { palette } from 'constants/style';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const HIT_SLOP = {
   top: 16,
@@ -39,7 +40,7 @@ const ProfileSaveButton: React.FunctionComponent<Props> = ({
       style={styles.button}
     >
       <Text style={[styles.text, isEnabled && styles.enabled]}>
-        저장
+        {LocalizedStrings.COMMON_SAVE}
       </Text>
     </Button>
   );

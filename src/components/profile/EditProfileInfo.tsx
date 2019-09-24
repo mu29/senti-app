@@ -18,11 +18,12 @@ import {
   typography,
 } from 'constants/style';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const GENDERS = {
-  male: '남성',
-  female: '여성',
-  none: '성별',
+  male: LocalizedStrings.GENDER_MALE,
+  female: LocalizedStrings.GENDER_FEMALE,
+  none: LocalizedStrings.GENDER_NONE,
 };
 
 interface Props {
@@ -42,9 +43,9 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
 
   const showGenderSelectSheet = useCallback(() => {
     ActionSheet({
-      title: '성별을 선택하세요',
-      optionsIOS: ['남성', '여성', '취소'],
-      optionsAndroid: ['남성', '여성'],
+      title: LocalizedStrings.GENDER_SELECT_MODAL,
+      optionsIOS: [LocalizedStrings.GENDER_MALE, LocalizedStrings.GENDER_FEMALE, LocalizedStrings.COMMON_CANCEL],
+      optionsAndroid: [LocalizedStrings.GENDER_MALE, LocalizedStrings.GENDER_FEMALE],
       cancelButtonIndex: 2,
       onCancelAndroidIndex: 2,
     }, (index: number) => {
@@ -53,13 +54,16 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
   }, [updateCandidate]);
 
   const openEmail = useCallback(async () => {
-    const subject = '[센치] 건의 & 불편 신고';
+    const subject = LocalizedStrings.SETTINGS_REPORT_PROBLEM;
     const url = `mailto:service@senti.in?subject=${encodeURIComponent(subject)}`;
 
     try {
       await Linking.openURL(url);
     } catch (error) {
-      Alert.alert('알림', `메일 작성에 실패했습니다.\n${error.message}`);
+      Alert.alert(
+        LocalizedStrings.SETTINGS_REPORT_FAILURE_TITLE,
+        LocalizedStrings.SETTINGS_REPORT_FAILURE_MESSAGE(error.message),
+      );
     }
   }, []);
 
@@ -72,7 +76,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={[typography.tiny3, styles.title]}>
-          계정
+          {LocalizedStrings.PROFILE_ACCOUNT}
         </Text>
       </View>
       <View style={styles.form}>
@@ -80,7 +84,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
           <Icon name="md-contact" size={20} color={palette.gray[60]} />
         </View>
         <TextInput
-          placeholder="닉네임"
+          placeholder={LocalizedStrings.PROFILE_NAME}
           placeholderTextColor={palette.gray[50]}
           spellCheck={false}
           autoCorrect={false}
@@ -109,12 +113,12 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
           <Icon name="md-exit" size={20} color={palette.gray[60]} />
         </View>
         <Text style={styles.text}>
-          로그아웃
+          {LocalizedStrings.PROFILE_LOGOUT_BUTTON}
         </Text>
       </Button>
       <View style={styles.header}>
         <Text style={[typography.tiny3, styles.title]}>
-          지원
+          {LocalizedStrings.SETTINGS_TITLE}
         </Text>
       </View>
       <Button onPress={openEmail} style={styles.form}>
@@ -122,7 +126,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
           <Icon name="ios-mail" size={20} color={palette.gray[60]} />
         </View>
         <Text style={styles.text}>
-          건의 및 불편 신고
+          {LocalizedStrings.SETTINGS_REPORT_PROBLEM}
         </Text>
       </Button>
       <View style={styles.form}>
@@ -130,7 +134,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
           <Icon name="ios-filing" size={20} color={palette.gray[60]} />
         </View>
         <Text style={styles.text}>
-          이용약관 및 개인정보처리방침
+          {LocalizedStrings.SETTINGS_TERMS_BUTTON}
         </Text>
       </View>
     </View>

@@ -14,6 +14,7 @@ import {
   FETCH_PROFILE,
   UPDATE_PROFILE,
 } from 'graphqls';
+import { LocalizedStrings } from 'constants/translations';
 
 const Container: React.FunctionComponent<{}> = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -62,7 +63,10 @@ const Container: React.FunctionComponent<{}> = () => {
           },
         },
       }))
-      .catch(e => Alert.alert('알림', `프로필 사진 변경에 실패했습니다.\n${e.message}`))
+      .catch(e => Alert.alert(
+        LocalizedStrings.COMMON_ERROR,
+        LocalizedStrings.PROFILE_PHOTO_CHANGE_FAILURE(e.message),
+      ))
       .finally(() => setIsLoading(false));
   }, [updateProfile]);
 

@@ -11,6 +11,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 const LoadingLayer: React.FunctionComponent<{}> = () => {
   const fadeAnimation = useAnimation({
@@ -28,7 +29,7 @@ const LoadingLayer: React.FunctionComponent<{}> = () => {
       <View style={styles.content}>
         <ActivityIndicator color={palette.yellow.default} size="large" />
         <Text style={[typography.heading4, styles.text]}>
-          로딩 중..
+          {LocalizedStrings.COMMON_LOADING}
         </Text>
       </View>
     </Animated.View>

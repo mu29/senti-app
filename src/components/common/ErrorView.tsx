@@ -13,6 +13,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 interface Props {
   reload: () => void;
@@ -29,14 +30,14 @@ const ErrorView: React.FunctionComponent<Props> = ({
     <View style={styles.container}>
       <Icon name="ios-alert" size={56} color={palette.yellow.default} />
       <Text style={[typography.heading1, styles.title]}>
-        일시적인 오류입니다.
+        {LocalizedStrings.ERROR_VIEW_TITLE}.
       </Text>
       <Text style={[typography.body2, styles.message]}>
-        {`아래 버튼을 눌러 다시 시도할 수 있습니다.\n문제가 반복된다면 저희에게 알려 주세요.\n\n${message}`}
+        {LocalizedStrings.ERROR_VIEW_MESSAGE(message)}
       </Text>
       <Button style={styles.button} onPress={reload}>
         <Text style={typography.body1}>
-          새로고침
+          {LocalizedStrings.ERROR_VIEW_REFRESH_BUTTON}
         </Text>
       </Button>
     </View>

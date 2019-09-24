@@ -21,6 +21,7 @@ import {
   typography,
 } from 'constants/style';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 const ProfileScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
@@ -30,7 +31,7 @@ const ProfileScreen: React.FunctionComponent<{}> = () => {
   return (
     <React.Fragment>
       <Header>
-        프로필
+        {LocalizedStrings.SCREEN_PROFILE}
       </Header>
       <View style={styles.info}>
         <UserInfo />
@@ -40,7 +41,7 @@ const ProfileScreen: React.FunctionComponent<{}> = () => {
       <View style={styles.stories}>
         <Icon name="ios-albums" size={16} color={palette.gray[20]} />
         <Text style={[typography.heading3, styles.title]}>
-          나의 이야기
+          {LocalizedStrings.MY_STORIES}
         </Text>
       </View>
       <MyStoryGrid />
