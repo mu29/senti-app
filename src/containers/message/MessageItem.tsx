@@ -9,6 +9,7 @@ import { MessageItem } from 'components';
 import {
   FETCH_PROFILE,
   FETCH_MESSAGE,
+  FETCH_CHATTING,
 } from 'graphqls';
 import { LocalizedStrings } from 'constants/translations';
 
@@ -40,6 +41,13 @@ const Container: React.FunctionComponent<Props> = ({
       },
       fetchPolicy: 'network-only',
     })
+    .then(() => client.query({
+      query: FETCH_CHATTING,
+      variables: {
+        id: chattingId,
+      },
+      fetchPolicy: 'network-only',
+    }))
     .catch(e => Alert.alert(
       LocalizedStrings.COMMON_ERROR,
       LocalizedStrings.MESSAGE_PLAY_FAILURE(e.message),
