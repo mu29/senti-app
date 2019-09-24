@@ -105,7 +105,7 @@ function useAuth(onSuccess?: () => void) {
     }
     setProvider('facebook');
 
-    return LoginManager.logInWithReadPermissions(['public_profile', 'email'])
+    return LoginManager.logInWithPermissions(['public_profile', 'email'])
       .then((result) => {
         if (result.isCancelled) {
           return Promise.reject({ code: 'user_cancel' });

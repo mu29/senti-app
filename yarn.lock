@@ -1296,10 +1296,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.0.tgz#4c48fed958d6dcf9487195a0ef6456d5f6e0163a"
   integrity sha512-eItQyV43bj4rR3JPV0Skpl1SncRCdziTEK9/v8VwXmV6d/qOUO8/EuWeHBbCZcsfSHfzI5UyMJLCSXtxxznyZg==
 
-"@types/react-native-fbsdk@0.6.3":
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/@types/react-native-fbsdk/-/react-native-fbsdk-0.6.3.tgz#fa004c7bc008730c64166d4d66e8c647e3350715"
-  integrity sha512-cy57X8hRGE33D+cwdzM9pYAymifBhh6FFTOOAhW7O0KWoMrFaSD8QPDzBDpiQQ87FHekNg1nghx13OjFKRcCMQ==
+"@types/react-native-fbsdk@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-fbsdk/-/react-native-fbsdk-1.0.0.tgz#fc1acf555628d107417a0290d293f283ca6af025"
+  integrity sha512-zoQN1zuLdDQEdNi6VggCNjP+qT/du+RHQfTyiOtRjCPqt64E4oVyZOILuj2apnVirIWfCdK/hf0wsKIaBbHmjA==
   dependencies:
     "@types/react" "*"
     "@types/react-native" "*"
@@ -6430,10 +6430,10 @@ react-native-code-push@5.7.0:
     semver "^5.6.0"
     xcode "1.0.0"
 
-react-native-fbsdk@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-1.0.2.tgz#ae1dbd5a56be328c465c2326347a4d4e1e599ec6"
-  integrity sha512-ZFG9LIReRoZPEA1es8hGBZCSga8NWEXQjmUVYNE/6QSePhMX7o975Ys/29Eqloq1kpHWoY+HJXbfU57SAWAcwg==
+react-native-fbsdk@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-1.0.4.tgz#ecc0faf235e12de4423af9908f56b999cf144422"
+  integrity sha512-s0fBRDi/k6jfWFRnmwQwJA4WTriKhyes71tYO6LdXF6nAI7k+7DCdFZqIA7PqtTUA7WwEjSP6qjKTibCDWOwLw==
 
 react-native-firebase@5.5.6:
   version "5.5.6"
