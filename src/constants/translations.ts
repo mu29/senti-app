@@ -213,7 +213,7 @@ const TRANSLATIONS: {
     SETTINGS_REPORT_FAILURE_MESSAGE: (message) => `Failed to report problem.\n${message}`,
     SETTINGS_TERMS_BUTTON: 'Terms and Conditions / Privacy Policy',
     // 채팅
-    CHATTING_EMPTY_MESSAGE: 'Start new chatting by respond to the story!',
+    CHATTING_EMPTY_MESSAGE: 'Start new chatting\nby respond to the story!',
     CHATTING_MESSAGE_COUNT: (count) => `${count.toLocaleString()} message${count > 1 ? 's' : ''}`,
     MESSAGE_PLAY_FAILURE: (message) => `Failed to play message.\n${message}`,
     // 코인
