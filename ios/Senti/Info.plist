@@ -25,9 +25,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb2247161082214684</string>
+				<string>$(FACEBOOK_URL_SCHEME)</string>
 			</array>
 		</dict>
 		<dict>
@@ -50,7 +52,7 @@
 	<key>FIREBASE_WEB_CLIENT_ID</key>
 	<string>$(FIREBASE_WEB_CLIENT_ID)</string>
 	<key>FacebookAppID</key>
-	<string>2247161082214684</string>
+	<string>$(FACEBOOK_APP_ID)</string>
 	<key>FacebookDisplayName</key>
 	<string>Senti</string>
 	<key>LSApplicationQueriesSchemes</key>

@@ -167,6 +167,7 @@ android {
         debug {
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "@string/app_name_debug"
+            resValue "string", "facebook_app_id", "576748566193001"
             buildConfigField "String", 'API_URL', '"http://10.78.64.97:5000/senti-development/us-central1/graphql"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '""'
@@ -174,6 +175,7 @@ android {
         releaseStaging {
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "@string/app_name_staging"
+            resValue "string", "facebook_app_id", "576748566193001"
             buildConfigField "String", 'API_URL', '"https://staging-api.senti.in"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '"Zi65HdwYs1JHXN6zLmSbmfozZOig180a8f7e-a595-471d-ba74-a122212012fa"'
@@ -182,6 +184,7 @@ android {
         }
         release {
             resValue "string", "app_name", "@string/app_name_release"
+            resValue "string", "facebook_app_id", "2247161082214684"
             buildConfigField "String", 'API_URL', '"https://api.senti.in"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"62655293862-mjb6i6qdl8ki4gpmes6l2pvumc3g9jff.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '"uVn_lkorIVD9UpJwGA3LC0y8UpRJ180a8f7e-a595-471d-ba74-a122212012fa"'
