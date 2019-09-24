@@ -166,7 +166,7 @@ const TRANSLATIONS: {
     ERROR_VIEW_TITLE: 'Temporary Error',
     ERROR_VIEW_MESSAGE: (message) => `Try again by press Refresh button.\nIf the error occurs constantly, please report us.\n\n${message}`,
     ERROR_VIEW_REFRESH_BUTTON: 'Refresh',
-    ERROR_AUTH_REQUIRED: 'Please Log in.',
+    ERROR_AUTH_REQUIRED: 'Please Sign in.',
     // 검색
     SEARCH_PLACEHOLDER: 'Search',
     TAG_STORY_COUNT: (count) => `${count.toLocaleString()} ${count > 1 ? 'stories' : 'story'}`,
@@ -187,9 +187,9 @@ const TRANSLATIONS: {
     STORY_DELETE_FAILURE: (message) => `Failed to delete story.\n${message}`,
     STORY_REPLY_FAILURE: 'Can\'t reply to this message.',
     // 로그인
-    LOGIN_TITLE: 'Log in to use all features!',
-    LOGIN_WITH_FACEBOOK: 'Log in with Facebook',
-    LOGIN_WITH_GOOGLE: 'Log in with Google',
+    LOGIN_TITLE: 'Sign in to use all features!',
+    LOGIN_WITH_FACEBOOK: 'Sign in with Facebook',
+    LOGIN_WITH_GOOGLE: 'Sign in with Google',
     LOGIN_AGREEMENT_MESSAGE: 'By logging in, you agree to the following terms and conditions.',
     LOGIN_FAILURE_FACEBOOK: (message) => `Google login failed.\n${message}`,
     LOGIN_FAILURE_GOOGLE: (message) => `Google login failed.\n${message}`,
