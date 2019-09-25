@@ -60,4 +60,4 @@ export const REPORT_USER = gql`
   mutation reportUser($id: ID!, $storyId: ID!, $audioUrl: String) {
     reportUser(id: $id, storyId: $storyId, audioUrl: $audioUrl)
   }
-`
+`;
