@@ -151,14 +151,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.000001)'
   },
   hint: {
     color: palette.white.default,
   },
   recordContainer: {
-    width: 72,
-    height: 72,
+    width: 94,
+    height: 94,
     justifyContent: 'center',
     alignItems: 'center',
   },
