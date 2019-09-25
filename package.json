@@ -5,8 +5,8 @@
   "scripts": {
     "start": "react-native start",
     "postinstall": "yarn jetify",
-    "lint": "eslint '**/*.ts[x]'",
-    "lint:fix": "eslint --fix '**/*.ts[x]'",
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "deploy:android:staging": "code-push release-react Yeoubi/Senti-Android Android -d \"Staging\"",
     "deploy:ios:staging": "code-push release-react Yeoubi/Senti-iOS iOS -d \"Staging\"",
     "deploy:android:prod": "code-push release-react Yeoubi/Senti-Android Android -d \"Production\"",
