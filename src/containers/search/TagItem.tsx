@@ -45,7 +45,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
           data: {
             me: {
               ...savedProfile.me,
-              tags: savedProfile.me.tags.concat(item),
+              tags: savedProfile.me.tags.concat(item.name),
             },
           },
         });
@@ -70,7 +70,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
           data: {
             me: {
               ...savedProfile.me,
-              tags: savedProfile.me.tags.filter(t => t.id !== item.id),
+              tags: savedProfile.me.tags.filter(t => t !== item.name),
             },
           },
         });
@@ -79,7 +79,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
   });
 
   const isSubscribed = useMemo(() => {
-    return profile && profile.me ? !!profile.me.tags.find(t => t.id === item.id) : false;
+    return profile && profile.me ? !!profile.me.tags.find(t => t === item.id) : false;
   }, [item.id, profile]);
 
   const toggle = useCallback(() => {

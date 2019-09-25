@@ -56,8 +56,11 @@ const CoverModal: React.FunctionComponent<Props> = ({
       onBackButtonPress={hide}
       style={styles.modal}
       backdropOpacity={0}
-      useNativeDriver
+      backdropTransitionOutTiming={0}
+      backdropTransitionInTiming={0}
       hideModalContentWhileAnimating
+      useNativeDriver
+      hardwareAccelerated
     >
       <View style={styles.container}>
         <View style={styles.header}>

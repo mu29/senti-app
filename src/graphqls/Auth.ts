@@ -14,10 +14,7 @@ export const FETCH_PROFILE = gql`
       name
       photoUrl
       gender
-      tags {
-        id
-        name
-      }
+      tags
       coin
       useFreeCoinAt
     }

@@ -35,10 +35,13 @@ const AuthModal: React.FunctionComponent<Props> = ({
     onBackButtonPress={hide}
     style={styles.modal}
     backdropOpacity={0.4}
+    backdropTransitionOutTiming={0}
+    backdropTransitionInTiming={0}
     animationInTiming={400}
     animationOutTiming={600}
-    hideModalContentWhileAnimating={true}
+    hideModalContentWhileAnimating
     useNativeDriver
+    hardwareAccelerated
   >
     <View style={styles.container} pointerEvents="auto">
       <Text style={[typography.heading1, styles.title]}>

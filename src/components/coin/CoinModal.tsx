@@ -48,10 +48,13 @@ const CoinModal: React.FunctionComponent<Props> = ({
         onBackButtonPress={hide}
         style={styles.modal}
         backdropOpacity={0.4}
+        backdropTransitionOutTiming={0}
+        backdropTransitionInTiming={0}
         animationInTiming={400}
         animationOutTiming={600}
-        hideModalContentWhileAnimating={true}
+        hideModalContentWhileAnimating
         useNativeDriver
+        hardwareAccelerated
       >
         <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
           <TabView routes={ROUTES}>

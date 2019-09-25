@@ -49,7 +49,7 @@ declare global {
   interface Profile extends User {
     email: string;
     gender?: 'male' | 'female';
-    tags: Array<Partial<Tag>>;
+    tags: string[];
     createdAt: number;
     coin: number;
     useFreeCoinAt: number;
