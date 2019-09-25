@@ -25,6 +25,7 @@ import { LocalizedStrings } from 'constants/translations';
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const RESET_ICON = { uri: 'ic_replay' };
+const PLAY_ICON = { uri: 'ic_play_active' };
 const DONE_ICON = { uri: 'ic_check' };
 
 interface Props {
@@ -42,16 +43,25 @@ const RecordController: React.FunctionComponent<Props> = ({
   release,
   create,
 }) => {
-  const fadeAnimation = useAnimation({
+  const labelAnimation = useAnimation({
     type: 'timing',
     toValue: Number(!isStarted),
     duration: 200,
     useNativeDriver: true,
   });
 
+  const buttonAnimation = useAnimation({
+    type: 'timing',
+    toValue: Number(!isStarted && isRecorded),
+    duration: 200,
+    useNativeDriver: true,
+  });
+
   const progressAnimation = useRef(new Animated.Value(0));
 
-  const fadeStyle = useMemo(() => ({ opacity: fadeAnimation }), [fadeAnimation]);
+  const labelStyle = useMemo(() => ({ opacity: labelAnimation }), [labelAnimation]);
+
+  const buttonStyle = useMemo(() => ({ opacity: buttonAnimation }), [buttonAnimation]);
 
   const progressStyle = useMemo(() => ({
     transform: [{ scale: progressAnimation.current }],
@@ -103,11 +113,11 @@ const RecordController: React.FunctionComponent<Props> = ({
       <View style={styles.controller}>
         <Button
           onPress={onPressReset}
-          disabled={!isRecorded}
-          style={[styles.button, isRecorded && styles.enabled]}
+          disabled={isStarted || !isRecorded}
+          style={styles.button}
           round
         >
-          <Animated.Image source={RESET_ICON} style={[styles.icon, fadeStyle]} />
+          <Animated.Image source={RESET_ICON} style={[styles.icon, buttonStyle]} />
         </Button>
         <View style={styles.recordContainer}>
           <Animated.View style={[styles.progress, progressStyle]} />
@@ -116,17 +126,18 @@ const RecordController: React.FunctionComponent<Props> = ({
             onPress={toggle}
             style={styles.record}
           />
+          <Animated.Image source={PLAY_ICON} pointerEvents="none" style={[styles.playIcon, buttonStyle]} />
         </View>
         <Button
           onPress={onPressCreate}
-          disabled={!isRecorded}
-          style={[styles.button, isRecorded && styles.enabled]}
+          disabled={isStarted || !isRecorded}
+          style={styles.button}
           round
         >
-          <Animated.Image source={DONE_ICON} style={[styles.icon, fadeStyle]} />
+          <Animated.Image source={DONE_ICON} style={[styles.icon, buttonStyle]} />
         </Button>
       </View>
-      <AnimatedText style={[typography.heading4, styles.hint, fadeStyle]}>
+      <AnimatedText style={[typography.heading4, styles.hint, labelStyle]}>
         {isRecorded ? LocalizedStrings.RECORDER_PLAY_BUTTON : LocalizedStrings.RECORDER_RECORD_BUTTON}
       </AnimatedText>
     </Animated.View>
@@ -143,12 +154,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    marginBottom: 16,
   },
   hint: {
-    marginTop: 32,
     color: palette.white.default,
   },
   recordContainer: {
+    width: 72,
+    height: 72,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -175,7 +188,12 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    opacity: 0.5,
+  },
+  playIcon: {
+    width: 24,
+    height: 24,
+    marginLeft: 2,
+    tintColor: 'rgba(255, 255, 255, 0.8)',
   },
   icon: {
     width: 24,
