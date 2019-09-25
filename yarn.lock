@@ -6440,10 +6440,10 @@ react-native-firebase@5.5.6:
     opencollective-postinstall "^2.0.0"
     prop-types "^15.7.2"
 
-react-native-fs@2.13.3:
-  version "2.13.3"
-  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.13.3.tgz#a422f0ecd8a093a7e99d8d51ff51440e090a18a8"
-  integrity sha512-B62LSSAEYQGItg7KVTzTVVCxezOYFBYp4DMVFbdoZUd1mZVFdqR2sy1HY1mye1VI/Lf3IbxSyZEQ0GmrrdwLjg==
+react-native-fs@2.14.1:
+  version "2.14.1"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.14.1.tgz#61c70a865b5b5bcb020dd4e4befd60a2c20c836f"
+  integrity sha512-ZcfiwNP+FBgvv2eRk0B62/NI58mbjszjjYvQlP352HLkUqVsK4Ld6X8fdBO1lZAz6SgitUk8WEc9NEciRIt31g==
   dependencies:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
@@ -6463,9 +6463,9 @@ react-native-google-signin@2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-google-signin/-/react-native-google-signin-2.0.0.tgz#0d9cb128a65c0b48216716b979c1ada35900ceb0"
   integrity sha512-9loM4lcCIdbco5BnmNio7yGaXQKCpCaY1VRmYiTSvC5NjuSf6Ui6jZRee46p/YdaU4yRnS3u5Vct6Psrvr0HNg==
 
-react-native-image-cache-hoc@mu29/react-native-image-cache-hoc#5d76ae53482b005e1609356b05523d308d637402:
+react-native-image-cache-hoc@mu29/react-native-image-cache-hoc#855c16f2e0e10378d7cdd9882d055ff6c8a41780:
   version "2.0.0"
-  resolved "https://codeload.github.com/mu29/react-native-image-cache-hoc/tar.gz/5d76ae53482b005e1609356b05523d308d637402"
+  resolved "https://codeload.github.com/mu29/react-native-image-cache-hoc/tar.gz/855c16f2e0e10378d7cdd9882d055ff6c8a41780"
   dependencies:
     buffer "^5.0.8"
     crypto-js "^3.1.9-1"

@@ -35,7 +35,7 @@
     "react-native-fs": "2.14.1",
     "react-native-gesture-handler": "1.4.1",
     "react-native-google-signin": "2.0.0",
-    "react-native-image-cache-hoc": "mu29/react-native-image-cache-hoc#5d76ae53482b005e1609356b05523d308d637402",
+    "react-native-image-cache-hoc": "mu29/react-native-image-cache-hoc#855c16f2e0e10378d7cdd9882d055ff6c8a41780",
     "react-native-image-crop-picker": "0.25.2",
     "react-native-in-app-purchase": "https://github.com/mu29/react-native-in-app-purchase#51f38c8a16281dc3b875c5dffc2b074e095b58c8",
     "react-native-modal": "11.4.0",
