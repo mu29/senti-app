@@ -41,13 +41,19 @@ const Container: React.FunctionComponent<Props> = ({
       },
       fetchPolicy: 'network-only',
     })
-    .then(() => client.query({
-      query: FETCH_CHATTING,
-      variables: {
-        id: chattingId,
-      },
-      fetchPolicy: 'network-only',
-    }))
+    .then(() => Promise.all([
+      client.query({
+        query: FETCH_CHATTING,
+        variables: {
+          id: chattingId,
+        },
+        fetchPolicy: 'network-only',
+      }),
+      client.query({
+        query: FETCH_PROFILE,
+        fetchPolicy: 'network-only',
+      }),
+    ]))
     .catch(e => Alert.alert(
       LocalizedStrings.COMMON_ERROR,
       LocalizedStrings.MESSAGE_PLAY_FAILURE(e.message),
