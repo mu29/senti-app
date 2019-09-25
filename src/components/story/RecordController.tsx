@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import {
   View,
+  Image,
   TouchableOpacity,
   StyleSheet,
   Animated,
@@ -23,6 +24,7 @@ import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 const RESET_ICON = { uri: 'ic_replay' };
 const PLAY_ICON = { uri: 'ic_play_active' };
@@ -30,18 +32,18 @@ const DONE_ICON = { uri: 'ic_check' };
 
 interface Props {
   isStarted: boolean;
-  isRecorded: boolean;
   toggle: () => void;
   release: () => void;
   create: () => void;
+  recorderAnimation: Animated.Value;
 }
 
 const RecordController: React.FunctionComponent<Props> = ({
   isStarted,
-  isRecorded,
   toggle,
   release,
   create,
+  recorderAnimation,
 }) => {
   const labelAnimation = useAnimation({
     type: 'timing',
@@ -50,18 +52,37 @@ const RecordController: React.FunctionComponent<Props> = ({
     useNativeDriver: true,
   });
 
-  const buttonAnimation = useAnimation({
-    type: 'timing',
-    toValue: Number(!isStarted && isRecorded),
-    duration: 200,
-    useNativeDriver: true,
-  });
-
   const progressAnimation = useRef(new Animated.Value(0));
 
-  const labelStyle = useMemo(() => ({ opacity: labelAnimation }), [labelAnimation]);
+  const playButtonStyle = useMemo(() => ({
+    opacity: recorderAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+      extrapolate: 'clamp',
+    }),
+    transform: [{
+      scale: recorderAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 1],
+        extrapolate: 'clamp',
+      }),
+    }],
+  }), [recorderAnimation]);
 
-  const buttonStyle = useMemo(() => ({ opacity: buttonAnimation }), [buttonAnimation]);
+  const recordButtonStyle = useMemo(() => ({
+    opacity: recorderAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+    }),
+    transform: [{
+      scale: recorderAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [1, 0],
+        extrapolate: 'clamp',
+      }),
+    }],
+  }), [recorderAnimation]);
 
   const progressStyle = useMemo(() => ({
     transform: [{ scale: progressAnimation.current }],
@@ -113,30 +134,36 @@ const RecordController: React.FunctionComponent<Props> = ({
       <View style={styles.controller}>
         <Button
           onPress={onPressReset}
-          disabled={isStarted || !isRecorded}
+          disabled={isStarted}
           style={styles.button}
           round
         >
-          <Animated.Image source={RESET_ICON} style={[styles.icon, buttonStyle]} />
+          <Animated.Image source={RESET_ICON} style={[styles.icon, playButtonStyle]} />
         </Button>
         <View style={styles.recordContainer}>
           <Animated.View style={[styles.progress, progressStyle]} />
-          <TouchableOpacity activeOpacity={0.8} onPress={toggle} style={styles.record}>
-            <Animated.Image source={PLAY_ICON} pointerEvents="none" style={[styles.playIcon, buttonStyle]} />
-          </TouchableOpacity>
+          <AnimatedTouchable activeOpacity={0.8} onPress={toggle} style={[styles.record, recordButtonStyle]} />
+          <AnimatedTouchable activeOpacity={0.8} onPress={toggle} style={[styles.play, playButtonStyle]}>
+            <Image source={PLAY_ICON} style={styles.playIcon} />
+          </AnimatedTouchable>
         </View>
         <Button
           onPress={onPressCreate}
-          disabled={isStarted || !isRecorded}
+          disabled={isStarted}
           style={styles.button}
           round
         >
-          <Animated.Image source={DONE_ICON} style={[styles.icon, buttonStyle]} />
+          <Animated.Image source={DONE_ICON} style={[styles.icon, playButtonStyle]} />
         </Button>
       </View>
-      <AnimatedText style={[typography.heading4, styles.hint, labelStyle]}>
-        {isRecorded ? LocalizedStrings.RECORDER_PLAY_BUTTON : LocalizedStrings.RECORDER_RECORD_BUTTON}
-      </AnimatedText>
+      <View style={styles.hintArea}>
+        <AnimatedText style={[typography.heading4, styles.hint, recordButtonStyle]}>
+          {LocalizedStrings.RECORDER_RECORD_BUTTON}
+        </AnimatedText>
+        <AnimatedText style={[typography.heading4, styles.hint, playButtonStyle]}>
+          {LocalizedStrings.RECORDER_PLAY_BUTTON}
+        </AnimatedText>
+      </View>
     </View>
   );
 };
@@ -151,10 +178,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 16,
     backgroundColor: 'rgba(255, 255, 255, 0.000001)'
   },
+  hintArea: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   hint: {
+    position: 'absolute',
     color: palette.white.default,
   },
   recordContainer: {
@@ -182,6 +214,14 @@ const styles = StyleSheet.create({
     borderRadius: 29,
     backgroundColor: palette.red.default,
   },
+  play: {
+    position: 'absolute',
+    width: 58,
+    height: 58,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 29,
+  },
   button: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -193,7 +233,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     marginLeft: 2,
-    tintColor: 'rgba(255, 255, 255, 0.8)',
+    tintColor: palette.red.default,
   },
   icon: {
     width: 24,
