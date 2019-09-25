@@ -64,7 +64,7 @@ function useAuth(onSuccess?: () => void) {
     if (onSuccess) {
       onSuccess();
     }
-  }, []);
+  }, [client, onSuccess]);
 
   const signInWithGoogle = useCallback(async () => {
     if (provider) {
@@ -97,7 +97,7 @@ function useAuth(onSuccess?: () => void) {
       .finally(() => {
         setProvider(undefined);
       });
-  }, [provider]);
+  }, [createUser, provider, resultHandler]);
 
   const signInWithFacebook = useCallback(() => {
     if (provider) {
@@ -129,7 +129,7 @@ function useAuth(onSuccess?: () => void) {
       .finally(() => {
         setProvider(undefined);
       });
-  }, [provider]);
+  }, [createUser, provider, resultHandler]);
 
   return {
     provider,

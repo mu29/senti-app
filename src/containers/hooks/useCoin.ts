@@ -89,7 +89,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
 
     const productIds = products.map(p => p.productId);
     setCoins(data.coins.filter(c => productIds.includes(c.id)));
-  }, [data && data.coins]);
+  }, [data]);
 
   const onPurchase = useCallback((result: Purchase) => {
     verifyCoinReceipt({
@@ -111,12 +111,12 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     .then(() => Alert.alert(LocalizedStrings.COIN_PURCHASE_SUCCESS_TITLE, LocalizedStrings.COIN_PURCHASE_SUCCESS_MESSAGE))
     .catch(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message))
     .finally(() => setIsLoading(false));
-  }, []);
+  }, [setIsLoading, verifyCoinReceipt]);
 
   const purchase = useCallback((productId: string) => {
     setIsLoading(true);
     InAppPurchase.purchase(productId);
-  }, []);
+  }, [setIsLoading]);
 
   useEffect(() => {
     if (!data || !data.coins) {
@@ -128,7 +128,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     InAppPurchase.configure().then(() => {
       InAppPurchase.fetchProducts(productIds);
     });
-  }, [data && data.coins]);
+  }, [data]);
 
   useEffect(() => {
     if (!data || !data.coins) {
@@ -140,7 +140,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     InAppPurchase.onError(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message));
 
     return InAppPurchase.clear;
-  }, [data && data.coins]);
+  }, [data, onFetchProducts, onPurchase]);
 
   return {
     coins,

@@ -76,7 +76,7 @@ function useRecord() {
         clearTimeout(timer.current);
       }
     };
-  }, [isStarted, isRecorded]);
+  }, [isStarted, isRecorded, stop]);
 
   return {
     data,

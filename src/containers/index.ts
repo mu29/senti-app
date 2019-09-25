@@ -1,3 +1,4 @@
+export { default as useAppState } from './hooks/useAppState';
 export { default as useAudio } from './hooks/useAudio';
 export { default as useAuth } from './hooks/useAuth';
 export { default as useCoin } from './hooks/useCoin';
