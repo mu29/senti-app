@@ -19,9 +19,8 @@ import {
 } from 'constants/style';
 import { LocalizedStrings } from 'constants/translations';
 import { AnalyticsService } from 'services';
-import { useNumberPad } from 'utils';
-
-const COIN_ICON = { uri: 'ic_coin' };
+import { numberPad } from 'utils';
+import { useAppState } from 'containers';
 
 const HITSLOP = {
   top: 16,
@@ -46,6 +45,10 @@ const FreeCoinTimer: React.FunctionComponent<Props> = ({
     AnalyticsService.logEvent('show_coin_modal');
   }, [showModal]);
 
+  useAppState(() => {
+    setCounter(useFreeCoinAt / 1000 + 10 * 60 - Date.now() / 1000);
+  });
+
   useEffect(() => {
     setCounter(useFreeCoinAt / 1000 + 10 * 60 - Date.now() / 1000);
   }, [useFreeCoinAt]);
@@ -67,7 +70,10 @@ const FreeCoinTimer: React.FunctionComponent<Props> = ({
         <Icon name="md-time" size={20} color={palette.yellow.default} style={styles.timerIcon} />
         <View style={styles.divider} />
         <Text style={[typography.heading3, styles.counter]}>
-          {counter < 0 ? '무료 듣기 가능' : `무료 듣기까지 ${useNumberPad(minutes)}:${useNumberPad(seconds)}`}
+          {counter < 0
+            ? LocalizedStrings.FREE_COIN_AVAILABLE
+            : LocalizedStrings.FREE_COIN_TIME_LEFT(numberPad(minutes), numberPad(seconds))
+          }
         </Text>
         <Button
           hitSlop={HITSLOP}

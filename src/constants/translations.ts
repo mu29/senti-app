@@ -74,6 +74,8 @@ const TRANSLATIONS: {
     COIN_HISTORY_TAB: string;
     COIN_PURCHASE_SUCCESS_TITLE: string;
     COIN_PURCHASE_SUCCESS_MESSAGE: string;
+    FREE_COIN_AVAILABLE: string;
+    FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => string;
     TRANSACTION_DATE_FORMAT: string;
   };
 } = {
@@ -150,6 +152,8 @@ const TRANSLATIONS: {
     COIN_HISTORY_TAB: '사용 내역',
     COIN_PURCHASE_SUCCESS_TITLE: '구매 완료',
     COIN_PURCHASE_SUCCESS_MESSAGE: '코인을 구매했습니다.',
+    FREE_COIN_AVAILABLE: '메시지 1개 무료 듣기 가능!',
+    FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `다음 무료 듣기까지 ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY년 M월 D일 HH시',
   },
   en: {
@@ -225,8 +229,10 @@ const TRANSLATIONS: {
     COIN_HISTORY_TAB: 'History',
     COIN_PURCHASE_SUCCESS_TITLE: 'Success',
     COIN_PURCHASE_SUCCESS_MESSAGE: 'Purchase completed successfully.',
+    FREE_COIN_AVAILABLE: 'Listen to one message for free!',
+    FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `Time left for free listening: ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY. MM. DD A h',
   },
 };
 
-export const LocalizedStrings = TRANSLATIONS[LANGUAGE] || TRANSLATIONS['en'];
+export const LocalizedStrings = TRANSLATIONS[LANGUAGE] || TRANSLATIONS.en;
