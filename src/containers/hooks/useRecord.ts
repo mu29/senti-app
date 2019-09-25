@@ -12,7 +12,7 @@ import { RecordService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 function useRecord() {
-  const timer = useRef<NodeJS.Timeout>();
+  const timer = useRef<number>();
   const [data, setData] = useState<{ path: string; duration: number }>();
   const [isRecorded, setIsRecorded] = useState(false);
   const [isStarted, setIsStarted] = useState(false);

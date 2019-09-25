@@ -109,7 +109,7 @@ const RecordController: React.FunctionComponent<Props> = ({
   }, [release]);
 
   return (
-    <Animated.View style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.controller}>
         <Button
           onPress={onPressReset}
@@ -121,12 +121,9 @@ const RecordController: React.FunctionComponent<Props> = ({
         </Button>
         <View style={styles.recordContainer}>
           <Animated.View style={[styles.progress, progressStyle]} />
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={toggle}
-            style={styles.record}
-          />
-          <Animated.Image source={PLAY_ICON} pointerEvents="none" style={[styles.playIcon, buttonStyle]} />
+          <TouchableOpacity activeOpacity={0.8} onPress={toggle} style={styles.record}>
+            <Animated.Image source={PLAY_ICON} pointerEvents="none" style={[styles.playIcon, buttonStyle]} />
+          </TouchableOpacity>
         </View>
         <Button
           onPress={onPressCreate}
@@ -140,7 +137,7 @@ const RecordController: React.FunctionComponent<Props> = ({
       <AnimatedText style={[typography.heading4, styles.hint, labelStyle]}>
         {isRecorded ? LocalizedStrings.RECORDER_PLAY_BUTTON : LocalizedStrings.RECORDER_RECORD_BUTTON}
       </AnimatedText>
-    </Animated.View>
+    </View>
   );
 };
 
@@ -179,6 +176,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 58,
     height: 58,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 29,
     backgroundColor: palette.red.default,
   },
@@ -199,9 +198,6 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     tintColor: palette.gray[10],
-  },
-  enabled: {
-    opacity: 1,
   },
 });
 
