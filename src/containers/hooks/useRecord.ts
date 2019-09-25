@@ -22,8 +22,9 @@ function useRecord() {
     if (isRecorded) {
       RecordService.play(() => setIsStarted(false));
     } else {
-      requestAnimationFrame(() => {
+      InteractionManager.runAfterInteractions(() => {
         RecordService.start()
+          .then(() => setIsRecorded(true))
           .catch(e => Alert.alert(
             LocalizedStrings.COMMON_ERROR,
             LocalizedStrings.RECORD_FAILURE(e.message),
@@ -38,14 +39,14 @@ function useRecord() {
     } else {
       InteractionManager.runAfterInteractions(() => {
         RecordService.stop()
-          .then((result) => {
-            setData(result);
-            setIsRecorded(true);
-          })
-          .catch(e => Alert.alert(
-            LocalizedStrings.COMMON_ERROR,
-            LocalizedStrings.RECORD_FAILURE(e.message),
-          ));
+          .then(setData)
+          .catch((e) => {
+            setIsRecorded(false);
+            Alert.alert(
+              LocalizedStrings.COMMON_ERROR,
+              LocalizedStrings.RECORD_FAILURE(e.message),
+            );
+          });
       });
     }
     setIsStarted(false);
