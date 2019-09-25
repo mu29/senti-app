@@ -46,8 +46,8 @@ const MessageReply: React.FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
-    paddingBottom: 20,
+    paddingTop: 24,
+    paddingBottom: 32,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     backgroundColor: palette.black.default,

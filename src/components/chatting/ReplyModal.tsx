@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   container: {
-    paddingTop: 48,
+    paddingTop: 24,
     paddingBottom: 32,
     backgroundColor: palette.black.default,
     borderTopLeftRadius: 16,
