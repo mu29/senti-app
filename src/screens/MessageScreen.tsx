@@ -8,6 +8,7 @@ import {
   withSafeArea,
 } from 'components';
 import {
+  FreeCoinTimer,
   MessageList,
   MessageReply,
 } from 'containers';
@@ -31,6 +32,7 @@ const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
       <Header canGoBack>
         {partnerName}
       </Header>
+      <FreeCoinTimer />
       <MessageList chattingId={chattingId} />
       <MessageReply chattingId={chattingId} />
       <NavigationEvents onDidFocus={onDidFocus} />
