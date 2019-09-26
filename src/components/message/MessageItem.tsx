@@ -9,7 +9,9 @@ import {
   Image,
   ActivityIndicator,
   StyleSheet,
+  Alert,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import dayjs from 'dayjs';
 import {
   Text,
@@ -25,7 +27,7 @@ const PAUSE_ICON = { uri: 'ic_pause' };
 
 interface Props {
   item: Message;
-  userId: string;
+  profile: Profile;
   isLoading: boolean;
   loadAudio: () => void;
 }
@@ -40,7 +42,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
     readAt,
     createdAt,
   },
-  userId,
+  profile,
   isLoading,
   loadAudio,
 }) => {
@@ -52,12 +54,26 @@ const MessageItem: React.FunctionComponent<Props> = ({
     pause,
   } = useAudio(url);
 
-  const isMyMessage = useMemo(() => user.id === userId, [user.id, userId]);
+  const isMyMessage = useMemo(() => user.id === profile.id, [user.id, profile.id]);
 
   const toggle = useCallback(() => {
     if (!url) {
       AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_play`);
-      return loadAudio();
+      if (profile.useFreeCoinAt + 300 * 1000 > Date.now()) {
+        if (profile.coin > 0) {
+          Alert.alert('메시지 듣기', '1코인을 사용하여 메시지를 확인하시겠습니까?', [{
+            text: '확인',
+            onPress: () => loadAudio(),
+          }], {
+            cancelable: true,
+          });
+        } else {
+          Alert.alert('오류', '코인을 구매하거나 무료 코인을 사용하세요.');
+        }
+      } else {
+        loadAudio();
+      }
+      return;
     }
 
     audio.isPlaying ? pause() : play();
@@ -102,7 +118,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
         </View>
       </Button>
       {!isMyMessage && !readAt && (
-        <View style={styles.dot} />
+        <Icon name="md-lock" size={16} color={palette.yellow.default} />
       )}
     </View>
   );
@@ -117,12 +133,13 @@ const styles = StyleSheet.create({
   },
   myMessage: {
     justifyContent: 'flex-end',
+    marginRight: 0,
   },
   message: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 8,
-    marginRight: 4,
+    marginRight: 8,
     borderRadius: 16,
     backgroundColor: palette.gray[90],
   },

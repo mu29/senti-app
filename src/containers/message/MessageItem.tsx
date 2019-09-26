@@ -68,7 +68,7 @@ const Container: React.FunctionComponent<Props> = ({
   return (
     <MessageItem
       item={item}
-      userId={profile.me.id}
+      profile={profile.me}
       isLoading={isLoading}
       loadAudio={loadAudio}
     />
