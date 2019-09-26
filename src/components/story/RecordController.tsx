@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
+  ActivityIndicator,
 } from 'react-native';
 import { useAnimation } from 'react-native-animation-hooks';
 import {
@@ -31,19 +32,21 @@ const PLAY_ICON = { uri: 'ic_play_active' };
 const DONE_ICON = { uri: 'ic_check' };
 
 interface Props {
+  isRecorded: boolean;
   isStarted: boolean;
+  isLoading: boolean;
   toggle: () => void;
   release: () => void;
   create: () => void;
-  recorderAnimation: Animated.Value;
 }
 
 const RecordController: React.FunctionComponent<Props> = ({
+  isRecorded,
   isStarted,
+  isLoading,
   toggle,
   release,
   create,
-  recorderAnimation,
 }) => {
   const labelAnimation = useAnimation({
     type: 'timing',
@@ -52,37 +55,46 @@ const RecordController: React.FunctionComponent<Props> = ({
     useNativeDriver: true,
   });
 
+  const buttonAnimation = useAnimation({
+    type: 'timing',
+    toValue: Number(isRecorded),
+    duration: 200,
+    useNativeDriver: true,
+  });
+
   const progressAnimation = useRef(new Animated.Value(0));
 
   const playButtonStyle = useMemo(() => ({
-    opacity: recorderAnimation.interpolate({
+    opacity: buttonAnimation.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1],
       extrapolate: 'clamp',
     }),
     transform: [{
-      scale: recorderAnimation.interpolate({
+      scale: buttonAnimation.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 1],
         extrapolate: 'clamp',
       }),
     }],
-  }), [recorderAnimation]);
+  }), [buttonAnimation]);
 
   const recordButtonStyle = useMemo(() => ({
-    opacity: recorderAnimation.interpolate({
+    opacity: buttonAnimation.interpolate({
       inputRange: [0, 1],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     }),
     transform: [{
-      scale: recorderAnimation.interpolate({
+      scale: buttonAnimation.interpolate({
         inputRange: [0, 1],
         outputRange: [1, 0],
         extrapolate: 'clamp',
       }),
     }],
-  }), [recorderAnimation]);
+  }), [buttonAnimation]);
+
+  const labelStyle = useMemo(() => ({ opacity: labelAnimation }), [labelAnimation]);
 
   const progressStyle = useMemo(() => ({
     transform: [{ scale: progressAnimation.current }],
@@ -142,8 +154,20 @@ const RecordController: React.FunctionComponent<Props> = ({
         </Button>
         <View style={styles.recordContainer}>
           <Animated.View style={[styles.progress, progressStyle]} />
-          <AnimatedTouchable activeOpacity={0.8} onPress={toggle} style={[styles.record, recordButtonStyle]} />
-          <AnimatedTouchable activeOpacity={0.8} onPress={toggle} style={[styles.play, playButtonStyle]}>
+          <AnimatedTouchable
+            activeOpacity={0.8}
+            disabled={isLoading}
+            onPress={toggle}
+            style={[styles.record, recordButtonStyle]}
+          >
+            {isLoading && <ActivityIndicator color={palette.transparent.white[80]} size="small" />}
+          </AnimatedTouchable>
+          <AnimatedTouchable
+            activeOpacity={0.8}
+            disabled={isLoading}
+            onPress={toggle}
+            style={[styles.play, playButtonStyle]}
+          >
             <Image source={PLAY_ICON} style={styles.playIcon} />
           </AnimatedTouchable>
         </View>
@@ -157,10 +181,10 @@ const RecordController: React.FunctionComponent<Props> = ({
         </Button>
       </View>
       <View style={styles.hintArea}>
-        <AnimatedText style={[typography.heading4, styles.hint, recordButtonStyle]}>
+        <AnimatedText style={[typography.heading4, styles.hint, recordButtonStyle, labelStyle]}>
           {LocalizedStrings.RECORDER_RECORD_BUTTON}
         </AnimatedText>
-        <AnimatedText style={[typography.heading4, styles.hint, playButtonStyle]}>
+        <AnimatedText style={[typography.heading4, styles.hint, playButtonStyle, labelStyle]}>
           {LocalizedStrings.RECORDER_PLAY_BUTTON}
         </AnimatedText>
       </View>

@@ -4,34 +4,27 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-import {
-  Alert,
-  Animated,
-  InteractionManager,
-} from 'react-native';
+import { Alert } from 'react-native';
 import { RecordService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 function useRecord() {
-  const recorderAnimation = useRef(new Animated.Value(0));
   const timer = useRef<number>();
-
   const [data, setData] = useState<{ path: string; duration: number }>();
   const [isRecorded, setIsRecorded] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const start = useCallback(() => {
     setIsStarted(true);
     if (isRecorded) {
       RecordService.play(() => setIsStarted(false));
     } else {
-      InteractionManager.runAfterInteractions(() => {
-        RecordService.start()
-          .catch(e => Alert.alert(
-            LocalizedStrings.COMMON_ERROR,
-            LocalizedStrings.RECORD_FAILURE(e.message),
-          ));
-      });
+      RecordService.start()
+        .catch(e => Alert.alert(
+          LocalizedStrings.COMMON_ERROR,
+          LocalizedStrings.RECORD_FAILURE(e.message),
+        ));
     }
   }, [isRecorded]);
 
@@ -39,23 +32,17 @@ function useRecord() {
     if (isRecorded) {
       RecordService.pause();
     } else {
-      InteractionManager.runAfterInteractions(() => {
-        RecordService.stop()
-          .then((result) => {
-            setData(result);
-            setIsRecorded(true);
-            recorderAnimation.current.stopAnimation();
-            Animated.timing(recorderAnimation.current, {
-              toValue: 1,
-              duration: 200,
-              useNativeDriver: true,
-            }).start();
-          })
-          .catch((e) => Alert.alert(
-            LocalizedStrings.COMMON_ERROR,
-            LocalizedStrings.RECORD_FAILURE(e.message),
-          ));
-      });
+      setIsLoading(true);
+      RecordService.stop()
+        .then((result) => {
+          setData(result);
+          setIsRecorded(true);
+        })
+        .catch((e) => Alert.alert(
+          LocalizedStrings.COMMON_ERROR,
+          LocalizedStrings.RECORD_FAILURE(e.message),
+        ))
+        .finally(() => setIsLoading(false));
     }
     setIsStarted(false);
   }, [isRecorded]);
@@ -71,12 +58,6 @@ function useRecord() {
   const release = useCallback(() => {
     RecordService.release();
     setIsRecorded(false);
-    recorderAnimation.current.stopAnimation();
-    Animated.timing(recorderAnimation.current, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
   }, []);
 
   useEffect(() => {
@@ -97,9 +78,9 @@ function useRecord() {
     data,
     isRecorded,
     isStarted,
+    isLoading,
     toggle,
     release,
-    recorderAnimation: recorderAnimation.current,
   };
 }
 

@@ -45,9 +45,9 @@ const Container: React.FunctionComponent<Props> = ({
     data,
     isRecorded,
     isStarted,
+    isLoading,
     toggle,
     release,
-    recorderAnimation,
   } = useRecord();
 
   const upload = useCallback(async () => {
@@ -90,11 +90,12 @@ const Container: React.FunctionComponent<Props> = ({
 
   return (
     <RecordController
+      isRecorded={isRecorded}
       isStarted={isStarted}
+      isLoading={isLoading}
       toggle={toggle}
       release={release}
       create={create}
-      recorderAnimation={recorderAnimation}
     />
   );
 };

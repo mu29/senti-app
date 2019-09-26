@@ -29,6 +29,9 @@ export const palette = {
     default: '#CA392E',
   },
   transparent: {
+    white: {
+      80: 'rgba(255, 255, 255, 0.8)',
+    },
     black: {
       20: 'rgba(0, 0, 0, 0.2)',
       40: 'rgba(0, 0, 0, 0.4)',
