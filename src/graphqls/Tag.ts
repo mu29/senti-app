@@ -16,7 +16,6 @@ export const FETCH_POPULAR_TAGS = gql`
   query fetchPopularTags {
     popularTags {
       id
-      name
       storyCount
     }
   }
@@ -33,7 +32,6 @@ export const SEARCH_TAGS = gql`
     searchTags(tag: $tag, cursor: $cursor) {
       tags {
         id
-        name
         storyCount
       }
       cursor

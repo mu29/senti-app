@@ -37,7 +37,7 @@ export interface TagItemState {
 
 const TagItem: React.FunctionComponent<Props> = ({
   item: {
-    name,
+    id,
     storyCount,
   },
   isLoading,
@@ -58,7 +58,7 @@ const TagItem: React.FunctionComponent<Props> = ({
         </View>
         <View style={styles.content}>
           <Text style={styles.name}>
-            {name}
+            {id}
           </Text>
           <Text style={styles.count}>
             {LocalizedStrings.TAG_STORY_COUNT(storyCount)}

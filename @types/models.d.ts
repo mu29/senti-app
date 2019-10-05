@@ -32,7 +32,6 @@ interface Transaction {
 
 interface Tag {
   id: string;
-  name: string;
   storyCount: number;
 }
 
