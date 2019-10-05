@@ -19,7 +19,7 @@ function useAudio(key: string) {
     isPlaying: false,
   });
 
-  const timer = useRef<NodeJS.Timeout>();
+  const timer = useRef<number>();
 
   const soundObserver = useCallback((state: AudioState) => {
     if (!isMounted.current) {
@@ -34,6 +34,9 @@ function useAudio(key: string) {
           isActivated: true,
           isPlaying: true,
         }));
+        if (timer.current) {
+          clearInterval(timer.current);
+        }
         timer.current = setInterval(() => setAudio(prev => ({
           ...prev,
           elapsedTime: prev.elapsedTime + 500,
