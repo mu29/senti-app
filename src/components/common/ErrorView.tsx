@@ -30,7 +30,7 @@ const ErrorView: React.FunctionComponent<Props> = ({
     <View style={styles.container}>
       <Icon name="ios-alert" size={56} color={palette.yellow.default} />
       <Text style={[typography.heading1, styles.title]}>
-        {LocalizedStrings.ERROR_VIEW_TITLE}.
+        {LocalizedStrings.ERROR_VIEW_TITLE}
       </Text>
       <Text style={[typography.body2, styles.message]}>
         {LocalizedStrings.ERROR_VIEW_MESSAGE(message)}

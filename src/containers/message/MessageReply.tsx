@@ -35,14 +35,17 @@ const Container: React.FunctionComponent<Props> = ({
           return;
         }
 
-        savedFeed.messageFeed.messages.unshift(message);
-
         cache.writeQuery({
           query: FETCH_MESSAGE_FEED,
           variables: {
             chattingId,
           },
-          data: savedFeed,
+          data: {
+            messageFeed: {
+              ...savedFeed.messageFeed,
+              messages: [message, ...savedFeed.messageFeed.messages],
+            }
+          },
         });
       } catch {}
     },

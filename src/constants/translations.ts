@@ -154,7 +154,7 @@ const TRANSLATIONS: {
     COIN_HISTORY_TAB: '사용 내역',
     COIN_PURCHASE_SUCCESS_TITLE: '구매 완료',
     COIN_PURCHASE_SUCCESS_MESSAGE: '코인을 구매했습니다.',
-    FREE_COIN_AVAILABLE: '메시지 1개 무료로 듣기',
+    FREE_COIN_AVAILABLE: '메시지 1개 무료 듣기 가능!',
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `다음 무료 듣기까지 ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY년 M월 D일 HH시',
   },

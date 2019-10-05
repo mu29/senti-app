@@ -62,11 +62,14 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
           return;
         }
 
-        savedFeed.transactionFeed.transactions.unshift(transaction);
-
         cache.writeQuery({
           query: FETCH_TRANSACTION_FEED,
-          data: savedFeed,
+          data: {
+            transactionFeed: {
+              ...savedFeed.transactionFeed,
+              transactions: [transaction, ...savedFeed.transactionFeed.transactions],
+            },
+          },
         });
 
         cache.writeQuery({

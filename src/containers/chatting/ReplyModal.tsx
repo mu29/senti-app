@@ -40,11 +40,14 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
           return;
         }
 
-        savedFeed.chattingFeed.chattings.unshift(chatting);
-
         cache.writeQuery({
           query: FETCH_CHATTING_FEED,
-          data: savedFeed,
+          data: {
+            chattingFeed: {
+              ...savedFeed.chattingFeed,
+              chattings: [chatting, ...savedFeed.chattingFeed.chattings],
+            }
+          },
         });
       } catch {}
     },
