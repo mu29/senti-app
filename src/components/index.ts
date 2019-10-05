@@ -44,6 +44,7 @@ export { default as CreateStoryTags } from './story/CreateStoryTags';
 export { default as CoverModal } from './story/CoverModal';
 export { default as RecordController } from './story/RecordController';
 export { default as StoryController } from './story/StoryController';
+export { default as StoryEmptyList } from './story/StoryEmptyList';
 export { default as StoryGrid } from './story/StoryGrid';
 export { default as StoryItem } from './story/StoryItem';
 export { default as StoryList } from './story/StoryList';

@@ -5,6 +5,7 @@ import {
   ErrorView,
   LoadingView,
   StoryGrid,
+  StoryEmptyList,
 } from 'components';
 import { FETCH_MY_STORY_FEED } from 'graphqls';
 import {
@@ -48,6 +49,10 @@ const Container: React.FunctionComponent<{}> = () => {
       cursor,
     },
   } = data;
+
+  if (stories.length === 0) {
+    return <StoryEmptyList />;
+  }
 
   return (
     <StoryGrid

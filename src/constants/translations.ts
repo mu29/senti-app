@@ -35,6 +35,7 @@ const TRANSLATIONS: {
     STORY_DELETE_ALERT: string;
     STORY_DELETE_FAILURE: (message: string) => string;
     STORY_REPLY_FAILURE: string;
+    MY_STORY_EMPTY_MESSAGE: string;
     // 로그인
     LOGIN_TITLE: string;
     LOGIN_WITH_FACEBOOK: string;
@@ -113,6 +114,7 @@ const TRANSLATIONS: {
     STORY_DELETE_ALERT: '정말 삭제하시겠습니까?',
     STORY_DELETE_FAILURE: (message) => `이야기 삭제에 실패했습니다.\n${message}`,
     STORY_REPLY_FAILURE: '이 이야기에는 답장할 수 없습니다.',
+    MY_STORY_EMPTY_MESSAGE: '첫 번째 이야기를 공유해 보세요!',
     // 로그인
     LOGIN_TITLE: '로그인하고 모든 기능을 사용하세요!',
     LOGIN_WITH_FACEBOOK: '페이스북으로 시작하기',
@@ -190,11 +192,12 @@ const TRANSLATIONS: {
     STORY_DELETE_ALERT: 'Would you like to delete this item?',
     STORY_DELETE_FAILURE: (message) => `Failed to delete story.\n${message}`,
     STORY_REPLY_FAILURE: 'Can\'t reply to this message.',
+    MY_STORY_EMPTY_MESSAGE: 'Share your first story!',
     // 로그인
     LOGIN_TITLE: 'Sign in to use all features!',
     LOGIN_WITH_FACEBOOK: 'Sign in with Facebook',
     LOGIN_WITH_GOOGLE: 'Sign in with Google',
-    LOGIN_AGREEMENT_MESSAGE: 'By logging in, you agree to the following terms and conditions.',
+    LOGIN_AGREEMENT_MESSAGE: 'By logging in, you agree to our\nTerms of Service and Privacy Policy.',
     LOGIN_FAILURE_FACEBOOK: (message) => `Google login failed.\n${message}`,
     LOGIN_FAILURE_GOOGLE: (message) => `Google login failed.\n${message}`,
     LOGIN_FAILURE_GOOGLE_PLAY_SERVICE: 'Failed to login. There was a problem communicating with Google Play.',
@@ -215,7 +218,7 @@ const TRANSLATIONS: {
     SETTINGS_REPORT_PROBLEM: 'Report a problem',
     SETTINGS_REPORT_FAILURE_TITLE: 'Report',
     SETTINGS_REPORT_FAILURE_MESSAGE: (message) => `Failed to report problem.\n${message}`,
-    SETTINGS_TERMS_BUTTON: 'Terms and Conditions / Privacy Policy',
+    SETTINGS_TERMS_BUTTON: 'Terms of Service / Privacy Policy',
     // 채팅
     CHATTING_EMPTY_MESSAGE: 'Start new chatting\nby respond to the story!',
     CHATTING_MESSAGE_COUNT: (count) => `${count.toLocaleString()} message${count > 1 ? 's' : ''}`,
@@ -229,7 +232,7 @@ const TRANSLATIONS: {
     COIN_HISTORY_TAB: 'History',
     COIN_PURCHASE_SUCCESS_TITLE: 'Success',
     COIN_PURCHASE_SUCCESS_MESSAGE: 'Purchase completed successfully.',
-    FREE_COIN_AVAILABLE: 'Listen 1 message for free',
+    FREE_COIN_AVAILABLE: 'Listen 1 message for free!',
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `Free listening after: ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY. MM. DD A h',
   },
