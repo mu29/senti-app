@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withSafeArea(CreateStoryScreen);
+export default CreateStoryScreen;

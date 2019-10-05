@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
   hintArea: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 12,
   },
   hint: {
     position: 'absolute',

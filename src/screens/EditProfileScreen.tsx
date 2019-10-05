@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { NavigationEvents } from 'react-navigation';
-import { ScrollView } from 'react-native';
 import {
   Header,
   withSafeArea,

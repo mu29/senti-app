@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import {
-  View,
   TouchableOpacity,
   StyleSheet,
   Animated,
@@ -8,6 +7,8 @@ import {
 import {
   withNavigation,
   NavigationInjectedProps,
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
 } from 'react-navigation';
 import { palette } from 'constants/style';
 import { AnalyticsService } from 'services';
@@ -19,6 +20,12 @@ const TOUCH_HITSLOP = {
   bottom: 32,
   left: 32,
   right: 32,
+};
+
+const SAFE_AREA_INSET: {
+  top: SafeAreaViewForceInsetValue;
+} = {
+  top: 'always',
 };
 
 interface Props extends NavigationInjectedProps {
@@ -37,7 +44,10 @@ const CreateStoryHeader: React.FunctionComponent<Props> = ({
   const goBack = useCallback(() => navigation.goBack(), [navigation]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView
+      forceInset={SAFE_AREA_INSET}
+      style={styles.container}
+    >
       <TouchableOpacity
         onPress={onPressAlbum}
         hitSlop={TOUCH_HITSLOP}
@@ -56,7 +66,7 @@ const CreateStoryHeader: React.FunctionComponent<Props> = ({
           style={styles.icon}
         />
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -65,7 +75,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 24,
+    marginTop: 16,
+    paddingHorizontal: 24,
   },
   icon: {
     width: 16,
