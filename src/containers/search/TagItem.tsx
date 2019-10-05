@@ -30,7 +30,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
 
   const [subscribeTag, { loading: subscribing }] = useMutation(SUBSCRIBE_TAG, {
     variables: {
-      tag: item.name,
+      id: item.id,
     },
     update: (cache) => {
       try {
@@ -45,7 +45,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
           data: {
             me: {
               ...savedProfile.me,
-              tags: savedProfile.me.tags.concat(item.name),
+              tags: savedProfile.me.tags.concat(item.id),
             },
           },
         });
@@ -55,7 +55,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
 
   const [unsubscribeTag, { loading: unsubscribing }] = useMutation(UNSUBSCRIBE_TAG, {
     variables: {
-      tag: item.name,
+      id: item.id,
     },
     update: (cache) => {
       try {
@@ -70,7 +70,7 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
           data: {
             me: {
               ...savedProfile.me,
-              tags: savedProfile.me.tags.filter(t => t !== item.name),
+              tags: savedProfile.me.tags.filter(t => t !== item.id),
             },
           },
         });

@@ -1,14 +1,14 @@
 import gql from 'graphql-tag';
 
 export const SUBSCRIBE_TAG = gql`
-  mutation subscribeTag($tag: ID!) {
-    subscribeTag(tag: $tag)
+  mutation subscribeTag($id: ID!) {
+    subscribeTag(id: $id)
   }
 `;
 
 export const UNSUBSCRIBE_TAG = gql`
-  mutation unsubscribeTag($tag: ID!) {
-    unsubscribeTag(tag: $tag)
+  mutation unsubscribeTag($id: ID!) {
+    unsubscribeTag(id: $id)
   }
 `;
 
@@ -28,8 +28,8 @@ export const FETCH_SEARCH_QUERY = gql`
 `;
 
 export const SEARCH_TAGS = gql`
-  query searchTags($tag: String!, $cursor: ID) {
-    searchTags(tag: $tag, cursor: $cursor) {
+  query searchTags($id: String!, $cursor: ID) {
+    searchTags(id: $id, cursor: $cursor) {
       tags {
         id
         storyCount
