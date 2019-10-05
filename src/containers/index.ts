@@ -11,6 +11,7 @@ export { default as CoinInventory } from './coin/CoinInventory';
 export { default as TransactionList } from './coin/TransactionList';
 export { default as CoinList } from './coin/CoinList';
 export { default as CoinModal } from './coin/CoinModal';
+export { default as CompactFreeCoinTimer } from './coin/CompactFreeCoinTimer';
 export { default as FreeCoinTimer } from './coin/FreeCoinTimer';
 
 export { default as ChattingList } from './chatting/ChattingList';

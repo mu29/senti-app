@@ -81,6 +81,11 @@ export const typography: {
     lineHeight: 21,
     color: palette.gray[30],
   },
+  body3: {
+    fontSize: 14,
+    lineHeight: 18,
+    color: palette.gray[30],
+  },
   tiny2: {
     fontSize: 14,
     color: palette.gray[50],

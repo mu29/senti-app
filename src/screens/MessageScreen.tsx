@@ -10,6 +10,7 @@ import {
 import {
   MessageList,
   MessageReply,
+  CompactFreeCoinTimer,
 } from 'containers';
 import {
   AudioService,
@@ -30,6 +31,7 @@ const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
     <React.Fragment>
       <Header canGoBack>
         {partnerName}
+        <CompactFreeCoinTimer />
       </Header>
       <MessageList chattingId={chattingId} />
       <MessageReply chattingId={chattingId} />

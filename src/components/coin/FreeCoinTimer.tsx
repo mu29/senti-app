@@ -13,6 +13,7 @@ import {
   Text,
   Button,
 } from 'components';
+import { useAppState } from 'containers';
 import {
   palette,
   typography,
@@ -20,7 +21,6 @@ import {
 import { LocalizedStrings } from 'constants/translations';
 import { AnalyticsService } from 'services';
 import { numberPad } from 'utils';
-import { useAppState } from 'containers';
 
 const HITSLOP = {
   top: 16,
@@ -102,11 +102,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 4,
     backgroundColor: palette.gray[100],
-  },
-  icon: {
-    width: 18,
-    height: 18,
-    tintColor: palette.yellow.default,
   },
   timerIcon: {
     marginTop: Platform.select({
