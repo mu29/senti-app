@@ -203,12 +203,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginBottom: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.000001)'
+    backgroundColor: 'rgba(255, 255, 255, 0.000001)',
   },
   hintArea: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 8,
   },
   hint: {
     position: 'absolute',

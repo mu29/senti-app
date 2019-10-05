@@ -46,7 +46,7 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
             chattingFeed: {
               ...savedFeed.chattingFeed,
               chattings: [chatting, ...savedFeed.chattingFeed.chattings],
-            }
+            },
           },
         });
       } catch {}

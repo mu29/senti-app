@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { withSafeArea } from 'components';
 import {
   CoverModal,
   CreateStoryCover,

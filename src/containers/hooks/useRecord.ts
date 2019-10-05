@@ -72,7 +72,7 @@ function useRecord() {
         clearTimeout(timer.current);
       }
     };
-  }, [isStarted, stop]);
+  }, [isRecorded, isStarted, stop]);
 
   return {
     data,

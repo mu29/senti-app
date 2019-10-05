@@ -78,7 +78,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
 
     audio.isPlaying ? pause() : play();
     AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_${audio.isPlaying ? 'pause' : 'play'}`);
-  }, [url, audio.isPlaying, pause, play, isMyMessage, loadAudio]);
+  }, [url, audio.isPlaying, pause, play, isMyMessage, profile.useFreeCoinAt, profile.coin, loadAudio]);
 
   useEffect(() => {
     if (!isInitialLoaded.current) {

@@ -44,7 +44,7 @@ const Container: React.FunctionComponent<Props> = ({
             messageFeed: {
               ...savedFeed.messageFeed,
               messages: [message, ...savedFeed.messageFeed.messages],
-            }
+            },
           },
         });
       } catch {}
