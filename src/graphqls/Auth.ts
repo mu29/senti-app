@@ -16,7 +16,7 @@ export const FETCH_PROFILE = gql`
       gender
       tags
       coin
-      useFreeCoinAt
+      canUseFreeCoinAt
     }
   }
 `;

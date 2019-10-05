@@ -48,7 +48,7 @@ interface Profile extends User {
   tags: string[];
   createdAt: number;
   coin: number;
-  useFreeCoinAt: number;
+  canUseFreeCoinAt: number;
 }
 
 interface Audio {

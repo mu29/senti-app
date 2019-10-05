@@ -26,7 +26,7 @@ const Container: React.FunctionComponent<{}> = () => {
 
   return (
     <FreeCoinTimer
-      useFreeCoinAt={data.me.useFreeCoinAt || 0}
+      canUseFreeCoinAt={data.me.canUseFreeCoinAt || 0}
       showModal={showModal}
     />
   );

@@ -30,12 +30,12 @@ const HITSLOP = {
 };
 
 interface Props {
-  useFreeCoinAt: number;
+  canUseFreeCoinAt: number;
   showModal: () => void;
 }
 
 const FreeCoinTimer: React.FunctionComponent<Props> = ({
-  useFreeCoinAt,
+  canUseFreeCoinAt,
   showModal,
 }) => {
   const [counter, setCounter] = useState(0);
@@ -46,12 +46,12 @@ const FreeCoinTimer: React.FunctionComponent<Props> = ({
   }, [showModal]);
 
   useAppState(() => {
-    setCounter(useFreeCoinAt / 1000 + 10 * 60 - Date.now() / 1000);
+    setCounter((canUseFreeCoinAt - Date.now()) / 1000);
   });
 
   useEffect(() => {
-    setCounter(useFreeCoinAt / 1000 + 10 * 60 - Date.now() / 1000);
-  }, [useFreeCoinAt]);
+    setCounter((canUseFreeCoinAt - Date.now()) / 1000);
+  }, [canUseFreeCoinAt]);
 
   useEffect(() => {
     const timer = setInterval(() => {

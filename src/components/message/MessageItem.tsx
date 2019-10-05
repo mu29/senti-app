@@ -59,7 +59,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
   const toggle = useCallback(() => {
     if (!url) {
       AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_play`);
-      if (profile.useFreeCoinAt + 300 * 1000 > Date.now()) {
+      if (profile.canUseFreeCoinAt > Date.now()) {
         if (profile.coin > 0) {
           Alert.alert('메시지 듣기', '1코인을 사용하여 메시지를 확인하시겠습니까?', [{
             text: '확인',
@@ -78,7 +78,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
 
     audio.isPlaying ? pause() : play();
     AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_${audio.isPlaying ? 'pause' : 'play'}`);
-  }, [url, audio.isPlaying, pause, play, isMyMessage, profile.useFreeCoinAt, profile.coin, loadAudio]);
+  }, [url, audio.isPlaying, pause, play, isMyMessage, profile.canUseFreeCoinAt, profile.coin, loadAudio]);
 
   useEffect(() => {
     if (!isInitialLoaded.current) {
