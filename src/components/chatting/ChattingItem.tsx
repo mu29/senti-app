@@ -1,4 +1,8 @@
-import React, { useCallback } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
 import {
   View,
   StyleSheet,
@@ -38,6 +42,8 @@ const ChattingItem: React.FunctionComponent<Props> = ({
   },
   navigation,
 }) => {
+  const [, setForceUpdate] = useState(0);
+
   const openMessageScreen = useCallback(() => {
     navigation.navigate('Message', {
       chattingId: id,
@@ -45,6 +51,14 @@ const ChattingItem: React.FunctionComponent<Props> = ({
       partnerName: name,
     });
   }, [id, name, navigation, partnerId]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setForceUpdate(v => v + 1);
+    }, 60 * 1000);
+
+    return () => clearInterval(interval);
+  });
 
   return (
     <Button onPress={openMessageScreen}>
