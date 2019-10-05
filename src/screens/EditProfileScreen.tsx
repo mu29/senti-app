@@ -24,10 +24,8 @@ const EditProfileScreen: React.FunctionComponent<{}> = () => {
         {LocalizedStrings.PROFILE_EDIT}
         <ProfileSaveButton />
       </Header>
-      <ScrollView>
-        <EditProfilePhoto />
-        <EditProfileInfo />
-      </ScrollView>
+      <EditProfilePhoto />
+      <EditProfileInfo />
       <NavigationEvents onDidFocus={onDidFocus} />
     </React.Fragment>
   );
