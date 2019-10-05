@@ -124,7 +124,7 @@ const TRANSLATIONS: {
     // 메시지
     MESSAGE_USE_COIN_TITLE: '메시지 듣기',
     MESSAGE_USE_COIN_MESSAGE: '1코인을 사용하여 메시지를 확인하시겠습니까?',
-    MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH: '코인을 구매하거나 무료 코인을 사용할 수 있을 때까지 기다려 주세요.',
+    MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH: '코인이 부족합니다.',
     // 로그인
     LOGIN_TITLE: '로그인하고 모든 기능을 사용하세요!',
     LOGIN_WITH_FACEBOOK: '페이스북으로 시작하기',
@@ -207,7 +207,7 @@ const TRANSLATIONS: {
     // 메시지
     MESSAGE_USE_COIN_TITLE: 'Load Message',
     MESSAGE_USE_COIN_MESSAGE: 'Do you want to load this message using 1 coin?',
-    MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH: 'Please purchase coins or wait until you can use free coin.',
+    MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH: 'Not enough coin',
     // 로그인
     LOGIN_TITLE: 'Sign in to use all features!',
     LOGIN_WITH_FACEBOOK: 'Sign in with Facebook',

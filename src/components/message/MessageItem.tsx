@@ -75,6 +75,9 @@ const MessageItem: React.FunctionComponent<Props> = ({
         Alert.alert(LocalizedStrings.MESSAGE_USE_COIN_TITLE, LocalizedStrings.MESSAGE_USE_COIN_MESSAGE, [{
           text: LocalizedStrings.COMMON_CONFIRM,
           onPress: () => loadAudio(),
+        }, {
+          text: LocalizedStrings.COMMON_CANCEL,
+          style: 'cancel',
         }], {
           cancelable: true,
         });
