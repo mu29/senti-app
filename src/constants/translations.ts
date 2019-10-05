@@ -5,6 +5,7 @@ const TRANSLATIONS: {
     // 일반
     COMMON_ERROR: string;
     COMMON_LOADING: string;
+    COMMON_CONFIRM: string;
     COMMON_CANCEL: string;
     COMMON_SAVE: string;
     COMMON_DELETE: string;
@@ -36,6 +37,10 @@ const TRANSLATIONS: {
     STORY_DELETE_FAILURE: (message: string) => string;
     STORY_REPLY_FAILURE: string;
     MY_STORY_EMPTY_MESSAGE: string;
+    // 메시지
+    MESSAGE_USE_COIN_TITLE: string;
+    MESSAGE_USE_COIN_MESSAGE: string;
+    MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH: string;
     // 로그인
     LOGIN_TITLE: string;
     LOGIN_WITH_FACEBOOK: string;
@@ -84,6 +89,7 @@ const TRANSLATIONS: {
     // 일반
     COMMON_ERROR: '오류',
     COMMON_LOADING: '로딩 중..',
+    COMMON_CONFIRM: '확인',
     COMMON_CANCEL: '취소',
     COMMON_SAVE: '저장',
     COMMON_DELETE: '삭제',
@@ -115,6 +121,10 @@ const TRANSLATIONS: {
     STORY_DELETE_FAILURE: (message) => `이야기 삭제에 실패했습니다.\n${message}`,
     STORY_REPLY_FAILURE: '이 이야기에는 답장할 수 없습니다.',
     MY_STORY_EMPTY_MESSAGE: '첫 번째 이야기를 공유해 보세요!',
+    // 메시지
+    MESSAGE_USE_COIN_TITLE: '메시지 듣기',
+    MESSAGE_USE_COIN_MESSAGE: '1코인을 사용하여 메시지를 확인하시겠습니까?',
+    MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH: '코인을 구매하거나 무료 코인을 사용할 수 있을 때까지 기다려 주세요.',
     // 로그인
     LOGIN_TITLE: '로그인하고 모든 기능을 사용하세요!',
     LOGIN_WITH_FACEBOOK: '페이스북으로 시작하기',
@@ -162,6 +172,7 @@ const TRANSLATIONS: {
     // 일반
     COMMON_ERROR: 'Error',
     COMMON_LOADING: 'Now Loading..',
+    COMMON_CONFIRM: 'Confirm',
     COMMON_CANCEL: 'Cancel',
     COMMON_SAVE: 'Save',
     COMMON_DELETE: 'Delete',
@@ -193,6 +204,10 @@ const TRANSLATIONS: {
     STORY_DELETE_FAILURE: (message) => `Failed to delete story.\n${message}`,
     STORY_REPLY_FAILURE: 'Can\'t reply to this message.',
     MY_STORY_EMPTY_MESSAGE: 'Share your first story!',
+    // 메시지
+    MESSAGE_USE_COIN_TITLE: 'Load Message',
+    MESSAGE_USE_COIN_MESSAGE: 'Do you want to load this message using 1 coin?',
+    MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH: 'Please purchase coins or wait until you can use free coin.',
     // 로그인
     LOGIN_TITLE: 'Sign in to use all features!',
     LOGIN_WITH_FACEBOOK: 'Sign in with Facebook',

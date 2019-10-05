@@ -17,10 +17,14 @@ import {
   Text,
   Button,
 } from 'components';
-import { typography, palette } from 'constants/style';
-import { toTimeText } from 'utils';
 import { useAudio } from 'containers';
+import {
+  typography,
+  palette,
+} from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 import { AnalyticsService } from 'services';
+import { toTimeText } from 'utils';
 
 const PLAY_ICON = { uri: 'ic_play_active' };
 const PAUSE_ICON = { uri: 'ic_pause' };
@@ -59,20 +63,26 @@ const MessageItem: React.FunctionComponent<Props> = ({
   const toggle = useCallback(() => {
     if (!url) {
       AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_play`);
-      if (profile.canUseFreeCoinAt > Date.now()) {
-        if (profile.coin > 0) {
-          Alert.alert('메시지 듣기', '1코인을 사용하여 메시지를 확인하시겠습니까?', [{
-            text: '확인',
-            onPress: () => loadAudio(),
-          }], {
-            cancelable: true,
-          });
-        } else {
-          Alert.alert('오류', '코인을 구매하거나 무료 코인을 사용하세요.');
-        }
-      } else {
+
+      // 무료 코인 사용 가능
+      if (profile.canUseFreeCoinAt < Date.now()) {
         loadAudio();
+        return;
       }
+
+      // 코인 사용 가능
+      if (profile.coin > 0) {
+        Alert.alert(LocalizedStrings.MESSAGE_USE_COIN_TITLE, LocalizedStrings.MESSAGE_USE_COIN_MESSAGE, [{
+          text: LocalizedStrings.COMMON_CONFIRM,
+          onPress: () => loadAudio(),
+        }], {
+          cancelable: true,
+        });
+        return;
+      }
+
+      // 그 외의 경우
+      Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH);
       return;
     }
 
