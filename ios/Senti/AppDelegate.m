@@ -17,6 +17,8 @@
 #import <RNGoogleSignin/RNGoogleSignin.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#import "RNFirebaseMessaging.h"
+#import "RNFirebaseNotifications.h"
 #import "RNSplashScreen.h"
 
 @implementation AppDelegate
@@ -25,6 +27,8 @@
 {
   // firebase
   [FIRApp configure];
+  [RNFirebaseNotifications configure];
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"Senti"
@@ -89,7 +93,8 @@
 
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
- restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+ restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
   return [RCTLinkingManager application:application
                    continueUserActivity:userActivity
                      restorationHandler:restorationHandler];
@@ -102,6 +107,25 @@ continueUserActivity:(NSUserActivity *)userActivity
 #else
   return [CodePush bundleURL];
 #endif
+}
+
+- (void)application:(UIApplication *)application
+didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+  [[RNFirebaseMessaging instance] didRegisterUserNotificationSettings:notificationSettings];
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+  [[RNFirebaseNotifications instance] didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+
+- (void)application:(UIApplication *)application
+didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  [[RNFirebaseNotifications instance] didReceiveLocalNotification:notification];
 }
 
 @end
