@@ -1,35 +1,32 @@
-import { useEffect } from 'react';
-import firebase from 'react-native-firebase';
 import {
-  Notification,
-  NotificationOpen,
-} from 'react-native-firebase/notifications';
-import { NotificationService } from 'services';
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
+import firebase from 'react-native-firebase';
+import { Notification } from 'react-native-firebase/notifications';
 
-function useNotification(
-  onNotification: (notification: Notification) => void,
-  onNotificationOpened: (notificationOpen: NotificationOpen) => void,
-) {
+function useNotification(onNotification: (notification: Notification) => void) {
+  const [hasPermission, setHasPermission] = useState(false);
+
+  const checkPermission = useCallback(async () => {
+    const enabled = await firebase.messaging().hasPermission();
+    setHasPermission(enabled);
+  }, [setHasPermission]);
+
   useEffect(() => {
-    let removeNotificationListener: Function | undefined;
-    let removeNotificationOpenListener: Function | undefined;
+    checkPermission();
+  }, [checkPermission]);
 
-    if (NotificationService.hasPermission) {
-      removeNotificationListener = firebase.notifications().onNotification(onNotification);
-      removeNotificationOpenListener = firebase.notifications().onNotificationOpened(onNotificationOpened);
-
-      firebase.notifications().getInitialNotification().then((notificationOpen) => {
-        if (notificationOpen) {
-          onNotificationOpened(notificationOpen);
-        }
-      });
+  useEffect(() => {
+    if (!hasPermission) {
+      return;
     }
 
-    return () => {
-      removeNotificationListener && removeNotificationListener();
-      removeNotificationOpenListener && removeNotificationOpenListener();
-    };
-  }, [onNotification, onNotificationOpened]);
+    const disposer = firebase.notifications().onNotification(onNotification);
+
+    return () => disposer();
+  }, [hasPermission, onNotification]);
 }
 
 export default useNotification;
