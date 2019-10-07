@@ -6,6 +6,12 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const CREATE_FCM_TOKEN = gql`
+  mutation createFcmToken($fcmToken: String!) {
+    createFcmToken(fcmToken: $fcmToken)
+  }
+`;
+
 export const FETCH_PROFILE = gql`
   query fetchProfile {
     me {

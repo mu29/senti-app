@@ -17,6 +17,7 @@ import 'dayjs/locale/ko';
 
 import { AuthModal } from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
+import { NotificationService } from 'services';
 import { LANGUAGE } from 'constants/config';
 
 import Navigator from './Navigator';
@@ -44,11 +45,12 @@ const App: React.FunctionComponent<{}> = () => {
   }, [setUser]);
 
   useEffect(() => {
-    if (client && user) {
+    if (client) {
       client.query({
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
       })
+      .then(() => NotificationService.configure(client))
       .catch(() => {})
       .finally(() => SplashScreen.hide());
     }
