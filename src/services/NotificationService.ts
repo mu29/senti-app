@@ -43,6 +43,8 @@ class NotificationService {
         variables: { fcmToken },
       });
     }
+
+    firebase.messaging().subscribeToTopic('broadcast');
   }
 }
 
