@@ -1,5 +1,6 @@
 import React, {
   useState,
+  useCallback,
   useEffect,
 } from 'react';
 import { StatusBar } from 'react-native';
@@ -15,9 +16,12 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/en';
 import 'dayjs/locale/ko';
 
-import { AuthModal } from 'containers';
+import {
+  AuthModal,
+  NotificationEvents,
+} from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
-import { NotificationService } from 'services';
+import { NavigationService } from 'services';
 import { LANGUAGE } from 'constants/config';
 
 import Navigator from './Navigator';
@@ -35,6 +39,10 @@ const App: React.FunctionComponent<{}> = () => {
 
   const [user, setUser] = useState<RNFirebase.User | null>(null);
 
+  const setNavigationRef = useCallback((ref: any) => {
+    NavigationService.setTopLevelNavigator(ref);
+  }, []);
+
   useEffect(() => {
     configureClient().then(setClient);
   }, [setClient]);
@@ -50,7 +58,6 @@ const App: React.FunctionComponent<{}> = () => {
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
       })
-      .then(() => NotificationService.configure(client))
       .catch(() => {})
       .finally(() => SplashScreen.hide());
     }
@@ -66,12 +73,13 @@ const App: React.FunctionComponent<{}> = () => {
       <ApolloProvider client={client}>
         <React.Fragment>
           <AuthModal />
-          <Navigator />
+          <Navigator ref={setNavigationRef} />
+          <NotificationEvents user={user} />
         </React.Fragment>
       </ApolloProvider>
     </React.Fragment>
   );
-}
+};
 
 export default codePush({
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
