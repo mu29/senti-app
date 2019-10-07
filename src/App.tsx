@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useState,
+  useEffect,
+} from 'react';
 import { StatusBar } from 'react-native';
 import codePush from 'react-native-code-push';
 import ApolloClient from 'apollo-client';
@@ -26,40 +29,22 @@ Sound.setActive(true);
 dayjs.locale(LANGUAGE);
 dayjs.extend(relativeTime);
 
-interface State {
-  user: RNFirebase.User | null;
-  client?: ApolloClient<NormalizedCacheObject>;
-}
+const App: React.FunctionComponent<{}> = () => {
+  const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>();
 
-class App extends React.PureComponent<{}, State> {
-  public state: State = {
-    user: null,
-    client: undefined,
-  };
+  const [user, setUser] = useState<RNFirebase.User | null>(null);
 
-  private isReady = false;
+  useEffect(() => {
+    configureClient().then(setClient);
+  }, [setClient]);
 
-  private authStateUnsubscriber?: () => void;
+  useEffect(() => {
+    const authStateUnsubscriber = firebase.auth().onAuthStateChanged(setUser);
+    return () => authStateUnsubscriber();
+  }, [setUser]);
 
-  constructor(props: {}) {
-    super(props);
-    this.authStateUnsubscriber = firebase.auth().onAuthStateChanged((user) => {
-      if (this.isReady) {
-        this.setState({ user });
-      } else {
-        this.state = Object.assign(this.state, { user });
-      }
-    });
-  }
-
-  public componentDidMount() {
-    this.isReady = true;
-    configureClient().then(client => this.setState({ client }));
-  }
-
-  public componentDidUpdate() {
-    const { client } = this.state;
-    if (client) {
+  useEffect(() => {
+    if (client && user) {
       client.query({
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
@@ -67,33 +52,23 @@ class App extends React.PureComponent<{}, State> {
       .catch(() => {})
       .finally(() => SplashScreen.hide());
     }
+  }, [client, user]);
+
+  if (!client) {
+    return null;
   }
 
-  public componentWillUnmount() {
-    if (this.authStateUnsubscriber) {
-      this.authStateUnsubscriber();
-    }
-  }
-
-  public render() {
-    const { client } = this.state;
-
-    if (!client) {
-      return null;
-    }
-
-    return (
-      <React.Fragment>
-        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-        <ApolloProvider client={client}>
-          <React.Fragment>
-            <AuthModal />
-            <Navigator />
-          </React.Fragment>
-        </ApolloProvider>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      <ApolloProvider client={client}>
+        <React.Fragment>
+          <AuthModal />
+          <Navigator />
+        </React.Fragment>
+      </ApolloProvider>
+    </React.Fragment>
+  );
 }
 
 export default codePush({
