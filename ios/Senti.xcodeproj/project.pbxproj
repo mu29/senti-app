@@ -42,6 +42,7 @@
 		5B52F94822963D0800E2B39A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		5B7F926E2332514300125F2B /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		5B80E2ED2328B0BD008A0CB5 /* RNConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNConfig.m; path = Senti/RNConfig.m; sourceTree = "<group>"; };
+		5B893550234AD9FE001EA175 /* Senti.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Senti.entitlements; path = Senti/Senti.entitlements; sourceTree = "<group>"; };
 		5BAF56B622CA56E600B9EF25 /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BAF56B822CA56EC00B9EF25 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD09CF122D1AB9800336194 /* libQBImagePickerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libQBImagePickerController.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +92,7 @@
 		13B07FAE1A68108700A75B9A /* Senti */ = {
 			isa = PBXGroup;
 			children = (
+				5B893550234AD9FE001EA175 /* Senti.entitlements */,
 				5BE7153C23275DF600E9DF50 /* Firebase */,
 				5BE7140E2320A28700E9DF50 /* LaunchScreen.storyboard */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -411,6 +413,7 @@
 				API_URL = "http://172.20.10.2:5000/senti-development/us-central1/graphql";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "";
+				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
@@ -446,6 +449,7 @@
 				API_URL = "https://api.senti.in";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "40iKzqw15Z-5hiyj0PZAl_bh-_KS180a8f7e-a595-471d-ba74-a122212012fa";
+				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = "";
@@ -527,6 +531,7 @@
 				API_URL = "https://staging-api.senti.in";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "p-Pp3q7mZmDO8kp0Es_Al5yGkoTC180a8f7e-a595-471d-ba74-a122212012fa";
+				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = " (I)";

@@ -19,6 +19,7 @@ import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import io.invertase.firebase.storage.RNFirebaseStoragePackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 
 public class MainApplication extends Application implements ReactApplication {
   private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
@@ -44,6 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
       packages.add(new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG));
       packages.add(new RNFirebaseAnalyticsPackage());
       packages.add(new RNFirebaseAuthPackage());
+      packages.add(new RNFirebaseMessagingPackage());
       try {
         packages.add(new RNFirebaseStoragePackage());
       } catch (SecurityException e) {
