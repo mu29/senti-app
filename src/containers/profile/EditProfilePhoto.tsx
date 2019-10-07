@@ -20,7 +20,6 @@ const Container: React.FunctionComponent<{}> = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { data } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
-    skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
 

@@ -24,7 +24,6 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
   const client = useApolloClient();
 
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
-    skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from 'react-native-firebase';
 import {
   useQuery,
   useMutation,
@@ -12,7 +11,6 @@ import {
 
 const Container: React.FunctionComponent<{}> = () => {
   const { data } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
-    skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
 

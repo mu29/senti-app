@@ -1,5 +1,7 @@
-import React, { useCallback, useMemo } from 'react';
-import firebase from 'react-native-firebase';
+import React, {
+  useCallback,
+  useMemo,
+} from 'react';
 import {
   withNavigation,
   NavigationInjectedProps,
@@ -24,7 +26,6 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
   navigation,
 }) => {
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
-    skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
 

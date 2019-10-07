@@ -33,7 +33,6 @@ const Container: React.FunctionComponent<Props> = ({
   onFinish,
 }) => {
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
-    skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
 

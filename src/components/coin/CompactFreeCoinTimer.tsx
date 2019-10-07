@@ -4,10 +4,8 @@ import React, {
   useState,
 } from 'react';
 import {
-  View,
   Image,
   StyleSheet,
-  TouchableOpacity,
   Platform,
 } from 'react-native';
 import {
@@ -81,7 +79,7 @@ const CompactFreeCoinTimer: React.FunctionComponent<Props> = ({
       )}
     </Button>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

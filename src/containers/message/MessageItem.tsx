@@ -3,7 +3,6 @@ import React, {
   useState,
 } from 'react';
 import { Alert } from 'react-native';
-import firebase from 'react-native-firebase';
 import {
   useQuery,
   useApolloClient,
@@ -30,7 +29,6 @@ const Container: React.FunctionComponent<Props> = ({
   const client = useApolloClient();
 
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
-    skip: !firebase.auth().currentUser,
     fetchPolicy: 'cache-only',
   });
 
