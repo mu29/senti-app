@@ -4,10 +4,12 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { Alert } from 'react-native';
 import {
   AudioService,
   AudioState,
  } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 function useAudio(key: string) {
   const isMounted = useRef(false);
@@ -68,7 +70,14 @@ function useAudio(key: string) {
         }));
         break;
       case AudioState.ERROR:
-        setTimeout(() => AudioService.play(key), 1000);
+        if (timer.current) {
+          clearInterval(timer.current);
+        }
+        setAudio(prev => ({
+          ...prev,
+          elapsedTime: 0,
+          isPlaying: false,
+        }));
         break;
       case AudioState.NONE:
         if (timer.current) {
@@ -82,10 +91,10 @@ function useAudio(key: string) {
         });
         break;
     }
-  }, [key]);
+  }, []);
 
   const play = useCallback(() => {
-    AudioService.play(key);
+    AudioService.play(key).catch(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message));
   }, [key]);
 
   useEffect(() => {
