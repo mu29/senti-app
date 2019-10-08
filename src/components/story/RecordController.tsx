@@ -67,13 +67,13 @@ const RecordController: React.FunctionComponent<Props> = ({
   const playButtonStyle = useMemo(() => ({
     opacity: buttonAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1],
+      outputRange: [0.01, 1],
       extrapolate: 'clamp',
     }),
     transform: [{
       scale: buttonAnimation.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, 1],
+        outputRange: [0.01, 1],
         extrapolate: 'clamp',
       }),
     }],
@@ -82,13 +82,13 @@ const RecordController: React.FunctionComponent<Props> = ({
   const recordButtonStyle = useMemo(() => ({
     opacity: buttonAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [1, 0],
+      outputRange: [1, 0.01],
       extrapolate: 'clamp',
     }),
     transform: [{
       scale: buttonAnimation.interpolate({
         inputRange: [0, 1],
-        outputRange: [1, 0],
+        outputRange: [1, 0.01],
         extrapolate: 'clamp',
       }),
     }],
