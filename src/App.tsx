@@ -58,7 +58,7 @@ const App: React.FunctionComponent<{}> = () => {
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
       })
-      .catch(() => {})
+      .catch(console.error)
       .finally(() => SplashScreen.hide());
     }
   }, [client, user]);

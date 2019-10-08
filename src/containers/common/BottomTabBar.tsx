@@ -28,7 +28,7 @@ const BottomTabBarContainer: React.FunctionComponent<Props & BottomTabBarProps> 
   const [showModal] = useMutation(SHOW_MODAL, {
     variables: { id: 'Auth' },
   });
-console.log(profile);
+
   return (
     <BottomTabBar
       isLoggedIn={!!(profile && profile.me)}

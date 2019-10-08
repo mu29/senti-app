@@ -36,7 +36,7 @@ const EditProfilePhoto: React.FunctionComponent<Props> = ({
     }).then((image) => {
       const target = Array.isArray(image) ? image[0] : image;
       updateProfilePhoto(target.path);
-    }).catch(() => {});
+    }).catch(console.error);
     AnalyticsService.logEvent('click_update_profile_photo');
   }, [updateProfilePhoto]);
 

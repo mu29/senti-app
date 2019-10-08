@@ -90,7 +90,7 @@ function useAuth(onSuccess?: () => void) {
       }))
       .then(resultHandler)
       .catch((error) => {
-        if (error.code !== '-5') {
+        if (error.code !== '12501') {
           Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.LOGIN_FAILURE_GOOGLE(error.message));
         }
       })

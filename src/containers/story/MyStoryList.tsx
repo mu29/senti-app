@@ -34,7 +34,7 @@ const Container: React.FunctionComponent<Props> = (props) => {
   });
 
   if (error || networkStatus === NetworkStatus.error) {
-    const reload = () => refetch().catch(() => {});
+    const reload = () => refetch().catch(console.error);
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
@@ -81,7 +81,7 @@ const Container: React.FunctionComponent<Props> = (props) => {
             },
           });
         },
-      }).catch(() => {})}
+      }).catch(console.error)}
       {...props}
     />
   );

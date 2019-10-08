@@ -67,7 +67,7 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
   const tags = searchQuery ? (data.searchTags ? data.searchTags.tags : EMPTY_LIST) : data.popularTags;
 
   if (error || networkStatus === NetworkStatus.error) {
-    const reload = () => refetch().catch(() => {});
+    const reload = () => refetch().catch(console.error);
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 

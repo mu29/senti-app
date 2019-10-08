@@ -21,7 +21,7 @@ function useNotification(user: RNFirebase.User | null) {
   const requestPermission = useCallback(() => {
     firebase.messaging().requestPermission()
       .then(() => checkPermission())
-      .catch(() => {});
+      .catch(console.error);
   }, [checkPermission]);
 
   const refreshToken = useCallback(async () => {
