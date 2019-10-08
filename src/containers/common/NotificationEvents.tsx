@@ -1,13 +1,19 @@
 import React, {
-  useState,
   useCallback,
   useEffect,
 } from 'react';
 import firebase, { RNFirebase } from 'react-native-firebase';
-import { NotificationOpen } from 'react-native-firebase/notifications';
-import { useMutation } from '@apollo/react-hooks';
+import {
+  Notification,
+  NotificationOpen,
+} from 'react-native-firebase/notifications';
+import { useApolloClient } from '@apollo/react-hooks';
+import { useNotification } from 'containers';
 import { NavigationService } from 'services';
-import { CREATE_FCM_TOKEN } from 'graphqls';
+import {
+  FETCH_CHATTING_FEED,
+  FETCH_MESSAGE_FEED,
+} from 'graphqls';
 
 interface Props {
   user: RNFirebase.User | null;
@@ -16,54 +22,48 @@ interface Props {
 const NotificationEvents: React.FunctionComponent<Props> = ({
   user,
 }) => {
-  const [hasPermission, setHasPermission] = useState(false);
+  const client = useApolloClient();
 
-  const [createFcmToken] = useMutation(CREATE_FCM_TOKEN);
-
-  const checkPermission = useCallback(async () => {
-    const enabled = await firebase.messaging().hasPermission();
-    setHasPermission(enabled);
-    return enabled;
-  }, [setHasPermission]);
-
-  const requestPermission = useCallback(() => {
-    firebase.messaging().requestPermission()
-      .then(() => checkPermission())
-      .catch(() => {});
-  }, [checkPermission]);
-
-  const refreshToken = useCallback(async () => {
-    const fcmToken = await firebase.messaging().getToken();
-
-    if (fcmToken) {
-      createFcmToken({
-        variables: { fcmToken },
-      });
-    }
-
-    firebase.messaging().subscribeToTopic('broadcast');
-  }, [createFcmToken]);
+  const hasPermission = useNotification(user);
 
   const onNotificationOpen = useCallback((notificationOpen: NotificationOpen) => {
-    const {
-      screen,
-      params,
-    } = notificationOpen.notification.data;
-
     try {
+      const {
+        screen,
+        params,
+      } = notificationOpen.notification.data;
       NavigationService.navigate(screen, JSON.parse(params || '{}'));
-    } catch {}
+    } catch (e) {
+      console.error(e);
+    }
   }, []);
 
-  useEffect(() => {
-    checkPermission().then((enabled) => {
-      if (enabled) {
-        refreshToken();
-      } else {
-        requestPermission();
+  const onNotification = useCallback((notification: Notification) => {
+    try {
+      const {
+        screen,
+        params,
+      } = notification.data;
+      const parsedParams = JSON.parse(params || '{}');
+      switch (screen) {
+      case 'Message':
+        client.query({
+          query: FETCH_CHATTING_FEED,
+          fetchPolicy: 'network-only',
+        });
+        client.query({
+          query: FETCH_MESSAGE_FEED,
+          variables: {
+            chattingId: parsedParams.chattingId,
+          },
+          fetchPolicy: 'network-only',
+        });
+        break;
       }
-    });
-  }, [user, checkPermission, refreshToken, requestPermission]);
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   useEffect(() => {
     if (!hasPermission) {
@@ -79,6 +79,16 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
 
     return () => disposer();
   }, [hasPermission, onNotificationOpen]);
+
+  useEffect(() => {
+    if (!hasPermission) {
+      return;
+    }
+
+    const disposer = firebase.notifications().onNotification(onNotification);
+
+    return () => disposer();
+  }, [hasPermission, onNotification]);
 
   return null;
 };
