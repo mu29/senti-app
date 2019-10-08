@@ -3,30 +3,50 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-import firebase from 'react-native-firebase';
-import { Notification } from 'react-native-firebase/notifications';
+import firebase, { RNFirebase } from 'react-native-firebase';
+import { useMutation } from '@apollo/react-hooks';
+import { CREATE_FCM_TOKEN } from 'graphqls';
 
-function useNotification(onNotification: (notification: Notification) => void) {
+function useNotification(user: RNFirebase.User | null) {
   const [hasPermission, setHasPermission] = useState(false);
+
+  const [createFcmToken] = useMutation(CREATE_FCM_TOKEN);
 
   const checkPermission = useCallback(async () => {
     const enabled = await firebase.messaging().hasPermission();
     setHasPermission(enabled);
+    return enabled;
   }, [setHasPermission]);
 
-  useEffect(() => {
-    checkPermission();
+  const requestPermission = useCallback(() => {
+    firebase.messaging().requestPermission()
+      .then(() => checkPermission())
+      .catch(() => {});
   }, [checkPermission]);
 
-  useEffect(() => {
-    if (!hasPermission) {
-      return;
+  const refreshToken = useCallback(async () => {
+    const fcmToken = await firebase.messaging().getToken();
+
+    if (fcmToken && user) {
+      createFcmToken({
+        variables: { fcmToken },
+      });
     }
 
-    const disposer = firebase.notifications().onNotification(onNotification);
+    firebase.messaging().subscribeToTopic('broadcast');
+  }, [user, createFcmToken]);
 
-    return () => disposer();
-  }, [hasPermission, onNotification]);
+  useEffect(() => {
+    checkPermission().then((enabled) => {
+      if (enabled) {
+        refreshToken();
+      } else {
+        requestPermission();
+      }
+    });
+  }, [user, checkPermission, refreshToken, requestPermission]);
+
+  return hasPermission;
 }
 
 export default useNotification;
