@@ -12,6 +12,12 @@ export const CREATE_FCM_TOKEN = gql`
   }
 `;
 
+export const REMOVE_FCM_TOKEN = gql`
+  mutation removeFcmToken($fcmToken: String!) {
+    removeFcmToken(fcmToken: $fcmToken)
+  }
+`;
+
 export const FETCH_PROFILE = gql`
   query fetchProfile {
     me {

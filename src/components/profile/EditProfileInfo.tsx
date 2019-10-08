@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {
   Text,
   Button,
+  LoadingLayer,
 } from 'components';
 import {
   palette,
@@ -29,6 +30,7 @@ const GENDERS = {
 interface Props {
   profile: Profile;
   candidate: Candidate;
+  isLoading: boolean;
   updateCandidate: (candidate: Candidate) => void;
   signOut: () => void;
 }
@@ -36,6 +38,7 @@ interface Props {
 const EditProfileInfo: React.FunctionComponent<Props> = ({
   profile,
   candidate,
+  isLoading,
   updateCandidate,
   signOut,
 }) => {
@@ -73,71 +76,74 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
   }, [signOut]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={[typography.tiny3, styles.title]}>
-          {LocalizedStrings.PROFILE_ACCOUNT}
-        </Text>
+    <React.Fragment>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={[typography.tiny3, styles.title]}>
+            {LocalizedStrings.PROFILE_ACCOUNT}
+          </Text>
+        </View>
+        <View style={styles.form}>
+          <View style={styles.icon}>
+            <Icon name="md-contact" size={20} color={palette.gray[60]} />
+          </View>
+          <TextInput
+            placeholder={LocalizedStrings.PROFILE_NAME}
+            placeholderTextColor={palette.gray[50]}
+            spellCheck={false}
+            autoCorrect={false}
+            autoCapitalize="none"
+            dataDetectorTypes="none"
+            keyboardType="default"
+            underlineColorAndroid="transparent"
+            multiline={false}
+            maxLength={40}
+            onChangeText={updateCandidateName}
+            style={styles.input}
+          >
+            {profile.name}
+          </TextInput>
+        </View>
+        <Button onPress={showGenderSelectSheet} style={styles.form}>
+          <View style={styles.icon}>
+            <Icon name="md-heart" size={20} color={palette.gray[60]} />
+          </View>
+          <Text style={[styles.text, !profile.gender && !candidate.gender && styles.hint]}>
+            {GENDERS[candidate.gender || profile.gender || 'none']}
+          </Text>
+        </Button>
+        <Button onPress={onPressSignOut} style={styles.form}>
+          <View style={styles.icon}>
+            <Icon name="md-exit" size={20} color={palette.gray[60]} />
+          </View>
+          <Text style={styles.text}>
+            {LocalizedStrings.PROFILE_LOGOUT_BUTTON}
+          </Text>
+        </Button>
+        <View style={styles.header}>
+          <Text style={[typography.tiny3, styles.title]}>
+            {LocalizedStrings.SETTINGS_TITLE}
+          </Text>
+        </View>
+        <Button onPress={openEmail} style={styles.form}>
+          <View style={styles.icon}>
+            <Icon name="ios-mail" size={20} color={palette.gray[60]} />
+          </View>
+          <Text style={styles.text}>
+            {LocalizedStrings.SETTINGS_REPORT_PROBLEM}
+          </Text>
+        </Button>
+        <View style={styles.form}>
+          <View style={styles.icon}>
+            <Icon name="ios-filing" size={20} color={palette.gray[60]} />
+          </View>
+          <Text style={styles.text}>
+            {LocalizedStrings.SETTINGS_TERMS_BUTTON}
+          </Text>
+        </View>
       </View>
-      <View style={styles.form}>
-        <View style={styles.icon}>
-          <Icon name="md-contact" size={20} color={palette.gray[60]} />
-        </View>
-        <TextInput
-          placeholder={LocalizedStrings.PROFILE_NAME}
-          placeholderTextColor={palette.gray[50]}
-          spellCheck={false}
-          autoCorrect={false}
-          autoCapitalize="none"
-          dataDetectorTypes="none"
-          keyboardType="default"
-          underlineColorAndroid="transparent"
-          multiline={false}
-          maxLength={40}
-          onChangeText={updateCandidateName}
-          style={styles.input}
-        >
-          {profile.name}
-        </TextInput>
-      </View>
-      <Button onPress={showGenderSelectSheet} style={styles.form}>
-        <View style={styles.icon}>
-          <Icon name="md-heart" size={20} color={palette.gray[60]} />
-        </View>
-        <Text style={[styles.text, !profile.gender && !candidate.gender && styles.hint]}>
-          {GENDERS[candidate.gender || profile.gender || 'none']}
-        </Text>
-      </Button>
-      <Button onPress={onPressSignOut} style={styles.form}>
-        <View style={styles.icon}>
-          <Icon name="md-exit" size={20} color={palette.gray[60]} />
-        </View>
-        <Text style={styles.text}>
-          {LocalizedStrings.PROFILE_LOGOUT_BUTTON}
-        </Text>
-      </Button>
-      <View style={styles.header}>
-        <Text style={[typography.tiny3, styles.title]}>
-          {LocalizedStrings.SETTINGS_TITLE}
-        </Text>
-      </View>
-      <Button onPress={openEmail} style={styles.form}>
-        <View style={styles.icon}>
-          <Icon name="ios-mail" size={20} color={palette.gray[60]} />
-        </View>
-        <Text style={styles.text}>
-          {LocalizedStrings.SETTINGS_REPORT_PROBLEM}
-        </Text>
-      </Button>
-      <View style={styles.form}>
-        <View style={styles.icon}>
-          <Icon name="ios-filing" size={20} color={palette.gray[60]} />
-        </View>
-        <Text style={styles.text}>
-          {LocalizedStrings.SETTINGS_TERMS_BUTTON}
-        </Text>
-      </View>
-    </View>
+      {isLoading && <LoadingLayer />}
+    </React.Fragment>
   );
 };
 
