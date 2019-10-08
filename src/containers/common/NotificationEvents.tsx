@@ -26,18 +26,6 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
 
   const hasPermission = useNotification(user);
 
-  const onNotificationOpen = useCallback((notificationOpen: NotificationOpen) => {
-    try {
-      const {
-        screen,
-        params,
-      } = notificationOpen.notification.data;
-      NavigationService.navigate(screen, JSON.parse(params || '{}'));
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-
   const onNotification = useCallback((notification: Notification) => {
     try {
       const {
@@ -63,7 +51,31 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
     } catch (e) {
       console.error(e);
     }
-  }, []);
+  }, [client]);
+
+  const onNotificationOpen = useCallback((notificationOpen: NotificationOpen) => {
+    try {
+      const {
+        screen,
+        params,
+      } = notificationOpen.notification.data;
+
+      onNotification(notificationOpen.notification);
+      NavigationService.navigate(screen, JSON.parse(params || '{}'));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [onNotification]);
+
+  useEffect(() => {
+    if (!hasPermission) {
+      return;
+    }
+
+    const disposer = firebase.notifications().onNotification(onNotification);
+
+    return () => disposer();
+  }, [hasPermission, onNotification]);
 
   useEffect(() => {
     if (!hasPermission) {
@@ -79,16 +91,6 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
 
     return () => disposer();
   }, [hasPermission, onNotificationOpen]);
-
-  useEffect(() => {
-    if (!hasPermission) {
-      return;
-    }
-
-    const disposer = firebase.notifications().onNotification(onNotification);
-
-    return () => disposer();
-  }, [hasPermission, onNotification]);
 
   return null;
 };
