@@ -45,7 +45,7 @@
     "react-native-splash-screen": "3.2.0",
     "react-native-super-grid": "3.1.0",
     "react-native-tab-view": "2.10.0",
-    "react-native-vector-icons": "6.6.0",
+    "react-native-vector-icons": "mu29/react-native-vector-icons#2a631668423c7f01ae87ffc0d76134fa502977e8",
     "react-navigation": "4.0.5",
     "react-navigation-stack": "1.8.0",
     "react-navigation-tabs": "2.5.3",
