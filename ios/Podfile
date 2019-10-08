@@ -37,6 +37,7 @@ target 'Senti' do
   pod 'Firebase/Auth', '6.3.0'
   pod 'Firebase/Storage', '6.3.0'
   pod 'Firebase/Messaging', '6.3.0'
+  pod 'Firebase/DynamicLinks', '6.3.0'
   pod 'Fabric', '1.10.2'
   pod 'Crashlytics', '3.13.4'
   pod 'GoogleSignIn', '4.4.0'

@@ -19,6 +19,7 @@
 
 #import "RNFirebaseMessaging.h"
 #import "RNFirebaseNotifications.h"
+#import "RNFirebaseLinks.h"
 #import "RNSplashScreen.h"
 
 @implementation AppDelegate
@@ -87,17 +88,31 @@
                        annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
     return YES;
   }
-  
-  return [RCTLinkingManager application:application openURL:url options:options];
+
+  if ([RCTLinkingManager application:application
+                             openURL:url
+                             options:options]) {
+    return YES;
+  }
+
+  return [[RNFirebaseLinks instance] application:application
+                                         openURL:url
+                                         options:options];
 }
 
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
-  return [RCTLinkingManager application:application
-                   continueUserActivity:userActivity
-                     restorationHandler:restorationHandler];
+  if ([RCTLinkingManager application:application
+                continueUserActivity:userActivity
+                  restorationHandler:restorationHandler]) {
+    return YES;
+  }
+  
+  return [[RNFirebaseLinks instance] application:application
+                            continueUserActivity:userActivity
+                              restorationHandler:restorationHandler];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
