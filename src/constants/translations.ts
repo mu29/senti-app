@@ -254,5 +254,3 @@ const TRANSLATIONS: {
 };
 
 export const LocalizedStrings = TRANSLATIONS[LANGUAGE] || TRANSLATIONS.en;
-
-export const normalizeLanguage = (language: any) => ['en', 'ko'].includes(language) ? language : 'en';
