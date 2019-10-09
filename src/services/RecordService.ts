@@ -24,7 +24,20 @@ class RecordService {
     this.release();
     this.isRecording = true;
     AnalyticsService.logEvent('click_start_record');
-    return SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac');
+    return SoundRecorder.start(SoundRecorder.PATH_DOCUMENT + '/temp.aac', {
+      source: Platform.select({
+        ios: '',
+        android: SoundRecorder.SOURCE_MIC,
+      }),
+      format: Platform.select({
+        ios: SoundRecorder.FORMAT_MPEG4AAC,
+        android: SoundRecorder.FORMAT_MPEG_4,
+      }),
+      encoder: Platform.select({
+        ios: '',
+        android: SoundRecorder.ENCODER_AAC,
+      }),
+    });
   }
 
   public stop = async (): Promise<{
