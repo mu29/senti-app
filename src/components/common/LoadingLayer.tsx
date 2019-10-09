@@ -1,9 +1,13 @@
-import React, { useMemo } from 'react';
+import React, {
+  useMemo,
+  useEffect,
+} from 'react';
 import {
   View,
   ActivityIndicator,
   StyleSheet,
   Animated,
+  BackHandler,
 } from 'react-native';
 import { useAnimation } from 'react-native-animation-hooks';
 import { Text } from 'components';
@@ -23,6 +27,12 @@ const LoadingLayer: React.FunctionComponent<{}> = () => {
   });
 
   const opacityStyle = useMemo(() => ({ opacity: fadeAnimation }), [fadeAnimation]);
+
+  useEffect(() => {
+    const blocker = () => true;
+    BackHandler.addEventListener('hardwareBackPress', blocker);
+    return () => BackHandler.removeEventListener('hardwareBackPress', blocker);
+  }, []);
 
   return (
     <Animated.View style={[styles.container, opacityStyle]}>
