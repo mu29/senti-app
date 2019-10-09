@@ -74,7 +74,7 @@ const CreateStoryTags: React.FunctionComponent<Props> = ({
       <TextInput
         autoCapitalize="none"
         autoCorrect={false}
-        numberOfLines={5}
+        numberOfLines={1}
         multiline
         placeholder={LocalizedStrings.ADD_TAG_PLACEHOLDER}
         placeholderTextColor={palette.gray[30]}
@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
       android: 164,
     }),
     padding: 24,
-    marginBottom: 48,
     textAlign: 'center',
     color: palette.white.default,
     fontSize: 18,
