@@ -172,8 +172,8 @@ android {
             resValue "string", "app_name", "@string/app_name_debug"
             resValue "string", "facebook_app_id", "576748566193001"
             resValue "string", "dynamic_link_host", "sentidev.page.link"
-            buildConfigField "String", 'API_URL', '"http://dev-api.senti.in:5001/senti-development/us-central1/graphql"'
-            buildConfigField "String", 'WEBSITE_URL', '"http://dev.senti.in:5000"'
+            buildConfigField "String", 'API_URL', '"http://localhost:5000"'
+            buildConfigField "String", 'WEBSITE_URL', '"http://localhost:5000"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '""'
         }
