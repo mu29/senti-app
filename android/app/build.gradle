@@ -82,7 +82,8 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    enableHermes: false,  // clean and rebuild if changing
+    enableHermes: true,  // clean and rebuild if changing
+    bundleInReleaseStaging: true,
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -124,7 +125,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
  * and the benefits of using Hermes will therefore be sharply reduced.
  */
-def enableHermes = project.ext.react.get("enableHermes", false);
+def enableHermes = project.ext.react.get("enableHermes", false)
 
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 28)
@@ -140,7 +141,7 @@ android {
         minSdkVersion safeExtGet('minSdkVersion', 19)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
@@ -169,7 +170,7 @@ android {
             resValue "string", "app_name", "@string/app_name_debug"
             resValue "string", "facebook_app_id", "576748566193001"
             resValue "string", "dynamic_link_host", "sentidev.page.link"
-            buildConfigField "String", 'API_URL', '"http://10.78.64.97:5000/senti-development/us-central1/graphql"'
+            buildConfigField "String", 'API_URL', '"http://dev-api.senti.in:5000/senti-development/us-central1/graphql"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '""'
         }
