@@ -48,6 +48,7 @@ public class RNConfigModule extends ReactContextBaseJavaModule {
         }
 
         constants.put("apiUrl", BuildConfig.API_URL);
+        constants.put("websiteUrl", BuildConfig.WEBSITE_URL);
         constants.put("webClientId", BuildConfig.FIREBASE_WEB_CLIENT_ID);
         constants.put("language", getLanguage());
 

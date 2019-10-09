@@ -20,6 +20,7 @@ import {
 } from 'constants/style';
 import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
+import { WEBSITE_URL } from 'constants/config';
 
 const GENDERS = {
   male: LocalizedStrings.GENDER_MALE,
@@ -68,6 +69,11 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
         LocalizedStrings.SETTINGS_REPORT_FAILURE_MESSAGE(error.message),
       );
     }
+  }, []);
+
+  const openPrivacy = useCallback(() => {
+    const url = `${WEBSITE_URL}/privacy.html`;
+    Linking.openURL(url).catch(console.error);
   }, []);
 
   const onPressSignOut = useCallback(() => {
@@ -133,14 +139,14 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
             {LocalizedStrings.SETTINGS_REPORT_PROBLEM}
           </Text>
         </Button>
-        <View style={styles.form}>
+        <Button onPress={openPrivacy} style={styles.form}>
           <View style={styles.icon}>
             <Icon name="ios-filing" size={20} color={palette.gray[60]} />
           </View>
           <Text style={styles.text}>
             {LocalizedStrings.SETTINGS_TERMS_BUTTON}
           </Text>
-        </View>
+        </Button>
       </View>
       {isLoading && <LoadingLayer />}
     </React.Fragment>

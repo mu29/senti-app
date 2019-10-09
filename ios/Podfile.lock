@@ -324,6 +324,8 @@ PODS:
     - React
   - react-native-splash-screen (3.2.0):
     - React
+  - react-native-webview (7.4.1):
+    - React
   - React-RCTActionSheet (0.61.0):
     - React-Core/RCTActionSheetHeaders (= 0.61.0)
   - React-RCTAnimation (0.61.0):
@@ -431,6 +433,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -523,6 +526,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -616,6 +621,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 99b82aeb51d67d9025ab4eb8ccb8132f8dcebf69
   react-native-fbsdk: 45e28bbab3e905cbc635c0bdd3444b372e933ae9
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-webview: e800df5dd1a0f3555fd543ebf7d881a9014851f2
   React-RCTActionSheet: 5f9a1733ec8e380aae8a97877f1166cb058733ae
   React-RCTAnimation: 3e0a55305b70b1eb5a5e34230ed8198d4a782da9
   React-RCTBlob: a6ff2220ed7ef4b06e559ec61a0b0f4e80a3716a

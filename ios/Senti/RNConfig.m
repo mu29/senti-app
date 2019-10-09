@@ -29,6 +29,7 @@ RCT_EXPORT_MODULE(RNConfig)
            @"systemVersion": currentDevice.systemVersion,
            @"appVersion": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: [NSNull null],
            @"apiUrl": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"API_URL"] ?: [NSNull null],
+           @"websiteUrl": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEBSITE_URL"] ?: [NSNull null],
            @"webClientId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FIREBASE_WEB_CLIENT_ID"] ?: [NSNull null],
            @"language": [self getLanguage]
            };

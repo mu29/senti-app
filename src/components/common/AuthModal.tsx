@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
+  TouchableOpacity,
   StyleSheet,
+  Linking,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {
@@ -13,6 +15,7 @@ import {
   typography,
 } from 'constants/style';
 import { LocalizedStrings } from 'constants/translations';
+import { WEBSITE_URL } from 'constants/config';
 
 interface Props {
   isVisible: boolean;
@@ -28,49 +31,58 @@ const AuthModal: React.FunctionComponent<Props> = ({
   signInWithFacebook,
   signInWithGoogle,
   hide,
-}) => (
-  <Modal
-    isVisible={isVisible}
-    onBackdropPress={hide}
-    onBackButtonPress={hide}
-    style={styles.modal}
-    backdropOpacity={0.4}
-    backdropTransitionOutTiming={0}
-    backdropTransitionInTiming={0}
-    animationInTiming={400}
-    animationOutTiming={600}
-    hideModalContentWhileAnimating
-    useNativeDriver
-    hardwareAccelerated
-  >
-    <View style={styles.container} pointerEvents="auto">
-      <Text style={[typography.heading1, styles.title]}>
-        {LocalizedStrings.LOGIN_TITLE}
-      </Text>
-      <SocialProviderButton
-        icon="facebook"
-        backgroundColor={palette.brand.facebook}
-        onPress={signInWithFacebook}
-        isLoading={provider === 'facebook'}
-        disabled={!!provider}
-      >
-        {LocalizedStrings.LOGIN_WITH_FACEBOOK}
-      </SocialProviderButton>
-      <SocialProviderButton
-        icon="google"
-        backgroundColor={palette.brand.google}
-        onPress={signInWithGoogle}
-        isLoading={provider === 'google'}
-        disabled={!!provider}
-      >
-        {LocalizedStrings.LOGIN_WITH_GOOGLE}
-      </SocialProviderButton>
-      <Text style={styles.description}>
-        {LocalizedStrings.LOGIN_AGREEMENT_MESSAGE}
-      </Text>
-    </View>
-  </Modal>
-);
+}) => {
+  const openPrivacy = useCallback(() => {
+    const url = `${WEBSITE_URL}/privacy.html`;
+    Linking.openURL(url).catch(console.error);
+  }, []);
+
+  return (
+    <Modal
+      isVisible={isVisible}
+      onBackdropPress={hide}
+      onBackButtonPress={hide}
+      style={styles.modal}
+      backdropOpacity={0.4}
+      backdropTransitionOutTiming={0}
+      backdropTransitionInTiming={0}
+      animationInTiming={400}
+      animationOutTiming={600}
+      hideModalContentWhileAnimating
+      useNativeDriver
+      hardwareAccelerated
+    >
+      <View style={styles.container} pointerEvents="auto">
+        <Text style={[typography.heading1, styles.title]}>
+          {LocalizedStrings.LOGIN_TITLE}
+        </Text>
+        <SocialProviderButton
+          icon="facebook"
+          backgroundColor={palette.brand.facebook}
+          onPress={signInWithFacebook}
+          isLoading={provider === 'facebook'}
+          disabled={!!provider}
+        >
+          {LocalizedStrings.LOGIN_WITH_FACEBOOK}
+        </SocialProviderButton>
+        <SocialProviderButton
+          icon="google"
+          backgroundColor={palette.brand.google}
+          onPress={signInWithGoogle}
+          isLoading={provider === 'google'}
+          disabled={!!provider}
+        >
+          {LocalizedStrings.LOGIN_WITH_GOOGLE}
+        </SocialProviderButton>
+        <TouchableOpacity onPress={openPrivacy} activeOpacity={0.8} style={styles.terms}>
+          <Text style={styles.description}>
+            {LocalizedStrings.LOGIN_AGREEMENT_MESSAGE}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
   modal: {
@@ -91,8 +103,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: palette.gray[100],
   },
-  description: {
+  terms: {
     marginTop: 16,
+  },
+  description: {
     width: '100%',
     fontSize: 12,
     lineHeight: 18,
