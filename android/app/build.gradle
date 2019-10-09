@@ -84,6 +84,8 @@ project.ext.react = [
     entryFile: "index.js",
     enableHermes: true,  // clean and rebuild if changing
     bundleInReleaseStaging: true,
+    bundleInRelease: true,
+    devDisabledInReleaseStaging: true,
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -244,8 +246,9 @@ dependencies {
     implementation "com.facebook.android:facebook-core:5.5.1"
 
     if (enableHermes) {
-        def hermesPath = "../../node_modules/hermes-engine/android/";
+        def hermesPath = "../../node_modules/hermes-engine/android/"
         debugImplementation files(hermesPath + "hermes-debug.aar")
+        releaseStagingImplementation files(hermesPath + "hermes-release.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
         implementation jscFlavor
