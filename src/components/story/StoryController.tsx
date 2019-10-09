@@ -143,10 +143,10 @@ const StoryController: React.FunctionComponent<Props> = ({
             </Text>
           </View>
         </TouchableOpacity>
-        <Button hitSlop={HIT_SLOP} onPress={onPressReplay}>
+        <Button hitSlop={HIT_SLOP} onPress={onPressReplay} round>
           <Image source={REPLAY_ICON} style={styles.icon} />
         </Button>
-        <Button hitSlop={HIT_SLOP} onPress={isMyStory ? onPressDelete : openReplyModal}>
+        <Button hitSlop={HIT_SLOP} onPress={isMyStory ? onPressDelete : openReplyModal} round>
           <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />
         </Button>
       </View>

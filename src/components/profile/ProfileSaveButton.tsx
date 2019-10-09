@@ -38,6 +38,7 @@ const ProfileSaveButton: React.FunctionComponent<Props> = ({
       onPress={onPress}
       isLoading={isLoading}
       style={styles.button}
+      round
     >
       <Text style={[styles.text, isEnabled && styles.enabled]}>
         {LocalizedStrings.COMMON_SAVE}

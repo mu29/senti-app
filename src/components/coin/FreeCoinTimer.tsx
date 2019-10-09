@@ -79,6 +79,7 @@ const FreeCoinTimer: React.FunctionComponent<Props> = ({
           hitSlop={HITSLOP}
           onPress={onPress}
           style={styles.button}
+          round
         >
           <Text style={styles.shop}>
             {LocalizedStrings.COIN_CHARGE_BUTTON}

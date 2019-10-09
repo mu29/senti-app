@@ -146,7 +146,7 @@ const RecordController: React.FunctionComponent<Props> = ({
       <View style={styles.controller}>
         <Button
           onPress={onPressReset}
-          disabled={isStarted}
+          disabled={isStarted || !isRecorded}
           style={styles.button}
           round
         >
@@ -173,7 +173,7 @@ const RecordController: React.FunctionComponent<Props> = ({
         </View>
         <Button
           onPress={onPressCreate}
-          disabled={isStarted}
+          disabled={isStarted || !isRecorded}
           style={styles.button}
           round
         >
