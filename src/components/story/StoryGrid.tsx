@@ -53,6 +53,7 @@ const StoryGrid: React.FunctionComponent<Props> = ({
         onEndReachedThreshold={1}
         onRefresh={onRefresh}
         refreshing={isRefreshing}
+        contentContainerStyle={styles.container}
       />
       <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.loading}>
         <LoadingBar isVisible={isLoading} />
@@ -67,6 +68,9 @@ const styles = StyleSheet.create({
     bottom: 50,
     left: 0,
     right: 0,
+  },
+  container: {
+    paddingBottom: 50,
   },
 });
 

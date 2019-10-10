@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NetworkStatus } from 'apollo-client';
 import { useQuery } from '@apollo/react-hooks';
 import {
@@ -23,6 +23,8 @@ type MyStoryFeedResult = {
 };
 
 const Container: React.FunctionComponent<{}> = () => {
+  const [hasEndReached, setHasEndReached] = useState(false);
+
   const {
     data,
     networkStatus,
@@ -60,7 +62,7 @@ const Container: React.FunctionComponent<{}> = () => {
       isLoading={isFetching(networkStatus)}
       isRefreshing={networkStatus === NetworkStatus.refetch}
       onRefresh={refetch}
-      onFetchMore={() => canFetchMore(networkStatus, error) && fetchMore({
+      onFetchMore={() => !hasEndReached && canFetchMore(networkStatus, error) && fetchMore({
         variables: { cursor },
         updateQuery: (original, { fetchMoreResult }) => {
           if (!fetchMoreResult) {
@@ -73,6 +75,10 @@ const Container: React.FunctionComponent<{}> = () => {
               cursor: nextCursor,
             },
           } = fetchMoreResult;
+
+          if (nextCursor === original.myStoryFeed.cursor) {
+            setHasEndReached(true);
+          }
 
           if (nextStories.length === 0) {
             return original;
