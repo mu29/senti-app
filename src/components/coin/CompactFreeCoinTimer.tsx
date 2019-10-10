@@ -5,13 +5,11 @@ import React, {
 } from 'react';
 import {
   Image,
+  TouchableOpacity,
   StyleSheet,
   Platform,
 } from 'react-native';
-import {
-  Text,
-  Button,
-} from 'components';
+import { Text } from 'components';
 import { useAppState } from 'containers';
 import {
   palette,
@@ -65,7 +63,7 @@ const CompactFreeCoinTimer: React.FunctionComponent<Props> = ({
   const seconds = Math.floor(counter % 60);
 
   return (
-    <Button
+    <TouchableOpacity
       hitSlop={HITSLOP}
       onPress={onPress}
       style={[styles.container, counter > 0 && styles.timer]}
@@ -77,7 +75,7 @@ const CompactFreeCoinTimer: React.FunctionComponent<Props> = ({
       ) : (
         <Image source={COIN_ICON} style={styles.icon} />
       )}
-    </Button>
+    </TouchableOpacity>
   );
 };
 

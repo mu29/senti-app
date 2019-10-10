@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import {
   View,
-  TouchableOpacity,
   StyleSheet,
   Platform,
 } from 'react-native';
@@ -11,6 +10,7 @@ import {
 } from 'react-navigation';
 import {
   Text,
+  Button,
   CachableImage,
 } from 'components';
 import {
@@ -45,7 +45,7 @@ const UserInfo: React.FunctionComponent<Props> = ({
   return (
     <View style={styles.container}>
       <CachableImage prefix="profiles" source={photoUrl} style={styles.profile} />
-      <View>
+      <View style={styles.content}>
         <Text style={[typography.heading2, styles.name]}>
           {name}
         </Text>
@@ -53,7 +53,7 @@ const UserInfo: React.FunctionComponent<Props> = ({
           {email}
         </Text>
       </View>
-      <TouchableOpacity
+      <Button
         activeOpacity={0.8}
         onPress={openEditProfileScreen}
         hitSlop={BUTTON_HITSLOP}
@@ -62,7 +62,7 @@ const UserInfo: React.FunctionComponent<Props> = ({
         <Text style={typography.heading4}>
           {LocalizedStrings.PROFILE_EDIT}
         </Text>
-      </TouchableOpacity>
+      </Button>
     </View>
   );
 };
@@ -79,6 +79,9 @@ const styles = StyleSheet.create({
     marginRight: 12,
     borderRadius: 28,
   },
+  content: {
+    marginRight: 'auto',
+  },
   name: {
     marginTop: Platform.select({
       ios: 4,
@@ -91,7 +94,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   button: {
-    marginLeft: 'auto',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 2,

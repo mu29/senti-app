@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import {
   View,
   Image,
-  TouchableOpacity,
   StyleSheet,
   Platform,
   Alert,
@@ -64,7 +63,7 @@ const TagItem: React.FunctionComponent<Props> = ({
   }, [toggle, isSubscribed]);
 
   return (
-    <TouchableOpacity onPress={openTagStoryScreen} activeOpacity={0.8}>
+    <Button onPress={openTagStoryScreen} activeOpacity={0.8}>
       <View style={styles.container}>
         <View style={styles.tag}>
           <Image source={TAG_ICON} style={styles.icon} />
@@ -88,7 +87,7 @@ const TagItem: React.FunctionComponent<Props> = ({
           </Text>
         </Button>
       </View>
-    </TouchableOpacity>
+    </Button>
   );
 };
 
