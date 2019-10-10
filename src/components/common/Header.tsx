@@ -18,10 +18,10 @@ import {
 } from 'constants/style';
 
 const HIT_SLOP = {
-  top: 16,
-  left: 16,
-  right: 16,
-  bottom: 16,
+  top: 24,
+  left: 24,
+  right: 24,
+  bottom: 24,
 };
 
 const BACK_ICON = { uri: 'ic_back' };
@@ -51,7 +51,7 @@ class Header extends React.PureComponent<HeaderProps & NavigationInjectedProps> 
     return (
       <View style={styles.container}>
         {canGoBack && (
-          <Button onPress={this.goBack} hitSlop={HIT_SLOP} round>
+          <Button onPress={this.goBack} hitSlop={HIT_SLOP} style={styles.button} round>
             <Image style={styles.icon} source={BACK_ICON} />
           </Button>
         )}
@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 12,
+    paddingLeft: 4,
+    paddingRight: 12,
     borderBottomColor: palette.gray[80],
     borderBottomWidth: 0.5,
   },
@@ -86,6 +87,9 @@ const styles = StyleSheet.create({
     right: 0,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  button: {
+    padding: 8,
   },
   icon: {
     width: 16,
