@@ -21,6 +21,7 @@ import {
   FETCH_PROFILE,
   FETCH_TRANSACTION_FEED,
 } from 'graphqls';
+import { InAppPurchaseService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 type CoinListResult = {
@@ -85,12 +86,11 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     },
   });
 
-  const onFetchProducts = useCallback((products: Product[]) => {
+  const onFetchProducts = useCallback((productIds: string[]) => {
     if (!data || !data.coins) {
       return;
     }
 
-    const productIds = products.map(p => p.productId);
     setCoins(data.coins.filter(c => productIds.includes(c.id)));
   }, [data]);
 
@@ -128,22 +128,22 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
 
     const productIds = data.coins.map(c => c.id);
 
-    InAppPurchase.configure().then(() => {
-      InAppPurchase.fetchProducts(productIds);
-    });
-  }, [data]);
+    InAppPurchaseService.addObserver(onFetchProducts);
+    InAppPurchaseService.configure(productIds);
+
+    return () => InAppPurchaseService.removeObserver(onFetchProducts);
+  }, [data, onFetchProducts]);
 
   useEffect(() => {
     if (!data || !data.coins) {
       return;
     }
 
-    InAppPurchase.onFetchProducts(onFetchProducts);
     InAppPurchase.onPurchase(onPurchase);
     InAppPurchase.onError(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message));
 
     return InAppPurchase.clear;
-  }, [data, onFetchProducts, onPurchase]);
+  }, [data, onPurchase]);
 
   return {
     coins,
