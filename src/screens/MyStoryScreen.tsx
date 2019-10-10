@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import {
   Image,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import {
   SafeAreaView,
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     height: 48,
+    marginTop: (StatusBar.currentHeight || 0),
     paddingHorizontal: 16,
   },
   icon: {

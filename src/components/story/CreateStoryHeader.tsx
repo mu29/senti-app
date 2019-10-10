@@ -3,6 +3,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Animated,
+  StatusBar,
 } from 'react-native';
 import {
   withNavigation,
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 16,
+    marginTop: 16 + (StatusBar.currentHeight || 0),
     paddingHorizontal: 24,
   },
   icon: {
