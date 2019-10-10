@@ -12,6 +12,7 @@ import {
 } from '@apollo/react-hooks';
 import { TagItem } from 'components';
 import {
+  SHOW_MODAL,
   FETCH_PROFILE,
   SUBSCRIBE_TAG,
   UNSUBSCRIBE_TAG,
@@ -27,6 +28,10 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
 }) => {
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
+  });
+
+  const [showAuthModal] = useMutation(SHOW_MODAL, {
+    variables: { id: 'Auth' },
   });
 
   const [subscribeTag, { loading: subscribing }] = useMutation(SUBSCRIBE_TAG, {
@@ -84,19 +89,23 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
   }, [item.id, profile]);
 
   const toggle = useCallback(() => {
-    isSubscribed ? unsubscribeTag() : subscribeTag();
+    return isSubscribed ? unsubscribeTag() : subscribeTag();
   }, [isSubscribed, subscribeTag, unsubscribeTag]);
 
   const openTagStoryScreen = useCallback(() => {
     navigation.navigate('TagStory', { tagId: item.id });
   }, [item.id, navigation]);
 
+  const isLoggedIn = !!(profile && profile.me);
+
   return (
     <TagItem
       item={item}
+      isLoggedIn={isLoggedIn}
       isSubscribed={isSubscribed}
       isLoading={subscribing || unsubscribing}
       toggle={toggle}
+      showAuthModal={showAuthModal}
       openTagStoryScreen={openTagStoryScreen}
     />
   );

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Platform,
+  Alert,
 } from 'react-native';
 import {
   Text,
@@ -25,9 +26,11 @@ const TAG_HITSLOP = {
 
 export interface Props {
   item: Tag;
+  isLoggedIn: boolean;
   isLoading: boolean;
   isSubscribed: boolean;
-  toggle: () => void;
+  toggle: () => Promise<any>;
+  showAuthModal: () => void;
   openTagStoryScreen: () => void;
 }
 
@@ -40,13 +43,23 @@ const TagItem: React.FunctionComponent<Props> = ({
     id,
     storyCount,
   },
+  isLoggedIn,
   isLoading,
   isSubscribed,
   toggle,
+  showAuthModal,
   openTagStoryScreen,
 }) => {
   const onPress = useCallback(() => {
-    toggle();
+    if (!isLoggedIn) {
+      showAuthModal();
+      return;
+    }
+
+    toggle().catch(e => Alert.alert(
+      LocalizedStrings.COMMON_ERROR,
+      LocalizedStrings.SUBSCRIBE_TAG_FAILURE(e.message),
+    ));
     AnalyticsService.logEvent(`click_${isSubscribed ? 'unsubscribe' : 'subscribe'}_tag`);
   }, [toggle, isSubscribed]);
 
