@@ -56,6 +56,7 @@ export const FETCH_TAG_STORY_FEED = gql`
           url
           duration
         }
+        createdAt
       }
       cursor
     }
@@ -79,6 +80,7 @@ export const FETCH_MY_STORY_FEED = gql`
           url
           duration
         }
+        createdAt
       }
       cursor
     }
@@ -101,6 +103,7 @@ export const CREATE_STORY = gql`
         url
         duration
       }
+      createdAt
     }
   }
 `;
