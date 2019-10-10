@@ -24,10 +24,10 @@ const SearchBar: React.FunctionComponent<Props> = ({
       <TextInput
         placeholder={LocalizedStrings.SEARCH_PLACEHOLDER}
         placeholderTextColor={palette.gray[50]}
+        selectionColor={palette.yellow.default}
         onChangeText={updateQuery}
         spellCheck={false}
         autoCorrect={false}
-        autoCapitalize="none"
         dataDetectorTypes="none"
         keyboardType="default"
         returnKeyType="search"

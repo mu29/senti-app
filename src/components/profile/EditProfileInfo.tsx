@@ -96,9 +96,9 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
           <TextInput
             placeholder={LocalizedStrings.PROFILE_NAME}
             placeholderTextColor={palette.gray[50]}
+            selectionColor={palette.yellow.default}
             spellCheck={false}
             autoCorrect={false}
-            autoCapitalize="none"
             dataDetectorTypes="none"
             keyboardType="default"
             underlineColorAndroid="transparent"

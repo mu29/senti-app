@@ -72,13 +72,13 @@ const CreateStoryTags: React.FunctionComponent<Props> = ({
         {TagList}
       </View>
       <TextInput
-        autoCapitalize="none"
+        spellCheck={false}
         autoCorrect={false}
         numberOfLines={1}
         multiline
         placeholder={LocalizedStrings.ADD_TAG_PLACEHOLDER}
         placeholderTextColor={palette.gray[30]}
-        selectionColor={palette.white.default}
+        selectionColor={palette.yellow.default}
         onChangeText={onChangeText}
         value={input}
         style={styles.input}
