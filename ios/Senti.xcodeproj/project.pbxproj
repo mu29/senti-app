@@ -18,6 +18,7 @@
 		5B80E2EE2328B0BD008A0CB5 /* RNConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80E2ED2328B0BD008A0CB5 /* RNConfig.m */; };
 		5BD09CF222D1AB9800336194 /* libQBImagePickerController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD09CF122D1AB9800336194 /* libQBImagePickerController.a */; };
 		5BD09CF422D1AB9800336194 /* libRSKImageCropper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD09CF322D1AB9800336194 /* libRSKImageCropper.a */; };
+		5BDFB0E1234F28B5008007E1 /* RNAppleSignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDFB0E0234F28B5008007E1 /* RNAppleSignIn.m */; };
 		5BE7140F2320A28700E9DF50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5BE7140E2320A28700E9DF50 /* LaunchScreen.storyboard */; };
 		5BE714B723222B7A00E9DF50 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BE714B623222B7A00E9DF50 /* StoreKit.framework */; };
 		71E5A1F89EF8805C255CF4FB /* libPods-Senti.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7B50EB5DBCB9E16F3C81C4 /* libPods-Senti.a */; };
@@ -47,6 +48,7 @@
 		5BAF56B822CA56EC00B9EF25 /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD09CF122D1AB9800336194 /* libQBImagePickerController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libQBImagePickerController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD09CF322D1AB9800336194 /* libRSKImageCropper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRSKImageCropper.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BDFB0E0234F28B5008007E1 /* RNAppleSignIn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNAppleSignIn.m; path = Senti/RNAppleSignIn.m; sourceTree = "<group>"; };
 		5BE7140E2320A28700E9DF50 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Senti/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5BE714B623222B7A00E9DF50 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5BE7157523275F1D00E9DF50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				5B1C9B6F23215A4500AD118C /* InfoPlist.strings */,
 				5B7F926E2332514300125F2B /* Ionicons.ttf */,
+				5BDFB0E0234F28B5008007E1 /* RNAppleSignIn.m */,
 			);
 			name = Senti;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BDFB0E1234F28B5008007E1 /* RNAppleSignIn.m in Sources */,
 				5B80E2EE2328B0BD008A0CB5 /* RNConfig.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,

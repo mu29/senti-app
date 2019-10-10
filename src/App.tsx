@@ -21,7 +21,7 @@ import {
   NotificationEvents,
 } from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
-import { NavigationService } from 'services';
+import { NavigationService, AppleSignInService } from 'services';
 import { LANGUAGE } from 'constants/config';
 
 import Navigator from './Navigator';
@@ -45,6 +45,15 @@ const App: React.FunctionComponent<{}> = () => {
 
   useEffect(() => {
     configureClient().then(setClient);
+    setTimeout(async () => {
+      AppleSignInService.configure({
+        clientId: 'com.senti.app.dev.service',
+        clientSecret: '',
+        urlScheme: 'com.googleusercontent.apps.190892997297-46cld24icu0a89eqjo6gbqdqqlldokmj://signIn'
+      });
+      const result = await AppleSignInService.signIn();
+      console.log(result);
+    }, 2000);
   }, [setClient]);
 
   useEffect(() => {
