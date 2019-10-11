@@ -9,7 +9,7 @@ class InAppPurchaseService {
 
   private observers: FetchProductObserver[] = [];
 
-  public async configure(productIds: string[]) {
+  public configure = async (productIds: string[]) => {
     if (this.configured || productIds.length === 0) {
       return;
     }
@@ -22,19 +22,20 @@ class InAppPurchaseService {
     }).catch(console.error);
   }
 
-  public addObserver(observer: FetchProductObserver) {
+  public addObserver = (observer: FetchProductObserver) => {
     this.observers.push(observer);
     if (this.productIds.length > 0) {
       observer(this.productIds);
     }
   }
 
-  public removeObserver(observer: FetchProductObserver) {
+  public removeObserver = (observer: FetchProductObserver) => {
     this.observers = this.observers.filter(o => o === observer);
   }
 
-  private onFetchProducts(products: Product[]) {
+  private onFetchProducts = (products: Product[]) => {
     this.productIds = products.map(p => p.productId);
+    this.observers.forEach(observer => observer(this.productIds));
   }
 }
 

@@ -139,7 +139,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     InAppPurchase.onPurchase(onPurchase);
     InAppPurchase.onError(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message));
 
-    return InAppPurchase.clear;
+    return () => InAppPurchase.clear();
   }, [data, onPurchase]);
 
   return {
