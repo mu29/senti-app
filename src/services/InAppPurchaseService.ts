@@ -19,7 +19,7 @@ class InAppPurchaseService {
     return InAppPurchase.configure().then(() => {
       this.configured = true;
       InAppPurchase.fetchProducts(productIds);
-    });
+    }).catch(console.error);
   }
 
   public addObserver(observer: FetchProductObserver) {

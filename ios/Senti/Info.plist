@@ -4,8 +4,6 @@
 <dict>
 	<key>API_URL</key>
 	<string>$(API_URL)</string>
-	<key>WEBSITE_URL</key>
-	<string>$(WEBSITE_URL)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -48,7 +46,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
 	<key>FIREBASE_WEB_CLIENT_ID</key>
@@ -103,5 +101,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>WEBSITE_URL</key>
+	<string>$(WEBSITE_URL)</string>
 </dict>
 </plist>

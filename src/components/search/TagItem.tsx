@@ -60,7 +60,7 @@ const TagItem: React.FunctionComponent<Props> = ({
       LocalizedStrings.SUBSCRIBE_TAG_FAILURE(e.message),
     ));
     AnalyticsService.logEvent(`click_${isSubscribed ? 'unsubscribe' : 'subscribe'}_tag`);
-  }, [toggle, isSubscribed]);
+  }, [isLoggedIn, toggle, isSubscribed, showAuthModal]);
 
   return (
     <Button onPress={openTagStoryScreen} activeOpacity={0.8}>

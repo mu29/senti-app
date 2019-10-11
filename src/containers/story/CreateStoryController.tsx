@@ -80,7 +80,7 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
           },
         });
       } catch {}
-    }
+    },
   });
 
   const [isLoading, setIsLoading] = useState(false);

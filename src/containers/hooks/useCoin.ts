@@ -7,10 +7,7 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import InAppPurchase, {
-  Product,
-  Purchase,
-} from 'react-native-in-app-purchase';
+import InAppPurchase, { Purchase } from 'react-native-in-app-purchase';
 import {
   useQuery,
   useMutation,
