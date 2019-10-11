@@ -92,7 +92,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
   }, [data]);
 
   const onPurchase = useCallback((result: Purchase) => {
-    verifyCoinReceipt({
+    return verifyCoinReceipt({
       variables: {
         input: {
           platform: Platform.select({
@@ -117,6 +117,21 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     setIsLoading(true);
     InAppPurchase.purchase(productId);
   }, [setIsLoading]);
+
+  const restore = useCallback(() => {
+    setIsLoading(true);
+    InAppPurchase.flush()
+      .then(purchases => {
+        if (purchases.length === 0) {
+          return;
+        }
+
+        Alert.alert(LocalizedStrings.COMMON_NOTICE, LocalizedStrings.COIN_RESTORE_MESSAGE);
+
+        return Promise.all(purchases.map(p => onPurchase(p)));
+      })
+      .finally(() => setIsLoading(false));
+  }, [setIsLoading, onPurchase]);
 
   useEffect(() => {
     if (!data || !data.coins) {
@@ -151,6 +166,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     networkStatus,
     refetch,
     purchase,
+    restore,
   };
 }
 

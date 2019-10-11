@@ -3,17 +3,22 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import { CoinItem } from 'components';
+import {
+  CoinItem,
+  RestoreButton,
+} from 'components';
 import { palette } from 'constants/style';
 
 interface Props {
   items: Coin[];
   purchase: (productId: string) => void;
+  restore: () => void;
 }
 
 const CoinList: React.FunctionComponent<Props> = ({
   items,
   purchase,
+  restore,
 }) => {
   const renderItem = useCallback(({ item }: { item: Coin }) => (
     <CoinItem item={item} purchase={purchase} />
@@ -30,6 +35,7 @@ const CoinList: React.FunctionComponent<Props> = ({
       showsHorizontalScrollIndicator={false}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
+      ListFooterComponent={<RestoreButton restore={restore} />}
     />
   );
 };

@@ -20,6 +20,7 @@ const Container: React.FunctionComponent<Props> = ({
     networkStatus,
     refetch,
     purchase,
+    restore,
   } = useCoin(setIsLoading);
 
   if (error || networkStatus === NetworkStatus.error) {
@@ -32,7 +33,7 @@ const Container: React.FunctionComponent<Props> = ({
   }
 
   return (
-    <CoinList items={coins} purchase={purchase} />
+    <CoinList items={coins} purchase={purchase} restore={restore} />
   );
 };
 

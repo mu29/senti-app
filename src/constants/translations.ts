@@ -9,6 +9,7 @@ const TRANSLATIONS: {
     COMMON_CANCEL: string;
     COMMON_SAVE: string;
     COMMON_DELETE: string;
+    COMMON_NOTICE: string;
     // 화면 이름
     SCREEN_CHATTING: string;
     SCREEN_PROFILE: string;
@@ -81,6 +82,8 @@ const TRANSLATIONS: {
     COIN_HISTORY_TAB: string;
     COIN_PURCHASE_SUCCESS_TITLE: string;
     COIN_PURCHASE_SUCCESS_MESSAGE: string;
+    COIN_RESTORE_BUTTON: string;
+    COIN_RESTORE_MESSAGE: string;
     FREE_COIN_AVAILABLE: string;
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => string;
     TRANSACTION_DATE_FORMAT: string;
@@ -94,6 +97,7 @@ const TRANSLATIONS: {
     COMMON_CANCEL: '취소',
     COMMON_SAVE: '저장',
     COMMON_DELETE: '삭제',
+    COMMON_NOTICE: '알림',
     // 화면 이름
     SCREEN_CHATTING: '대화',
     SCREEN_PROFILE: '프로필',
@@ -166,6 +170,8 @@ const TRANSLATIONS: {
     COIN_HISTORY_TAB: '사용 내역',
     COIN_PURCHASE_SUCCESS_TITLE: '구매 완료',
     COIN_PURCHASE_SUCCESS_MESSAGE: '코인을 구매했습니다.',
+    COIN_RESTORE_BUTTON: '구매 내역 복원',
+    COIN_RESTORE_MESSAGE: '이전 구매 내역을 복구합니다.',
     FREE_COIN_AVAILABLE: '메시지 1개 무료 듣기 가능!',
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `다음 무료 듣기까지 ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY년 M월 D일 HH시',
@@ -178,6 +184,7 @@ const TRANSLATIONS: {
     COMMON_CANCEL: 'Cancel',
     COMMON_SAVE: 'Save',
     COMMON_DELETE: 'Delete',
+    COMMON_NOTICE: 'Notice',
     // 화면 이름
     SCREEN_CHATTING: 'Chatting',
     SCREEN_PROFILE: 'Profile',
@@ -250,6 +257,8 @@ const TRANSLATIONS: {
     COIN_HISTORY_TAB: 'History',
     COIN_PURCHASE_SUCCESS_TITLE: 'Success',
     COIN_PURCHASE_SUCCESS_MESSAGE: 'Purchase completed successfully.',
+    COIN_RESTORE_BUTTON: 'Restore Purchases',
+    COIN_RESTORE_MESSAGE: 'Restore your previous purchases.',
     FREE_COIN_AVAILABLE: 'Listen 1 message for free!',
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `Free listening after: ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY. MM. DD A h',
