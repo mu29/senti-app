@@ -40,14 +40,16 @@ const CoinItem: React.FunctionComponent<Props> = ({
           {amount}
         </Text>
         <View style={styles.price}>
-          <View style={styles.discount}>
-            <Text style={styles.discountPercent}>
-              {LocalizedStrings.COIN_DISCOUNT_RATE(((1 - retailPrice / price) * 100).toFixed(1))}
-            </Text>
-            <Text style={styles.originalPrice}>
-              {LocalizedStrings.COIN_PRICE(price.toLocaleString())}
-            </Text>
-          </View>
+          {retailPrice < price && (
+            <View style={styles.discount}>
+              <Text style={styles.discountPercent}>
+                {LocalizedStrings.COIN_DISCOUNT_RATE(((1 - retailPrice / price) * 100).toFixed(1))}
+              </Text>
+              <Text style={styles.originalPrice}>
+                {LocalizedStrings.COIN_PRICE(price.toLocaleString())}
+              </Text>
+            </View>
+          )}
           <Text style={styles.retailPrice}>
             {LocalizedStrings.COIN_PRICE(retailPrice.toLocaleString())}
           </Text>
