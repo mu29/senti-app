@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
     marginRight: 12,
     borderRadius: 24,
     backgroundColor: palette.gray[80],
+    borderWidth: 1,
+    borderColor: palette.gray[90],
   },
   content: {
     flex: 1,

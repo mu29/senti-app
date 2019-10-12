@@ -151,6 +151,8 @@ const styles = StyleSheet.create({
     height: 40,
     marginRight: 12,
     borderRadius: 24,
+    borderWidth: 1,
+    borderColor: palette.gray[90],
     backgroundColor: palette.gray[80],
   },
   content: {
