@@ -134,22 +134,11 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
   }, [setIsLoading, onPurchase]);
 
   useEffect(() => {
-    if (!data || !data.coins) {
+    if (!data || !data.coins || data.coins.length === 0) {
       return;
     }
 
     const productIds = data.coins.map(c => c.id);
-
-    InAppPurchaseService.addObserver(onFetchProducts);
-    InAppPurchaseService.configure(productIds);
-
-    return () => InAppPurchaseService.removeObserver(onFetchProducts);
-  }, [data, onFetchProducts]);
-
-  useEffect(() => {
-    if (!data || !data.coins) {
-      return;
-    }
 
     InAppPurchase.onPurchase(onPurchase);
     InAppPurchase.onError(e => {
@@ -157,8 +146,14 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
       setIsLoading(false);
     });
 
-    return () => InAppPurchase.clear();
-  }, [data, onPurchase, setIsLoading]);
+    InAppPurchaseService.addObserver(onFetchProducts);
+    InAppPurchaseService.configure(productIds);
+
+    return () => {
+      InAppPurchase.clear();
+      InAppPurchaseService.removeObserver(onFetchProducts);
+    };
+  }, [data, onPurchase, onFetchProducts, setIsLoading]);
 
   return {
     coins,
