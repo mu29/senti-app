@@ -46,12 +46,12 @@ const CoinItem: React.FunctionComponent<Props> = ({
                 {LocalizedStrings.COIN_DISCOUNT_RATE(((1 - retailPrice / price) * 100).toFixed(1))}
               </Text>
               <Text style={styles.originalPrice}>
-                {LocalizedStrings.COIN_PRICE(price.toLocaleString())}
+                {LocalizedStrings.COIN_PRICE(price)}
               </Text>
             </View>
           )}
           <Text style={styles.retailPrice}>
-            {LocalizedStrings.COIN_PRICE(retailPrice.toLocaleString())}
+            {LocalizedStrings.COIN_PRICE(retailPrice)}
           </Text>
         </View>
       </Button>

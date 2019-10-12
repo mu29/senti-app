@@ -1,4 +1,5 @@
 import { LANGUAGE } from './config';
+import { withComma } from 'utils';
 
 const TRANSLATIONS: {
   [key: string]: {
@@ -77,7 +78,7 @@ const TRANSLATIONS: {
     COIN_COUNT: (coin: number) => string;
     COIN_CHARGE_BUTTON: string;
     COIN_DISCOUNT_RATE: (percent: string) => string;
-    COIN_PRICE: (price: string) => string;
+    COIN_PRICE: (price: number) => string;
     COIN_CHARGE_TAB: string;
     COIN_HISTORY_TAB: string;
     COIN_PURCHASE_SUCCESS_TITLE: string;
@@ -108,7 +109,7 @@ const TRANSLATIONS: {
     ERROR_AUTH_REQUIRED: '로그인 후 이용해주세요',
     // 검색
     SEARCH_PLACEHOLDER: '검색',
-    TAG_STORY_COUNT: (count) => `이야기 ${count.toLocaleString()}개`,
+    TAG_STORY_COUNT: (count) => `이야기 ${withComma(count)}개`,
     TAG_SUBSCRIBE_BUTTON: '관심',
     SUBSCRIBE_TAG_FAILURE: (message) => `태그 구독에 실패했습니다.\n${message.replace('GraphQL error: ', '')}`,
     // 이야기
@@ -159,13 +160,13 @@ const TRANSLATIONS: {
     SETTINGS_TERMS_BUTTON: '이용약관 및 개인정보처리방침',
     // 채팅
     CHATTING_EMPTY_MESSAGE: '이야기에 답변해\n새로운 대화를 시작해 보세요.',
-    CHATTING_MESSAGE_COUNT: (count) => `메시지 ${count.toLocaleString()}개`,
+    CHATTING_MESSAGE_COUNT: (count) => `메시지 ${withComma(count)}개`,
     MESSAGE_PLAY_FAILURE: (message) => `메시지 재생에 실패했습니다.\n${message.replace('GraphQL error: ', '')}`,
     // 코인
     COIN_COUNT: (amount) => `${amount}코인`,
     COIN_CHARGE_BUTTON: '충전',
     COIN_DISCOUNT_RATE: (percent) => `${percent}% 할인!`,
-    COIN_PRICE: (price) => `${price}원`,
+    COIN_PRICE: (price) => `${withComma(price)}원`,
     COIN_CHARGE_TAB: '코인 충전',
     COIN_HISTORY_TAB: '사용 내역',
     COIN_PURCHASE_SUCCESS_TITLE: '구매 완료',
@@ -195,7 +196,7 @@ const TRANSLATIONS: {
     ERROR_AUTH_REQUIRED: 'Please Sign in.',
     // 검색
     SEARCH_PLACEHOLDER: 'Search',
-    TAG_STORY_COUNT: (count) => `${count.toLocaleString()} ${count > 1 ? 'stories' : 'story'}`,
+    TAG_STORY_COUNT: (count) => `${withComma(count)} ${count > 1 ? 'stories' : 'story'}`,
     TAG_SUBSCRIBE_BUTTON: 'Subscribe',
     SUBSCRIBE_TAG_FAILURE: (message) => `Failed to subscribe tag.\n${message.replace('GraphQL error: ', '')}`,
     // 이야기
@@ -246,13 +247,13 @@ const TRANSLATIONS: {
     SETTINGS_TERMS_BUTTON: 'Terms of Service / Privacy Policy',
     // 채팅
     CHATTING_EMPTY_MESSAGE: 'Start new chatting\nby respond to the story!',
-    CHATTING_MESSAGE_COUNT: (count) => `${count.toLocaleString()} message${count > 1 ? 's' : ''}`,
+    CHATTING_MESSAGE_COUNT: (count) => `${withComma(count)} message${count > 1 ? 's' : ''}`,
     MESSAGE_PLAY_FAILURE: (message) => `Failed to play message.\n${message.replace('GraphQL error: ', '')}`,
     // 코인
     COIN_COUNT: (amount) => `${amount} Coin${amount > 1 ? 's' : ''}`,
     COIN_CHARGE_BUTTON: 'Charge',
     COIN_DISCOUNT_RATE: (percent) => `${percent}% discount!`,
-    COIN_PRICE: (price) => `USD ${price}`,
+    COIN_PRICE: (price) => `USD ${withComma(price)}`,
     COIN_CHARGE_TAB: 'Charge',
     COIN_HISTORY_TAB: 'History',
     COIN_PURCHASE_SUCCESS_TITLE: 'Success',
