@@ -10,16 +10,13 @@ class InAppPurchaseService {
   private observers: FetchProductObserver[] = [];
 
   public configure = async (productIds: string[]) => {
-    if (this.configured || productIds.length === 0) {
-      return;
+    if (!this.configured) {
+      await InAppPurchase.configure();
+      this.configured = true;
     }
 
     InAppPurchase.onFetchProducts(this.onFetchProducts);
-
-    return InAppPurchase.configure().then(() => {
-      this.configured = true;
-      InAppPurchase.fetchProducts(productIds);
-    }).catch(console.error);
+    InAppPurchase.fetchProducts(productIds);
   }
 
   public addObserver = (observer: FetchProductObserver) => {

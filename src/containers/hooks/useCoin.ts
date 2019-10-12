@@ -134,26 +134,27 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
   }, [setIsLoading, onPurchase]);
 
   useEffect(() => {
-    if (!data || !data.coins || data.coins.length === 0) {
-      return;
-    }
-
-    const productIds = data.coins.map(c => c.id);
-
     InAppPurchase.onPurchase(onPurchase);
     InAppPurchase.onError(e => {
       Alert.alert(LocalizedStrings.COMMON_ERROR, e.message);
       setIsLoading(false);
     });
 
+    return () => InAppPurchase.clear();
+  }, [onPurchase, setIsLoading]);
+
+  useEffect(() => {
+    if (!data || !data.coins) {
+      return;
+    }
+
+    const productIds = data.coins.map(c => c.id);
+
     InAppPurchaseService.addObserver(onFetchProducts);
     InAppPurchaseService.configure(productIds);
 
-    return () => {
-      InAppPurchase.clear();
-      InAppPurchaseService.removeObserver(onFetchProducts);
-    };
-  }, [data, onPurchase, onFetchProducts, setIsLoading]);
+    return () => InAppPurchaseService.removeObserver(onFetchProducts);
+  }, [data, onFetchProducts]);
 
   return {
     coins,
