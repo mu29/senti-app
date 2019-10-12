@@ -12,6 +12,7 @@ export { default as LoadingBar } from './common/LoadingBar';
 export { default as LoadingIndicator } from './common/LoadingIndicator';
 export { default as LoadingLayer } from './common/LoadingLayer';
 export { default as LoadingView } from './common/LoadingView';
+export { default as PushNotification } from './common/PushNotification';
 export { default as withSafeArea } from './common/withSafeArea';
 
 export { default as ChattingEmptyList } from './chatting/ChattingEmptyList';

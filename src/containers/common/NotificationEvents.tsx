@@ -8,6 +8,7 @@ import {
   NotificationOpen,
 } from 'react-native-firebase/notifications';
 import { useApolloClient } from '@apollo/react-hooks';
+import { PushNotification } from 'components';
 import { useNotification } from 'containers';
 import { NavigationService } from 'services';
 import {
@@ -17,10 +18,12 @@ import {
 
 interface Props {
   user: RNFirebase.User | null;
+  pushNotificationRef: React.RefObject<PushNotification>;
 }
 
 const NotificationEvents: React.FunctionComponent<Props> = ({
   user,
+  pushNotificationRef,
 }) => {
   const client = useApolloClient();
 
@@ -33,6 +36,7 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
         params,
       } = notification.data;
       const parsedParams = JSON.parse(params || '{}');
+
       switch (screen) {
       case 'Message':
         client.query({
@@ -46,6 +50,12 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
           },
           fetchPolicy: 'network-only',
         });
+        if (pushNotificationRef.current) {
+          pushNotificationRef.current.show({
+            body: notification.body,
+            ...parsedParams,
+          });
+        }
         break;
       }
     } catch (e) {

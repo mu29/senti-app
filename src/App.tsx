@@ -1,4 +1,5 @@
 import React, {
+  useRef,
   useState,
   useCallback,
   useEffect,
@@ -16,6 +17,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/en';
 import 'dayjs/locale/ko';
 
+import { PushNotification } from 'components';
 import {
   AuthModal,
   NotificationEvents,
@@ -35,6 +37,8 @@ dayjs.locale(LANGUAGE);
 dayjs.extend(relativeTime);
 
 const App: React.FunctionComponent<{}> = () => {
+  const pushNotificationRef = useRef(null);
+
   const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>();
 
   const [user, setUser] = useState<RNFirebase.User | null>(null);
@@ -74,7 +78,8 @@ const App: React.FunctionComponent<{}> = () => {
         <React.Fragment>
           <AuthModal />
           <Navigator ref={setNavigationRef} />
-          <NotificationEvents user={user} />
+          <NotificationEvents user={user} pushNotificationRef={pushNotificationRef} />
+          <PushNotification ref={pushNotificationRef} />
         </React.Fragment>
       </ApolloProvider>
     </React.Fragment>
