@@ -61,7 +61,8 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
               actions: [NavigationActions.navigate({ routeName: 'MainStack' })],
             });
             navigation.dispatch(resetAction);
-          });
+          })
+          .catch(console.error);
       });
   }, [client, navigation]);
 
