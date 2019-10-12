@@ -54,8 +54,8 @@ class PushNotification extends React.PureComponent<{}, State> {
         inputRange: [0, 1],
         outputRange: [-160, 0],
         extrapolate: 'clamp',
-      })
-    }]
+      }),
+    }],
   }
 
   public show(data: PushNotificationData) {

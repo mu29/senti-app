@@ -36,7 +36,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
     const url = `${WEBSITE_URL}/privacy.html`;
     NavigationService.navigate('WebView', { url });
     hide();
-  }, []);
+  }, [hide]);
 
   return (
     <Modal

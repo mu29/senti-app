@@ -79,7 +79,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
   const openPrivacy = useCallback(() => {
     const url = `${WEBSITE_URL}/privacy.html`;
     navigation.navigate('WebView', { url });
-  }, []);
+  }, [navigation]);
 
   const onPressSignOut = useCallback(() => {
     signOut();

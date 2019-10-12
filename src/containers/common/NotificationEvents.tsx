@@ -61,7 +61,7 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
     } catch (e) {
       console.error(e);
     }
-  }, [client]);
+  }, [client, pushNotificationRef]);
 
   const onNotificationOpen = useCallback((notificationOpen: NotificationOpen) => {
     try {
