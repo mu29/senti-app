@@ -89,7 +89,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     }
 
     setCoins(data.coins.filter(c => productIds.includes(c.id)));
-  }, [data]);
+  }, [data, setCoins]);
 
   const onPurchase = useCallback((result: Purchase) => {
     return verifyCoinReceipt({
