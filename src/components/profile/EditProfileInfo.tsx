@@ -7,6 +7,10 @@ import {
   Platform,
   Linking,
 } from 'react-native';
+import {
+  withNavigation,
+  NavigationInjectedProps,
+} from 'react-navigation';
 import ActionSheet from 'rn-actionsheet-module';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
@@ -28,7 +32,7 @@ const GENDERS = {
   none: LocalizedStrings.GENDER_NONE,
 };
 
-interface Props {
+interface Props extends NavigationInjectedProps {
   profile: Profile;
   candidate: Candidate;
   isLoading: boolean;
@@ -42,6 +46,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
   isLoading,
   updateCandidate,
   signOut,
+  navigation,
 }) => {
   const updateCandidateName = useCallback((name: string) => updateCandidate({ name }), [updateCandidate]);
 
@@ -73,7 +78,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
 
   const openPrivacy = useCallback(() => {
     const url = `${WEBSITE_URL}/privacy.html`;
-    Linking.openURL(url).catch(console.error);
+    navigation.navigate('WebView', { url });
   }, []);
 
   const onPressSignOut = useCallback(() => {
@@ -201,4 +206,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(EditProfileInfo);
+export default React.memo(withNavigation(EditProfileInfo));

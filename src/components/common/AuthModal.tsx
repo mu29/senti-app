@@ -3,13 +3,13 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Linking,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {
   Text,
   SocialProviderButton,
 } from 'components';
+import { NavigationService } from 'services';
 import {
   palette,
   typography,
@@ -34,7 +34,8 @@ const AuthModal: React.FunctionComponent<Props> = ({
 }) => {
   const openPrivacy = useCallback(() => {
     const url = `${WEBSITE_URL}/privacy.html`;
-    Linking.openURL(url).catch(console.error);
+    NavigationService.navigate('WebView', { url });
+    hide();
   }, []);
 
   return (

@@ -19,6 +19,7 @@ import EditProfileScreen from './screens/EditProfileScreen';
 import MessageScreen from './screens/MessageScreen';
 import MyStoryScreen from './screens/MyStoryScreen';
 import TagStoryScreen from './screens/TagStoryScreen';
+import WebViewScreen from './screens/WebViewScreen';
 
 const MainTabNavigator = createBottomTabNavigator({
   Home: {
@@ -112,6 +113,7 @@ const ModalNavigator = createStackNavigator({
       gesturesEnabled: false,
     },
   },
+  WebView: WebViewScreen,
 }, {
   headerMode: 'none',
   mode: 'modal',
