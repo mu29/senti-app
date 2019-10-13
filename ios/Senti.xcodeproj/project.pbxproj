@@ -448,7 +448,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 876409857CC32FE3F3A5C680 /* Pods-Senti.release.xcconfig */;
 			buildSettings = {
-				API_URL = "https://api.senti.in";
+				API_URL = "https://senti.in/graphql";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "40iKzqw15Z-5hiyj0PZAl_bh-_KS180a8f7e-a595-471d-ba74-a122212012fa";
 				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
@@ -532,7 +532,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE8E7DE079F1BC2F4D983D59 /* Pods-Senti.staging.xcconfig */;
 			buildSettings = {
-				API_URL = "https://staging-api.senti.in";
+				API_URL = "https://staging.senti.in/graphql";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "p-Pp3q7mZmDO8kp0Es_Al5yGkoTC180a8f7e-a595-471d-ba74-a122212012fa";
 				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
