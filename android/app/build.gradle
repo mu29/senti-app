@@ -142,8 +142,8 @@ android {
         applicationId "com.senti.app"
         minSdkVersion safeExtGet('minSdkVersion', 19)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
-        versionName "0.0.10"
-        versionCode 10
+        versionName "0.0.11"
+        versionCode 11
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
@@ -201,6 +201,12 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             shrinkResources false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            force "com.facebook.soloader:soloader:0.8.0"
         }
     }
 
