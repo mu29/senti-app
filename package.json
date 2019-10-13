@@ -37,7 +37,7 @@
     "react-native-google-signin": "2.0.0",
     "react-native-image-cache-hoc": "mu29/react-native-image-cache-hoc#855c16f2e0e10378d7cdd9882d055ff6c8a41780",
     "react-native-image-crop-picker": "0.25.2",
-    "react-native-in-app-purchase": "https://github.com/mu29/react-native-in-app-purchase#51f38c8a16281dc3b875c5dffc2b074e095b58c8",
+    "react-native-in-app-purchase": "https://github.com/mu29/react-native-in-app-purchase#981fca29c0948e008bc3be2339bbaa5f6af11954",
     "react-native-modal": "11.4.0",
     "react-native-reanimated": "1.2.0",
     "react-native-sound": "0.11.0",

@@ -7,7 +7,10 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import InAppPurchase, { Purchase } from 'react-native-in-app-purchase';
+import InAppPurchase, {
+  Product,
+  Purchase,
+} from 'react-native-in-app-purchase';
 import {
   useQuery,
   useMutation,
@@ -18,7 +21,6 @@ import {
   FETCH_PROFILE,
   FETCH_TRANSACTION_FEED,
 } from 'graphqls';
-import { InAppPurchaseService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 type CoinListResult = {
@@ -83,10 +85,12 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     },
   });
 
-  const onFetchProducts = useCallback((productIds: string[]) => {
+  const onFetchProducts = useCallback((products: Product[]) => {
     if (!data || !data.coins) {
       return;
     }
+
+    const productIds = products.map(p => p.productId);
 
     setCoins(data.coins.filter(c => productIds.includes(c.id)));
   }, [data, setCoins]);
@@ -134,6 +138,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
   }, [setIsLoading, onPurchase]);
 
   useEffect(() => {
+    InAppPurchase.onFetchProducts(onFetchProducts);
     InAppPurchase.onPurchase(onPurchase);
     InAppPurchase.onError(e => {
       Alert.alert(LocalizedStrings.COMMON_ERROR, e.message);
@@ -141,7 +146,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     });
 
     return () => InAppPurchase.clear();
-  }, [onPurchase, setIsLoading]);
+  }, [onFetchProducts, onPurchase, setIsLoading]);
 
   useEffect(() => {
     if (!data || !data.coins) {
@@ -150,10 +155,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
 
     const productIds = data.coins.map(c => c.id);
 
-    InAppPurchaseService.addObserver(onFetchProducts);
-    InAppPurchaseService.configure(productIds);
-
-    return () => InAppPurchaseService.removeObserver(onFetchProducts);
+    InAppPurchase.configure().then(() => InAppPurchase.fetchProducts(productIds));
   }, [data, onFetchProducts]);
 
   return {
