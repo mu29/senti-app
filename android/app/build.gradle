@@ -239,6 +239,7 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:19.0.1"
     implementation "com.google.firebase:firebase-messaging:18.0.0"
     implementation "com.google.firebase:firebase-dynamic-links:19.0.0"
+    implementation "com.google.firebase:firebase-invites:17.0.0"
     implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
     implementation "me.leolin:ShortcutBadger:1.1.21@aar"
 

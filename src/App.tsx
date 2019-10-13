@@ -20,6 +20,7 @@ import 'dayjs/locale/ko';
 import { PushNotification } from 'components';
 import {
   AuthModal,
+  DynamicLinkEvents,
   NotificationEvents,
 } from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
@@ -76,10 +77,11 @@ const App: React.FunctionComponent<{}> = () => {
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
       <ApolloProvider client={client}>
         <React.Fragment>
-          <AuthModal />
           <Navigator ref={setNavigationRef} />
-          <NotificationEvents user={user} pushNotificationRef={pushNotificationRef} />
           <PushNotification ref={pushNotificationRef} />
+          <NotificationEvents user={user} pushNotificationRef={pushNotificationRef} />
+          <DynamicLinkEvents />
+          <AuthModal />
         </React.Fragment>
       </ApolloProvider>
     </React.Fragment>

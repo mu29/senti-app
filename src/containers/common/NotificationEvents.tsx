@@ -38,25 +38,25 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
       const parsedParams = JSON.parse(params || '{}');
 
       switch (screen) {
-      case 'Message':
-        client.query({
-          query: FETCH_CHATTING_FEED,
-          fetchPolicy: 'network-only',
-        });
-        client.query({
-          query: FETCH_MESSAGE_FEED,
-          variables: {
-            chattingId: parsedParams.chattingId,
-          },
-          fetchPolicy: 'network-only',
-        });
-        if (pushNotificationRef.current) {
-          pushNotificationRef.current.show({
-            body: notification.body,
-            ...parsedParams,
+        case 'Message':
+          client.query({
+            query: FETCH_CHATTING_FEED,
+            fetchPolicy: 'network-only',
           });
-        }
-        break;
+          client.query({
+            query: FETCH_MESSAGE_FEED,
+            variables: {
+              chattingId: parsedParams.chattingId,
+            },
+            fetchPolicy: 'network-only',
+          });
+          if (pushNotificationRef.current) {
+            pushNotificationRef.current.show({
+              body: notification.body,
+              ...parsedParams,
+            });
+          }
+          break;
       }
     } catch (e) {
       console.error(e);
