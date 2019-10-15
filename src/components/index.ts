@@ -4,6 +4,7 @@ export { default as Text } from './bootstrap/Text';
 export { default as ViewPager } from './bootstrap/ViewPager';
 export { default as TabView } from './bootstrap/TabView';
 
+export { default as Badge } from './common/Badge';
 export { default as BottomTabBar } from './common/BottomTabBar';
 export { default as ErrorView } from './common/ErrorView';
 export { default as Header } from './common/Header';

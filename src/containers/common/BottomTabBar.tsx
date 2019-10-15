@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   NavigationRoute,
   NavigationParams,
@@ -29,9 +29,14 @@ const BottomTabBarContainer: React.FunctionComponent<Props & BottomTabBarProps> 
     variables: { id: 'Auth' },
   });
 
+  const badges = useMemo(() => ({
+    3: profile && profile.me ? profile.me.badgeCount : 0,
+  }), [profile]);
+
   return (
     <BottomTabBar
       isLoggedIn={!!(profile && profile.me)}
+      badges={badges}
       showAuthModal={showModal}
       {...props}
     />

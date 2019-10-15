@@ -27,6 +27,7 @@ export const FETCH_PROFILE = gql`
       photoUrl
       gender
       tags
+      badgeCount
       coin
       canUseFreeCoinAt
     }

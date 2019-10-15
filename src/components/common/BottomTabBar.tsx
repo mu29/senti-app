@@ -13,6 +13,7 @@ import {
   NavigationParams,
 } from 'react-navigation';
 import { BottomTabBar as RNBottomTabBar } from 'react-navigation-tabs';
+import { Badge } from 'components';
 import { palette } from 'constants/style';
 
 const SAFE_AREA_INSET: {
@@ -27,6 +28,7 @@ type BottomTabBarProps = React.ComponentProps<typeof RNBottomTabBar>
 
 interface Props {
   isLoggedIn: boolean;
+  badges: Record<number, number>,
   onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
   showAuthModal: () => void;
 }
@@ -103,6 +105,7 @@ class BottomTabBar extends React.PureComponent<Props & BottomTabBarProps> {
           index: navigationIndex,
         },
       },
+      badges,
       activeTintColor,
       inactiveTintColor,
       renderIcon,
@@ -115,6 +118,7 @@ class BottomTabBar extends React.PureComponent<Props & BottomTabBarProps> {
         activeOpacity={1}
         onPress={this.getOnPressHandler(route)}
       >
+        {badges[index] ? (<Badge count={badges[index]} />) : null}
         {renderIcon({
           route,
           index: index,
