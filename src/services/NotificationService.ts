@@ -22,7 +22,7 @@ class NotificationService {
       query: FETCH_PROFILE,
       fetchPolicy: 'network-only',
     }).then(({ data }) => {
-      firebase.notifications().setBadge(data.me.badgeCount);
+      firebase.notifications().setBadge(data.me.badgeCount || 0);
     }).catch(console.error);
   }
 

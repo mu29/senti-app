@@ -19,7 +19,10 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { NavigationService } from 'services';
+import {
+  NavigationService,
+  NotificationService,
+} from 'services';
 
 const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
 
@@ -126,6 +129,7 @@ class PushNotification extends React.PureComponent<{}, State> {
       partnerId,
       partnerName,
     });
+    NotificationService.clearBadge();
   }
 }
 

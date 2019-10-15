@@ -10,7 +10,10 @@ import {
 import { useApolloClient } from '@apollo/react-hooks';
 import { PushNotification } from 'components';
 import { useNotification } from 'containers';
-import { NavigationService } from 'services';
+import {
+  NavigationService,
+  NotificationService,
+} from 'services';
 import {
   FETCH_CHATTING_FEED,
   FETCH_MESSAGE_FEED,
@@ -50,6 +53,7 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
             },
             fetchPolicy: 'network-only',
           });
+          NotificationService.sync();
           if (pushNotificationRef.current) {
             pushNotificationRef.current.show({
               body: notification.body,
@@ -72,6 +76,7 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
 
       onNotification(notificationOpen.notification);
       NavigationService.navigate(screen, JSON.parse(params || '{}'));
+      NotificationService.clearBadge();
     } catch (e) {
       console.error(e);
     }
