@@ -31,7 +31,28 @@ class NotificationService {
     firebase.notifications().removeAllDeliveredNotifications();
 
     if (this.client) {
-      this.client.mutate({ mutation: CLEAR_BADGE_COUNT });
+      this.client.mutate({
+        mutation: CLEAR_BADGE_COUNT,
+        update: (cache) => {
+          try {
+            const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
+
+            if (!savedProfile) {
+              return;
+            }
+
+            cache.writeQuery({
+              query: FETCH_PROFILE,
+              data: {
+                me: {
+                  ...savedProfile.me,
+                  badgeCount: 0,
+                },
+              },
+            });
+          } catch {}
+        },
+      });
     }
   }
 }
