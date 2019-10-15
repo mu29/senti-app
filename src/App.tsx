@@ -62,13 +62,14 @@ const App: React.FunctionComponent<{}> = () => {
 
   useEffect(() => {
     if (client) {
-      NotificationService.setClient(client);
       client.query({
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
       })
       .catch(console.error)
       .finally(() => SplashScreen.hide());
+      NotificationService.setClient(client);
+      NotificationService.sync();
     }
   }, [client, user]);
 
