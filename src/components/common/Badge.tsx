@@ -32,6 +32,12 @@ const Badge: React.FunctionComponent<Props> = ({
         outputRange: [0.4, 1, 1, 1.2, 0.4],
         extrapolate: 'clamp',
       }),
+    }, {
+      translateY: springAnimation.interpolate({
+        inputRange: [0, 0.005, 1],
+        outputRange: [3, 0, 0],
+        extrapolate: 'clamp',
+      }),
     }],
   }), [springAnimation]);
 
@@ -57,10 +63,10 @@ const Badge: React.FunctionComponent<Props> = ({
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 6,
+    top: 3,
     right: 12,
-    width: 14,
-    height: 14,
+    paddingVertical: 1,
+    paddingHorizontal: 4,
     borderRadius: 8,
     backgroundColor: palette.yellow.default,
     justifyContent: 'center',
@@ -71,7 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 10,
     paddingTop: Platform.select({
-      ios: 2,
+      ios: 1.5,
       android: 0,
     }),
     paddingLeft: Platform.select({
