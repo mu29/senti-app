@@ -40,7 +40,7 @@ const CreateStoryTags: React.FunctionComponent<Props> = ({
     if (/^\s$/.test(lastText)) {
       setInput('');
       if (text.length > 1) {
-        setTags(prevTags => prevTags.concat(text.slice(0, -1)));
+        setTags(prevTags => prevTags.concat(text.slice(0, -1).replace('#', '')));
       }
     } else {
       setInput(text);
