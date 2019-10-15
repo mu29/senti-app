@@ -21,14 +21,14 @@ const Badge: React.FunctionComponent<Props> = ({
     type: 'timing',
     toValue: 0,
     initialValue: 1,
-    duration: 3000,
+    duration: 6000,
     useNativeDriver: true,
   });
 
   const containerStyle = useMemo(() => ({
     transform: [{
       scale: springAnimation.interpolate({
-        inputRange: [0, 0.01, 0.98, 0.99, 1],
+        inputRange: [0, 0.005, 0.99, 0.995, 1],
         outputRange: [0.4, 1, 1, 1.2, 0.4],
         extrapolate: 'clamp',
       }),
@@ -38,8 +38,8 @@ const Badge: React.FunctionComponent<Props> = ({
   const textStyle = useMemo(() => ({
     transform: [{
       scale: springAnimation.interpolate({
-        inputRange: [0, 0.01, 0.98, 0.99, 1],
-        outputRange: [0, 1, 1, 1.2, 0],
+        inputRange: [0, 0.005, 0.99, 0.995, 1],
+        outputRange: [0.01, 1, 1, 1.2, 0.01],
         extrapolate: 'clamp',
       }),
     }],
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 6,
     right: 12,
-    width: 16,
-    height: 16,
+    width: 14,
+    height: 14,
     borderRadius: 8,
     backgroundColor: palette.yellow.default,
     justifyContent: 'center',
