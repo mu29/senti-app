@@ -24,7 +24,10 @@ import {
   NotificationEvents,
 } from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
-import { NavigationService } from 'services';
+import {
+  NavigationService,
+  NotificationService,
+} from 'services';
 import { LANGUAGE } from 'constants/config';
 
 import Navigator from './Navigator';
@@ -59,6 +62,7 @@ const App: React.FunctionComponent<{}> = () => {
 
   useEffect(() => {
     if (client) {
+      NotificationService.setClient(client);
       client.query({
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',

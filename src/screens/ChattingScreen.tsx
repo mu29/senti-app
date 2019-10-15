@@ -9,12 +9,16 @@ import {
   ChattingList,
   CoinModal,
 } from 'containers';
-import { AnalyticsService } from 'services';
+import {
+  AnalyticsService,
+  NotificationService,
+} from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 const ChattingScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
     AnalyticsService.setScreen(ChattingScreen.name);
+    NotificationService.clearBadge();
   }, []);
 
   return (

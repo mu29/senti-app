@@ -46,9 +46,10 @@ interface Profile extends User {
   email: string;
   gender: 'male' | 'female' | null;
   tags: string[];
-  createdAt: number;
+  badgeCount: number;
   coin: number;
   canUseFreeCoinAt: number;
+  createdAt: number;
 }
 
 interface Audio {

@@ -2,6 +2,8 @@ import { NativeModules } from 'react-native';
 
 const ConfigModule = NativeModules.RNConfig;
 
+export const APP_VERSION = ConfigModule.appVersion;
+
 export const API_URL = ConfigModule.apiUrl;
 
 export const WEBSITE_URL = ConfigModule.websiteUrl;
