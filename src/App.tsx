@@ -22,6 +22,7 @@ import {
   AuthModal,
   DynamicLinkEvents,
   NotificationEvents,
+  useAppState,
 } from 'containers';
 import { FETCH_PROFILE } from 'graphqls';
 import {
@@ -72,6 +73,10 @@ const App: React.FunctionComponent<{}> = () => {
       NotificationService.sync();
     }
   }, [client, user]);
+
+  useAppState(() => {
+    NotificationService.sync();
+  });
 
   if (!client) {
     return null;
