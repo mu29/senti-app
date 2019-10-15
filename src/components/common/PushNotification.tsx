@@ -95,6 +95,10 @@ class PushNotification extends React.PureComponent<{}, State> {
       partnerPhotoUrl,
     } = this.state.data!;
 
+    if (!body || !partnerName || !partnerPhotoUrl) {
+      return null;
+    }
+
     return (
       <AnimatedSafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.container, this.containerStyle]}>
         <Button onPress={this.onPress} style={styles.button}>
