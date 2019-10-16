@@ -4,7 +4,10 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-import { Alert } from 'react-native';
+import {
+  Alert,
+  Linking,
+} from 'react-native';
 import { RecordService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
@@ -36,6 +39,21 @@ function useRecord() {
       setIsLoading(true);
       RecordService.stop()
         .then((result) => {
+          if (result.duration === 0) {
+            Alert.alert(
+              LocalizedStrings.COMMON_ERROR,
+              LocalizedStrings.RECORD_FAILURE_REQUEST_PERMISSION,
+              [{
+                text: LocalizedStrings.COMMON_CONFIRM,
+                onPress: () => Linking.openSettings(),
+              }, {
+                text: LocalizedStrings.COMMON_CANCEL,
+                style: 'cancel',
+              }],
+            );
+            return;
+          }
+
           setData(result);
           setIsRecorded(true);
         })
