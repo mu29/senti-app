@@ -131,7 +131,11 @@ const MessageItem: React.FunctionComponent<Props> = ({
         </View>
       </Button>
       {!isMyMessage && !readAt && (
-        <Icon name="md-lock" size={16} color={palette.yellow.default} />
+        url ? (
+          <View style={styles.dot} />
+        ) : (
+          <Icon name="md-lock" size={16} color={palette.yellow.default} />
+        )
       )}
     </View>
   );
