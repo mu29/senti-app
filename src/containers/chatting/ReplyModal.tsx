@@ -1,10 +1,13 @@
 import React, { useCallback } from 'react';
+import { Alert } from 'react-native';
 import {
   useQuery,
   useMutation,
+  useApolloClient,
 } from '@apollo/react-hooks';
 import { ReplyModal } from 'components';
 import {
+  FETCH_PROFILE,
   FETCH_MODAL,
   HIDE_MODAL,
   CREATE_CHATTING,
@@ -21,8 +24,14 @@ type ChattingFeedResult = {
 };
 
 const ReplyModalContainer: React.FunctionComponent<{}> = () => {
+  const client = useApolloClient();
+
   const { data } = useQuery(FETCH_MODAL, {
     variables: { id: 'Reply' },
+  });
+
+  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+    fetchPolicy: 'cache-only',
   });
 
   const [hideModal] = useMutation(HIDE_MODAL, {
@@ -49,7 +58,12 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
             },
           },
         });
-      } catch {}
+      } catch {} finally {
+        client.query({
+          query: FETCH_PROFILE,
+          fetchPolicy: 'network-only',
+        });
+      }
     },
   });
 
@@ -60,16 +74,32 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
       throw new Error(LocalizedStrings.STORY_REPLY_FAILURE);
     }
 
-    await createChatting({
-      variables: {
-        input: {
-          audio,
-          storyId,
+    return new Promise<void>((resolve, reject) => {
+      const createWithCoin = (useCoin: boolean) => createChatting({
+        variables: {
+          input: {
+            audio,
+            storyId,
+            useCoin,
+          },
         },
-      },
+      }).then(() => resolve()).catch(reject);
+
+      if (profile && profile.me && profile.me.coin > 0) {
+        Alert.alert(LocalizedStrings.REPLY_USE_COIN_TITLE, LocalizedStrings.REPLY_USE_COIN_MESSAGE, [{
+          text: LocalizedStrings.COMMON_CONFIRM,
+          onPress: () => createWithCoin(true),
+        }, {
+          text: LocalizedStrings.COMMON_CANCEL,
+          onPress: () => createWithCoin(false),
+          style: 'cancel',
+        }]);
+      } else {
+        createWithCoin(false);
+      }
+      AnalyticsService.logEvent('finish_create_chatting');
     });
-    AnalyticsService.logEvent('finish_create_chatting');
-  }, [createChatting, data]);
+  }, [createChatting, data, profile]);
 
   if (!data || !data.modal) {
     return null;

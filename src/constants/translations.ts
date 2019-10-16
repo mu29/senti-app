@@ -40,6 +40,8 @@ const TRANSLATIONS: {
     STORY_DELETE_FAILURE: (message: string) => string;
     STORY_REPLY_FAILURE: string;
     MY_STORY_EMPTY_MESSAGE: string;
+    REPLY_USE_COIN_TITLE: string;
+    REPLY_USE_COIN_MESSAGE: string;
     // 메시지
     MESSAGE_USE_COIN_TITLE: string;
     MESSAGE_USE_COIN_MESSAGE: string;
@@ -128,6 +130,8 @@ const TRANSLATIONS: {
     STORY_DELETE_FAILURE: (message) => `이야기 삭제에 실패했습니다.\n${message.replace('GraphQL error: ', '')}`,
     STORY_REPLY_FAILURE: '이 이야기에는 답장할 수 없습니다.',
     MY_STORY_EMPTY_MESSAGE: '첫 번째 이야기를 공유해 보세요!',
+    REPLY_USE_COIN_TITLE: '메시지 보내기',
+    REPLY_USE_COIN_MESSAGE: '1코인을 사용하여 메시지를 바로 들을 수 있게 하시겠어요?',
     // 메시지
     MESSAGE_USE_COIN_TITLE: '메시지 듣기',
     MESSAGE_USE_COIN_MESSAGE: '1코인을 사용하여 메시지를 확인하시겠습니까?',
@@ -215,6 +219,8 @@ const TRANSLATIONS: {
     STORY_DELETE_FAILURE: (message) => `Failed to delete story.\n${message.replace('GraphQL error: ', '')}`,
     STORY_REPLY_FAILURE: 'Can\'t reply to this message.',
     MY_STORY_EMPTY_MESSAGE: 'Share your first story!',
+    REPLY_USE_COIN_TITLE: 'Send Message',
+    REPLY_USE_COIN_MESSAGE: 'Do you want to recipient to listen this message immediately using 1 coin?',
     // 메시지
     MESSAGE_USE_COIN_TITLE: 'Load Message',
     MESSAGE_USE_COIN_MESSAGE: 'Do you want to load this message using 1 coin?',
