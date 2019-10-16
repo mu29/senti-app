@@ -77,6 +77,7 @@ const TRANSLATIONS: {
     CHATTING_MESSAGE_COUNT: (count: number) => string;
     MESSAGE_PLAY_FAILURE: (message: string) => string;
     // 코인
+    COIN_DESCRIPTION: string;
     COIN_COUNT: (coin: number) => string;
     COIN_CHARGE_BUTTON: string;
     COIN_DISCOUNT_RATE: (percent: string) => string;
@@ -167,6 +168,7 @@ const TRANSLATIONS: {
     CHATTING_MESSAGE_COUNT: (count) => `메시지 ${withComma(count)}개`,
     MESSAGE_PLAY_FAILURE: (message) => `메시지 재생에 실패했습니다.\n${message.replace('GraphQL error: ', '')}`,
     // 코인
+    COIN_DESCRIPTION: '코인을 사용하여 메시지를 듣거나,\n보낸 메시지를 코인 사용 없이 듣게 할 수 있습니다.',
     COIN_COUNT: (amount) => `${amount}코인`,
     COIN_CHARGE_BUTTON: '충전',
     COIN_DISCOUNT_RATE: (percent) => `${percent}% 할인!`,
@@ -256,6 +258,7 @@ const TRANSLATIONS: {
     CHATTING_MESSAGE_COUNT: (count) => `${withComma(count)} message${count > 1 ? 's' : ''}`,
     MESSAGE_PLAY_FAILURE: (message) => `Failed to play message.\n${message.replace('GraphQL error: ', '')}`,
     // 코인
+    COIN_DESCRIPTION: 'You can use coin to listen to the message.',
     COIN_COUNT: (amount) => `${amount} Coin${amount > 1 ? 's' : ''}`,
     COIN_CHARGE_BUTTON: 'Charge',
     COIN_DISCOUNT_RATE: (percent) => `${percent}% discount!`,

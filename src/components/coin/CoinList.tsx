@@ -1,13 +1,22 @@
-import React, { useCallback } from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   FlatList,
   StyleSheet,
+  View,
 } from 'react-native';
 import {
+  Text,
   CoinItem,
   RestoreButton,
 } from 'components';
-import { palette } from 'constants/style';
+import {
+  palette,
+  typography,
+} from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 interface Props {
   items: Coin[];
@@ -20,6 +29,14 @@ const CoinList: React.FunctionComponent<Props> = ({
   purchase,
   restore,
 }) => {
+  const Header = useMemo(() => (
+    <View style={styles.header}>
+      <Text style={styles.description}>
+        {LocalizedStrings.COIN_DESCRIPTION}
+      </Text>
+    </View>
+  ), []);
+
   const renderItem = useCallback(({ item }: { item: Coin }) => (
     <CoinItem item={item} purchase={purchase} />
   ), [purchase]);
@@ -35,6 +52,7 @@ const CoinList: React.FunctionComponent<Props> = ({
       showsHorizontalScrollIndicator={false}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
+      ListHeaderComponent={Header}
       ListFooterComponent={<RestoreButton restore={restore} />}
     />
   );
@@ -46,6 +64,15 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingVertical: 6,
+  },
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  description: {
+    ...typography.body2,
+    textAlign: 'center',
   },
 });
 
