@@ -3,7 +3,6 @@ import { Alert } from 'react-native';
 import {
   useQuery,
   useMutation,
-  useApolloClient,
 } from '@apollo/react-hooks';
 import { ReplyModal } from 'components';
 import {
@@ -24,8 +23,6 @@ type ChattingFeedResult = {
 };
 
 const ReplyModalContainer: React.FunctionComponent<{}> = () => {
-  const client = useApolloClient();
-
   const { data } = useQuery(FETCH_MODAL, {
     variables: { id: 'Reply' },
   });
@@ -39,7 +36,7 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
   });
 
   const [createChatting] = useMutation(CREATE_CHATTING, {
-    update: (cache, { data: { createChatting: chatting } }) => {
+    update: (cache, { data: { createChatting: { chatting, me } } }) => {
       try {
         const savedFeed = cache.readQuery<ChattingFeedResult>({
           query: FETCH_CHATTING_FEED,
@@ -58,12 +55,27 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
             },
           },
         });
-      } catch {} finally {
-        client.query({
+      } catch {}
+
+      try {
+        const savedProfile = cache.readQuery<{ me: Profile }>({
           query: FETCH_PROFILE,
-          fetchPolicy: 'network-only',
         });
-      }
+
+        if (!savedProfile) {
+          return;
+        }
+
+        cache.writeQuery({
+          query: FETCH_PROFILE,
+          data: {
+            me: {
+              ...savedProfile.me,
+              ...me,
+            },
+          },
+        });
+      } catch {}
     },
   });
 

@@ -54,11 +54,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
           query: FETCH_TRANSACTION_FEED,
         });
 
-        const savedProfile = cache.readQuery<{ me: Profile }>({
-          query: FETCH_PROFILE,
-        });
-
-        if (!savedFeed || !savedProfile) {
+        if (!savedFeed) {
           return;
         }
 
@@ -71,6 +67,17 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
             },
           },
         });
+
+      } catch {}
+
+      try {
+        const savedProfile = cache.readQuery<{ me: Profile }>({
+          query: FETCH_PROFILE,
+        });
+
+        if (!savedProfile) {
+          return;
+        }
 
         cache.writeQuery({
           query: FETCH_PROFILE,

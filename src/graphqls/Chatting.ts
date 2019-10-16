@@ -38,15 +38,20 @@ export const FETCH_CHATTING_FEED = gql`
 export const CREATE_CHATTING = gql`
   mutation createChatting($input: CreateChattingInput!) {
     createChatting(input: $input) {
-      id
-      partner {
+      chatting {
         id
-        name
-        photoUrl
+        partner {
+          id
+          name
+          photoUrl
+        }
+        messageCount
+        unreadMessageCount
+        updatedAt
       }
-      messageCount
-      unreadMessageCount
-      updatedAt
+      me {
+        coin
+      }
     }
   }
 `;
