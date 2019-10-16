@@ -58,7 +58,7 @@ const Badge: React.FunctionComponent<Props> = ({
       </AnimatedText>
     </Animated.View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -66,11 +66,11 @@ const styles = StyleSheet.create({
     top: 3,
     right: 12,
     paddingVertical: 1,
-    paddingHorizontal: 4,
+    paddingHorizontal: 5,
     borderRadius: 8,
     backgroundColor: palette.yellow.default,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     color: palette.black.default,

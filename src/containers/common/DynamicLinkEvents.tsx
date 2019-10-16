@@ -8,7 +8,7 @@ const DynamicLinkEvents: React.FunctionComponent<{}> = () => {
       .getInitialLink()
       .then((url) => {
         if (!url) {
-          return
+          return;
         }
 
         const path = url.replace(WEBSITE_URL, '');
