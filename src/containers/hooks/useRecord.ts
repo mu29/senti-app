@@ -16,11 +16,12 @@ function useRecord() {
   const [isLoading, setIsLoading] = useState(false);
 
   const start = useCallback(() => {
-    setIsStarted(true);
     if (isRecorded) {
+      setIsStarted(true);
       RecordService.play(() => setIsStarted(false));
     } else {
       RecordService.start()
+        .then(() => setIsStarted(true))
         .catch(e => Alert.alert(
           LocalizedStrings.COMMON_ERROR,
           LocalizedStrings.RECORD_FAILURE(e.message),

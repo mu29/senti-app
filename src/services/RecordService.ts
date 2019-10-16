@@ -12,13 +12,15 @@ class RecordService {
 
   private sound?: Sound;
 
-  public start = () => {
+  public start = async () => {
     if (this.isRecording) {
       return Promise.resolve();
     }
 
-    if (!this.requestMicrophonePermission()) {
-      return Promise.reject(LocalizedStrings.RECORD_FAILURE_REQUEST_PERMISSION);
+    const hasPermission = await this.requestMicrophonePermission();
+
+    if (!hasPermission) {
+      return Promise.reject({ message: LocalizedStrings.RECORD_FAILURE_REQUEST_PERMISSION });
     }
 
     this.release();
@@ -103,10 +105,8 @@ class RecordService {
 
       return granted === PermissionsAndroid.RESULTS.GRANTED;
     } catch (err) {
-      console.error(err);
+      return false;
     }
-
-    return false;
   }
 }
 
