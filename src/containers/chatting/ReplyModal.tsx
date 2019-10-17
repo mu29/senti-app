@@ -124,8 +124,14 @@ const Container: React.FunctionComponent<{}> = () => {
         resolve();
       }).catch(reject);
 
-      if (profile.coin > 0 || profile.canUseFreeCoinAt < Date.now()) {
-        Alert.alert(LocalizedStrings.REPLY_USE_COIN_TITLE, LocalizedStrings.REPLY_USE_COIN_MESSAGE, [{
+      const canUseCoin = profile.coin > 0;
+      const canUseFreeCoin = profile.canUseFreeCoinAt < Date.now();
+      const message = canUseFreeCoin
+        ? LocalizedStrings.REPLY_USE_FREE_COIN_MESSAGE
+        : LocalizedStrings.REPLY_USE_COIN_MESSAGE;
+
+      if (canUseCoin || canUseFreeCoin) {
+        Alert.alert(LocalizedStrings.REPLY_USE_COIN_TITLE, message, [{
           text: LocalizedStrings.COMMON_CONFIRM,
           onPress: () => createWithPurchase(true),
         }, {

@@ -142,8 +142,8 @@ android {
         applicationId "com.senti.app"
         minSdkVersion safeExtGet('minSdkVersion', 19)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
-        versionName "0.0.11"
-        versionCode 11
+        versionName "0.0.12"
+        versionCode 12
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
@@ -172,7 +172,7 @@ android {
             resValue "string", "app_name", "@string/app_name_debug"
             resValue "string", "facebook_app_id", "576748566193001"
             resValue "string", "dynamic_link_host", "sentidev.page.link"
-            buildConfigField "String", 'API_URL', '"http://10.78.64.120:5005"'
+            buildConfigField "String", 'API_URL', '"http://172.20.10.2:5005"'
             buildConfigField "String", 'WEBSITE_URL', '"https://staging.senti.in"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '""'
