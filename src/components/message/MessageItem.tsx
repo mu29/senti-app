@@ -34,6 +34,7 @@ interface Props {
   profile: Profile;
   isLoading: boolean;
   loadAudio: () => void;
+  readMessage: () => void;
 }
 
 const MessageItem: React.FunctionComponent<Props> = ({
@@ -49,6 +50,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
   profile,
   isLoading,
   loadAudio,
+  readMessage,
 }) => {
   const isInitialLoaded = useRef(false);
 
@@ -87,6 +89,10 @@ const MessageItem: React.FunctionComponent<Props> = ({
       // 그 외의 경우
       Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH);
       return;
+    }
+
+    if (!readAt) {
+      readMessage();
     }
 
     audio.isPlaying ? pause() : play();

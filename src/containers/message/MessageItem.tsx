@@ -6,12 +6,14 @@ import { Alert } from 'react-native';
 import {
   useQuery,
   useApolloClient,
+  useMutation,
 } from '@apollo/react-hooks';
 import { MessageItem } from 'components';
 import {
   FETCH_PROFILE,
   FETCH_MESSAGE,
   FETCH_CHATTING,
+  READ_MESSAGE,
 } from 'graphqls';
 import { LocalizedStrings } from 'constants/translations';
 
@@ -30,6 +32,13 @@ const Container: React.FunctionComponent<Props> = ({
 
   const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
+  });
+
+  const [readMessage] = useMutation(READ_MESSAGE, {
+    variables: {
+      chattingId,
+      id: item.id,
+    }
   });
 
   const loadAudio = useCallback(() => {
@@ -72,6 +81,7 @@ const Container: React.FunctionComponent<Props> = ({
       profile={profile.me}
       isLoading={isLoading}
       loadAudio={loadAudio}
+      readMessage={readMessage}
     />
   );
 };

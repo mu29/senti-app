@@ -36,6 +36,15 @@ export const FETCH_MESSAGE = gql`
   }
 `;
 
+export const READ_MESSAGE = gql`
+  mutation readMessage($chattingId: ID!, $id: ID!) {
+    readMessage(chattingId: $chattingId, id: $id) {
+      id
+      readAt
+    }
+  }
+`;
+
 export const CREATE_MESSAGE = gql`
   mutation createMessage($input: CreateMessageInput!) {
     createMessage(input: $input) {
