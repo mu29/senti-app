@@ -83,12 +83,12 @@ const Container: React.FunctionComponent<{}> = () => {
         return reject({ message: LocalizedStrings.ERROR_AUTH_REQUIRED });
       }
 
-      const createWithCoin = (useCoin: boolean) => createChatting({
+      const createWithPurchase = (purchase: boolean) => createChatting({
         variables: {
           input: {
             audio,
             storyId,
-            useCoin,
+            purchase,
           },
         },
       }).then(() => {
@@ -99,14 +99,14 @@ const Container: React.FunctionComponent<{}> = () => {
       if (profile.coin > 0 || profile.canUseFreeCoinAt < Date.now()) {
         Alert.alert(LocalizedStrings.REPLY_USE_COIN_TITLE, LocalizedStrings.REPLY_USE_COIN_MESSAGE, [{
           text: LocalizedStrings.COMMON_CONFIRM,
-          onPress: () => createWithCoin(true),
+          onPress: () => createWithPurchase(true),
         }, {
           text: LocalizedStrings.COMMON_CANCEL,
-          onPress: () => createWithCoin(false),
+          onPress: () => createWithPurchase(false),
           style: 'cancel',
         }]);
       } else {
-        createWithCoin(false);
+        createWithPurchase(false);
       }
     });
   }, [createChatting, modal, profile]);
