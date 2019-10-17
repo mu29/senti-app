@@ -11,9 +11,17 @@ import {
   HIDE_MODAL,
   CREATE_CHATTING,
   FETCH_CHATTING_FEED,
+  FETCH_TRANSACTION_FEED,
 } from 'graphqls';
 import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
+
+type TransactionFeedResult = {
+  transactionFeed: {
+    transactions: Transaction[];
+    cursor: string;
+  };
+};
 
 type ChattingFeedResult = {
   chattingFeed: {
@@ -48,7 +56,7 @@ const Container: React.FunctionComponent<{}> = () => {
   });
 
   const [createChatting] = useMutation(CREATE_CHATTING, {
-    update: (cache, { data: { createChatting: { chatting } } }) => {
+    update: (cache, { data: { createChatting: { chatting, transaction } } }) => {
       try {
         const data = cache.readQuery<ChattingFeedResult>({
           query: FETCH_CHATTING_FEED,
@@ -64,6 +72,26 @@ const Container: React.FunctionComponent<{}> = () => {
             chattingFeed: {
               ...data.chattingFeed,
               chattings: [chatting, ...data.chattingFeed.chattings],
+            },
+          },
+        });
+      } catch {}
+
+      try {
+        const data = cache.readQuery<TransactionFeedResult>({
+          query: FETCH_TRANSACTION_FEED,
+        });
+
+        if (!data || !transaction) {
+          return;
+        }
+
+        cache.writeQuery({
+          query: FETCH_TRANSACTION_FEED,
+          data: {
+            transactionFeed: {
+              ...data.transactionFeed,
+              transactions: [transaction, ...data.transactionFeed.transactions],
             },
           },
         });
