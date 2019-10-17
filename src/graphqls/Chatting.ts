@@ -54,6 +54,12 @@ export const CREATE_CHATTING = gql`
         coin
         canUseFreeCoinAt
       }
+      transaction {
+        id
+        description
+        amount
+        createdAt
+      }
     }
   }
 `;
