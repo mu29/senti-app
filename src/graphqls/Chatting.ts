@@ -50,7 +50,9 @@ export const CREATE_CHATTING = gql`
         updatedAt
       }
       profile {
+        id
         coin
+        canUseFreeCoinAt
       }
     }
   }
