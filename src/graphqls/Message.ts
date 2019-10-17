@@ -22,16 +22,28 @@ export const FETCH_MESSAGE_FEED = gql`
   }
 `;
 
-export const FETCH_MESSAGE = gql`
-  query fetchMessage($chattingId: ID!, $id: ID!) {
-    message(chattingId: $chattingId, id: $id) {
-      id
-      audio {
+export const PURCHASE_MESSAGE = gql`
+  mutation purchaseMessage($chattingId: ID!, $id: ID!) {
+    purchaseMessage(chattingId: $chattingId, id: $id) {
+      message {
         id
-        url
-        duration
+        audio {
+          id
+          url
+          duration
+        }
+        readAt
       }
-      readAt
+      chatting {
+        id
+        unreadMessageCount
+      }
+      me {
+        id
+        coin
+        canUseFreeCoinAt
+        updatedAt
+      }
     }
   }
 `;

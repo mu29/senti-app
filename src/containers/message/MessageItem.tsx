@@ -11,7 +11,7 @@ import {
 import { MessageItem } from 'components';
 import {
   FETCH_PROFILE,
-  FETCH_MESSAGE,
+  PURCHASE_MESSAGE,
   FETCH_CHATTING,
   READ_MESSAGE,
 } from 'graphqls';
@@ -34,6 +34,13 @@ const Container: React.FunctionComponent<Props> = ({
     fetchPolicy: 'cache-only',
   });
 
+  const [purchaseMessage] = useMutation(PURCHASE_MESSAGE, {
+    variables: {
+      chattingId,
+      id: item.id,
+    }
+  });
+
   const [readMessage] = useMutation(READ_MESSAGE, {
     variables: {
       chattingId,
@@ -43,32 +50,12 @@ const Container: React.FunctionComponent<Props> = ({
 
   const loadAudio = useCallback(() => {
     setIsLoading(true);
-    client.query({
-      query: FETCH_MESSAGE,
-      variables: {
-        chattingId,
-        id: item.id,
-      },
-      fetchPolicy: 'network-only',
-    })
-    .then(() => Promise.all([
-      client.query({
-        query: FETCH_CHATTING,
-        variables: {
-          id: chattingId,
-        },
-        fetchPolicy: 'network-only',
-      }),
-      client.query({
-        query: FETCH_PROFILE,
-        fetchPolicy: 'network-only',
-      }),
-    ]))
-    .catch(e => Alert.alert(
-      LocalizedStrings.COMMON_ERROR,
-      LocalizedStrings.MESSAGE_PLAY_FAILURE(e.message),
-    ))
-    .finally(() => setIsLoading(false));
+    purchaseMessage()
+      .catch(e => Alert.alert(
+        LocalizedStrings.COMMON_ERROR,
+        LocalizedStrings.MESSAGE_PLAY_FAILURE(e.message),
+      ))
+      .finally(() => setIsLoading(false));
   }, [chattingId, client, item.id]);
 
   if (!profile || !profile.me) {
