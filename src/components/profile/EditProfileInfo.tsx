@@ -77,7 +77,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
   }, []);
 
   const openPrivacy = useCallback(() => {
-    const url = `${WEBSITE_URL}/privacy.html`;
+    const url = `${WEBSITE_URL}/terms.html`;
     navigation.navigate('WebView', { url });
   }, [navigation]);
 

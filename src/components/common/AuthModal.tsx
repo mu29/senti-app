@@ -33,7 +33,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
   hide,
 }) => {
   const openPrivacy = useCallback(() => {
-    const url = `${WEBSITE_URL}/privacy.html`;
+    const url = `${WEBSITE_URL}/terms.html`;
     NavigationService.navigate('WebView', { url });
     hide();
   }, [hide]);
