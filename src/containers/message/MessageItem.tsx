@@ -5,14 +5,12 @@ import React, {
 import { Alert } from 'react-native';
 import {
   useQuery,
-  useApolloClient,
   useMutation,
 } from '@apollo/react-hooks';
 import { MessageItem } from 'components';
 import {
   FETCH_PROFILE,
   PURCHASE_MESSAGE,
-  FETCH_CHATTING,
   READ_MESSAGE,
 } from 'graphqls';
 import { LocalizedStrings } from 'constants/translations';
@@ -28,8 +26,6 @@ const Container: React.FunctionComponent<Props> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const client = useApolloClient();
-
   const {
     data: {
       profile,
@@ -44,14 +40,14 @@ const Container: React.FunctionComponent<Props> = ({
     variables: {
       chattingId,
       id: item.id,
-    }
+    },
   });
 
   const [readMessage] = useMutation(READ_MESSAGE, {
     variables: {
       chattingId,
       id: item.id,
-    }
+    },
   });
 
   const loadAudio = useCallback(() => {
@@ -62,7 +58,7 @@ const Container: React.FunctionComponent<Props> = ({
         LocalizedStrings.MESSAGE_PLAY_FAILURE(e.message),
       ))
       .finally(() => setIsLoading(false));
-  }, [chattingId, client, item.id]);
+  }, [purchaseMessage]);
 
   if (!profile) {
     return null;

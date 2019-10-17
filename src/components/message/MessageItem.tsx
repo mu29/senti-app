@@ -63,41 +63,48 @@ const MessageItem: React.FunctionComponent<Props> = ({
   const isMyMessage = useMemo(() => user.id === profile.id, [user.id, profile.id]);
 
   const toggle = useCallback(() => {
-    if (!url) {
-      AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_play`);
+    AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_play`);
 
-      // 무료 코인 사용 가능
-      if (profile.canUseFreeCoinAt < Date.now()) {
-        loadAudio();
-        return;
+    // 바로 재생 가능한 메시지
+    if (url) {
+      // 받은 메시지인데 읽지 않은 경우 = 무료 메시지를 받은 경우
+      if (!isMyMessage && !readAt) {
+        readMessage();
       }
 
-      // 코인 사용 가능
-      if (profile.coin > 0) {
-        Alert.alert(LocalizedStrings.MESSAGE_USE_COIN_TITLE, LocalizedStrings.MESSAGE_USE_COIN_MESSAGE, [{
-          text: LocalizedStrings.COMMON_CONFIRM,
-          onPress: () => loadAudio(),
-        }, {
-          text: LocalizedStrings.COMMON_CANCEL,
-          style: 'cancel',
-        }], {
-          cancelable: true,
-        });
-        return;
-      }
-
-      // 그 외의 경우
-      Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH);
+      audio.isPlaying ? pause() : play();
       return;
     }
 
-    if (!readAt) {
-      readMessage();
+    // 내 메시지
+    if (isMyMessage) {
+      loadAudio();
+      return;
     }
 
-    audio.isPlaying ? pause() : play();
-    AnalyticsService.logEvent(`click_${isMyMessage ? 'my' : 'partner'}_message_${audio.isPlaying ? 'pause' : 'play'}`);
-  }, [url, audio.isPlaying, pause, play, isMyMessage, profile.canUseFreeCoinAt, profile.coin, loadAudio]);
+    // 무료 코인 사용 가능
+    if (profile.canUseFreeCoinAt < Date.now()) {
+      loadAudio();
+      return;
+    }
+
+    // 코인 사용 가능
+    if (profile.coin > 0) {
+      Alert.alert(LocalizedStrings.MESSAGE_USE_COIN_TITLE, LocalizedStrings.MESSAGE_USE_COIN_MESSAGE, [{
+        text: LocalizedStrings.COMMON_CONFIRM,
+        onPress: () => loadAudio(),
+      }, {
+        text: LocalizedStrings.COMMON_CANCEL,
+        style: 'cancel',
+      }], {
+        cancelable: true,
+      });
+      return;
+    }
+
+    // 그 외의 경우
+    Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.MESSAGE_USE_COIN_FAILURE_NOT_ENOUGH);
+  }, [isMyMessage, url, profile.canUseFreeCoinAt, profile.coin, readAt, audio.isPlaying, pause, play, readMessage, loadAudio]);
 
   useEffect(() => {
     if (!isInitialLoaded.current) {

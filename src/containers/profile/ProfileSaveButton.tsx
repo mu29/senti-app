@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+} from 'react';
 import {
   useQuery,
   useMutation,
 } from '@apollo/react-hooks';
 import { ProfileSaveButton } from 'components';
 import {
-  FETCH_PROFILE,
   FETCH_CANDIDATE,
   CLEAR_CANDIDATE,
   UPDATE_PROFILE,
