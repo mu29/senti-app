@@ -55,6 +55,10 @@ export const READ_MESSAGE = gql`
         id
         readAt
       }
+      chatting {
+        id
+        unreadMessageCount
+      }
     }
   }
 `;
