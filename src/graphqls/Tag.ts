@@ -2,13 +2,23 @@ import gql from 'graphql-tag';
 
 export const SUBSCRIBE_TAG = gql`
   mutation subscribeTag($id: ID!) {
-    subscribeTag(id: $id)
+    subscribeTag(id: $id) {
+      profile {
+        id
+        tags
+      }
+    }
   }
 `;
 
 export const UNSUBSCRIBE_TAG = gql`
   mutation unsubscribeTag($id: ID!) {
-    unsubscribeTag(id: $id)
+    unsubscribeTag(id: $id) {
+      profile {
+        id
+        tags
+      }
+    }
   }
 `;
 

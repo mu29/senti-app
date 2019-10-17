@@ -23,7 +23,11 @@ type TransactionFeedResult = {
 
 const Container: React.FunctionComponent<{}> = () => {
   const {
-    data,
+    data: {
+      transactionFeed,
+    } = {
+      transactionFeed: undefined,
+    },
     networkStatus,
     error,
     fetchMore,
@@ -38,16 +42,14 @@ const Container: React.FunctionComponent<{}> = () => {
     return <ErrorView reload={reload} message={error ? error.message : ''} scrollable />;
   }
 
-  if (!data || !data.transactionFeed) {
+  if (!transactionFeed) {
     return <LoadingView />;
   }
 
   const {
-    transactionFeed: {
-      transactions,
-      cursor,
-    },
-  } = data;
+    transactions,
+    cursor,
+  } = transactionFeed;
 
   return (
     <TransactionList

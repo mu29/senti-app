@@ -18,12 +18,12 @@ class NotificationService {
       return;
     }
 
-    this.client.query<{ me: Profile }>({
+    this.client.query<{ profile: Profile }>({
       query: FETCH_PROFILE,
       fetchPolicy: 'network-only',
     }).then(({ data }) => {
-      if (data && data.me) {
-        firebase.notifications().setBadge(data.me.badgeCount || 0);
+      if (data && data.profile) {
+        firebase.notifications().setBadge(data.profile.badgeCount || 0);
       }
     }).catch(console.error);
   }
@@ -33,28 +33,7 @@ class NotificationService {
     firebase.notifications().removeAllDeliveredNotifications();
 
     if (this.client) {
-      this.client.mutate({
-        mutation: CLEAR_BADGE_COUNT,
-        update: (cache) => {
-          try {
-            const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
-
-            if (!savedProfile) {
-              return;
-            }
-
-            cache.writeQuery({
-              query: FETCH_PROFILE,
-              data: {
-                me: {
-                  ...savedProfile.me,
-                  badgeCount: 0,
-                },
-              },
-            });
-          } catch {}
-        },
-      });
+      this.client.mutate({ mutation: CLEAR_BADGE_COUNT });
     }
   }
 }

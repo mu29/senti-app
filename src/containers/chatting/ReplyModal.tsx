@@ -22,12 +22,24 @@ type ChattingFeedResult = {
   };
 };
 
-const ReplyModalContainer: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery(FETCH_MODAL, {
+const Container: React.FunctionComponent<{}> = () => {
+  const {
+    data: {
+      modal,
+    } = {
+      modal: undefined,
+    },
+  } = useQuery<{ modal: Modal }>(FETCH_MODAL, {
     variables: { id: 'Reply' },
   });
 
-  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
@@ -36,13 +48,13 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
   });
 
   const [createChatting] = useMutation(CREATE_CHATTING, {
-    update: (cache, { data: { createChatting: { chatting, me } } }) => {
+    update: (cache, { data: { createChatting: { chatting } } }) => {
       try {
-        const savedFeed = cache.readQuery<ChattingFeedResult>({
+        const data = cache.readQuery<ChattingFeedResult>({
           query: FETCH_CHATTING_FEED,
         });
 
-        if (!savedFeed) {
+        if (!data) {
           return;
         }
 
@@ -50,28 +62,8 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
           query: FETCH_CHATTING_FEED,
           data: {
             chattingFeed: {
-              ...savedFeed.chattingFeed,
-              chattings: [chatting, ...savedFeed.chattingFeed.chattings],
-            },
-          },
-        });
-      } catch {}
-
-      try {
-        const savedProfile = cache.readQuery<{ me: Profile }>({
-          query: FETCH_PROFILE,
-        });
-
-        if (!savedProfile) {
-          return;
-        }
-
-        cache.writeQuery({
-          query: FETCH_PROFILE,
-          data: {
-            me: {
-              ...savedProfile.me,
-              ...me,
+              ...data.chattingFeed,
+              chattings: [chatting, ...data.chattingFeed.chattings],
             },
           },
         });
@@ -80,14 +72,14 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
   });
 
   const create = useCallback(async (audio) => {
-    const storyId = data && data.modal && data.modal.params && JSON.parse(data.modal.params).id;
+    const storyId = modal && modal.params && JSON.parse(modal.params).id;
 
     if (!storyId) {
       throw new Error(LocalizedStrings.STORY_REPLY_FAILURE);
     }
 
     return new Promise<void>((resolve, reject) => {
-      if (!profile || !profile.me) {
+      if (!profile) {
         return reject({ message: LocalizedStrings.ERROR_AUTH_REQUIRED });
       }
 
@@ -104,7 +96,7 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
         resolve();
       }).catch(reject);
 
-      if (profile.me.coin > 0 || profile.me.canUseFreeCoinAt < Date.now()) {
+      if (profile.coin > 0 || profile.canUseFreeCoinAt < Date.now()) {
         Alert.alert(LocalizedStrings.REPLY_USE_COIN_TITLE, LocalizedStrings.REPLY_USE_COIN_MESSAGE, [{
           text: LocalizedStrings.COMMON_CONFIRM,
           onPress: () => createWithCoin(true),
@@ -117,19 +109,19 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
         createWithCoin(false);
       }
     });
-  }, [createChatting, data, profile]);
+  }, [createChatting, modal, profile]);
 
-  if (!data || !data.modal) {
+  if (!modal) {
     return null;
   }
 
   return (
     <ReplyModal
-      isVisible={data.modal.isVisible}
+      isVisible={modal.isVisible}
       hide={hideModal}
       create={create}
     />
   );
 };
 
-export default React.memo(ReplyModalContainer);
+export default React.memo(Container);

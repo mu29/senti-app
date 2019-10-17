@@ -24,7 +24,11 @@ interface Props {
 
 const Container: React.FunctionComponent<Props> = (props) => {
   const {
-    data,
+    data: {
+      myStoryFeed,
+    } = {
+      myStoryFeed: undefined,
+    },
     networkStatus,
     error,
     fetchMore,
@@ -38,16 +42,14 @@ const Container: React.FunctionComponent<Props> = (props) => {
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (networkStatus === NetworkStatus.loading || !data || !data.myStoryFeed) {
+  if (networkStatus === NetworkStatus.loading || !myStoryFeed) {
     return <LoadingView dark />;
   }
 
   const {
-    myStoryFeed: {
-      stories,
-      cursor,
-    },
-  } = data;
+    stories,
+    cursor,
+  } = myStoryFeed;
 
   return (
     <StoryList

@@ -12,7 +12,13 @@ import {
 import covers from 'constants/covers';
 
 const CoverModalContainer: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery(FETCH_MODAL, {
+  const {
+    data: {
+      modal,
+    } = {
+      modal: undefined,
+    },
+  } = useQuery<{ modal: Modal }>(FETCH_MODAL, {
     variables: { id: 'Cover' },
   });
 
@@ -26,13 +32,13 @@ const CoverModalContainer: React.FunctionComponent<{}> = () => {
     updateDraft({ variables: { cover } });
   }, [updateDraft]);
 
-  if (!data || !data.modal) {
+  if (!modal) {
     return null;
   }
 
   return (
     <CoverModal
-      isVisible={data.modal.isVisible}
+      isVisible={modal.isVisible}
       items={covers}
       updateCover={updateCover}
       hide={hideModal}

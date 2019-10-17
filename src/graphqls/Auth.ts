@@ -20,7 +20,7 @@ export const REMOVE_FCM_TOKEN = gql`
 
 export const FETCH_PROFILE = gql`
   query fetchProfile {
-    me {
+    profile {
       id
       email
       name
@@ -58,17 +58,24 @@ export const CLEAR_CANDIDATE = gql`
 export const UPDATE_PROFILE = gql`
   mutation updateProfile($input: UpdateProfileInput!) {
     updateProfile(input: $input) {
-      id
-      name
-      gender
-      photoUrl
+      profile {
+        id
+        name
+        gender
+        photoUrl
+      }
     }
   }
 `;
 
 export const CLEAR_BADGE_COUNT = gql`
   mutation clearBadgeCount {
-    clearBadgeCount
+    clearBadgeCount {
+      profile {
+        id
+        badgeCount
+      }
+    }
   }
 `;
 

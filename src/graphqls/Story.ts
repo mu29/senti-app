@@ -90,20 +90,22 @@ export const FETCH_MY_STORY_FEED = gql`
 export const CREATE_STORY = gql`
   mutation createStory($input: CreateStoryInput!) {
     createStory(input: $input) {
-      id
-      cover
-      tags
-      user {
+      story {
         id
-        name
-        photoUrl
+        cover
+        tags
+        user {
+          id
+          name
+          photoUrl
+        }
+        audio {
+          id
+          url
+          duration
+        }
+        createdAt
       }
-      audio {
-        id
-        url
-        duration
-      }
-      createdAt
     }
   }
 `;

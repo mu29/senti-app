@@ -26,7 +26,11 @@ const Container: React.FunctionComponent<{}> = () => {
   const [hasEndReached, setHasEndReached] = useState(false);
 
   const {
-    data,
+    data: {
+      myStoryFeed,
+    } = {
+      myStoryFeed: undefined,
+    },
     networkStatus,
     error,
     fetchMore,
@@ -41,16 +45,14 @@ const Container: React.FunctionComponent<{}> = () => {
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (!data || !data.myStoryFeed) {
+  if (!myStoryFeed) {
     return <LoadingView />;
   }
 
   const {
-    myStoryFeed: {
-      stories,
-      cursor,
-    },
-  } = data;
+    stories,
+    cursor,
+  } = myStoryFeed;
 
   if (stories.length === 0) {
     return <StoryEmptyList />;

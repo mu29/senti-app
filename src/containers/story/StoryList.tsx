@@ -23,7 +23,11 @@ type MainStoryFeedResult = {
 
 const Container: React.FunctionComponent<{}> = () => {
   const {
-    data,
+    data: {
+      mainStoryFeed,
+    } = {
+      mainStoryFeed: undefined,
+    },
     networkStatus,
     error,
     fetchMore,
@@ -38,16 +42,14 @@ const Container: React.FunctionComponent<{}> = () => {
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (networkStatus === NetworkStatus.loading || !data || !data.mainStoryFeed) {
+  if (networkStatus === NetworkStatus.loading || !mainStoryFeed) {
     return <LoadingView dark />;
   }
 
   const {
-    mainStoryFeed: {
-      stories,
-      cursor,
-    },
-  } = data;
+    stories,
+    cursor,
+  } = mainStoryFeed;
 
   return (
     <StoryList

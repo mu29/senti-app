@@ -29,7 +29,11 @@ const Container: React.FunctionComponent<Props> = ({
   tagId,
 }) => {
   const {
-    data,
+    data: {
+      tagStoryFeed,
+    } = {
+      tagStoryFeed: undefined,
+    },
     networkStatus,
     error,
     fetchMore,
@@ -47,16 +51,14 @@ const Container: React.FunctionComponent<Props> = ({
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (networkStatus === NetworkStatus.loading || !data || !data.tagStoryFeed) {
+  if (networkStatus === NetworkStatus.loading || !tagStoryFeed) {
     return <LoadingView dark />;
   }
 
   const {
-    tagStoryFeed: {
-      stories,
-      cursor,
-    },
-  } = data;
+    stories,
+    cursor,
+  } = tagStoryFeed;
 
   return (
     <StoryList

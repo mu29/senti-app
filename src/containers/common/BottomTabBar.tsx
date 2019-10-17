@@ -20,8 +20,14 @@ interface Props {
   onTabPress: ({ route }: { route: NavigationRoute<NavigationParams> }) => void;
 }
 
-const BottomTabBarContainer: React.FunctionComponent<Props & BottomTabBarProps> = (props) => {
-  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+const Container: React.FunctionComponent<Props & BottomTabBarProps> = (props) => {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
@@ -30,12 +36,12 @@ const BottomTabBarContainer: React.FunctionComponent<Props & BottomTabBarProps> 
   });
 
   const badges = useMemo(() => ({
-    3: profile && profile.me ? profile.me.badgeCount : 0,
+    3: profile ? profile.badgeCount : 0,
   }), [profile]);
 
   return (
     <BottomTabBar
-      isLoggedIn={!!(profile && profile.me)}
+      isLoggedIn={!!profile}
       badges={badges}
       showAuthModal={showModal}
       {...props}
@@ -43,4 +49,4 @@ const BottomTabBarContainer: React.FunctionComponent<Props & BottomTabBarProps> 
   );
 };
 
-export default React.memo(BottomTabBarContainer);
+export default React.memo(Container);

@@ -29,16 +29,28 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
-  const { data } = useQuery<{ candidate: Candidate }>(FETCH_CANDIDATE);
+  const {
+    data: {
+      candidate,
+    } = {
+      candidate: undefined,
+    },
+  } = useQuery<{ candidate: Candidate }>(FETCH_CANDIDATE);
 
   const [updateCandidate] = useMutation(UPDATE_CANDIDATE);
 
-  const update = useCallback((candidate: Candidate) => {
-    updateCandidate({ variables: candidate });
+  const update = useCallback((value: Candidate) => {
+    updateCandidate({ variables: value });
   }, [updateCandidate]);
 
   const signOut = useCallback(async () => {
@@ -66,14 +78,14 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
       });
   }, [client, navigation]);
 
-  if (!profile || !profile.me || !data || !data.candidate) {
+  if (!profile || !candidate) {
     return null;
   }
 
   return (
     <EditProfileInfo
-      profile={profile.me}
-      candidate={data.candidate}
+      profile={profile}
+      candidate={candidate}
       isLoading={isLoading}
       updateCandidate={update}
       signOut={signOut}

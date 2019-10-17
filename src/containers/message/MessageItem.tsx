@@ -30,7 +30,13 @@ const Container: React.FunctionComponent<Props> = ({
 
   const client = useApolloClient();
 
-  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
@@ -58,14 +64,14 @@ const Container: React.FunctionComponent<Props> = ({
       .finally(() => setIsLoading(false));
   }, [chattingId, client, item.id]);
 
-  if (!profile || !profile.me) {
+  if (!profile) {
     return null;
   }
 
   return (
     <MessageItem
       item={item}
-      profile={profile.me}
+      profile={profile}
       isLoading={isLoading}
       loadAudio={loadAudio}
       readMessage={readMessage}

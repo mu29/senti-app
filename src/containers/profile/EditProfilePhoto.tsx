@@ -19,31 +19,17 @@ import { LocalizedStrings } from 'constants/translations';
 const Container: React.FunctionComponent<{}> = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { data } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
-  const [updateProfile] = useMutation(UPDATE_PROFILE, {
-    update: (cache, { data: { updateProfile: newProfile } }) => {
-      try {
-        const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
-
-        if (!savedProfile) {
-          return;
-        }
-
-        cache.writeQuery({
-          query: FETCH_PROFILE,
-          data: {
-            me: {
-              ...savedProfile.me,
-              ...newProfile,
-            },
-          },
-        });
-      } catch {}
-    },
-  });
+  const [updateProfile] = useMutation(UPDATE_PROFILE);
 
   const updateProfilePhoto = useCallback((path: string) => {
     const id = uuidv4();
@@ -69,13 +55,13 @@ const Container: React.FunctionComponent<{}> = () => {
       .finally(() => setIsLoading(false));
   }, [updateProfile]);
 
-  if (!data || !data.me) {
+  if (!profile) {
     return null;
   }
 
   return (
     <EditProfilePhoto
-      photoUrl={data.me.photoUrl}
+      photoUrl={profile.photoUrl}
       isLoading={isLoading}
       updateProfilePhoto={updateProfilePhoto}
     />

@@ -20,6 +20,10 @@ import {
 } from 'graphqls';
 import { AnalyticsService } from 'services';
 
+type DraftResult = {
+  draft: Draft;
+};
+
 type MainStoryFeedResult = {
   mainStoryFeed: {
     stories: Story[];
@@ -37,16 +41,20 @@ type MyStoryFeedResult = {
 const Container: React.FunctionComponent<NavigationInjectedProps> = ({
   navigation,
 }) => {
-  const { data } = useQuery(FETCH_DRAFT);
+  const {
+    data: {
+      draft,
+    },
+  } = useQuery(FETCH_DRAFT) as { data: DraftResult };
 
   const [createStory] = useMutation(CREATE_STORY, {
-    update: (cache, { data: { createStory: story } }) => {
+    update: (cache, { data: { createStory: { story } } }) => {
       try {
-        const savedMainFeed = cache.readQuery<MainStoryFeedResult>({
+        const data = cache.readQuery<MainStoryFeedResult>({
           query: FETCH_MAIN_STORY_FEED,
         });
 
-        if (!savedMainFeed) {
+        if (!data) {
           return;
         }
 
@@ -54,19 +62,19 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
           query: FETCH_MAIN_STORY_FEED,
           data: {
             mainStoryFeed: {
-              ...savedMainFeed.mainStoryFeed,
-              stories: [story, ...savedMainFeed.mainStoryFeed.stories],
+              ...data.mainStoryFeed,
+              stories: [story, ...data.mainStoryFeed.stories],
             },
           },
         });
       } catch {}
 
       try {
-        const savedMyFeed = cache.readQuery<MyStoryFeedResult>({
+        const data = cache.readQuery<MyStoryFeedResult>({
           query: FETCH_MY_STORY_FEED,
         });
 
-        if (!savedMyFeed) {
+        if (!data) {
           return;
         }
 
@@ -74,8 +82,8 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
           query: FETCH_MY_STORY_FEED,
           data: {
             myStoryFeed: {
-              ...savedMyFeed.myStoryFeed,
-              stories: [story, ...savedMyFeed.myStoryFeed.stories],
+              ...data.myStoryFeed,
+              stories: [story, ...data.myStoryFeed.stories],
             },
           },
         });
@@ -90,13 +98,13 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
       variables: {
         input: {
           audio,
-          cover: data.draft.cover,
-          tags: data.draft.tags,
+          cover: draft.cover,
+          tags: draft.tags,
         },
       },
     });
     AnalyticsService.logEvent('finish_create_story');
-  }, [createStory, data.draft]);
+  }, [createStory, draft]);
 
   const finish = useCallback(() => navigation.goBack(), [navigation]);
 

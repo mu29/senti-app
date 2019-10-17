@@ -10,7 +10,13 @@ import {
 } from 'graphqls';
 
 const Container: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery(FETCH_MODAL, {
+  const {
+    data: {
+      modal,
+    } = {
+      modal: undefined,
+    },
+  } = useQuery<{ modal: Modal }>(FETCH_MODAL, {
     variables: { id: 'Coin' },
   });
 
@@ -18,13 +24,13 @@ const Container: React.FunctionComponent<{}> = () => {
     variables: { id: 'Coin' },
   });
 
-  if (!data || !data.modal) {
+  if (!modal) {
     return null;
   }
 
   return (
     <CoinModal
-      isVisible={data.modal.isVisible}
+      isVisible={modal.isVisible}
       hide={hideModal}
     />
   );

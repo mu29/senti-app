@@ -36,7 +36,13 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
   item,
   ...props
 }) => {
-  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
@@ -61,11 +67,11 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
     },
     update: (cache) => {
       try {
-        const savedMainFeed = cache.readQuery<MainStoryFeedResult>({
+        const data = cache.readQuery<MainStoryFeedResult>({
           query: FETCH_MAIN_STORY_FEED,
         });
 
-        if (!savedMainFeed) {
+        if (!data) {
           return;
         }
 
@@ -73,8 +79,8 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
           query: FETCH_MAIN_STORY_FEED,
           data: {
             mainStoryFeed: {
-              ...savedMainFeed.mainStoryFeed,
-              stories: savedMainFeed.mainStoryFeed.stories.filter(story => story.user.id !== item.user.id),
+              ...data.mainStoryFeed,
+              stories: data.mainStoryFeed.stories.filter(story => story.user.id !== item.user.id),
             },
           },
         });
@@ -88,11 +94,11 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
     },
     update: (cache) => {
       try {
-        const savedMainFeed = cache.readQuery<MainStoryFeedResult>({
+        const data = cache.readQuery<MainStoryFeedResult>({
           query: FETCH_MAIN_STORY_FEED,
         });
 
-        if (!savedMainFeed) {
+        if (!data) {
           return;
         }
 
@@ -100,8 +106,8 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
           query: FETCH_MAIN_STORY_FEED,
           data: {
             mainStoryFeed: {
-              ...savedMainFeed.mainStoryFeed,
-              stories: savedMainFeed.mainStoryFeed.stories.filter(story => story.id !== item.id),
+              ...data.mainStoryFeed,
+              stories: data.mainStoryFeed.stories.filter(story => story.id !== item.id),
             },
           },
         });
@@ -129,13 +135,12 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
     },
   });
 
-  const isLoggedIn = !!(profile && profile.me);
-  const isMyStory = isLoggedIn && profile!.me.id === item.user.id;
+  const isMyStory = profile ? profile.id === item.user.id : false;
 
   return (
     <StoryController
       item={item}
-      isLoggedIn={isLoggedIn}
+      isLoggedIn={!!profile}
       isMyStory={isMyStory}
       isLoading={reportLoading || deleteLoading}
       showAuthModal={showAuthModal}

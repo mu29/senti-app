@@ -32,7 +32,13 @@ const Container: React.FunctionComponent<Props> = ({
   onCreate,
   onFinish,
 }) => {
-  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
@@ -50,7 +56,7 @@ const Container: React.FunctionComponent<Props> = ({
   } = useRecord();
 
   const upload = useCallback(async () => {
-    if (!(profile && profile.me)) {
+    if (!profile) {
       throw new Error(LocalizedStrings.ERROR_AUTH_REQUIRED);
     }
 

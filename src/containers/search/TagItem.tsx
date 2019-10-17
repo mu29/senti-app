@@ -26,7 +26,13 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
   item,
   navigation,
 }) => {
-  const { data: profile } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
@@ -38,54 +44,16 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
     variables: {
       id: item.id,
     },
-    update: (cache) => {
-      try {
-        const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
-
-        if (!savedProfile) {
-          return;
-        }
-
-        cache.writeQuery({
-          query: FETCH_PROFILE,
-          data: {
-            me: {
-              ...savedProfile.me,
-              tags: savedProfile.me.tags.concat(item.id),
-            },
-          },
-        });
-      } catch {}
-    },
   });
 
   const [unsubscribeTag, { loading: unsubscribing }] = useMutation(UNSUBSCRIBE_TAG, {
     variables: {
       id: item.id,
     },
-    update: (cache) => {
-      try {
-        const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
-
-        if (!savedProfile) {
-          return;
-        }
-
-        cache.writeQuery({
-          query: FETCH_PROFILE,
-          data: {
-            me: {
-              ...savedProfile.me,
-              tags: savedProfile.me.tags.filter(t => t !== item.id),
-            },
-          },
-        });
-      } catch {}
-    },
   });
 
   const isSubscribed = useMemo(() => {
-    return profile && profile.me ? !!profile.me.tags.find(t => t === item.id) : false;
+    return profile ? !!profile.tags.find(t => t === item.id) : false;
   }, [item.id, profile]);
 
   const toggle = useCallback(() => {
@@ -96,12 +64,10 @@ const TagItemContainer: React.FunctionComponent<Props> = ({
     navigation.navigate('TagStory', { tagId: item.id });
   }, [item.id, navigation]);
 
-  const isLoggedIn = !!(profile && profile.me);
-
   return (
     <TagItem
       item={item}
-      isLoggedIn={isLoggedIn}
+      isLoggedIn={!!profile}
       isSubscribed={isSubscribed}
       isLoading={subscribing || unsubscribing}
       toggle={toggle}

@@ -17,8 +17,7 @@ import {
 } from '@apollo/react-hooks';
 import {
   FETCH_COIN_LIST,
-  VERIFY_COIN_RECEIPT,
-  FETCH_PROFILE,
+  VERIFY_RECEIPT,
   FETCH_TRANSACTION_FEED,
 } from 'graphqls';
 import { LocalizedStrings } from 'constants/translations';
@@ -35,10 +34,14 @@ type TransactionFeedResult = {
 };
 
 function useCoin(setIsLoading: (isLoading: boolean) => void) {
-  const [coins, setCoins] = useState<Coin[]>([]);
+  const [availableCoins, setAvailableCoins] = useState<Coin[]>([]);
 
   const {
-    data,
+    data: {
+      coins,
+    } = {
+      coins: undefined,
+    },
     error,
     networkStatus,
     refetch,
@@ -47,14 +50,14 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     notifyOnNetworkStatusChange: true,
   });
 
-  const [verifyCoinReceipt] = useMutation(VERIFY_COIN_RECEIPT, {
-    update: (cache, { data: { verifyCoinReceipt: transaction } }) => {
+  const [verifyReceipt] = useMutation(VERIFY_RECEIPT, {
+    update: (cache, { data: { verifyReceipt: transaction } }) => {
       try {
-        const savedFeed = cache.readQuery<TransactionFeedResult>({
+        const data = cache.readQuery<TransactionFeedResult>({
           query: FETCH_TRANSACTION_FEED,
         });
 
-        if (!savedFeed) {
+        if (!data) {
           return;
         }
 
@@ -62,48 +65,28 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
           query: FETCH_TRANSACTION_FEED,
           data: {
             transactionFeed: {
-              ...savedFeed.transactionFeed,
-              transactions: [transaction, ...savedFeed.transactionFeed.transactions],
+              ...data.transactionFeed,
+              transactions: [transaction, ...data.transactionFeed.transactions],
             },
           },
         });
 
-      } catch {}
-
-      try {
-        const savedProfile = cache.readQuery<{ me: Profile }>({
-          query: FETCH_PROFILE,
-        });
-
-        if (!savedProfile) {
-          return;
-        }
-
-        cache.writeQuery({
-          query: FETCH_PROFILE,
-          data: {
-            me: {
-              ...savedProfile.me,
-              coin: (savedProfile.me.coin || 0) + transaction.amount,
-            },
-          },
-        });
       } catch {}
     },
   });
 
   const onFetchProducts = useCallback((products: Product[]) => {
-    if (!data || !data.coins) {
+    if (!coins) {
       return;
     }
 
     const productIds = products.map(p => p.productId);
 
-    setCoins(data.coins.filter(c => productIds.includes(c.id)));
-  }, [data, setCoins]);
+    setAvailableCoins(coins.filter(c => productIds.includes(c.id)));
+  }, [coins, setAvailableCoins]);
 
   const onPurchase = useCallback((result: Purchase) => {
-    return verifyCoinReceipt({
+    return verifyReceipt({
       variables: {
         input: {
           platform: Platform.select({
@@ -122,7 +105,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
     .then(() => Alert.alert(LocalizedStrings.COIN_PURCHASE_SUCCESS_TITLE, LocalizedStrings.COIN_PURCHASE_SUCCESS_MESSAGE))
     .catch(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message))
     .finally(() => setIsLoading(false));
-  }, [setIsLoading, verifyCoinReceipt]);
+  }, [setIsLoading, verifyReceipt]);
 
   const purchase = useCallback((productId: string) => {
     setIsLoading(true);
@@ -156,17 +139,15 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
   }, [onFetchProducts, onPurchase, setIsLoading]);
 
   useEffect(() => {
-    if (!data || !data.coins) {
+    if (!coins) {
       return;
     }
 
-    const productIds = data.coins.map(c => c.id);
-
-    InAppPurchase.configure().then(() => InAppPurchase.fetchProducts(productIds));
-  }, [data, onFetchProducts]);
+    InAppPurchase.configure().then(() => InAppPurchase.fetchProducts(coins.map(c => c.id)));
+  }, [coins, onFetchProducts]);
 
   return {
-    coins,
+    coins: availableCoins,
     error,
     networkStatus,
     refetch,

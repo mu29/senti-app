@@ -24,7 +24,11 @@ type ChattingFeedResult = {
 
 const Container: React.FunctionComponent<{}> = () => {
   const {
-    data,
+    data: {
+      chattingFeed,
+    } = {
+      chattingFeed: undefined,
+    },
     networkStatus,
     error,
     fetchMore,
@@ -39,16 +43,14 @@ const Container: React.FunctionComponent<{}> = () => {
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (!data || !data.chattingFeed) {
+  if (!chattingFeed) {
     return <LoadingView />;
   }
 
   const {
-    chattingFeed: {
-      chattings,
-      cursor,
-    },
-  } = data;
+    chattings,
+    cursor,
+  } = chattingFeed;
 
   if (chattings.length === 0) {
     return <ChattingEmptyList />;

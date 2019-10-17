@@ -14,7 +14,11 @@ type DraftResult = {
 };
 
 const Container: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery(FETCH_DRAFT) as { data: DraftResult };
+  const {
+    data: {
+      draft,
+    },
+  } = useQuery(FETCH_DRAFT) as { data: DraftResult };
 
   const [shuffleCovers] = useMutation(SHUFFLE_COVERS);
 
@@ -22,12 +26,12 @@ const Container: React.FunctionComponent<{}> = () => {
     shuffleCovers();
   }, [shuffleCovers]);
 
-  if (!data.draft.cover) {
+  if (!draft.cover) {
     return null;
   }
 
   return (
-    <CreateStoryCover cover={data.draft.cover} />
+    <CreateStoryCover cover={draft.cover} />
   );
 };
 

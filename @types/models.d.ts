@@ -7,7 +7,7 @@ interface PlayableAudio {
 
 interface Draft {
   cover: string;
-  message: string;
+  tags: string[];
 }
 
 interface Candidate {

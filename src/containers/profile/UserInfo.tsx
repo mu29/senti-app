@@ -4,16 +4,22 @@ import { UserInfo } from 'components';
 import { FETCH_PROFILE } from 'graphqls';
 
 const Container: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
-  if (!data || !data.me) {
+  if (!profile) {
     return null;
   }
 
   return (
-    <UserInfo item={data.me} />
+    <UserInfo item={profile} />
   );
 };
 

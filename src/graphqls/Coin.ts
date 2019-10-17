@@ -26,13 +26,19 @@ export const FETCH_TRANSACTION_FEED = gql`
   }
 `;
 
-export const VERIFY_COIN_RECEIPT = gql`
-  mutation verifyCoinReceipt($input: VerifyCoinReceiptInput!) {
-    verifyCoinReceipt(input: $input) {
-      id
-      description
-      amount
-      createdAt
+export const VERIFY_RECEIPT = gql`
+  mutation verifyReceipt($input: VerifyReceiptInput!) {
+    verifyReceipt(input: $input) {
+      transaction {
+        id
+        description
+        amount
+        createdAt
+      }
+      profile {
+        id
+        coin
+      }
     }
   }
 `;

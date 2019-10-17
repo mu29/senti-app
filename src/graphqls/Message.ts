@@ -12,7 +12,7 @@ export const FETCH_MESSAGE_FEED = gql`
         }
         user {
           id
-          name,
+          name
         }
         readAt
         createdAt
@@ -38,7 +38,7 @@ export const PURCHASE_MESSAGE = gql`
         id
         unreadMessageCount
       }
-      me {
+      profile {
         id
         coin
         canUseFreeCoinAt
@@ -51,8 +51,10 @@ export const PURCHASE_MESSAGE = gql`
 export const READ_MESSAGE = gql`
   mutation readMessage($chattingId: ID!, $id: ID!) {
     readMessage(chattingId: $chattingId, id: $id) {
-      id
-      readAt
+      message {
+        id
+        readAt
+      }
     }
   }
 `;
@@ -60,18 +62,20 @@ export const READ_MESSAGE = gql`
 export const CREATE_MESSAGE = gql`
   mutation createMessage($input: CreateMessageInput!) {
     createMessage(input: $input) {
-      id
-      audio {
+      message {
         id
-        url
-        duration
+        audio {
+          id
+          url
+          duration
+        }
+        user {
+          id
+          name
+        }
+        readAt
+        createdAt
       }
-      user {
-        id
-        name,
-      }
-      readAt
-      createdAt
     }
   }
 `;

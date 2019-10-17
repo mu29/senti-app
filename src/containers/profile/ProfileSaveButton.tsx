@@ -12,43 +12,29 @@ import {
 } from 'graphqls';
 
 const Container: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery<{ candidate: Candidate }>(FETCH_CANDIDATE);
+  const {
+    data: {
+      candidate,
+    } = {
+      candidate: undefined,
+    },
+  } = useQuery<{ candidate: Candidate }>(FETCH_CANDIDATE);
 
   const [clearCandidate] = useMutation(CLEAR_CANDIDATE);
 
   const [updateProfile, { loading }] = useMutation(UPDATE_PROFILE, {
-    update: (cache, { data: { updateProfile: newProfile } }) => {
-      try {
-        const savedProfile = cache.readQuery<{ me: Profile }>({ query: FETCH_PROFILE });
-
-        if (!savedProfile) {
-          return;
-        }
-
-        cache.writeQuery({
-          query: FETCH_PROFILE,
-          data: {
-            me: {
-              ...savedProfile.me,
-              ...newProfile,
-            },
-          },
-        });
-
-        clearCandidate();
-      } catch {}
-    },
+    update: () => clearCandidate().catch(console.error),
   });
 
   const update = useCallback(() => {
-    if (!data || !data.candidate) {
+    if (!candidate) {
       return;
     }
 
     const {
       name,
       gender,
-    } = data.candidate;
+    } = candidate;
 
     updateProfile({
       variables: {
@@ -58,7 +44,7 @@ const Container: React.FunctionComponent<{}> = () => {
         },
       },
     });
-  }, [data, updateProfile]);
+  }, [candidate, updateProfile]);
 
   useEffect(() => {
     return () => {
@@ -66,7 +52,7 @@ const Container: React.FunctionComponent<{}> = () => {
     };
   }, [clearCandidate]);
 
-  const isEnabled = !!(data && data.candidate && (data.candidate.name || data.candidate.gender));
+  const isEnabled = !!(candidate && (candidate.name || candidate.gender));
 
   return (
     <ProfileSaveButton

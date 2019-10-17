@@ -10,7 +10,13 @@ import {
 } from 'graphqls';
 
 const Container: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery<{ me: Profile }>(FETCH_PROFILE, {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
     fetchPolicy: 'cache-only',
   });
 
@@ -18,13 +24,13 @@ const Container: React.FunctionComponent<{}> = () => {
     variables: { id: 'Coin' },
   });
 
-  if (!data || !data.me) {
+  if (!profile) {
     return null;
   }
 
   return (
     <CoinInventory
-      amount={data.me.coin || 0}
+      amount={profile.coin || 0}
       showModal={showModal}
     />
   );

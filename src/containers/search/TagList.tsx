@@ -42,7 +42,7 @@ const TagListContainer: React.FunctionComponent<{}> = () => {
     notifyOnNetworkStatusChange: true,
   });
 
-  const debouncedSearch = useRef(debounce((id) => {
+  const debouncedSearch = useRef(debounce((id: string) => {
     searchTags({ variables: { id } });
     setIsLoading(false);
     AnalyticsService.logEvent('search_tag_list');

@@ -10,8 +10,14 @@ import {
   HIDE_MODAL,
 } from 'graphqls';
 
-const AuthModalContainer: React.FunctionComponent<{}> = () => {
-  const { data } = useQuery(FETCH_MODAL, {
+const Container: React.FunctionComponent<{}> = () => {
+  const {
+    data: {
+      modal,
+    } = {
+      modal: undefined,
+    },
+  } = useQuery<{ modal: Modal }>(FETCH_MODAL, {
     variables: { id: 'Auth' },
   });
 
@@ -25,13 +31,13 @@ const AuthModalContainer: React.FunctionComponent<{}> = () => {
     signInWithGoogle,
   } = useAuth(hideModal);
 
-  if (!data || !data.modal) {
+  if (!modal) {
     return null;
   }
 
   return (
     <AuthModal
-      isVisible={data.modal.isVisible}
+      isVisible={modal.isVisible}
       provider={provider}
       signInWithFacebook={signInWithFacebook}
       signInWithGoogle={signInWithGoogle}
@@ -40,4 +46,4 @@ const AuthModalContainer: React.FunctionComponent<{}> = () => {
   );
 };
 
-export default React.memo(AuthModalContainer);
+export default React.memo(Container);

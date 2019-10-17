@@ -29,7 +29,11 @@ const Container: React.FunctionComponent<Props> = ({
   chattingId,
 }) => {
   const {
-    data,
+    data: {
+      messageFeed,
+    } = {
+      messageFeed: undefined,
+    },
     networkStatus,
     error,
     fetchMore,
@@ -47,16 +51,14 @@ const Container: React.FunctionComponent<Props> = ({
     return <ErrorView reload={reload} message={error ? error.message : ''} />;
   }
 
-  if (!data || !data.messageFeed) {
+  if (!messageFeed) {
     return <LoadingView />;
   }
 
   const {
-    messageFeed: {
-      messages,
-      cursor,
-    },
-  } = data;
+    messages,
+    cursor,
+  } = messageFeed;
 
   return (
     <MessageList

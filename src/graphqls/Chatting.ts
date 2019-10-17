@@ -49,7 +49,7 @@ export const CREATE_CHATTING = gql`
         unreadMessageCount
         updatedAt
       }
-      me {
+      profile {
         coin
       }
     }
