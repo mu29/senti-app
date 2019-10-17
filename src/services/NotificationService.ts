@@ -33,7 +33,7 @@ class NotificationService {
     firebase.notifications().removeAllDeliveredNotifications();
 
     if (this.client) {
-      this.client.mutate({ mutation: CLEAR_BADGE_COUNT });
+      this.client.mutate({ mutation: CLEAR_BADGE_COUNT }).catch(console.error);
     }
   }
 }

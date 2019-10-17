@@ -28,6 +28,7 @@ import { FETCH_PROFILE } from 'graphqls';
 import {
   NavigationService,
   NotificationService,
+  AnalyticsService,
 } from 'services';
 import { LANGUAGE } from 'constants/config';
 
@@ -40,6 +41,13 @@ Sound.setActive(true);
 
 dayjs.locale(LANGUAGE);
 dayjs.extend(relativeTime);
+
+const defaultHandler = ErrorUtils.getGlobalHandler();
+
+ErrorUtils.setGlobalHandler((error) => {
+  AnalyticsService.logError(error);
+  defaultHandler.apply(defaultHandler, error);
+});
 
 const App: React.FunctionComponent<{}> = () => {
   const pushNotificationRef = useRef(null);

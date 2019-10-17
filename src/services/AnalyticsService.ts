@@ -10,6 +10,14 @@ class AnalyticsService {
     console.info(`[Analytics] ${event}${params ? ` with params: ${JSON.stringify(params)}` : ''}`);
     firebase.analytics().logEvent(event, params);
   }
+
+  public logError(error: Error) {
+    const { uid = '' } = firebase.auth().currentUser || {};
+
+    firebase.crashlytics().setUserIdentifier(uid);
+    firebase.crashlytics().setStringValue('stack', `${error.stack}`);
+    firebase.crashlytics().log(`JS Error: ${error.message}`);
+  }
 }
 
 export default new AnalyticsService();

@@ -59,7 +59,7 @@ function useAuth(onSuccess?: () => void) {
     await client.query({
       query: FETCH_PROFILE,
       fetchPolicy: 'network-only',
-    });
+    }).catch(console.error);
 
     if (onSuccess) {
       onSuccess();

@@ -45,14 +45,14 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
           client.query({
             query: FETCH_CHATTING_FEED,
             fetchPolicy: 'network-only',
-          });
+          }).catch(console.error);
           client.query({
             query: FETCH_MESSAGE_FEED,
             variables: {
               chattingId: parsedParams.chattingId,
             },
             fetchPolicy: 'network-only',
-          });
+          }).catch(console.error);
           NotificationService.sync();
           if (pushNotificationRef.current) {
             pushNotificationRef.current.show({
