@@ -87,6 +87,10 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
     }
 
     return new Promise<void>((resolve, reject) => {
+      if (!profile || !profile.me) {
+        return reject({ message: LocalizedStrings.ERROR_AUTH_REQUIRED });
+      }
+
       const createWithCoin = (useCoin: boolean) => createChatting({
         variables: {
           input: {
@@ -95,9 +99,12 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
             useCoin,
           },
         },
-      }).then(() => resolve()).catch(reject);
+      }).then(() => {
+        AnalyticsService.logEvent('finish_create_chatting');
+        resolve();
+      }).catch(reject);
 
-      if (profile && profile.me && profile.me.coin > 0) {
+      if (profile.me.coin > 0 || profile.me.canUseFreeCoinAt < Date.now()) {
         Alert.alert(LocalizedStrings.REPLY_USE_COIN_TITLE, LocalizedStrings.REPLY_USE_COIN_MESSAGE, [{
           text: LocalizedStrings.COMMON_CONFIRM,
           onPress: () => createWithCoin(true),
@@ -109,7 +116,6 @@ const ReplyModalContainer: React.FunctionComponent<{}> = () => {
       } else {
         createWithCoin(false);
       }
-      AnalyticsService.logEvent('finish_create_chatting');
     });
   }, [createChatting, data, profile]);
 

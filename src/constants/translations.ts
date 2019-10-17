@@ -179,8 +179,8 @@ const TRANSLATIONS: {
     COIN_PURCHASE_SUCCESS_MESSAGE: '코인을 구매했습니다.',
     COIN_RESTORE_BUTTON: '구매 내역 복원',
     COIN_RESTORE_MESSAGE: '이전 구매 내역을 복구합니다.',
-    FREE_COIN_AVAILABLE: '메시지 1개 무료 듣기 가능!',
-    FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `다음 무료 듣기까지 ${minutes}:${seconds}`,
+    FREE_COIN_AVAILABLE: '무료 코인 1개 사용 가능!',
+    FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `다음 무료 코인까지 ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY년 M월 D일 HH시',
   },
   en: {
@@ -269,8 +269,8 @@ const TRANSLATIONS: {
     COIN_PURCHASE_SUCCESS_MESSAGE: 'Purchase completed successfully.',
     COIN_RESTORE_BUTTON: 'Restore Purchases',
     COIN_RESTORE_MESSAGE: 'Restore your previous purchases.',
-    FREE_COIN_AVAILABLE: 'Listen 1 message for free!',
-    FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `Free listening after: ${minutes}:${seconds}`,
+    FREE_COIN_AVAILABLE: 'Use 1 coin for free!',
+    FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `Free coin after: ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY. MM. DD A h',
   },
 };
