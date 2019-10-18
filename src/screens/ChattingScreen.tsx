@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { NavigationEvents } from 'react-navigation';
+import { useApolloClient } from '@apollo/react-hooks';
 import {
   Header,
   withSafeArea,
@@ -13,12 +14,19 @@ import {
   AnalyticsService,
   NotificationService,
 } from 'services';
+import { FETCH_CHATTING_FEED } from 'graphqls';
 import { LocalizedStrings } from 'constants/translations';
 
 const ChattingScreen: React.FunctionComponent<{}> = () => {
+  const client = useApolloClient();
+
   const onDidFocus = useCallback(() => {
-    AnalyticsService.setScreen(ChattingScreen.name);
+    client.query({
+      query: FETCH_CHATTING_FEED,
+      fetchPolicy: 'network-only',
+    });
     NotificationService.clearBadge();
+    AnalyticsService.setScreen(ChattingScreen.name);
   }, []);
 
   return (
