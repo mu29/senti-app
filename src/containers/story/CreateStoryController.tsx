@@ -2,6 +2,7 @@ import React, {
   useState,
   useCallback,
 } from 'react';
+import uniqBy from 'lodash/uniqBy';
 import {
   withNavigation,
   NavigationInjectedProps,
@@ -63,7 +64,7 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
           data: {
             mainStoryFeed: {
               ...data.mainStoryFeed,
-              stories: [story, ...data.mainStoryFeed.stories],
+              stories: uniqBy([story, ...data.mainStoryFeed.stories], 'id'),
             },
           },
         });
@@ -83,7 +84,7 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
           data: {
             myStoryFeed: {
               ...data.myStoryFeed,
-              stories: [story, ...data.myStoryFeed.stories],
+              stories: uniqBy([story, ...data.myStoryFeed.stories], 'id'),
             },
           },
         });

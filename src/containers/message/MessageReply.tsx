@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Alert } from 'react-native';
+import uniqBy from 'lodash/uniqBy';
 import {
   useQuery,
   useMutation,
@@ -59,7 +60,7 @@ const Container: React.FunctionComponent<Props> = ({
           data: {
             messageFeed: {
               ...data.messageFeed,
-              messages: [message, ...data.messageFeed.messages],
+              messages: uniqBy([message, ...data.messageFeed.messages], 'id'),
             },
           },
         });

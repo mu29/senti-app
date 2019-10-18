@@ -7,6 +7,7 @@ import {
   Alert,
   Platform,
 } from 'react-native';
+import uniqBy from 'lodash/uniqBy';
 import InAppPurchase, {
   Product,
   Purchase,
@@ -66,7 +67,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
           data: {
             transactionFeed: {
               ...data.transactionFeed,
-              transactions: [transaction, ...data.transactionFeed.transactions],
+              transactions: uniqBy([transaction, ...data.transactionFeed.transactions], 'id'),
             },
           },
         });

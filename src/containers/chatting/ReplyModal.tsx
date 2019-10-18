@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { Alert } from 'react-native';
+import uniqBy from 'lodash/uniqBy';
 import {
   useQuery,
   useMutation,
@@ -71,7 +72,7 @@ const Container: React.FunctionComponent<{}> = () => {
           data: {
             chattingFeed: {
               ...data.chattingFeed,
-              chattings: [chatting, ...data.chattingFeed.chattings],
+              chattings: uniqBy([chatting, ...data.chattingFeed.chattings], 'id'),
             },
           },
         });
@@ -91,7 +92,7 @@ const Container: React.FunctionComponent<{}> = () => {
           data: {
             transactionFeed: {
               ...data.transactionFeed,
-              transactions: [transaction, ...data.transactionFeed.transactions],
+              transactions: uniqBy([transaction, ...data.transactionFeed.transactions], 'id'),
             },
           },
         });
