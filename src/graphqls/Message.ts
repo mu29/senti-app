@@ -80,6 +80,17 @@ export const CREATE_MESSAGE = gql`
         readAt
         createdAt
       }
+      profile {
+        id
+        coin
+        canUseFreeCoinAt
+      }
+      transaction {
+        id
+        description
+        amount
+        createdAt
+      }
     }
   }
 `;

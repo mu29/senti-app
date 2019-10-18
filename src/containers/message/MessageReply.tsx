@@ -1,11 +1,17 @@
 import React, { useCallback } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { Alert } from 'react-native';
+import {
+  useQuery,
+  useMutation,
+} from '@apollo/react-hooks';
 import { MessageReply } from 'components';
 import {
+  FETCH_PROFILE,
   CREATE_MESSAGE,
   FETCH_MESSAGE_FEED,
 } from 'graphqls';
 import { AnalyticsService } from 'services';
+import { LocalizedStrings } from 'constants/translations';
 
 type MessageFeedResult = {
   messageFeed: {
@@ -21,6 +27,16 @@ interface Props {
 const Container: React.FunctionComponent<Props> = ({
   chattingId,
 }) => {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
+    fetchPolicy: 'cache-only',
+  });
+
   const [createMessage] = useMutation(CREATE_MESSAGE, {
     update: (cache, { data: { createMessage: { message } } }) => {
       try {
@@ -52,21 +68,47 @@ const Container: React.FunctionComponent<Props> = ({
   });
 
   const create = useCallback(async (audio) => {
-    await createMessage({
-      variables: {
-        input: {
-          audio,
-          chattingId,
+    return new Promise<void>((resolve, reject) => {
+      if (!profile) {
+        return reject({ message: LocalizedStrings.ERROR_AUTH_REQUIRED });
+      }
+
+      const createWithPurchase = (purchase: boolean) => createMessage({
+        variables: {
+          input: {
+            audio,
+            chattingId,
+            purchase,
+          },
         },
-      },
+      }).then(() => {
+        AnalyticsService.logEvent('finish_create_message');
+        resolve();
+      }).catch(reject);
+
+      const canUseCoin = profile.coin > 0;
+      const canUseFreeCoin = profile.canUseFreeCoinAt < Date.now();
+      const message = canUseFreeCoin
+        ? LocalizedStrings.REPLY_USE_FREE_COIN_MESSAGE
+        : LocalizedStrings.REPLY_USE_COIN_MESSAGE;
+
+      if (canUseCoin || canUseFreeCoin) {
+        Alert.alert(LocalizedStrings.REPLY_USE_COIN_TITLE, message, [{
+          text: LocalizedStrings.COMMON_CONFIRM,
+          onPress: () => createWithPurchase(true),
+        }, {
+          text: LocalizedStrings.COMMON_CANCEL,
+          onPress: () => createWithPurchase(false),
+          style: 'cancel',
+        }]);
+      } else {
+        createWithPurchase(false);
+      }
     });
-    AnalyticsService.logEvent('finish_create_message');
   }, [chattingId, createMessage]);
 
   return (
-    <MessageReply
-      create={create}
-    />
+    <MessageReply create={create} />
   );
 };
 
