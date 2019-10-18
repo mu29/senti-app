@@ -102,7 +102,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
         },
       },
     })
-    .then(() => InAppPurchase.finalize(result))
+    .then(() => InAppPurchase.finalize(result, true))
     .then(() => Alert.alert(LocalizedStrings.COIN_PURCHASE_SUCCESS_TITLE, LocalizedStrings.COIN_PURCHASE_SUCCESS_MESSAGE))
     .catch(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message))
     .finally(() => setIsLoading(false));
