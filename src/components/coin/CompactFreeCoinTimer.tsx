@@ -1,4 +1,5 @@
 import React, {
+  useRef,
   useCallback,
   useEffect,
   useState,
@@ -36,6 +37,8 @@ const CompactFreeCoinTimer: React.FunctionComponent<Props> = ({
   canUseFreeCoinAt,
   showModal,
 }) => {
+  const onAppStateChange = useRef(() => setCounter((canUseFreeCoinAt - Date.now()) / 1000));
+
   const [counter, setCounter] = useState(0);
 
   const onPress = useCallback(() => {
@@ -43,9 +46,7 @@ const CompactFreeCoinTimer: React.FunctionComponent<Props> = ({
     AnalyticsService.logEvent('show_coin_modal');
   }, [showModal]);
 
-  useAppState(() => {
-    setCounter((canUseFreeCoinAt - Date.now()) / 1000);
-  });
+  useAppState(() => onAppStateChange.current());
 
   useEffect(() => {
     setCounter((canUseFreeCoinAt - Date.now()) / 1000);
