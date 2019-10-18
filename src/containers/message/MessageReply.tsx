@@ -10,9 +10,17 @@ import {
   FETCH_PROFILE,
   CREATE_MESSAGE,
   FETCH_MESSAGE_FEED,
+  FETCH_TRANSACTION_FEED,
 } from 'graphqls';
 import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
+
+type TransactionFeedResult = {
+  transactionFeed: {
+    transactions: Transaction[];
+    cursor: string;
+  };
+};
 
 type MessageFeedResult = {
   messageFeed: {
@@ -39,7 +47,7 @@ const Container: React.FunctionComponent<Props> = ({
   });
 
   const [createMessage] = useMutation(CREATE_MESSAGE, {
-    update: (cache, { data: { createMessage: { message } } }) => {
+    update: (cache, { data: { createMessage: { message, transaction } } }) => {
       try {
         const data = cache.readQuery<MessageFeedResult>({
           query: FETCH_MESSAGE_FEED,
@@ -61,6 +69,26 @@ const Container: React.FunctionComponent<Props> = ({
             messageFeed: {
               ...data.messageFeed,
               messages: uniqBy([message, ...data.messageFeed.messages], 'id'),
+            },
+          },
+        });
+      } catch {}
+
+      try {
+        const data = cache.readQuery<TransactionFeedResult>({
+          query: FETCH_TRANSACTION_FEED,
+        });
+
+        if (!data || !transaction) {
+          return;
+        }
+
+        cache.writeQuery({
+          query: FETCH_TRANSACTION_FEED,
+          data: {
+            transactionFeed: {
+              ...data.transactionFeed,
+              transactions: uniqBy([transaction, ...data.transactionFeed.transactions], 'id'),
             },
           },
         });

@@ -3,6 +3,7 @@ import React, {
   useState,
 } from 'react';
 import { Alert } from 'react-native';
+import uniqBy from 'lodash/uniqBy';
 import {
   useQuery,
   useMutation,
@@ -12,8 +13,16 @@ import {
   FETCH_PROFILE,
   PURCHASE_MESSAGE,
   READ_MESSAGE,
+  FETCH_TRANSACTION_FEED,
 } from 'graphqls';
 import { LocalizedStrings } from 'constants/translations';
+
+type TransactionFeedResult = {
+  transactionFeed: {
+    transactions: Transaction[];
+    cursor: string;
+  };
+};
 
 interface Props {
   chattingId: string;
@@ -40,6 +49,27 @@ const Container: React.FunctionComponent<Props> = ({
     variables: {
       chattingId,
       id: item.id,
+    },
+    update: (cache, { data: { purchaseMessage: { transaction } } }) => {
+      try {
+        const data = cache.readQuery<TransactionFeedResult>({
+          query: FETCH_TRANSACTION_FEED,
+        });
+
+        if (!data || !transaction) {
+          return;
+        }
+
+        cache.writeQuery({
+          query: FETCH_TRANSACTION_FEED,
+          data: {
+            transactionFeed: {
+              ...data.transactionFeed,
+              transactions: uniqBy([transaction, ...data.transactionFeed.transactions], 'id'),
+            },
+          },
+        });
+      } catch {}
     },
   });
 
