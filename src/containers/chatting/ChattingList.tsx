@@ -83,7 +83,7 @@ const Container: React.FunctionComponent<{}> = () => {
           return Object.assign(original, {
             chattingFeed: {
               ...original.chattingFeed,
-              chattings: original.chattingFeed.chattings.concat(nextChattings),
+              chattings: [...original.chattingFeed.chattings, ...nextChattings],
               cursor: nextCursor,
             },
           });
