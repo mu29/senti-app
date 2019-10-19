@@ -5,12 +5,27 @@ import React, {
 } from 'react';
 import firebase from 'react-native-firebase';
 import AsyncStorage from '@react-native-community/async-storage';
-import { useMutation } from '@apollo/react-hooks';
-import { SHOW_MODAL } from 'graphqls';
+import {
+  useQuery,
+  useMutation,
+} from '@apollo/react-hooks';
+import {
+  FETCH_PROFILE,
+  SHOW_MODAL,
+} from 'graphqls';
 import { WEBSITE_URL } from 'constants/config';
-import { Alert } from 'react-native';
 
 const DynamicLinkEvents: React.FunctionComponent<{}> = () => {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
+    fetchPolicy: 'cache-only',
+  });
+
   const [showAuthModal] = useMutation(SHOW_MODAL, {
     variables: { id: 'Auth' },
   });
@@ -18,14 +33,15 @@ const DynamicLinkEvents: React.FunctionComponent<{}> = () => {
   const handlers = useMemo(() => [{
     regex: /\/referral\??(.*)/,
     handle: (params: Record<string, any>) => {
+      if (profile) {
+        return;
+      }
+
       AsyncStorage.setItem('@Referral', params.id)
-        .then(() => {
-          Alert.alert('오우', params.id)
-          showAuthModal()
-        })
+        .then(() => showAuthModal())
         .catch(console.error);
-    }
-  }], [showAuthModal]);
+    },
+  }], [profile, showAuthModal]);
 
   const handleDynamicLink = useCallback((url: string | null) => {
     if (!url) {
@@ -38,7 +54,10 @@ const DynamicLinkEvents: React.FunctionComponent<{}> = () => {
       const matched = path.match(handler.regex);
 
       if (matched) {
-        const params = JSON.parse(matched[1] || '{}');
+        const params = matched[1].split('&').reduce((result, current) => ({
+          ...result,
+          [current.split('=')[0]]: current.split('=')[1],
+        }), {});
         handler.handle(params);
       }
     });

@@ -16,6 +16,7 @@ export { default as CoinList } from './coin/CoinList';
 export { default as CoinModal } from './coin/CoinModal';
 export { default as CompactFreeCoinTimer } from './coin/CompactFreeCoinTimer';
 export { default as FreeCoinTimer } from './coin/FreeCoinTimer';
+export { default as ReferralCoinItem } from './coin/ReferralCoinItem';
 
 export { default as ChattingList } from './chatting/ChattingList';
 export { default as ReplyModal } from './chatting/ReplyModal';

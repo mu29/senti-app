@@ -27,6 +27,7 @@ export { default as CoinInventory } from './coin/CoinInventory';
 export { default as CoinModal } from './coin/CoinModal';
 export { default as CompactFreeCoinTimer } from './coin/CompactFreeCoinTimer';
 export { default as FreeCoinTimer } from './coin/FreeCoinTimer';
+export { default as ReferralCoinItem } from './coin/ReferralCoinItem';
 export { default as RestoreButton } from './coin/RestoreButton';
 export { default as TransactionItem } from './coin/TransactionItem';
 export { default as TransactionList } from './coin/TransactionList';

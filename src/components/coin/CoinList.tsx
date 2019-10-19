@@ -12,6 +12,7 @@ import {
   CoinItem,
   RestoreButton,
 } from 'components';
+import { ReferralCoinItem } from 'containers';
 import {
   palette,
   typography,
@@ -30,11 +31,14 @@ const CoinList: React.FunctionComponent<Props> = ({
   restore,
 }) => {
   const Header = useMemo(() => (
-    <View style={styles.header}>
-      <Text style={styles.description}>
-        {LocalizedStrings.COIN_DESCRIPTION}
-      </Text>
-    </View>
+    <React.Fragment>
+      <View style={styles.header}>
+        <Text style={styles.description}>
+          {LocalizedStrings.COIN_DESCRIPTION}
+        </Text>
+      </View>
+      <ReferralCoinItem />
+    </React.Fragment>
   ), []);
 
   const renderItem = useCallback(({ item }: { item: Coin }) => (

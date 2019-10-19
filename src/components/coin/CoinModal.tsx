@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   container: {
-    height: 360,
+    height: 432,
     padding: 0,
     overflow: 'hidden',
     backgroundColor: palette.gray[100],

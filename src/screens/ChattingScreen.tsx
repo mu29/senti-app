@@ -27,7 +27,7 @@ const ChattingScreen: React.FunctionComponent<{}> = () => {
     });
     NotificationService.clearBadge();
     AnalyticsService.setScreen(ChattingScreen.name);
-  }, []);
+  }, [client]);
 
   return (
     <React.Fragment>

@@ -8,16 +8,14 @@ import { LocalizedStrings } from 'constants/translations';
 
 class DynamicLinkService {
   public async createReferralLink(userId: string) {
-    const link = new firebase.links.DynamicLink(`${WEBSITE_URL}/referral?id=${userId}`, `https://${DYNAMIC_LINK_HOST}`)
+    const link = new firebase.links.DynamicLink(`https://${DYNAMIC_LINK_HOST}/referral?id=${userId}`, `https://${DYNAMIC_LINK_HOST}`)
       .android.setPackageName(PACKAGE_NAME)
       .ios.setBundleId(PACKAGE_NAME)
       .social.setTitle(LocalizedStrings.COMMON_APP_NAME)
       .social.setDescriptionText(LocalizedStrings.COMMON_APP_DESCRIPTION)
       .social.setImageUrl(`${WEBSITE_URL}/assets/opengraph.png`);
 
-    return firebase.links()
-      .createShortDynamicLink(link, 'SHORT')
-      .catch(console.log);
+    return firebase.links().createShortDynamicLink(link, 'SHORT');
   }
 }
 

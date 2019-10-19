@@ -134,7 +134,7 @@ const Container: React.FunctionComponent<Props> = ({
         createWithPurchase(false);
       }
     });
-  }, [chattingId, createMessage]);
+  }, [chattingId, createMessage, profile]);
 
   return (
     <MessageReply create={create} />

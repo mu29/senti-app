@@ -85,6 +85,7 @@ const TRANSLATIONS: {
     COIN_CHARGE_BUTTON: string;
     COIN_DISCOUNT_RATE: (percent: string) => string;
     COIN_PRICE: (price: number) => string;
+    COIN_REFERRAL: string;
     COIN_CHARGE_TAB: string;
     COIN_HISTORY_TAB: string;
     COIN_PURCHASE_SUCCESS_TITLE: string;
@@ -179,6 +180,7 @@ const TRANSLATIONS: {
     COIN_CHARGE_BUTTON: '충전',
     COIN_DISCOUNT_RATE: (percent) => `${percent}% 할인!`,
     COIN_PRICE: (price) => `${withComma(price)}원`,
+    COIN_REFERRAL: '친구 초대하기',
     COIN_CHARGE_TAB: '코인 충전',
     COIN_HISTORY_TAB: '사용 내역',
     COIN_PURCHASE_SUCCESS_TITLE: '구매 완료',
@@ -272,6 +274,7 @@ const TRANSLATIONS: {
     COIN_CHARGE_BUTTON: 'Charge',
     COIN_DISCOUNT_RATE: (percent) => `${percent}% discount!`,
     COIN_PRICE: (price) => `USD ${withComma(price)}`,
+    COIN_REFERRAL: 'Invite Friends',
     COIN_CHARGE_TAB: 'Charge',
     COIN_HISTORY_TAB: 'History',
     COIN_PURCHASE_SUCCESS_TITLE: 'Success',
