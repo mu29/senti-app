@@ -59,14 +59,18 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
-	<key>DYNAMIC_LINK_URL</key>
-	<string>$(DYNAMIC_LINK_URL)</string>
+	<key>DYNAMIC_LINK_HOST</key>
+	<string>$(DYNAMIC_LINK_HOST)</string>
 	<key>FIREBASE_WEB_CLIENT_ID</key>
 	<string>$(FIREBASE_WEB_CLIENT_ID)</string>
 	<key>FacebookAppID</key>
 	<string>$(FACEBOOK_APP_ID)</string>
 	<key>FacebookDisplayName</key>
 	<string>Senti</string>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+	<array>
+		<string>https://$(DYNAMIC_LINK_HOST)</string>
+	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>

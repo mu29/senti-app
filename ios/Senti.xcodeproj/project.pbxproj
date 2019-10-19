@@ -410,7 +410,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A00FF6EA33CE2A7E5AB3DABC /* Pods-Senti.debug.xcconfig */;
 			buildSettings = {
-				API_URL = "http://172.20.10.2:5005";
+				API_URL = "http://10.78.72.74:5005";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "";
 				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
@@ -418,7 +418,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = " (D)";
-				DYNAMIC_LINK_HOST = sentidev.page.link;
+				DYNAMIC_LINK_HOST = "staging-link.senti.in";
 				FACEBOOK_APP_ID = 576748566193001;
 				FACEBOOK_URL_SCHEME = fb576748566193001;
 				FIREBASE_WEB_CLIENT_ID = "190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com";
@@ -456,7 +456,7 @@
 				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = "";
-				DYNAMIC_LINK_HOST = senti.page.link;
+				DYNAMIC_LINK_HOST = link.senti.in;
 				FACEBOOK_APP_ID = 2247161082214684;
 				FACEBOOK_URL_SCHEME = fb2247161082214684;
 				FIREBASE_WEB_CLIENT_ID = "62655293862-mjb6i6qdl8ki4gpmes6l2pvumc3g9jff.apps.googleusercontent.com";
@@ -541,7 +541,7 @@
 				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = " (I)";
-				DYNAMIC_LINK_HOST = sentidev.page.link;
+				DYNAMIC_LINK_HOST = "staging-link.senti.in";
 				FACEBOOK_APP_ID = 576748566193001;
 				FACEBOOK_URL_SCHEME = fb576748566193001;
 				FIREBASE_WEB_CLIENT_ID = "190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com";

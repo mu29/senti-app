@@ -171,7 +171,7 @@ android {
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "@string/app_name_debug"
             resValue "string", "facebook_app_id", "576748566193001"
-            resValue "string", "dynamic_link_host", "sentidev.page.link"
+            resValue "string", "dynamic_link_host", "staging-link.senti.in"
             buildConfigField "String", 'API_URL', '"http://172.20.10.2:5005"'
             buildConfigField "String", 'WEBSITE_URL', '"https://staging.senti.in"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
@@ -181,7 +181,7 @@ android {
             applicationIdSuffix ".dev"
             resValue "string", "app_name", "@string/app_name_staging"
             resValue "string", "facebook_app_id", "576748566193001"
-            resValue "string", "dynamic_link_host", "sentidev.page.link"
+            resValue "string", "dynamic_link_host", "staging-link.senti.in"
             buildConfigField "String", 'API_URL', '"https://staging-api.senti.in"'
             buildConfigField "String", 'WEBSITE_URL', '"https://staging.senti.in"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
@@ -192,7 +192,7 @@ android {
         release {
             resValue "string", "app_name", "@string/app_name_release"
             resValue "string", "facebook_app_id", "2247161082214684"
-            resValue "string", "dynamic_link_host", "senti.page.link"
+            resValue "string", "dynamic_link_host", "link.senti.in"
             buildConfigField "String", 'API_URL', '"https://api.senti.in"'
             buildConfigField "String", 'WEBSITE_URL', '"https://senti.in"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"62655293862-mjb6i6qdl8ki4gpmes6l2pvumc3g9jff.apps.googleusercontent.com"'

@@ -6,8 +6,8 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:senti.page.link</string>
-		<string>applinks:sentidev.page.link</string>
+		<string>applinks:link.senti.in</string>
+		<string>applinks:staging-link.senti.in</string>
 	</array>
 </dict>
 </plist>
