@@ -42,12 +42,16 @@ Sound.setActive(true);
 dayjs.locale(LANGUAGE);
 dayjs.extend(relativeTime);
 
-const defaultHandler = ErrorUtils.getGlobalHandler();
+/* eslint-disable no-undef */
+if (typeof ErrorUtils !== 'undefined') {
+  const defaultHandler = ErrorUtils.getGlobalHandler();
 
-ErrorUtils.setGlobalHandler((error) => {
-  AnalyticsService.logError(error);
-  defaultHandler.apply(defaultHandler, error);
-});
+  ErrorUtils.setGlobalHandler((error) => {
+    AnalyticsService.logError(error);
+    defaultHandler.apply(defaultHandler, error);
+  });
+}
+/* eslint-enable no-undef */
 
 const App: React.FunctionComponent<{}> = () => {
   const pushNotificationRef = useRef(null);
