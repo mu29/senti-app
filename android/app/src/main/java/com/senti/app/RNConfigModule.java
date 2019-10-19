@@ -40,14 +40,16 @@ public class RNConfigModule extends ReactContextBaseJavaModule {
         try {
             PackageManager packageManager = this.reactContext.getPackageManager();
             String packageName = this.reactContext.getPackageName();
-
             PackageInfo info = packageManager.getPackageInfo(packageName, 0);
+
+            constants.put("packageName", packageName);
             constants.put("appVersion", info.versionName);
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(LOG_TAG, e.getMessage());
         }
 
         constants.put("apiUrl", BuildConfig.API_URL);
+        constants.put("dynamicLinkHost", this.reactContext.getResources().getString(R.string.dynamic_link_host));
         constants.put("websiteUrl", BuildConfig.WEBSITE_URL);
         constants.put("webClientId", BuildConfig.FIREBASE_WEB_CLIENT_ID);
         constants.put("language", getLanguage());

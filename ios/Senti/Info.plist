@@ -44,11 +44,23 @@
 				<string>$(REVERSED_CLIENT_ID)</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.senti.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
+	<key>DYNAMIC_LINK_URL</key>
+	<string>$(DYNAMIC_LINK_URL)</string>
 	<key>FIREBASE_WEB_CLIENT_ID</key>
 	<string>$(FIREBASE_WEB_CLIENT_ID)</string>
 	<key>FacebookAppID</key>

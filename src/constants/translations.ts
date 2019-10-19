@@ -4,6 +4,8 @@ import { withComma } from 'utils';
 const TRANSLATIONS: {
   [key: string]: {
     // 일반
+    COMMON_APP_NAME: string;
+    COMMON_APP_DESCRIPTION: string;
     COMMON_ERROR: string;
     COMMON_LOADING: string;
     COMMON_CONFIRM: string;
@@ -96,6 +98,8 @@ const TRANSLATIONS: {
 } = {
   ko: {
     // 일반
+    COMMON_APP_NAME: '센치',
+    COMMON_APP_DESCRIPTION: '목소리로 소통하는 익명 커뮤니티',
     COMMON_ERROR: '오류',
     COMMON_LOADING: '로딩 중..',
     COMMON_CONFIRM: '확인',
@@ -187,6 +191,8 @@ const TRANSLATIONS: {
   },
   en: {
     // 일반
+    COMMON_APP_NAME: 'Senti',
+    COMMON_APP_DESCRIPTION: 'Anonymous community with your voice',
     COMMON_ERROR: 'Error',
     COMMON_LOADING: 'Now Loading..',
     COMMON_CONFIRM: 'Confirm',
