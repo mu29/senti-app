@@ -4,6 +4,7 @@ import {
 } from 'react';
 import { Alert } from 'react-native';
 import firebase from 'react-native-firebase';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   useMutation,
   useApolloClient,
@@ -72,6 +73,7 @@ function useAuth(onSuccess?: () => void) {
     }
     setProvider('google');
 
+    const referrer = await AsyncStorage.getItem('@Referrer');
     const configureResult = await initGoogleSignin();
     if (!configureResult) {
       Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.LOGIN_FAILURE_GOOGLE_PLAY_SERVICE);
@@ -86,6 +88,7 @@ function useAuth(onSuccess?: () => void) {
       .then(credential => createUser({
         variables: {
           email: credential.user.email,
+          referrer,
         },
       }))
       .then(resultHandler)
@@ -99,11 +102,13 @@ function useAuth(onSuccess?: () => void) {
       });
   }, [createUser, provider, resultHandler]);
 
-  const signInWithFacebook = useCallback(() => {
+  const signInWithFacebook = useCallback(async () => {
     if (provider) {
       return;
     }
     setProvider('facebook');
+
+    const referrer = await AsyncStorage.getItem('@Referrer');
 
     return LoginManager.logInWithPermissions(['public_profile', 'email'])
       .then((result) => {
@@ -118,6 +123,7 @@ function useAuth(onSuccess?: () => void) {
       .then(credential => createUser({
         variables: {
           email: credential.user.email,
+          referrer,
         },
       }))
       .then(resultHandler)

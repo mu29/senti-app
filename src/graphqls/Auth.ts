@@ -1,8 +1,20 @@
 import gql from 'graphql-tag';
 
 export const CREATE_USER = gql`
-  mutation createUser($email: String!) {
-    createUser(email: $email)
+  mutation createUser($input: CreateUserInput) {
+    createUser(input: $input) {
+      profile {
+        id
+        email
+        name
+        photoUrl
+        gender
+        tags
+        badgeCount
+        coin
+        canUseFreeCoinAt
+      }
+    }
   }
 `;
 

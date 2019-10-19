@@ -37,7 +37,7 @@ const DynamicLinkEvents: React.FunctionComponent<{}> = () => {
         return;
       }
 
-      AsyncStorage.setItem('@Referral', params.id)
+      AsyncStorage.setItem('@Referrer', params.id)
         .then(() => showAuthModal())
         .catch(console.error);
     },
