@@ -14,11 +14,12 @@ import {
   AccessToken,
   LoginManager,
 } from 'react-native-fbsdk';
-import { FIREBASE_WEB_CLIENT_ID } from 'constants/config';
 import {
   CREATE_USER,
   FETCH_PROFILE,
 } from 'graphqls';
+import { NotificationService } from 'services';
+import { FIREBASE_WEB_CLIENT_ID } from 'constants/config';
 import { LocalizedStrings } from 'constants/translations';
 
 type ProviderType = 'facebook' | 'google' | undefined;
@@ -57,10 +58,18 @@ function useAuth(onSuccess?: () => void) {
       throw new Error(result.errors[0]);
     }
 
-    await client.query({
+    await client.query<{ profile: Profile }>({
       query: FETCH_PROFILE,
       fetchPolicy: 'network-only',
-    }).catch(console.error);
+    })
+    .then(({ data }) => {
+      if (data && data.profile) {
+        NotificationService.setUser(data.profile);
+        NotificationService.refreshToken();
+      }
+    });
+
+    AsyncStorage.setItem('@Referrer', '');
 
     if (onSuccess) {
       onSuccess();
@@ -87,8 +96,10 @@ function useAuth(onSuccess?: () => void) {
       .then(credential => firebase.auth().signInWithCredential(credential))
       .then(credential => createUser({
         variables: {
-          email: credential.user.email,
-          referrer,
+          input: {
+            email: credential.user.email,
+            referrer,
+          },
         },
       }))
       .then(resultHandler)
@@ -122,8 +133,10 @@ function useAuth(onSuccess?: () => void) {
       .then(credential => firebase.auth().signInWithCredential(credential))
       .then(credential => createUser({
         variables: {
-          email: credential.user.email,
-          referrer,
+          input: {
+            email: credential.user.email,
+            referrer,
+          },
         },
       }))
       .then(resultHandler)
