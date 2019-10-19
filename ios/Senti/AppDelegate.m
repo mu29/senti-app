@@ -27,6 +27,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // firebase
+  [FIROptions defaultOptions].deepLinkURLScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"] ?: @"com.senti.app";
   [FIRApp configure];
   [RNFirebaseNotifications configure];
 
@@ -89,30 +90,30 @@
     return YES;
   }
 
-  if ([RCTLinkingManager application:application
-                             openURL:url
-                             options:options]) {
+  if ([[RNFirebaseLinks instance] application:application
+                                      openURL:url
+                                      options:options]) {
     return YES;
-  }
-
-  return [[RNFirebaseLinks instance] application:application
-                                         openURL:url
-                                         options:options];
+  };
+  
+  return [RCTLinkingManager application:application
+                                openURL:url
+                                options:options];
 }
 
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
-  if ([RCTLinkingManager application:application
-                continueUserActivity:userActivity
-                  restorationHandler:restorationHandler]) {
+  if ([[RNFirebaseLinks instance] application:application
+                          continueUserActivity:userActivity
+                            restorationHandler:restorationHandler]) {
     return YES;
   }
   
-  return [[RNFirebaseLinks instance] application:application
-                            continueUserActivity:userActivity
-                              restorationHandler:restorationHandler];
+  return [RCTLinkingManager application:application
+                   continueUserActivity:userActivity
+                     restorationHandler:restorationHandler];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
