@@ -2,7 +2,6 @@ export { default as useAppState } from './hooks/useAppState';
 export { default as useAudio } from './hooks/useAudio';
 export { default as useAuth } from './hooks/useAuth';
 export { default as useCoin } from './hooks/useCoin';
-export { default as useNotification } from './hooks/useNotification';
 export { default as useRecord } from './hooks/useRecord';
 
 export { default as AuthModal } from './common/AuthModal';

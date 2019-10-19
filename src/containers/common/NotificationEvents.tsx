@@ -1,15 +1,15 @@
 import React, {
+  useState,
   useCallback,
   useEffect,
 } from 'react';
-import firebase, { RNFirebase } from 'react-native-firebase';
+import firebase from 'react-native-firebase';
 import {
   Notification,
   NotificationOpen,
 } from 'react-native-firebase/notifications';
 import { useApolloClient } from '@apollo/react-hooks';
 import { PushNotification } from 'components';
-import { useNotification } from 'containers';
 import {
   NavigationService,
   NotificationService,
@@ -20,17 +20,15 @@ import {
 } from 'graphqls';
 
 interface Props {
-  user: RNFirebase.User | null;
   pushNotificationRef: React.RefObject<PushNotification>;
 }
 
 const NotificationEvents: React.FunctionComponent<Props> = ({
-  user,
   pushNotificationRef,
 }) => {
-  const client = useApolloClient();
+  const [hasPermission, setHasPermission] = useState(NotificationService.hasPermission);
 
-  const hasPermission = useNotification(user);
+  const client = useApolloClient();
 
   const onNotification = useCallback((notification: Notification) => {
     try {
@@ -81,6 +79,17 @@ const NotificationEvents: React.FunctionComponent<Props> = ({
       console.error(e);
     }
   }, [onNotification]);
+
+  useEffect(() => {
+    NotificationService.checkPermission().then((enabled) => {
+      if (enabled) {
+        setHasPermission(true);
+        NotificationService.refreshToken();
+      } else {
+        NotificationService.requestPermission();
+      }
+    });
+  }, [setHasPermission]);
 
   useEffect(() => {
     if (!hasPermission) {

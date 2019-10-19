@@ -75,9 +75,14 @@ const App: React.FunctionComponent<{}> = () => {
 
   useEffect(() => {
     if (client) {
-      client.query({
+      client.query<{ profile: Profile }>({
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
+      })
+      .then(({ data }) => {
+        if (data && data.profile) {
+          NotificationService.setUser(data.profile);
+        }
       })
       .catch(console.error)
       .finally(() => SplashScreen.hide());
@@ -101,7 +106,7 @@ const App: React.FunctionComponent<{}> = () => {
         <React.Fragment>
           <Navigator ref={setNavigationRef} />
           <PushNotification ref={pushNotificationRef} />
-          <NotificationEvents user={user} pushNotificationRef={pushNotificationRef} />
+          <NotificationEvents pushNotificationRef={pushNotificationRef} />
           <DynamicLinkEvents />
           <AuthModal />
         </React.Fragment>
