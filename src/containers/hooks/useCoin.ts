@@ -21,6 +21,7 @@ import {
   VERIFY_RECEIPT,
   FETCH_TRANSACTION_FEED,
 } from 'graphqls';
+import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 type CoinListResult = {
@@ -110,6 +111,7 @@ function useCoin(setIsLoading: (isLoading: boolean) => void) {
 
   const purchase = useCallback((productId: string) => {
     setIsLoading(true);
+    AnalyticsService.logEvent(`click_purchase_${productId}`);
     InAppPurchase.purchase(productId);
   }, [setIsLoading]);
 

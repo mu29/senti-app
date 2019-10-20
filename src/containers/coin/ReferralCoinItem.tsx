@@ -7,7 +7,10 @@ import {
 import { useQuery } from '@apollo/react-hooks';
 import { ReferralCoinItem } from 'components';
 import { FETCH_PROFILE } from 'graphqls';
-import { DynamicLinkService } from 'services';
+import {
+  DynamicLinkService,
+  AnalyticsService,
+} from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 const Container: React.FunctionComponent<{}> = () => {
@@ -37,6 +40,7 @@ const Container: React.FunctionComponent<{}> = () => {
         }, {
           dialogTitle: LocalizedStrings.COIN_REFERRAL,
         });
+        AnalyticsService.logEvent('show_referral_dialog');
       })
       .catch(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message));
   }, [profile]);

@@ -134,7 +134,10 @@ const Container: React.FunctionComponent<{}> = () => {
       if (canUseCoin || canUseFreeCoin) {
         Alert.alert(LocalizedStrings.REPLY_USE_COIN_TITLE, message, [{
           text: LocalizedStrings.COMMON_CONFIRM,
-          onPress: () => createWithPurchase(true),
+          onPress: () => {
+            createWithPurchase(true);
+            AnalyticsService.logEvent(`use_${canUseFreeCoin ? 'free_' : ''}coin_create_chatting`);
+          },
         }, {
           text: LocalizedStrings.COMMON_CANCEL,
           onPress: () => createWithPurchase(false),
