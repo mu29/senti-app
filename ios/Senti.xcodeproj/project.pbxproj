@@ -414,7 +414,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "";
 				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = " (D)";
@@ -431,7 +431,7 @@
 				INFOPLIST_FILE = Senti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -453,7 +453,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "40iKzqw15Z-5hiyj0PZAl_bh-_KS180a8f7e-a595-471d-ba74-a122212012fa";
 				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = "";
 				DYNAMIC_LINK_HOST = link.senti.in;
@@ -469,7 +469,7 @@
 				INFOPLIST_FILE = Senti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -538,7 +538,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "p-Pp3q7mZmDO8kp0Es_Al5yGkoTC180a8f7e-a595-471d-ba74-a122212012fa";
 				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = AVXKHR4MKC;
 				DISPLAY_NAME_SUFFIX = " (I)";
 				DYNAMIC_LINK_HOST = "staging-link.senti.in";
@@ -554,7 +554,7 @@
 				INFOPLIST_FILE = Senti/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
