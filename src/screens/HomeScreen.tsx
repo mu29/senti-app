@@ -11,7 +11,7 @@ import {
 
 const HomeScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
-    AnalyticsService.setScreen(HomeScreen.name);
+    AnalyticsService.setScreen('HomeScreen');
   }, []);
 
   return (

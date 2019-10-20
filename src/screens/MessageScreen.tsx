@@ -21,7 +21,7 @@ const MessageScreen: React.FunctionComponent<NavigationScreenProps> = ({
   navigation,
 }) => {
   const onDidFocus = useCallback(() => {
-    AnalyticsService.setScreen(MessageScreen.name);
+    AnalyticsService.setScreen('MessageScreen');
   }, []);
 
   const chattingId = navigation.getParam('chattingId', '');

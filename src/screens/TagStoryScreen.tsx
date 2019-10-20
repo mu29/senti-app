@@ -41,7 +41,7 @@ const TagStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
   navigation,
 }) => {
   const onDidFocus = useCallback(() => {
-    AnalyticsService.setScreen(TagStoryScreen.name);
+    AnalyticsService.setScreen('TagStoryScreen');
   }, []);
 
   const goBack = useCallback(() => navigation.goBack(), [navigation]);

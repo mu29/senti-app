@@ -25,7 +25,7 @@ import { LocalizedStrings } from 'constants/translations';
 
 const ProfileScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
-    AnalyticsService.setScreen(ProfileScreen.name);
+    AnalyticsService.setScreen('ProfileScreen');
   }, []);
 
   return (

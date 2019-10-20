@@ -85,7 +85,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
     // 무료 코인 사용 가능
     if (profile.canUseFreeCoinAt < Date.now()) {
       loadAudio();
-      AnalyticsService.logEvent(`use_free_coin_message_play`);
+      AnalyticsService.logEvent('use_free_coin_message_play');
       return;
     }
 
@@ -95,7 +95,7 @@ const MessageItem: React.FunctionComponent<Props> = ({
         text: LocalizedStrings.COMMON_CONFIRM,
         onPress: () => {
           loadAudio();
-          AnalyticsService.logEvent(`use_coin_message_play`);
+          AnalyticsService.logEvent('use_coin_message_play');
         },
       }, {
         text: LocalizedStrings.COMMON_CANCEL,

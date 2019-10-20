@@ -15,7 +15,7 @@ import { AnalyticsService } from 'services';
 
 const CreateStoryScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
-    AnalyticsService.setScreen(CreateStoryScreen.name);
+    AnalyticsService.setScreen('CreateStoryScreen');
   }, []);
 
   return (

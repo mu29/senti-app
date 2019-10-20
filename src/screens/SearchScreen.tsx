@@ -9,7 +9,7 @@ import { AnalyticsService } from 'services';
 
 const SearchScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
-    AnalyticsService.setScreen(SearchScreen.name);
+    AnalyticsService.setScreen('SearchScreen');
   }, []);
 
   return (

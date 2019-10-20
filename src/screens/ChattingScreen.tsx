@@ -26,7 +26,7 @@ const ChattingScreen: React.FunctionComponent<{}> = () => {
       fetchPolicy: 'network-only',
     });
     NotificationService.clearBadge();
-    AnalyticsService.setScreen(ChattingScreen.name);
+    AnalyticsService.setScreen('ChattingScreen');
   }, [client]);
 
   return (
