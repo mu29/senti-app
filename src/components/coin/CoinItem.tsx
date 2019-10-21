@@ -61,6 +61,7 @@ const CoinItem: React.FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
+    height: 64,
     marginVertical: 6,
     marginHorizontal: 10,
     padding: 1,
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
+    height: 62,
     padding: 12,
     backgroundColor: palette.gray[90],
   },
