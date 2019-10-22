@@ -429,7 +429,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A00FF6EA33CE2A7E5AB3DABC /* Pods-Senti.debug.xcconfig */;
 			buildSettings = {
-				API_URL = "http://10.78.72.74:5005";
+				API_URL = "http://210.90.249.207:5005";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "";
 				CODE_SIGN_ENTITLEMENTS = Senti/Senti.entitlements;
