@@ -14,10 +14,6 @@ import {
   LoadingBar,
   StoryItem,
 } from 'components';
-import {
-  AudioService,
-  AnalyticsService,
-} from 'services';
 import { palette } from 'constants/style';
 
 const {
@@ -48,8 +44,6 @@ interface Props {
 class StoryList extends React.PureComponent<Props> {
   private swiperAnimation = new Animated.Value(0);
 
-  private previousItem?: Story;
-
   public render() {
     const {
       items,
@@ -77,7 +71,6 @@ class StoryList extends React.PureComponent<Props> {
             [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
             { useNativeDriver: true },
           )}
-          onViewableItemsChanged={this.onViewableItemsChanged}
           viewabilityConfig={VIEWABILITY_CONFIG}
           style={styles.container}
           scrollEnabled
@@ -116,17 +109,6 @@ class StoryList extends React.PureComponent<Props> {
     offset: deviceHeight * index,
     index,
   })
-
-  private onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ item: Story }> }) => {
-    if (viewableItems.length > 0) {
-      const currentItem = viewableItems[0].item;
-      if (this.previousItem !== currentItem) {
-        AudioService.play(currentItem.audio.url);
-        AnalyticsService.logEvent('automatic_story_play');
-        this.previousItem = currentItem;
-      }
-    }
-  }
 }
 
 const styles = StyleSheet.create({
