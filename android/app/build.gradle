@@ -1,11 +1,11 @@
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 import com.android.build.OutputFile
+
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -142,8 +142,8 @@ android {
         applicationId "com.senti.app"
         minSdkVersion safeExtGet('minSdkVersion', 19)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
-        versionName "1.0.2"
-        versionCode 18
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }

@@ -210,6 +210,7 @@
 			buildPhases = (
 				34DE5C8210219023A8327336 /* [CP] Check Pods Manifest.lock */,
 				5BE715CB2327635C00E9DF50 /* Setup Firebase Environment */,
+				5B52B4FB235EBDEB00968A7D /* Setup Version */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -314,6 +315,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		5B52B4FB235EBDEB00968A7D /* Setup Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Setup Version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INFOPLIST=\"${PROJECT_DIR}/${TARGET_NAME}/Info.plist\"\n\nPACKAGE_VERSION=$(cat $PROJECT_DIR/../package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\\\",]//g' | tr -d '[[:space:]]')\nBUILD_NUMBER=$(echo $PACKAGE_VERSION | awk -F . '{ printf \"%d%02d%02d\", $1, $2, $3 }')\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString ${PACKAGE_VERSION#*v}\" \"${INFOPLIST}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $BUILD_NUMBER\" \"${INFOPLIST}\"\n";
 		};
 		5BA55DE2232B5D8C0028787E /* Run Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
