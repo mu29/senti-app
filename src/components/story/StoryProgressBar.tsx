@@ -6,12 +6,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { useAnimation } from 'react-native-animation-hooks';
-import { Text } from 'components';
-import {
-  palette,
-  typography,
-} from 'constants/style';
-import { toTimeText } from 'utils';
+import { palette } from 'constants/style';
 
 const {
   width: windowWidth,

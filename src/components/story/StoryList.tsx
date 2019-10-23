@@ -58,9 +58,9 @@ const StoryList: React.FunctionComponent<Props> = ({
 }) => {
   const swiperAnimation = useRef(new Animated.Value(0));
 
-  const listRef = useRef<AnimatedFlatList>(null);
+  const listRef = useRef<typeof AnimatedFlatList>(null);
 
-  const [index, setIndex] = useState(initialIndex || 0);
+  const [current, setCurrent] = useState(initialIndex || 0);
 
   const renderItem = useCallback(({ item, index }: { item: Story; index: number }) => (
     <StoryItem
@@ -80,19 +80,18 @@ const StoryList: React.FunctionComponent<Props> = ({
 
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any[] }) => {
     if (viewableItems.length > 0) {
-      setIndex(viewableItems[0].index);
+      setCurrent(viewableItems[0].index);
       AudioService.stop();
     }
-  }, [setIndex]);
+  }, [setCurrent]);
 
   const onPressNext = useCallback(() => {
-    console.log(index, items.length)
-    if (index + 1 < items.length && listRef.current) {
+    if (current + 1 < items.length && listRef.current) {
       listRef.current.getNode().scrollToIndex({
-        index: index + 1,
+        index: current + 1,
       });
     }
-  }, [index]);
+  }, [current, items.length]);
 
   return (
     <React.Fragment>
@@ -130,7 +129,7 @@ const StoryList: React.FunctionComponent<Props> = ({
           <LoadingBar isVisible={isLoading} />
         </View>
       )}
-      <StoryController item={items[index]} onPressNext={onPressNext} hasBottom={hasBottom} />
+      <StoryController item={items[current]} onPressNext={onPressNext} hasBottom={hasBottom} />
     </React.Fragment>
   );
 };
