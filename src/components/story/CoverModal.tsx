@@ -24,8 +24,6 @@ import {
 } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
-const ITEM_SIZE = LayoutService.screenWidth / 5;
-
 interface Props {
   isVisible: boolean;
   items: Array<{ thumb: string; original: string; }>;
@@ -39,6 +37,8 @@ const CoverModal: React.FunctionComponent<Props> = ({
   updateCover,
   hide,
 }) => {
+  const itemSize = useMemo(() => LayoutService.screenWidth / 5, []);
+
   const itemStyle = useMemo(() => ({
     height: LayoutService.screenWidth / 4,
   }), []);
@@ -79,7 +79,7 @@ const CoverModal: React.FunctionComponent<Props> = ({
           </Text>
         </View>
         <FlatGrid
-          itemDimension={ITEM_SIZE}
+          itemDimension={itemSize}
           spacing={0}
           items={items}
           renderItem={renderItem}
