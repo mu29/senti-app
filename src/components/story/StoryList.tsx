@@ -25,7 +25,7 @@ import {
 } from 'services';
 import { palette } from 'constants/style';
 
-const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
+const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 90 };
 
 const SAFE_AREA_INSET: {
   bottom: SafeAreaViewForceInsetValue;
