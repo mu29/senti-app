@@ -46,3 +46,6 @@ export { default as StoryList } from './story/StoryList';
 export { default as TagStoryList } from './story/TagStoryList';
 
 export { default as NewBottomTabBar } from './new/common/BottomTabBar';
+export { default as NewStoryProfile } from './new/story/StoryProfile';
+export { default as NewStoryController } from './new/story/StoryController';
+export { default as NewStoryList } from './new/story/StoryList';

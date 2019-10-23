@@ -172,7 +172,7 @@ android {
             resValue "string", "app_name", "@string/app_name_debug"
             resValue "string", "facebook_app_id", "576748566193001"
             resValue "string", "dynamic_link_host", "staging-link.senti.in"
-            buildConfigField "String", 'API_URL', '"http://10.78.136.238:5005"'
+            buildConfigField "String", 'API_URL', '"http://10.78.65.237:5005"'
             buildConfigField "String", 'WEBSITE_URL', '"https://staging.senti.in"'
             buildConfigField "String", 'FIREBASE_WEB_CLIENT_ID', '"190892997297-7rdev9p86115slu3s5jk3ennep82hkgk.apps.googleusercontent.com"'
             buildConfigField "String", "CODEPUSH_KEY", '""'

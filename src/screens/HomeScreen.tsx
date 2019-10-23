@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
+import { View } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import {
-  StoryList,
+  NewStoryList,
   ReplyModal,
 } from 'containers';
 import {
@@ -14,12 +15,13 @@ const HomeScreen: React.FunctionComponent<{}> = () => {
     AnalyticsService.setScreen('HomeScreen');
   }, []);
 
+  // return <View style={{ flex: 1, backgroundColor: '#000' }} />;
+
   return (
     <React.Fragment>
-      <StoryList />
+      <NewStoryList />
       <ReplyModal />
-      <NavigationEvents onDidFocus={onDidFocus} />
-      <NavigationEvents onWillBlur={AudioService.pause} />
+      <NavigationEvents onDidFocus={onDidFocus} onWillBlur={AudioService.stop} />
     </React.Fragment>
   );
 };

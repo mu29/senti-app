@@ -125,7 +125,7 @@ const BottomTabBar: React.FunctionComponent<Props> = ({
     setCurrent(2);
   }, [setPage, isLoggedIn, showAuthModal]);
 
-  const onPressAdd = useCallback(() => navigation.navigate('Add'), [navigation]);
+  const onPressAdd = useCallback(() => navigation.navigate('CreateStory'), [navigation]);
 
   useEffect(() => {
     if (Platform.OS !== 'android') {
@@ -141,7 +141,7 @@ const BottomTabBar: React.FunctionComponent<Props> = ({
     return () => {
       keyboardDidShowListener && keyboardDidShowListener.remove();
       keyboardDidHideListener && keyboardDidHideListener.remove();
-    }
+    };
   }, [setIsVisible]);
 
   if (!isVisible) {

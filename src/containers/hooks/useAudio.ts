@@ -113,6 +113,7 @@ function useAudio(key: string) {
   return {
     audio,
     play,
+    stop: AudioService.stop,
     pause: AudioService.pause,
     replay: AudioService.replay,
     release: AudioService.release,

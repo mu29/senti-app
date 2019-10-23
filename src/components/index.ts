@@ -58,3 +58,8 @@ export { default as TagItem } from './search/TagItem';
 export { default as TagList } from './search/TagList';
 
 export { default as NewBottomTabBar } from './new/common/BottomTabBar';
+export { default as NewStoryProfile } from './new/story/StoryProfile';
+export { default as NewStoryProgressBar } from './new/story/StoryProgressBar';
+export { default as NewStoryController } from './new/story/StoryController';
+export { default as NewStoryItem } from './new/story/StoryItem';
+export { default as NewStoryList } from './new/story/StoryList';
