@@ -1,58 +1,31 @@
-import React, {
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
-  Image,
-  TouchableOpacity,
   Animated,
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { useAnimation } from 'react-native-animation-hooks';
-import {
-  SafeAreaView,
-  SafeAreaViewForceInsetValue,
-} from 'react-navigation';
 import {
   Text,
   CachableImage,
 } from 'components';
-import {
-  useAudio,
-  StoryController,
-} from 'containers';
 import { palette } from 'constants/style';
-import { AnalyticsService } from 'services';
 
 const {
   width: deviceWidth,
   height: deviceHeight,
 } = Dimensions.get('window');
 
-const PLAY_ICON = { uri: 'ic_play_active' };
-
-const SAFE_AREA_INSET: {
-  top: SafeAreaViewForceInsetValue;
-  bottom: SafeAreaViewForceInsetValue;
-} = {
-  top: 'never',
-  bottom: 'always',
-};
-
 interface Props {
   item: Story;
   index: number;
   animatedValue: Animated.Value;
-  hasBottom?: boolean;
 }
 
 const StoryItem: React.FunctionComponent<Props> = ({
   item,
   index,
   animatedValue,
-  hasBottom,
 }) => {
   const parallexStyle = useMemo(() => ({
     transform: [{
@@ -89,7 +62,6 @@ const StoryItem: React.FunctionComponent<Props> = ({
             {Tags}
           </View>
         </View>
-        <StoryController item={item} hasBottom={hasBottom} />
       </View>
     </View>
   );
@@ -113,6 +85,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 128,
   },
   tags: {
     flexDirection: 'row',

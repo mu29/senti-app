@@ -52,6 +52,7 @@ export { default as StoryEmptyList } from './story/StoryEmptyList';
 export { default as StoryGrid } from './story/StoryGrid';
 export { default as StoryItem } from './story/StoryItem';
 export { default as StoryList } from './story/StoryList';
+export { default as StoryProgressBar } from './story/StoryProgressBar';
 
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';

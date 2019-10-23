@@ -30,6 +30,7 @@ type MyStoryFeedResult = {
 interface Props {
   item: Story;
   hasBottom?: boolean;
+  onPressNext: () => void;
 }
 
 const StoryControllerContainer: React.FunctionComponent<Props> = ({

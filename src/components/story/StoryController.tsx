@@ -15,6 +15,7 @@ import {
   Text,
   Button,
   LoadingLayer,
+  StoryProgressBar,
 } from 'components';
 import { useAudio } from 'containers';
 import {
@@ -34,6 +35,7 @@ const HIT_SLOP = {
 
 const PLAY_ICON = { uri: 'ic_play_active' };
 const STOP_ICON = { uri: 'ic_stop' };
+const NEXT_ICON = { uri: 'ic_next' };
 const CHAT_ICON = { uri: 'ic_chat_active' };
 const DELETE_ICON = { uri: 'ic_delete' };
 
@@ -43,6 +45,7 @@ interface Props {
   isMyStory: boolean;
   isLoading: boolean;
   hasBottom?: boolean;
+  onPressNext: () => void;
   showAuthModal: () => void;
   showReplyModal: () => void;
   reportUser: () => Promise<any>;
@@ -57,6 +60,7 @@ const StoryController: React.FunctionComponent<Props> = ({
     },
     audio: {
       url,
+      duration,
     },
     createdAt,
   },
@@ -64,6 +68,7 @@ const StoryController: React.FunctionComponent<Props> = ({
   isMyStory,
   isLoading,
   hasBottom,
+  onPressNext,
   showAuthModal,
   showReplyModal,
   reportUser,
@@ -139,28 +144,34 @@ const StoryController: React.FunctionComponent<Props> = ({
   return (
     <React.Fragment>
       <View style={[styles.container, hasBottom && styles.withBottom]}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.profile}
-          disabled={isMyStory}
-          onPress={showReportSheet}
-        >
-          <Image source={profileImage} style={styles.photo} />
-          <View>
-            <Text style={[typography.heading3, styles.name]}>
-              {name}
-            </Text>
-            <Text style={styles.date}>
-              {dayjs(createdAt).fromNow()}
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <Button hitSlop={HIT_SLOP} onPress={onPressToggle} isLoading={audio.isLoading} round>
-          <Image source={audio.isPlaying ? STOP_ICON : PLAY_ICON} style={styles.icon} />
-        </Button>
-        <Button hitSlop={HIT_SLOP} onPress={isMyStory ? onPressDelete : openReplyModal} round>
-          <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />
-        </Button>
+        <StoryProgressBar audio={audio} duration={duration} />
+        <View style={styles.controller}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.profile}
+            disabled={isMyStory}
+            onPress={showReportSheet}
+          >
+            <Image key={photoUrl || ''} source={profileImage} style={styles.photo} />
+            <View>
+              <Text style={[typography.heading3, styles.name]}>
+                {name}
+              </Text>
+              <Text style={styles.date}>
+                {dayjs(createdAt).fromNow()}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <Button hitSlop={HIT_SLOP} onPress={onPressToggle} isLoading={audio.isLoading} round>
+            <Image source={audio.isPlaying ? STOP_ICON : PLAY_ICON} style={styles.icon} />
+          </Button>
+          <Button hitSlop={HIT_SLOP} onPress={onPressNext} round>
+            <Image source={NEXT_ICON} style={styles.icon} />
+          </Button>
+          <Button hitSlop={HIT_SLOP} onPress={isMyStory ? onPressDelete : openReplyModal} round>
+            <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />
+          </Button>
+        </View>
       </View>
       {isLoading && <LoadingLayer />}
     </React.Fragment>
@@ -169,10 +180,17 @@ const StoryController: React.FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  controller: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 24,
+    padding: 16,
     paddingRight: 8,
+    backgroundColor: palette.transparent.black[70],
   },
   profile: {
     flex: 1,
@@ -180,7 +198,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   withBottom: {
-    marginBottom: 48,
+    bottom: 48,
   },
   photo: {
     width: 40,
@@ -198,8 +216,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   icon: {
-    width: 28,
-    height: 28,
+    width: 24,
+    height: 24,
     marginHorizontal: 16,
     tintColor: palette.gray[10],
   },

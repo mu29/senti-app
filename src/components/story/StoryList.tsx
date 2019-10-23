@@ -1,4 +1,8 @@
-import React from 'react';
+import React, {
+  useState,
+  useRef,
+  useCallback,
+} from 'react';
 import {
   View,
   FlatList,
@@ -14,6 +18,7 @@ import {
   LoadingBar,
   StoryItem,
 } from 'components';
+import { StoryController } from 'containers';
 import { AudioService } from 'services';
 import { palette } from 'constants/style';
 
@@ -42,88 +47,93 @@ interface Props {
   onRefresh: () => void;
 }
 
-class StoryList extends React.PureComponent<Props> {
-  private swiperAnimation = new Animated.Value(0);
+const StoryList: React.FunctionComponent<Props> = ({
+  items,
+  initialIndex,
+  isLoading,
+  isRefreshing,
+  hasBottom,
+  onFetchMore,
+  onRefresh,
+}) => {
+  const swiperAnimation = useRef(new Animated.Value(0));
 
-  private previousItem?: Story;
+  const listRef = useRef<AnimatedFlatList>(null);
 
-  public render() {
-    const {
-      items,
-      initialIndex,
-      isLoading,
-      isRefreshing,
-      hasBottom,
-      onFetchMore,
-      onRefresh,
-    } = this.props;
+  const [index, setIndex] = useState(initialIndex || 0);
 
-    return (
-      <React.Fragment>
-        <AnimatedFlatList
-          data={items}
-          renderItem={this.renderItem}
-          keyExtractor={this.keyExtractor}
-          getItemLayout={this.getItemLayout}
-          initialScrollIndex={initialIndex}
-          onEndReached={onFetchMore}
-          onEndReachedThreshold={1}
-          onRefresh={onRefresh}
-          refreshing={isRefreshing}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.swiperAnimation } } }],
-            { useNativeDriver: true },
-          )}
-          onViewableItemsChanged={this.onViewableItemsChanged}
-          viewabilityConfig={VIEWABILITY_CONFIG}
-          style={styles.container}
-          scrollEnabled
-          pagingEnabled
-          horizontal={false}
-          scrollEventThrottle={10}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-        />
-        {hasBottom ? (
-          <SafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.loading, styles.bottomSpace]}>
-            <LoadingBar isVisible={isLoading} />
-          </SafeAreaView>
-        ) : (
-          <View style={styles.loading}>
-            <LoadingBar isVisible={isLoading} />
-          </View>
-        )}
-      </React.Fragment>
-    );
-  }
-
-  private renderItem = ({ item, index }: { item: Story; index: number }) => (
+  const renderItem = useCallback(({ item, index }: { item: Story; index: number }) => (
     <StoryItem
       item={item}
       index={index}
-      animatedValue={this.swiperAnimation}
-      hasBottom={this.props.hasBottom}
+      animatedValue={swiperAnimation.current}
     />
-  )
+  ), []);
 
-  private keyExtractor = (item: Story) => item.id;
+  const keyExtractor = useCallback((item: Story) => item.id, []);
 
-  private getItemLayout = (_: any, index: number) => ({
+  const getItemLayout = useCallback((_: any, index: number) => ({
     length: deviceHeight,
     offset: deviceHeight * index,
     index,
-  })
+  }), []);
 
-  private onViewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ item: Story }> }) => {
+  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: any[] }) => {
     if (viewableItems.length > 0) {
-      const currentItem = viewableItems[0].item;
-      if (this.previousItem !== currentItem) {
-        AudioService.stop();
-        this.previousItem = currentItem;
-      }
+      setIndex(viewableItems[0].index);
+      AudioService.stop();
     }
-  }
-}
+  }, [setIndex]);
+
+  const onPressNext = useCallback(() => {
+    console.log(index, items.length)
+    if (index + 1 < items.length && listRef.current) {
+      listRef.current.getNode().scrollToIndex({
+        index: index + 1,
+      });
+    }
+  }, [index]);
+
+  return (
+    <React.Fragment>
+      <AnimatedFlatList
+        ref={listRef}
+        data={items}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        getItemLayout={getItemLayout}
+        initialScrollIndex={initialIndex}
+        onEndReached={onFetchMore}
+        onEndReachedThreshold={1}
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: swiperAnimation.current } } }],
+          { useNativeDriver: true },
+        )}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={VIEWABILITY_CONFIG}
+        style={styles.container}
+        scrollEnabled
+        pagingEnabled
+        horizontal={false}
+        scrollEventThrottle={10}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      />
+      {hasBottom ? (
+        <SafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.loading, styles.bottomSpace]}>
+          <LoadingBar isVisible={isLoading} />
+        </SafeAreaView>
+      ) : (
+        <View style={styles.loading}>
+          <LoadingBar isVisible={isLoading} />
+        </View>
+      )}
+      <StoryController item={items[index]} onPressNext={onPressNext} hasBottom={hasBottom} />
+    </React.Fragment>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
