@@ -4,7 +4,11 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
-import { StatusBar } from 'react-native';
+import {
+  View,
+  StatusBar,
+  LayoutChangeEvent,
+} from 'react-native';
 import codePush from 'react-native-code-push';
 import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
@@ -29,6 +33,7 @@ import {
   NavigationService,
   NotificationService,
   AnalyticsService,
+  LayoutService,
 } from 'services';
 import { LANGUAGE } from 'constants/config';
 
@@ -60,9 +65,20 @@ const App: React.FunctionComponent<{}> = () => {
 
   const [user, setUser] = useState<RNFirebase.User | null>(null);
 
+  const [height, setHeight] = useState(0);
+
   const setNavigationRef = useCallback((ref: any) => {
     NavigationService.setTopLevelNavigator(ref);
   }, []);
+
+  const setScreenHeight = useCallback(({ nativeEvent }: LayoutChangeEvent) => {
+    const {
+      width,
+      height,
+    } = nativeEvent.layout
+    setHeight(height);
+    LayoutService.setViewport(width, height);
+  }, [setHeight]);
 
   useEffect(() => {
     configureClient().then(setClient);
@@ -95,8 +111,8 @@ const App: React.FunctionComponent<{}> = () => {
     NotificationService.sync();
   });
 
-  if (!client) {
-    return null;
+  if (!client || height === 0) {
+    return <View style={{ flex: 1 }} onLayout={setScreenHeight} />;
   }
 
   return (

@@ -1,6 +1,7 @@
 import React, {
-  useState,
   useRef,
+  useState,
+  useMemo,
   useCallback,
 } from 'react';
 import {
@@ -8,7 +9,6 @@ import {
   FlatList,
   Animated,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 import {
   SafeAreaView,
@@ -19,13 +19,11 @@ import {
   StoryItem,
 } from 'components';
 import { StoryController } from 'containers';
-import { AudioService } from 'services';
+import {
+  AudioService,
+  LayoutService,
+} from 'services';
 import { palette } from 'constants/style';
-
-const {
-  width: deviceWidth,
-  height: deviceHeight,
-} = Dimensions.get('window');
 
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 100 };
 
@@ -62,6 +60,12 @@ const StoryList: React.FunctionComponent<Props> = ({
 
   const [current, setCurrent] = useState(initialIndex || 0);
 
+  const containerStyle = useMemo(() => ({
+    width: LayoutService.screenWidth,
+    height: LayoutService.screenHeight,
+    backgroundColor: palette.black.default,
+  }), []);
+
   const renderItem = useCallback(({ item, index }: { item: Story; index: number }) => (
     <StoryItem
       item={item}
@@ -73,8 +77,8 @@ const StoryList: React.FunctionComponent<Props> = ({
   const keyExtractor = useCallback((item: Story) => item.id, []);
 
   const getItemLayout = useCallback((_: any, index: number) => ({
-    length: deviceHeight,
-    offset: deviceHeight * index,
+    length: LayoutService.screenHeight,
+    offset: LayoutService.screenHeight * index,
     index,
   }), []);
 
@@ -112,7 +116,7 @@ const StoryList: React.FunctionComponent<Props> = ({
         )}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={VIEWABILITY_CONFIG}
-        style={styles.container}
+        style={containerStyle}
         scrollEnabled
         pagingEnabled
         horizontal={false}
@@ -135,11 +139,6 @@ const StoryList: React.FunctionComponent<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: deviceWidth,
-    height: deviceHeight,
-    backgroundColor: palette.black.default,
-  },
   loading: {
     position: 'absolute',
     bottom: 0,

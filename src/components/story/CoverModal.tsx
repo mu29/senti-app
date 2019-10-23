@@ -1,9 +1,11 @@
-import React, { useCallback } from 'react';
+import React, {
+  useMemo,
+  useCallback,
+} from 'react';
 import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import { FlatGrid } from 'react-native-super-grid';
@@ -16,10 +18,13 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import { AnalyticsService } from 'services';
+import {
+  AnalyticsService,
+  LayoutService,
+} from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
-const ITEM_SIZE = Dimensions.get('window').width / 5;
+const ITEM_SIZE = LayoutService.screenWidth / 5;
 
 interface Props {
   isVisible: boolean;
@@ -34,6 +39,10 @@ const CoverModal: React.FunctionComponent<Props> = ({
   updateCover,
   hide,
 }) => {
+  const itemStyle = useMemo(() => ({
+    height: LayoutService.screenWidth / 4,
+  }), []);
+
   const onPressItem = useCallback((item) => {
     updateCover(item);
     AnalyticsService.logEvent('update_story_cover');
@@ -43,7 +52,7 @@ const CoverModal: React.FunctionComponent<Props> = ({
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={() => onPressItem(item.original)}
-      style={styles.item}
+      style={itemStyle}
     >
       <CachableImage prefix="covers" source={item.thumb} style={styles.image} />
     </TouchableOpacity>
@@ -104,9 +113,6 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: 8,
     color: palette.white.default,
-  },
-  item: {
-    height: Dimensions.get('window').width / 4,
   },
   image: {
     flex: 1,

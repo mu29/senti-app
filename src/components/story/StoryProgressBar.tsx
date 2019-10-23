@@ -3,14 +3,10 @@ import {
   View,
   Animated,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 import { useAnimation } from 'react-native-animation-hooks';
+import { LayoutService } from 'services';
 import { palette } from 'constants/style';
-
-const {
-  width: windowWidth,
-} = Dimensions.get('window');
 
 interface Props {
   audio: PlayableAudio;
@@ -33,7 +29,7 @@ const StoryProgressBar: React.FunctionComponent<Props> = ({
     transform: [{
       translateX: progressAnimation.interpolate({
         inputRange: [0, 1],
-        outputRange: [-windowWidth + 4, 0],
+        outputRange: [-LayoutService.screenWidth + 4, 0],
         extrapolate: 'clamp',
       }),
     }],

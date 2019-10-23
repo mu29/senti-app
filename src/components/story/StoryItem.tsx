@@ -3,18 +3,13 @@ import {
   View,
   Animated,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 import {
   Text,
   CachableImage,
 } from 'components';
+import { LayoutService } from 'services';
 import { palette } from 'constants/style';
-
-const {
-  width: deviceWidth,
-  height: deviceHeight,
-} = Dimensions.get('window');
 
 interface Props {
   item: Story;
@@ -27,15 +22,21 @@ const StoryItem: React.FunctionComponent<Props> = ({
   index,
   animatedValue,
 }) => {
+  const backgroundStyle = useMemo(() => ({
+    width: LayoutService.screenWidth,
+    height: LayoutService.screenHeight,
+    backgroundColor: palette.gray[100],
+  }), []);
+
   const parallexStyle = useMemo(() => ({
     transform: [{
       translateY: animatedValue!.interpolate({
         inputRange: [
-          (index - 1) * deviceHeight,
-          index * deviceHeight,
-          (index + 1) * deviceHeight,
+          (index - 1) * LayoutService.screenHeight,
+          index * LayoutService.screenHeight,
+          (index + 1) * LayoutService.screenHeight,
         ],
-        outputRange: [-deviceHeight * 0.5, 0, deviceHeight * 0.5],
+        outputRange: [-LayoutService.screenHeight * 0.5, 0, LayoutService.screenHeight * 0.5],
         extrapolate: 'clamp',
       }),
     }],
@@ -54,7 +55,7 @@ const StoryItem: React.FunctionComponent<Props> = ({
   return (
     <View style={styles.container}>
       <Animated.View style={parallexStyle}>
-        <CachableImage prefix="covers" source={item.cover} style={styles.background} />
+        <CachableImage prefix="covers" source={item.cover} style={backgroundStyle} />
       </Animated.View>
       <View style={styles.filter}>
         <View style={styles.content}>
@@ -71,11 +72,6 @@ const styles = StyleSheet.create({
   container: {
     overflow: 'hidden',
     flex: 1,
-  },
-  background: {
-    width: deviceWidth,
-    height: deviceHeight,
-    backgroundColor: palette.gray[100],
   },
   filter: {
     ...StyleSheet.absoluteFillObject,
