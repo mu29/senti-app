@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { NavigationEvents } from 'react-navigation';
+import { useQuery } from '@apollo/react-hooks';
 import {
   View,
   StyleSheet,
@@ -16,17 +17,32 @@ import {
   CoinModal,
   MyStoryGrid,
 } from 'containers';
+import { AnalyticsService } from 'services';
+import { FETCH_PROFILE } from 'graphqls';
 import {
   palette,
   typography,
 } from 'constants/style';
-import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 const ProfileScreen: React.FunctionComponent<{}> = () => {
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
+    fetchPolicy: 'cache-only',
+  });
+
   const onDidFocus = useCallback(() => {
     AnalyticsService.setScreen('ProfileScreen');
   }, []);
+
+  if (!profile) {
+    return null;
+  }
 
   return (
     <React.Fragment>

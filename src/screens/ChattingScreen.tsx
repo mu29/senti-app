@@ -1,6 +1,9 @@
 import React, { useCallback } from 'react';
 import { NavigationEvents } from 'react-navigation';
-import { useApolloClient } from '@apollo/react-hooks';
+import {
+  useQuery,
+  useApolloClient,
+} from '@apollo/react-hooks';
 import {
   Header,
   withSafeArea,
@@ -14,11 +17,24 @@ import {
   AnalyticsService,
   NotificationService,
 } from 'services';
-import { FETCH_CHATTING_FEED } from 'graphqls';
+import {
+  FETCH_PROFILE,
+  FETCH_CHATTING_FEED,
+} from 'graphqls';
 import { LocalizedStrings } from 'constants/translations';
 
 const ChattingScreen: React.FunctionComponent<{}> = () => {
   const client = useApolloClient();
+
+  const {
+    data: {
+      profile,
+    } = {
+      profile: undefined,
+    },
+  } = useQuery<{ profile: Profile }>(FETCH_PROFILE, {
+    fetchPolicy: 'cache-only',
+  });
 
   const onDidFocus = useCallback(() => {
     client.query({
@@ -28,6 +44,10 @@ const ChattingScreen: React.FunctionComponent<{}> = () => {
     NotificationService.clearBadge();
     AnalyticsService.setScreen('ChattingScreen');
   }, [client]);
+
+  if (!profile) {
+    return null;
+  }
 
   return (
     <React.Fragment>
