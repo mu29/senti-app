@@ -58,10 +58,8 @@ const StoryItem: React.FunctionComponent<Props> = ({
         <CachableImage prefix="covers" source={item.cover} style={backgroundStyle} />
       </Animated.View>
       <View style={styles.filter}>
-        <View style={styles.content}>
-          <View style={styles.tags}>
-            {Tags}
-          </View>
+        <View style={styles.tags}>
+          {Tags}
         </View>
       </View>
     </View>
@@ -75,13 +73,11 @@ const styles = StyleSheet.create({
   },
   filter: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: palette.transparent.black[40],
-  },
-  content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 128,
+    backgroundColor: palette.transparent.black[40],
   },
   tags: {
     flexDirection: 'row',

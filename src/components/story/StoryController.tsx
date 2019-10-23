@@ -9,6 +9,10 @@ import {
   Alert,
   StyleSheet,
 } from 'react-native';
+import {
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
+} from 'react-navigation';
 import ActionSheet from 'rn-actionsheet-module';
 import dayjs from 'dayjs';
 import {
@@ -28,9 +32,12 @@ import {
 } from 'constants/style';
 import { LocalizedStrings } from 'constants/translations';
 
-const HIT_SLOP = {
-  top: 16,
-  bottom: 16,
+const SAFE_AREA_INSET: {
+  top: SafeAreaViewForceInsetValue;
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  top: 'never',
+  bottom: 'always',
 };
 
 const PLAY_ICON = { uri: 'ic_play_active' };
@@ -143,7 +150,7 @@ const StoryController: React.FunctionComponent<Props> = ({
 
   return (
     <React.Fragment>
-      <View style={[styles.container, hasBottom && styles.withBottom]}>
+      <SafeAreaView forceInset={SAFE_AREA_INSET} style={[styles.container, hasBottom && styles.withBottom]}>
         <StoryProgressBar audio={audio} duration={duration} />
         <View style={styles.controller}>
           <TouchableOpacity
@@ -172,7 +179,7 @@ const StoryController: React.FunctionComponent<Props> = ({
             <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />
           </Button>
         </View>
-      </View>
+      </SafeAreaView>
       {isLoading && <LoadingLayer />}
     </React.Fragment>
   );
