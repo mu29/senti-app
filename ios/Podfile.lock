@@ -324,6 +324,8 @@ PODS:
     - React
   - react-native-splash-screen (3.2.0):
     - React
+  - react-native-viewpager (2.0.1):
+    - React
   - react-native-webview (7.4.1):
     - React
   - React-RCTActionSheet (0.61.1):
@@ -364,8 +366,6 @@ PODS:
   - rn-fetch-blob (0.10.16):
     - React-Core
   - RNCAsyncStorage (1.6.1):
-    - React
-  - RNCViewpager (1.1.7):
     - React
   - RNFirebase (5.5.6):
     - Firebase/Core
@@ -433,6 +433,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -447,7 +448,6 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
-  - "RNCViewpager (from `../node_modules/@react-native-community/viewpager`)"
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -526,6 +526,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-viewpager:
+    :path: "../node_modules/@react-native-community/viewpager"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -552,8 +554,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/rn-fetch-blob"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
-  RNCViewpager:
-    :path: "../node_modules/@react-native-community/viewpager"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
   RNFS:
@@ -621,6 +621,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 574d597112f9ea3d1b717f6fb62aef764c70dd6f
   react-native-fbsdk: 45e28bbab3e905cbc635c0bdd3444b372e933ae9
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-viewpager: f41b42bba71407e916654d64e87ff2680edecc92
   react-native-webview: e800df5dd1a0f3555fd543ebf7d881a9014851f2
   React-RCTActionSheet: af4d951113b1e068bb30611f91b984a7a73597ff
   React-RCTAnimation: 4f518d70bb6890b7c3d9d732f84786d6693ca297
@@ -634,7 +635,6 @@ SPEC CHECKSUMS:
   ReactCommon: 4fba5be89efdf0b5720e0adb3d8d7edf6e532db0
   rn-fetch-blob: 651b8d076b43d0d7aa294a3d9ec16c00aab8bef9
   RNCAsyncStorage: 2e2e3feb9bdadc752a026703d8c4065ca912e75a
-  RNCViewpager: d11d720f0c6fbd2024788d09108a9f7abb1fac5a
   RNFirebase: ac0de8b24c6f91ae9459575491ed6a77327619c6
   RNFS: a8fbe7060fa49157d819466404794ad9c58e58cf
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
