@@ -58,7 +58,7 @@ const TagStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
       </SafeAreaView>
       <ReplyModal />
       <NavigationEvents onDidFocus={onDidFocus} />
-      <NavigationEvents onWillBlur={AudioService.pause} />
+      <NavigationEvents onWillBlur={AudioService.stop} />
     </React.Fragment>
   );
 };

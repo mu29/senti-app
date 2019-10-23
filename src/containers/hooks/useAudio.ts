@@ -114,6 +114,7 @@ function useAudio(key: string) {
     audio,
     play,
     pause: AudioService.pause,
+    stop: AudioService.stop,
     replay: AudioService.replay,
     release: AudioService.release,
   };

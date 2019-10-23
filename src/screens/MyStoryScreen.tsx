@@ -54,7 +54,7 @@ const MyStoryScreen: React.FunctionComponent<NavigationScreenProps> = ({
         </Button>
       </SafeAreaView>
       <NavigationEvents onDidFocus={onDidFocus} />
-      <NavigationEvents onWillBlur={AudioService.pause} />
+      <NavigationEvents onWillBlur={AudioService.stop} />
     </React.Fragment>
   );
 };

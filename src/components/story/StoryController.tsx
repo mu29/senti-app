@@ -122,7 +122,7 @@ const StoryController: React.FunctionComponent<Props> = ({
     }
 
     showReplyModal();
-    AudioService.pause();
+    AudioService.stop();
     AnalyticsService.logEvent('show_reply_modal');
   }, [isLoggedIn, showAuthModal, showReplyModal]);
 

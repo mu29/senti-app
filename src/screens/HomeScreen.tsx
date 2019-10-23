@@ -19,7 +19,7 @@ const HomeScreen: React.FunctionComponent<{}> = () => {
       <StoryList />
       <ReplyModal />
       <NavigationEvents onDidFocus={onDidFocus} />
-      <NavigationEvents onWillBlur={AudioService.pause} />
+      <NavigationEvents onWillBlur={AudioService.stop} />
     </React.Fragment>
   );
 };

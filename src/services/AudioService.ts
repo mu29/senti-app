@@ -75,6 +75,13 @@ class AudioService {
     }
   }
 
+  public stop = () => {
+    if (this.sound && this.sound.isLoaded()) {
+      this.sound.stop();
+      this.emit(AudioState.STOP);
+    }
+  }
+
   public replay = () => {
     if (!this.sound) {
       return;
