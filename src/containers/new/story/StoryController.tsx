@@ -7,28 +7,11 @@ import { NewStoryController } from 'components';
 import {
   SHOW_MODAL,
   FETCH_PROFILE,
-  DELETE_STORY,
-  FETCH_MAIN_STORY_FEED,
-  FETCH_MY_STORY_FEED,
 } from 'graphqls';
-
-type MainStoryFeedResult = {
-  mainStoryFeed: {
-    stories: Story[];
-    cursor: string;
-  };
-};
-
-type MyStoryFeedResult = {
-  myStoryFeed: {
-    stories: Story[];
-    cursor: string;
-  };
-};
 
 interface Props {
   item: Story;
-  hasBottom?: boolean;
+  showNextStory: () => void;
 }
 
 const Container: React.FunctionComponent<Props> = ({
@@ -58,64 +41,12 @@ const Container: React.FunctionComponent<Props> = ({
     },
   });
 
-  const [deleteStory] = useMutation(DELETE_STORY, {
-    variables: {
-      id: item.id,
-    },
-    update: (cache) => {
-      try {
-        const data = cache.readQuery<MainStoryFeedResult>({
-          query: FETCH_MAIN_STORY_FEED,
-        });
-
-        if (!data) {
-          return;
-        }
-
-        cache.writeQuery({
-          query: FETCH_MAIN_STORY_FEED,
-          data: {
-            mainStoryFeed: {
-              ...data.mainStoryFeed,
-              stories: data.mainStoryFeed.stories.filter(story => story.id !== item.id),
-            },
-          },
-        });
-      } catch {}
-
-      try {
-        const savedMyFeed = cache.readQuery<MyStoryFeedResult>({
-          query: FETCH_MY_STORY_FEED,
-        });
-
-        if (!savedMyFeed) {
-          return;
-        }
-
-        cache.writeQuery({
-          query: FETCH_MY_STORY_FEED,
-          data: {
-            myStoryFeed: {
-              ...savedMyFeed.myStoryFeed,
-              stories: savedMyFeed.myStoryFeed.stories.filter(story => story.id !== item.id),
-            },
-          },
-        });
-      } catch {}
-    },
-  });
-
-  const isMyStory = profile ? profile.id === item.user.id : false;
-
   return (
     <NewStoryController
       item={item}
       isLoggedIn={!!profile}
-      isMyStory={isMyStory}
       showAuthModal={showAuthModal}
       showReplyModal={showReplyModal}
-      toggleLikeStory={() => {}}
-      deleteStory={deleteStory}
       {...props}
     />
   );

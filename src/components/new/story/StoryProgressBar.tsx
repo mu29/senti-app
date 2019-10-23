@@ -4,6 +4,7 @@ import {
   Animated,
   StyleSheet,
   Dimensions,
+  Easing,
 } from 'react-native';
 import { useAnimation } from 'react-native-animation-hooks';
 import { Text } from 'components';
@@ -28,8 +29,9 @@ const StoryProgressBar: React.FunctionComponent<Props> = ({
 }) => {
   const progressAnimation = useAnimation({
     type: 'timing',
+    easing: Easing.linear,
     toValue: Number(audio.isPlaying),
-    duration: audio.isPlaying ? duration : 100,
+    duration: audio.isPlaying ? duration : 250,
     useNativeDriver: true,
   });
 
@@ -37,7 +39,7 @@ const StoryProgressBar: React.FunctionComponent<Props> = ({
     transform: [{
       translateX: progressAnimation.interpolate({
         inputRange: [0, 1],
-        outputRange: [-(deviceWidth + 64), 0],
+        outputRange: [-(deviceWidth - 52), 0],
         extrapolate: 'clamp',
       }),
     }],
@@ -50,10 +52,10 @@ const StoryProgressBar: React.FunctionComponent<Props> = ({
         <Animated.View style={progressStyle} />
       </View>
       <View style={styles.timer}>
-        <Text style={typography.tiny3}>
+        <Text style={[typography.tiny2, { color: palette.gray[70] }]}>
           {toTimeText(audio.elapsedTime)}
         </Text>
-        <Text style={typography.tiny3}>
+        <Text style={[typography.tiny2, { color: palette.gray[70] }]}>
           {toTimeText(duration)}
         </Text>
       </View>
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
     height: 3,
     borderRadius: 2,
     backgroundColor: palette.gray[90],
+    overflow: 'hidden',
   },
   progress: {
     height: 3,
@@ -80,7 +83,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 6,
-    paddingHorizontal: 2,
   },
 });
 

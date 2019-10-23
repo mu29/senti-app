@@ -5,8 +5,23 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { NewStoryController } from 'containers';
+import {
+  SafeAreaView,
+  SafeAreaViewForceInsetValue,
+ } from 'react-navigation';
+import {
+  NewStoryProfile,
+  NewStoryController,
+} from 'containers';
 import { palette } from 'constants/style';
+
+const SAFE_AREA_INSET: {
+  top: SafeAreaViewForceInsetValue;
+  bottom: SafeAreaViewForceInsetValue;
+} = {
+  top: 'always',
+  bottom: 'never',
+};
 
 const {
   width: deviceWidth,
@@ -22,34 +37,30 @@ const StoryItem: React.FunctionComponent<Props> = ({
   const coverImage = useMemo(() => ({ uri: item.cover }), [item]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
+    <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
+      <View style={styles.image}>
         <Image source={coverImage} style={styles.cover} />
-        <NewStoryController item={item} />
       </View>
-    </View>
+      <NewStoryProfile item={item} />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingBottom: 48,
     justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.000001)',
-  },
-  card: {
     alignItems: 'center',
     margin: 24,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: palette.gray[90],
-    backgroundColor: palette.gray[100],
+    overflow: 'hidden',
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cover: {
-    width: deviceWidth - 80,
-    height: deviceWidth - 80,
-    marginTop: 16,
+    width: deviceWidth - 48,
+    height: 256,
     borderRadius: 12,
   },
 });
