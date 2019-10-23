@@ -44,14 +44,13 @@ const StoryProgressBar: React.FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   outerBar: {
-    height: 3,
+    height: 2,
     backgroundColor: palette.transparent.black[60],
-    borderRadius: 2,
     overflow: 'hidden',
   },
   innerBar: {
     backgroundColor: palette.yellow.default,
-    height: 3,
+    height: 2,
     borderRadius: 2,
   },
 });
