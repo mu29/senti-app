@@ -77,20 +77,14 @@ class BottomTabBar extends React.PureComponent<Props & BottomTabBarProps> {
     const {
       navigation: {
         state: {
-          index: navigationIndex,
           routes,
         },
       },
-      style,
     } = this.props;
 
     return (
       <SafeAreaView
-        style={[
-          styles.container,
-          style,
-          { backgroundColor: navigationIndex === 0 ? palette.transparent.black[60] : palette.gray[100] },
-        ]}
+        style={styles.container}
         forceInset={SAFE_AREA_INSET}
       >
         {routes.map(this.renderTabItem)}
@@ -165,7 +159,7 @@ const styles = StyleSheet.create({
     right: 0,
     height: 50,
     flexDirection: 'row',
-    backgroundColor: palette.transparent.black[60],
+    backgroundColor: palette.black.default,
   },
   menu: {
     flex: 1,
