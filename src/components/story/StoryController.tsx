@@ -162,13 +162,13 @@ const StoryController: React.FunctionComponent<Props> = ({
               </Text>
             </View>
           </TouchableOpacity>
-          <Button hitSlop={HIT_SLOP} onPress={onPressToggle} isLoading={audio.isLoading} round>
+          <Button onPress={onPressToggle} isLoading={audio.isLoading} style={styles.button} round>
             <Image source={audio.isPlaying ? STOP_ICON : PLAY_ICON} style={styles.icon} />
           </Button>
-          <Button hitSlop={HIT_SLOP} onPress={onPressNext} round>
+          <Button onPress={onPressNext} style={styles.button} round>
             <Image source={NEXT_ICON} style={styles.icon} />
           </Button>
-          <Button hitSlop={HIT_SLOP} onPress={isMyStory ? onPressDelete : openReplyModal} round>
+          <Button onPress={isMyStory ? onPressDelete : openReplyModal} style={styles.button} round>
             <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />
           </Button>
         </View>
@@ -188,7 +188,8 @@ const styles = StyleSheet.create({
   controller: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     paddingRight: 8,
     backgroundColor: palette.transparent.black[70],
   },
@@ -215,10 +216,15 @@ const styles = StyleSheet.create({
     color: palette.gray[30],
     fontSize: 12,
   },
+  button: {
+    width: 56,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   icon: {
     width: 24,
     height: 24,
-    marginHorizontal: 16,
     tintColor: palette.gray[10],
   },
 });
