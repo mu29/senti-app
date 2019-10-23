@@ -16,11 +16,15 @@ import {
   Button,
   LoadingLayer,
 } from 'components';
+import { useAudio } from 'containers';
+import {
+  AudioService,
+  AnalyticsService,
+} from 'services';
 import {
   palette,
   typography,
 } from 'constants/style';
-import { AudioService, AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 const HIT_SLOP = {
@@ -28,7 +32,8 @@ const HIT_SLOP = {
   bottom: 16,
 };
 
-const REPLAY_ICON = { uri: 'ic_replay' };
+const PLAY_ICON = { uri: 'ic_play_active' };
+const STOP_ICON = { uri: 'ic_stop' };
 const CHAT_ICON = { uri: 'ic_chat_active' };
 const DELETE_ICON = { uri: 'ic_delete' };
 
@@ -45,7 +50,16 @@ interface Props {
 }
 
 const StoryController: React.FunctionComponent<Props> = ({
-  item,
+  item: {
+    user: {
+      name,
+      photoUrl,
+    },
+    audio: {
+      url,
+    },
+    createdAt,
+  },
   isLoggedIn,
   isMyStory,
   isLoading,
@@ -56,12 +70,10 @@ const StoryController: React.FunctionComponent<Props> = ({
   deleteStory,
 }) => {
   const {
-    user: {
-      photoUrl,
-      name,
-    },
-    createdAt,
-  } = item;
+    audio,
+    play,
+    stop,
+  } = useAudio(url);
 
   const profileImage = useMemo(() => ({ uri: photoUrl || '' }), [photoUrl]);
 
@@ -114,10 +126,10 @@ const StoryController: React.FunctionComponent<Props> = ({
     AnalyticsService.logEvent('show_reply_modal');
   }, [isLoggedIn, showAuthModal, showReplyModal]);
 
-  const onPressReplay = useCallback(() => {
-    AudioService.replay();
-    AnalyticsService.logEvent('click_story_replay');
-  }, []);
+  const onPressToggle = useCallback(() => {
+    audio.isPlaying ? stop() : play();
+    AnalyticsService.logEvent(`click_story_${audio.isPlaying ? 'stop' : 'play'}`);
+  }, [audio.isPlaying, stop, play]);
 
   const onPressDelete = useCallback(() => {
     showDeleteAlert();
@@ -143,8 +155,8 @@ const StoryController: React.FunctionComponent<Props> = ({
             </Text>
           </View>
         </TouchableOpacity>
-        <Button hitSlop={HIT_SLOP} onPress={onPressReplay} round>
-          <Image source={REPLAY_ICON} style={styles.icon} />
+        <Button hitSlop={HIT_SLOP} onPress={onPressToggle} isLoading={audio.isLoading} round>
+          <Image source={audio.isPlaying ? STOP_ICON : PLAY_ICON} style={styles.icon} />
         </Button>
         <Button hitSlop={HIT_SLOP} onPress={isMyStory ? onPressDelete : openReplyModal} round>
           <Image source={isMyStory ? DELETE_ICON : CHAT_ICON} style={styles.icon} />

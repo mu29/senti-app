@@ -54,24 +54,6 @@ const StoryItem: React.FunctionComponent<Props> = ({
   animatedValue,
   hasBottom,
 }) => {
-  const {
-    audio,
-    play,
-    pause,
-  } = useAudio(item.audio.url);
-
-  const toggle = useCallback(() => {
-    audio.isPlaying ? pause() : play();
-    AnalyticsService.logEvent(`click_story_${audio.isPlaying ? 'pause' : 'play'}`);
-  }, [audio.isPlaying, pause, play]);
-
-  const pauseAnimation = useAnimation({
-    type: 'timing',
-    toValue: Number(!audio.isPlaying),
-    duration: 200,
-    useNativeDriver: true,
-  });
-
   const parallexStyle = useMemo(() => ({
     transform: [{
       translateY: animatedValue!.interpolate({
@@ -85,8 +67,6 @@ const StoryItem: React.FunctionComponent<Props> = ({
       }),
     }],
   }), [animatedValue, index]);
-
-  const iconStyle = useMemo(() => ({ opacity: pauseAnimation }), [pauseAnimation]);
 
   const Tags = useMemo(() => {
     return item.tags
@@ -104,21 +84,12 @@ const StoryItem: React.FunctionComponent<Props> = ({
         <CachableImage prefix="covers" source={item.cover} style={styles.background} />
       </Animated.View>
       <View style={styles.filter}>
-        <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.content}>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={toggle}
-            style={styles.button}
-          >
-            <View style={styles.tags}>
-              {Tags}
-            </View>
-            <Animated.View pointerEvents="none" style={[styles.iconContainer, iconStyle]}>
-              <Image source={PLAY_ICON} style={styles.icon} />
-            </Animated.View>
-          </TouchableOpacity>
-          <StoryController item={item} hasBottom={hasBottom} />
-        </SafeAreaView>
+        <View style={styles.content}>
+          <View style={styles.tags}>
+            {Tags}
+          </View>
+        </View>
+        <StoryController item={item} hasBottom={hasBottom} />
       </View>
     </View>
   );
@@ -142,12 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  button: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'stretch',
   },
   tags: {
     flexDirection: 'row',
