@@ -1,7 +1,6 @@
 export { default as Button } from './bootstrap/Button';
 export { default as CachableImage } from './bootstrap/CachableImage';
 export { default as Text } from './bootstrap/Text';
-export { default as ViewPager } from './bootstrap/ViewPager';
 export { default as TabView } from './bootstrap/TabView';
 
 export { default as Badge } from './common/Badge';
@@ -57,3 +56,5 @@ export { default as StoryList } from './story/StoryList';
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
 export { default as TagList } from './search/TagList';
+
+export { default as NewBottomTabBar } from './new/common/BottomTabBar';

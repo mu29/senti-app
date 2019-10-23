@@ -10,6 +10,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { BottomTabBar } from 'containers';
 import { palette } from 'constants/style';
 
+import MainScreen from './screens/MainScreen';
 import HomeScreen from './screens/HomeScreen';
 import SearchScreen from './screens/SearchScreen';
 import ChattingScreen from './screens/ChattingScreen';
@@ -95,14 +96,15 @@ const MainTabNavigator = createBottomTabNavigator({
 });
 
 const MainStackNavigator = createStackNavigator({
-  MainTab: MainTabNavigator,
+  // MainTab: MainTabNavigator,
+  Main: MainScreen,
   Message: MessageScreen,
   TagStory: TagStoryScreen,
   MyStory: MyStoryScreen,
   EditProfile: EditProfileScreen,
 }, {
   headerMode: 'none',
-  initialRouteName: 'MainTab',
+  initialRouteName: 'Main',
 });
 
 const ModalNavigator = createStackNavigator({
