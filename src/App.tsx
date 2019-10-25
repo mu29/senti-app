@@ -78,7 +78,7 @@ const App: React.FunctionComponent<{}> = () => {
     const {
       width,
       height,
-    } = nativeEvent.layout
+    } = nativeEvent.layout;
     setHeight(height);
     LayoutService.setViewport(width, height);
   }, [setHeight]);
@@ -97,11 +97,6 @@ const App: React.FunctionComponent<{}> = () => {
       client.query<{ profile: Profile }>({
         query: FETCH_PROFILE,
         fetchPolicy: 'network-only',
-      })
-      .then(({ data }) => {
-        if (data && data.profile) {
-          NotificationService.setUser(data.profile);
-        }
       })
       .catch(console.error)
       .finally(() => SplashScreen.hide());

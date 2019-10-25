@@ -64,7 +64,6 @@ function useAuth(onSuccess?: () => void) {
     })
     .then(({ data }) => {
       if (data && data.profile) {
-        NotificationService.setUser(data.profile);
         NotificationService.refreshToken();
       }
     });

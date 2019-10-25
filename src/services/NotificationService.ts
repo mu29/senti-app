@@ -10,16 +10,10 @@ import {
 class NotificationService {
   private client?: ApolloClient<NormalizedCacheObject>;
 
-  private user?: Profile;
-
   public hasPermission = false;
 
   public setClient(client: ApolloClient<NormalizedCacheObject>) {
     this.client = client;
-  }
-
-  public setUser(user: Profile) {
-    this.user = user;
   }
 
   public async checkPermission() {
@@ -37,7 +31,7 @@ class NotificationService {
   public async refreshToken() {
     const fcmToken = await firebase.messaging().getToken();
 
-    if (fcmToken && this.user && this.client) {
+    if (fcmToken && this.client) {
       this.client.mutate({
         mutation: CREATE_FCM_TOKEN,
         variables: { fcmToken },
