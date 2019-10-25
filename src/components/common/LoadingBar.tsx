@@ -7,8 +7,8 @@ import {
   Animated,
   StyleSheet,
 } from 'react-native';
-import { LayoutService } from 'services';
 import { palette } from 'constants/style';
+import { SCREEN_WIDTH } from 'constants/config';
 
 interface Props {
   isVisible: boolean;
@@ -42,7 +42,7 @@ const LoadingBar: React.FunctionComponent<Props> = ({
       Animated.loop(
         Animated.sequence([
           Animated.timing(scaleAnimation.current, {
-            toValue: LayoutService.screenWidth,
+            toValue: SCREEN_WIDTH,
             duration: 800,
             useNativeDriver: true,
           }),

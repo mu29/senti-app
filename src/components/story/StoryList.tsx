@@ -1,7 +1,6 @@
 import React, {
   useRef,
   useState,
-  useMemo,
   useCallback,
 } from 'react';
 import {
@@ -19,11 +18,12 @@ import {
   StoryItem,
 } from 'components';
 import { StoryController } from 'containers';
-import {
-  AudioService,
-  LayoutService,
-} from 'services';
+import { AudioService } from 'services';
 import { palette } from 'constants/style';
+import {
+  SCREEN_WIDTH,
+  SCREEN_HEIGHT,
+} from 'constants/config';
 
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 90 };
 
@@ -60,12 +60,6 @@ const StoryList: React.FunctionComponent<Props> = ({
 
   const [current, setCurrent] = useState(initialIndex || 0);
 
-  const containerStyle = useMemo(() => ({
-    width: LayoutService.screenWidth,
-    height: LayoutService.screenHeight,
-    backgroundColor: palette.black.default,
-  }), []);
-
   const renderItem = useCallback(({ item, index }: { item: Story; index: number }) => (
     <StoryItem
       item={item}
@@ -77,8 +71,8 @@ const StoryList: React.FunctionComponent<Props> = ({
   const keyExtractor = useCallback((item: Story) => item.id, []);
 
   const getItemLayout = useCallback((_: any, index: number) => ({
-    length: LayoutService.screenHeight,
-    offset: LayoutService.screenHeight * index,
+    length: SCREEN_HEIGHT,
+    offset: SCREEN_HEIGHT * index,
     index,
   }), []);
 
@@ -116,7 +110,7 @@ const StoryList: React.FunctionComponent<Props> = ({
         )}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={VIEWABILITY_CONFIG}
-        style={containerStyle}
+        style={styles.container}
         scrollEnabled
         pagingEnabled
         horizontal={false}
@@ -139,6 +133,11 @@ const StoryList: React.FunctionComponent<Props> = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    backgroundColor: palette.black.default,
+  },
   loading: {
     position: 'absolute',
     bottom: 0,

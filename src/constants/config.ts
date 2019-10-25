@@ -1,4 +1,8 @@
-import { NativeModules } from 'react-native';
+import {
+  NativeModules,
+  Platform,
+  PixelRatio,
+} from 'react-native';
 
 const ConfigModule = NativeModules.RNConfig;
 
@@ -15,3 +19,13 @@ export const WEBSITE_URL = ConfigModule.websiteUrl;
 export const FIREBASE_WEB_CLIENT_ID = ConfigModule.webClientId;
 
 export const LANGUAGE = ['ko'].includes(ConfigModule.language) ? ConfigModule.language : 'ko';
+
+export const SCREEN_WIDTH = Platform.select({
+  android: ConfigModule.screenWidth / PixelRatio.get(),
+  ios: ConfigModule.screenWidth,
+});
+
+export const SCREEN_HEIGHT = Platform.select({
+  android: ConfigModule.screenHeight / PixelRatio.get(),
+  ios: ConfigModule.screenHeight,
+});

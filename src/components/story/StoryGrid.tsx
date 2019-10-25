@@ -1,7 +1,4 @@
-import React, {
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import {
   SafeAreaView,
@@ -12,7 +9,9 @@ import {
   LoadingBar,
   CompactStoryItem,
 } from 'components';
-import { LayoutService } from 'services';
+import { SCREEN_WIDTH } from 'constants/config';
+
+const ITEM_SIZE = SCREEN_WIDTH / 3;
 
 const SAFE_AREA_INSET: {
   bottom: SafeAreaViewForceInsetValue;
@@ -35,8 +34,6 @@ const StoryGrid: React.FunctionComponent<Props> = ({
   onFetchMore,
   onRefresh,
 }) => {
-  const itemSize = useMemo(() => LayoutService.screenWidth / 3, []);
-
   const renderItem = useCallback(({ item, index }: { item: Story; index: number }) => (
     <CompactStoryItem item={item} index={index} />
   ), []);
@@ -46,7 +43,7 @@ const StoryGrid: React.FunctionComponent<Props> = ({
       {/*
       // @ts-ignore */}
       <FlatGrid
-        itemDimension={itemSize}
+        itemDimension={ITEM_SIZE}
         spacing={0}
         items={items}
         renderItem={renderItem}

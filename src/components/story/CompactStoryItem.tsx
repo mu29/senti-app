@@ -1,7 +1,4 @@
-import React, {
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   StyleSheet,
@@ -15,8 +12,8 @@ import {
   Button,
   CachableImage,
 } from 'components';
-import { LayoutService } from 'services';
 import { palette } from 'constants/style';
+import { SCREEN_WIDTH } from 'constants/config';
 
 interface Props extends NavigationInjectedProps {
   item: Story;
@@ -31,17 +28,13 @@ const CompactStoryItem: React.FunctionComponent<Props> = ({
   index,
   navigation,
 }) => {
-  const imageStyle = useMemo(() => ({
-    height: LayoutService.screenWidth / 2,
-  }), []);
-
   const openMyStoryScreen = useCallback(() => {
     navigation.navigate('MyStory', { index });
   }, [index, navigation]);
 
   return (
     <Button onPress={openMyStoryScreen}>
-      <CachableImage prefix="covers" source={cover} style={imageStyle} />
+      <CachableImage prefix="covers" source={cover} style={styles.image} />
       <View style={styles.filter}>
         <Text style={styles.tags}>
           {tags.map(tag => `#${tag}`).join(' ')}
@@ -52,6 +45,9 @@ const CompactStoryItem: React.FunctionComponent<Props> = ({
 };
 
 const styles = StyleSheet.create({
+  image: {
+    height: SCREEN_WIDTH / 2,
+  },
   filter: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',

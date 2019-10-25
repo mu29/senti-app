@@ -1,12 +1,16 @@
 package com.senti.app;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.LocaleList;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -53,6 +57,14 @@ public class RNConfigModule extends ReactContextBaseJavaModule {
         constants.put("websiteUrl", BuildConfig.WEBSITE_URL);
         constants.put("webClientId", BuildConfig.FIREBASE_WEB_CLIENT_ID);
         constants.put("language", getLanguage());
+
+        WindowManager wm = (WindowManager) reactContext.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        constants.put("screenWidth", size.x);
+        constants.put("screenHeight", size.y);
 
         return constants;
     }

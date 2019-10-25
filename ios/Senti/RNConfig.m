@@ -24,6 +24,9 @@ RCT_EXPORT_MODULE(RNConfig)
 - (NSDictionary *)constantsToExport
 {
   UIDevice *currentDevice = [UIDevice currentDevice];
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenWidth = screenRect.size.width;
+  CGFloat screenHeight = screenRect.size.height;
   
   return @{
            @"systemVersion": currentDevice.systemVersion,
@@ -33,7 +36,9 @@ RCT_EXPORT_MODULE(RNConfig)
            @"dynamicLinkHost": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"DYNAMIC_LINK_HOST"] ?: [NSNull null],
            @"websiteUrl": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"WEBSITE_URL"] ?: [NSNull null],
            @"webClientId": [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FIREBASE_WEB_CLIENT_ID"] ?: [NSNull null],
-           @"language": [self getLanguage]
+           @"language": [self getLanguage],
+           @"screenWidth": @(screenWidth),
+           @"screenHeight": @(screenHeight)
            };
 }
 

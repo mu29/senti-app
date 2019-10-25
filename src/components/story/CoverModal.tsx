@@ -1,7 +1,4 @@
-import React, {
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -18,11 +15,11 @@ import {
   palette,
   typography,
 } from 'constants/style';
-import {
-  AnalyticsService,
-  LayoutService,
-} from 'services';
+import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
+import { SCREEN_WIDTH } from 'constants/config';
+
+const ITEM_SIZE = SCREEN_WIDTH / 5;
 
 interface Props {
   isVisible: boolean;
@@ -37,12 +34,6 @@ const CoverModal: React.FunctionComponent<Props> = ({
   updateCover,
   hide,
 }) => {
-  const itemSize = useMemo(() => LayoutService.screenWidth / 5, []);
-
-  const itemStyle = useMemo(() => ({
-    height: LayoutService.screenWidth / 4,
-  }), []);
-
   const onPressItem = useCallback((item) => {
     updateCover(item);
     AnalyticsService.logEvent('update_story_cover');
@@ -52,11 +43,11 @@ const CoverModal: React.FunctionComponent<Props> = ({
     <TouchableOpacity
       activeOpacity={0.6}
       onPress={() => onPressItem(item.original)}
-      style={itemStyle}
+      style={styles.item}
     >
       <CachableImage prefix="covers" source={item.thumb} style={styles.image} />
     </TouchableOpacity>
-  ), [itemStyle, onPressItem]);
+  ), [onPressItem]);
 
   return (
     <Modal
@@ -79,7 +70,7 @@ const CoverModal: React.FunctionComponent<Props> = ({
           </Text>
         </View>
         <FlatGrid
-          itemDimension={itemSize}
+          itemDimension={ITEM_SIZE}
           spacing={0}
           items={items}
           renderItem={renderItem}
@@ -113,6 +104,9 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: 8,
     color: palette.white.default,
+  },
+  item: {
+    height: SCREEN_WIDTH / 4,
   },
   image: {
     flex: 1,

@@ -4,11 +4,7 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
-import {
-  View,
-  StatusBar,
-  LayoutChangeEvent,
-} from 'react-native';
+import { StatusBar } from 'react-native';
 import codePush from 'react-native-code-push';
 import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
@@ -36,7 +32,6 @@ import {
   NavigationService,
   NotificationService,
   AnalyticsService,
-  LayoutService,
 } from 'services';
 import { LANGUAGE } from 'constants/config';
 
@@ -74,15 +69,6 @@ const App: React.FunctionComponent<{}> = () => {
     NavigationService.setTopLevelNavigator(ref);
   }, []);
 
-  const setScreenHeight = useCallback(({ nativeEvent }: LayoutChangeEvent) => {
-    const {
-      width,
-      height,
-    } = nativeEvent.layout;
-    setHeight(height);
-    LayoutService.setViewport(width, height);
-  }, [setHeight]);
-
   useEffect(() => {
     configureClient().then(setClient);
   }, [setClient]);
@@ -109,8 +95,8 @@ const App: React.FunctionComponent<{}> = () => {
     NotificationService.sync();
   });
 
-  if (!client || height === 0) {
-    return <View style={{ flex: 1 }} onLayout={setScreenHeight} />;
+  if (!client) {
+    return null;
   }
 
   return (
