@@ -8,6 +8,7 @@ import {
   Alert,
   Linking,
 } from 'react-native';
+import { Toast } from 'components';
 import { RecordService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
@@ -15,27 +16,32 @@ function useRecord() {
   const timer = useRef<number>();
   const [data, setData] = useState<{ path: string; duration: number }>();
   const [isRecorded, setIsRecorded] = useState(false);
-  const [isStarted, setIsStarted] = useState(false);
+  const [startAt, setStartAt] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   const start = useCallback(() => {
     if (isRecorded) {
-      setIsStarted(true);
-      RecordService.play(() => setIsStarted(false));
+      setStartAt(Date.now());
+      RecordService.play(() => setStartAt(0));
     } else {
       RecordService.start()
-        .then(() => setIsStarted(true))
+        .then(() => setStartAt(Date.now()))
         .catch(e => Alert.alert(
           LocalizedStrings.COMMON_ERROR,
           LocalizedStrings.RECORD_FAILURE(e.message),
         ));
     }
-  }, [isRecorded]);
+  }, [isRecorded, setStartAt]);
 
   const stop = useCallback(() => {
     if (isRecorded) {
       RecordService.pause();
     } else {
+      if (Date.now() - startAt < 5000) {
+        Toast.show(LocalizedStrings.RECORD_FAILURE_TOO_SHORT);
+        return;
+      }
+
       setIsLoading(true);
       RecordService.stop()
         .then((result) => {
@@ -63,16 +69,16 @@ function useRecord() {
         ))
         .finally(() => setIsLoading(false));
     }
-    setIsStarted(false);
-  }, [isRecorded]);
+    setStartAt(0);
+  }, [isRecorded, startAt, setStartAt]);
 
   const toggle = useCallback(() => {
-    if (isStarted) {
+    if (startAt > 0) {
       stop();
     } else {
       start();
     }
-  }, [start, stop, isStarted]);
+  }, [start, stop, startAt]);
 
   const release = useCallback(() => {
     RecordService.release();
@@ -80,7 +86,7 @@ function useRecord() {
   }, []);
 
   useEffect(() => {
-    if (isStarted && !isRecorded) {
+    if (startAt > 0 && !isRecorded) {
       timer.current = setTimeout(() => {
         stop();
       }, 60 * 1000);
@@ -91,12 +97,12 @@ function useRecord() {
         clearTimeout(timer.current);
       }
     };
-  }, [isRecorded, isStarted, stop]);
+  }, [isRecorded, startAt, stop]);
 
   return {
     data,
     isRecorded,
-    isStarted,
+    isStarted: startAt > 0,
     isLoading,
     toggle,
     release,

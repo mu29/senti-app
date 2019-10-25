@@ -31,6 +31,7 @@ const TRANSLATIONS: {
     ADD_TAG_PLACEHOLDER: string;
     RECORDER_RECORD_BUTTON: string;
     RECORDER_PLAY_BUTTON: string;
+    RECORD_FAILURE_TOO_SHORT: string;
     RECORD_FAILURE_REQUEST_PERMISSION: string;
     RECORD_FAILURE: (message: string) => string;
     RECORD_UPLOAD_FAILURE_NOT_FOUND: string;
@@ -126,6 +127,7 @@ const TRANSLATIONS: {
     ADD_TAG_PLACEHOLDER: '여기에 #태그를 추가해 보세요',
     RECORDER_RECORD_BUTTON: '눌러서 녹음',
     RECORDER_PLAY_BUTTON: '눌러서 듣기',
+    RECORD_FAILURE_TOO_SHORT: '5초 이상 녹음해주세요',
     RECORD_FAILURE_REQUEST_PERMISSION: '마이크 사용 권한을 허용해주세요.',
     RECORD_FAILURE: (message: string) => `녹음에 실패했습니다. 다시 시도해 주세요.\n${message.replace('GraphQL error: ', '')}`,
     RECORD_UPLOAD_FAILURE_NOT_FOUND: '녹음 파일이 없습니다.',
@@ -220,6 +222,7 @@ const TRANSLATIONS: {
     ADD_TAG_PLACEHOLDER: 'Add #hashtag here',
     RECORDER_RECORD_BUTTON: 'Tap to record',
     RECORDER_PLAY_BUTTON: 'Tap to play',
+    RECORD_FAILURE_TOO_SHORT: 'Record more than 5 seconds',
     RECORD_FAILURE_REQUEST_PERMISSION: 'To record your voice, give Senti access to the microphone.',
     RECORD_FAILURE: (message: string) => `Failed to record. Please try again.\n${message.replace('GraphQL error: ', '')}`,
     RECORD_UPLOAD_FAILURE_NOT_FOUND: 'Record file does not exists.',
