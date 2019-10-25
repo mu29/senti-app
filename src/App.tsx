@@ -21,7 +21,10 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/en';
 import 'dayjs/locale/ko';
 
-import { PushNotification } from 'components';
+import {
+  Toast,
+  PushNotification,
+} from 'components';
 import {
   AuthModal,
   DynamicLinkEvents,
@@ -121,10 +124,11 @@ const App: React.FunctionComponent<{}> = () => {
       <ApolloProvider client={client}>
         <React.Fragment>
           <Navigator ref={setNavigationRef} />
+          <Toast ref={Toast.ref} />
           <PushNotification ref={pushNotificationRef} />
+          <AuthModal />
           <NotificationEvents pushNotificationRef={pushNotificationRef} />
           <DynamicLinkEvents />
-          <AuthModal />
         </React.Fragment>
       </ApolloProvider>
     </React.Fragment>
