@@ -37,12 +37,15 @@ class AudioService {
     }
   }
 
-  public play = (url: string): Promise<boolean> => {
+  public play = (url: string, callback?: Function): Promise<boolean> => {
     if (this.current === url) {
       if (this.sound && this.sound.isLoaded() && !this.sound.isPlaying()) {
         return new Promise((resolve) => {
           this.emit(AudioState.PLAY);
-          this.sound!.play(this.reset);
+          this.sound!.play(() => {
+            this.reset();
+            callback && callback();
+          });
           resolve(true);
         });
       }
@@ -61,7 +64,10 @@ class AudioService {
 
         this.emit(AudioState.PLAY);
         this.sound!.setVolume(1);
-        this.sound!.play(this.reset);
+        this.sound!.play(() => {
+          this.reset();
+          callback && callback();
+        });
 
         resolve(true);
       });

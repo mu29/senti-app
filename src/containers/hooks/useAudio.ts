@@ -93,8 +93,8 @@ function useAudio(key: string) {
     }
   }, []);
 
-  const play = useCallback(() => {
-    AudioService.play(key).catch(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message));
+  const play = useCallback((callback?: Function) => {
+    AudioService.play(key, callback).catch(e => Alert.alert(LocalizedStrings.COMMON_ERROR, e.message));
   }, [key]);
 
   useEffect(() => {
