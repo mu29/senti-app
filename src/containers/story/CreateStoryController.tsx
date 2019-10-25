@@ -110,7 +110,7 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
         onPress: () => resolve(true),
         style: 'cancel',
       }]);
-    })
+    });
   }, [draft]);
 
   const create = useCallback(async (audio) => {

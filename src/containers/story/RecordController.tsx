@@ -80,7 +80,7 @@ const Container: React.FunctionComponent<Props> = ({
   const create = useCallback(async () => {
     if (beforeUpload && !await beforeUpload()) {
       return;
-    } 
+    }
 
     setIsLoading(true);
     upload()

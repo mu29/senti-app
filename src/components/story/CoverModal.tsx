@@ -56,7 +56,7 @@ const CoverModal: React.FunctionComponent<Props> = ({
     >
       <CachableImage prefix="covers" source={item.thumb} style={styles.image} />
     </TouchableOpacity>
-  ), [onPressItem]);
+  ), [itemStyle, onPressItem]);
 
   return (
     <Modal
