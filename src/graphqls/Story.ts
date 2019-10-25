@@ -115,3 +115,9 @@ export const DELETE_STORY = gql`
     deleteStory(id: $id)
   }
 `;
+
+export const NOTIFY_PLAY_STORY = gql`
+  mutation notifyPlayStory($id: ID!, $ownerId: ID!) {
+    notifyPlayStory(id: $id, ownerId: $ownerId)
+  }
+`;

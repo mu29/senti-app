@@ -57,6 +57,7 @@ interface Props {
   showReplyModal: () => void;
   reportUser: () => Promise<any>;
   deleteStory: () => Promise<any>;
+  notifyPlayStory: () => Promise<any>;
 }
 
 const StoryController: React.FunctionComponent<Props> = ({
@@ -80,6 +81,7 @@ const StoryController: React.FunctionComponent<Props> = ({
   showReplyModal,
   reportUser,
   deleteStory,
+  notifyPlayStory,
 }) => {
   const {
     audio,
@@ -139,9 +141,9 @@ const StoryController: React.FunctionComponent<Props> = ({
   }, [isLoggedIn, showAuthModal, showReplyModal]);
 
   const onPressToggle = useCallback(() => {
-    audio.isPlaying ? stop() : play();
+    audio.isPlaying ? stop() : play(notifyPlayStory);
     AnalyticsService.logEvent(`click_story_${audio.isPlaying ? 'stop' : 'play'}`);
-  }, [audio.isPlaying, stop, play]);
+  }, [audio.isPlaying, stop, play, notifyPlayStory]);
 
   const onPressDelete = useCallback(() => {
     showDeleteAlert();

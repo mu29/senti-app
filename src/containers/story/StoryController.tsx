@@ -11,6 +11,7 @@ import {
   DELETE_STORY,
   FETCH_MAIN_STORY_FEED,
   FETCH_MY_STORY_FEED,
+  NOTIFY_PLAY_STORY,
 } from 'graphqls';
 
 type MainStoryFeedResult = {
@@ -136,6 +137,13 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
     },
   });
 
+  const [notifyPlayStory] = useMutation(NOTIFY_PLAY_STORY, {
+    variables: {
+      id: item.id,
+      ownerId: item.user.id,
+    },
+  });
+
   const isMyStory = profile ? profile.id === item.user.id : false;
 
   return (
@@ -148,6 +156,7 @@ const StoryControllerContainer: React.FunctionComponent<Props> = ({
       showReplyModal={showReplyModal}
       reportUser={reportUser}
       deleteStory={deleteStory}
+      notifyPlayStory={notifyPlayStory}
       {...props}
     />
   );
