@@ -46,7 +46,7 @@ const ReplyModal: React.FunctionComponent<Props> = ({
         <View style={styles.container}>
           <RecordController
             setIsLoading={setIsLoading}
-            onCreate={create}
+            afterUpload={create}
             onFinish={hide}
           />
         </View>

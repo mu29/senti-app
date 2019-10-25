@@ -37,7 +37,7 @@ const MessageReply: React.FunctionComponent<Props> = ({
       <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
         <RecordController
           setIsLoading={setIsLoading}
-          onCreate={create}
+          afterUpload={create}
         />
       </SafeAreaView>
     </React.Fragment>

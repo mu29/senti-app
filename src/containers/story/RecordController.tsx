@@ -17,7 +17,8 @@ import { LocalizedStrings } from 'constants/translations';
 
 interface Props {
   setIsLoading: (isLoading: boolean) => void;
-  onCreate: ({
+  beforeUpload?: () => Promise<boolean>;
+  afterUpload: ({
     url,
     duration,
   }: {
@@ -29,7 +30,8 @@ interface Props {
 
 const Container: React.FunctionComponent<Props> = ({
   setIsLoading,
-  onCreate,
+  beforeUpload,
+  afterUpload,
   onFinish,
 }) => {
   const {
@@ -75,10 +77,14 @@ const Container: React.FunctionComponent<Props> = ({
     };
   }, [data, isRecorded, profile]);
 
-  const create = useCallback(() => {
+  const create = useCallback(async () => {
+    if (beforeUpload && !await beforeUpload()) {
+      return;
+    } 
+
     setIsLoading(true);
     upload()
-      .then(onCreate)
+      .then(afterUpload)
       .then(() => setIsLoading(false))
       .then(release)
       .then(() => onFinish && onFinish())
@@ -91,7 +97,7 @@ const Container: React.FunctionComponent<Props> = ({
           Alert.alert(LocalizedStrings.COMMON_ERROR, LocalizedStrings.RECORD_UPLOAD_FAILURE(error.message));
         }
       });
-  }, [setIsLoading, upload, onCreate, release, onFinish, showAuthModal]);
+  }, [setIsLoading, upload, beforeUpload, afterUpload, release, onFinish, showAuthModal]);
 
   return (
     <RecordController

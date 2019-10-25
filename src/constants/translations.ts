@@ -8,6 +8,8 @@ const TRANSLATIONS: {
     COMMON_APP_DESCRIPTION: string;
     COMMON_ERROR: string;
     COMMON_LOADING: string;
+    COMMON_YES: string;
+    COMMON_NO: string;
     COMMON_CONFIRM: string;
     COMMON_CANCEL: string;
     COMMON_SAVE: string;
@@ -36,6 +38,7 @@ const TRANSLATIONS: {
     RECORD_FAILURE: (message: string) => string;
     RECORD_UPLOAD_FAILURE_NOT_FOUND: string;
     RECORD_UPLOAD_FAILURE: (message: string) => string;
+    CREATE_STORY_WITHOUT_TAGS: string;
     STORY_USER_ACTIONS: string;
     STORY_USER_ACTION_REPORT: string;
     STORY_USER_ACTION_FAILURE: (message: string) => string;
@@ -104,6 +107,8 @@ const TRANSLATIONS: {
     COMMON_APP_DESCRIPTION: '목소리로 소통하는 익명 커뮤니티',
     COMMON_ERROR: '오류',
     COMMON_LOADING: '로딩 중..',
+    COMMON_YES: '예',
+    COMMON_NO: '아니오',
     COMMON_CONFIRM: '확인',
     COMMON_CANCEL: '취소',
     COMMON_SAVE: '저장',
@@ -132,6 +137,7 @@ const TRANSLATIONS: {
     RECORD_FAILURE: (message: string) => `녹음에 실패했습니다. 다시 시도해 주세요.\n${message.replace('GraphQL error: ', '')}`,
     RECORD_UPLOAD_FAILURE_NOT_FOUND: '녹음 파일이 없습니다.',
     RECORD_UPLOAD_FAILURE: (message) => `녹음 파일 업로드에 실패했습니다.\n${message.replace('GraphQL error: ', '')}`,
+    CREATE_STORY_WITHOUT_TAGS: '태그가 지정되지 않았습니다.\n태그를 추가하시겠어요?',
     STORY_USER_ACTIONS: '이 사용자를..',
     STORY_USER_ACTION_REPORT: '신고하기',
     STORY_USER_ACTION_FAILURE: (message) => `사용자 신고에 실패했습니다.\n${message.replace('GraphQL error: ', '')}`,
@@ -199,6 +205,8 @@ const TRANSLATIONS: {
     COMMON_APP_DESCRIPTION: 'Anonymous community with your voice',
     COMMON_ERROR: 'Error',
     COMMON_LOADING: 'Now Loading..',
+    COMMON_YES: 'Yes',
+    COMMON_NO: 'No',
     COMMON_CONFIRM: 'Confirm',
     COMMON_CANCEL: 'Cancel',
     COMMON_SAVE: 'Save',
@@ -227,6 +235,7 @@ const TRANSLATIONS: {
     RECORD_FAILURE: (message: string) => `Failed to record. Please try again.\n${message.replace('GraphQL error: ', '')}`,
     RECORD_UPLOAD_FAILURE_NOT_FOUND: 'Record file does not exists.',
     RECORD_UPLOAD_FAILURE: (message) => `Failed to upload your story.\n${message.replace('GraphQL error: ', '')}`,
+    CREATE_STORY_WITHOUT_TAGS: 'No tags exists.\nDo you want to add any?',
     STORY_USER_ACTIONS: 'This user..',
     STORY_USER_ACTION_REPORT: 'Report',
     STORY_USER_ACTION_FAILURE: (message) => `Failed to report user.\n${message.replace('GraphQL error: ', '')}`,

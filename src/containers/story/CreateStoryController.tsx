@@ -20,6 +20,8 @@ import {
   FETCH_MY_STORY_FEED,
 } from 'graphqls';
 import { AnalyticsService } from 'services';
+import { Alert } from 'react-native';
+import { LocalizedStrings } from 'constants/translations';
 
 type DraftResult = {
   draft: Draft;
@@ -94,6 +96,23 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const checkTags = useCallback(async () => {
+    if (draft.tags.length > 0) {
+      return true;
+    }
+
+    return new Promise<boolean>((resolve) => {
+      Alert.alert(LocalizedStrings.COMMON_NOTICE, LocalizedStrings.CREATE_STORY_WITHOUT_TAGS, [{
+        text: LocalizedStrings.COMMON_YES,
+        onPress: () => resolve(false),
+      }, {
+        text: LocalizedStrings.COMMON_NO,
+        onPress: () => resolve(true),
+        style: 'cancel',
+      }]);
+    })
+  }, [draft]);
+
   const create = useCallback(async (audio) => {
     await createStory({
       variables: {
@@ -113,7 +132,8 @@ const Container: React.FunctionComponent<NavigationInjectedProps> = ({
     <React.Fragment>
       <RecordController
         setIsLoading={setIsLoading}
-        onCreate={create}
+        beforeUpload={checkTags}
+        afterUpload={create}
         onFinish={finish}
       />
       {isLoading && <LoadingLayer />}
