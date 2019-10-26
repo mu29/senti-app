@@ -39,6 +39,7 @@ export const palette = {
       60: 'rgba(0, 0, 0, 0.6)',
       70: 'rgba(0, 0, 0, 0.7)',
       80: 'rgba(0, 0, 0, 0.8)',
+      90: 'rgba(0, 0, 0, 0.9)',
     },
     red: {
       default: 'rgba(202, 57, 46, 0.5)',

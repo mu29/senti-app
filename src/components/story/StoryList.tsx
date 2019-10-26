@@ -27,6 +27,7 @@ import {
   SCREEN_WIDTH,
   SCREEN_HEIGHT,
 } from 'constants/config';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 90 };
 
@@ -95,7 +96,14 @@ const StoryList: React.FunctionComponent<Props> = ({
   }, [current, items.length]);
 
   useEffect(() => {
-    setTimeout(() => Portal.show(MainTutorialLayer), 500);
+    AsyncStorage.getItem('@MainTutorialFinished').then((finished) => {
+      if (finished) {
+        return;
+      }
+
+      AsyncStorage.setItem('@MainTutorialFinished', 'true');
+      setTimeout(() => Portal.show(MainTutorialLayer), 500);
+    });
   }, []);
 
   return (
