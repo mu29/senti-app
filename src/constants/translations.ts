@@ -112,6 +112,10 @@ const TRANSLATIONS: {
     TUTORIAL_CREATE_STORY_DESCRIPTION: string;
     TUTORIAL_CREATE_STORY_STEP_1: string;
     TUTORIAL_CREATE_STORY_STEP_2: string;
+    TUTORIAL_PROFILE_TITLE: string;
+    TUTORIAL_PROFILE_DESCRIPTION: string;
+    TUTORIAL_PROFILE_STEP_1: string;
+    TUTORIAL_PROFILE_STEP_2: string;
   };
 } = {
   ko: {
@@ -224,6 +228,10 @@ const TRANSLATIONS: {
     TUTORIAL_CREATE_STORY_DESCRIPTION: '연애, 꿈, 인간관계, 성적, 일상 등\n어떤 주제라도 상관 없어요.\n지금 하고 있는 그 생각을 말해 주세요.',
     TUTORIAL_CREATE_STORY_STEP_1: '앨범 버튼을 눌러\n배경 사진을 변경할 수 있습니다.',
     TUTORIAL_CREATE_STORY_STEP_2: '태그를 달아 이야기를 구분해 주세요.\n텍스트를 입력하고 엔터를 누르면 된답니다.',
+    TUTORIAL_PROFILE_TITLE: '프로필 편집',
+    TUTORIAL_PROFILE_DESCRIPTION: '\'정보 관리\' 버튼을 눌러\n프로필을 편집할 수 있습니다.',
+    TUTORIAL_PROFILE_STEP_1: '프로필 사진을 설정해\n다른 사람과 쉽게 구분되어 보세요.',
+    TUTORIAL_PROFILE_STEP_2: '성별을 선택하면\n같은 성별의 이야기를 덜 듣게 됩니다.',
   },
   en: {
     // 일반
@@ -335,6 +343,10 @@ const TRANSLATIONS: {
     TUTORIAL_CREATE_STORY_DESCRIPTION: '',
     TUTORIAL_CREATE_STORY_STEP_1: '',
     TUTORIAL_CREATE_STORY_STEP_2: '',
+    TUTORIAL_PROFILE_TITLE: '',
+    TUTORIAL_PROFILE_DESCRIPTION: '',
+    TUTORIAL_PROFILE_STEP_1: '',
+    TUTORIAL_PROFILE_STEP_2: '',
   },
 };
 

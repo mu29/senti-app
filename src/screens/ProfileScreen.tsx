@@ -1,14 +1,17 @@
 import React, { useCallback } from 'react';
-import { NavigationEvents } from 'react-navigation';
 import {
   View,
   StyleSheet,
 } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   Text,
   Header,
   withSafeArea,
+  Portal,
+  TutorialLayer,
 } from 'components';
 import {
   UserInfo,
@@ -16,15 +19,33 @@ import {
   CoinModal,
   MyStoryGrid,
 } from 'containers';
+import { AnalyticsService } from 'services';
 import {
   palette,
   typography,
 } from 'constants/style';
-import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
 
 const ProfileScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
+    AsyncStorage.getItem('@ProfileTutorialFinished').then((finished) => {
+      if (finished) {
+        return;
+      }
+
+      AsyncStorage.setItem('@ProfileTutorialFinished', 'true');
+      setTimeout(() => Portal.show(TutorialLayer, {
+        title: LocalizedStrings.TUTORIAL_PROFILE_TITLE,
+        description: LocalizedStrings.TUTORIAL_PROFILE_DESCRIPTION,
+        steps: [{
+          icon: 'ic_profile_active',
+          message: LocalizedStrings.TUTORIAL_PROFILE_STEP_1,
+        }, {
+          icon: 'ic_heart',
+          message: LocalizedStrings.TUTORIAL_PROFILE_STEP_2,
+        }],
+      }), 500);
+    });
     AnalyticsService.setScreen('ProfileScreen');
   }, []);
 

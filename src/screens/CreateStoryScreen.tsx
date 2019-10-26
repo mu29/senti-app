@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   CoverModal,
   CreateStoryCover,
@@ -11,9 +12,11 @@ import {
   CreateStoryTags,
   CreateStoryController,
 } from 'containers';
+import {
+  Portal,
+  TutorialLayer,
+} from 'components';
 import { AnalyticsService } from 'services';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Portal, TutorialLayer } from 'components';
 import { LocalizedStrings } from 'constants/translations';
 
 const CreateStoryScreen: React.FunctionComponent<{}> = () => {
