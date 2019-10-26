@@ -60,4 +60,5 @@ export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
 export { default as TagList } from './search/TagList';
 
+export { default as AfterPlayTutorialLayer } from './tutorial/AfterPlayTutorialLayer';
 export { default as MainTutorialLayer } from './tutorial/MainTutorialLayer';

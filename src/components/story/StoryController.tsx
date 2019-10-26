@@ -14,12 +14,15 @@ import {
   SafeAreaViewForceInsetValue,
 } from 'react-navigation';
 import ActionSheet from 'rn-actionsheet-module';
+import AsyncStorage from '@react-native-community/async-storage';
 import dayjs from 'dayjs';
 import {
   Text,
   Button,
   LoadingLayer,
   StoryProgressBar,
+  AfterPlayTutorialLayer,
+  Portal,
 } from 'components';
 import { useAudio } from 'containers';
 import {
@@ -141,7 +144,17 @@ const StoryController: React.FunctionComponent<Props> = ({
   }, [isLoggedIn, showAuthModal, showReplyModal]);
 
   const onPressToggle = useCallback(() => {
-    audio.isPlaying ? stop() : play(notifyPlayStory);
+    audio.isPlaying ? stop() : play(() => {
+      AsyncStorage.getItem('@AfterPlayTutorialFinished').then((finished) => {
+        if (finished) {
+          return;
+        }
+
+        AsyncStorage.setItem('@AfterPlayTutorialFinished', 'true');
+        setTimeout(() => Portal.show(AfterPlayTutorialLayer), 500);
+      });
+      notifyPlayStory();
+    });
     AnalyticsService.logEvent(`click_story_${audio.isPlaying ? 'stop' : 'play'}`);
   }, [audio.isPlaying, stop, play, notifyPlayStory]);
 

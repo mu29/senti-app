@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
   pager: {
     height: 200,
     paddingHorizontal: 48,
-    paddingBottom: 48,
   },
   page: {
     flex: 1,
