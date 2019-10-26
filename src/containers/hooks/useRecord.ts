@@ -37,7 +37,7 @@ function useRecord() {
     if (isRecorded) {
       RecordService.pause();
     } else {
-      if (Date.now() - startAt < 5000) {
+      if (Date.now() - startAt < 3000) {
         Toast.show(LocalizedStrings.RECORD_FAILURE_TOO_SHORT);
         return;
       }
