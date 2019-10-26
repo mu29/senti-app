@@ -70,7 +70,7 @@ class Portal extends React.PureComponent<{}, State> {
     const { portals } = this.state;
 
     return (
-      <View style={StyleSheet.absoluteFill}>
+      <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
         {
           Object.keys(portals).map((key) => {
             const Component = portals[key].component;
