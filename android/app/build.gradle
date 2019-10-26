@@ -142,8 +142,8 @@ android {
         applicationId "com.senti.app"
         minSdkVersion safeExtGet('minSdkVersion', 19)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
-        versionName "1.1.4"
-        versionCode 10104
+        versionName "1.1.5"
+        versionCode 10105
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
