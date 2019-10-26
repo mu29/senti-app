@@ -14,6 +14,7 @@ import {
   SafeAreaView,
   SafeAreaViewForceInsetValue,
 } from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   LoadingBar,
   Portal,
@@ -23,11 +24,11 @@ import {
 import { StoryController } from 'containers';
 import { AudioService } from 'services';
 import { palette } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 import {
   SCREEN_WIDTH,
   SCREEN_HEIGHT,
 } from 'constants/config';
-import AsyncStorage from '@react-native-community/async-storage';
 
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 90 };
 
@@ -103,17 +104,17 @@ const StoryList: React.FunctionComponent<Props> = ({
 
       AsyncStorage.setItem('@MainTutorialFinished', 'true');
       setTimeout(() => Portal.show(TutorialLayer, {
-        title: '환영합니다.',
-        description: '센치는 글이 아닌 목소리로 대화하는\n익명 커뮤니티입니다.',
+        title: LocalizedStrings.TUTORIAL_MAIN_TITLE,
+        description: LocalizedStrings.TUTORIAL_MAIN_DESCRIPTION,
         steps: [{
           icon: 'ic_play_active',
-          message: '재생 버튼을 눌러 다른 사람의\n이야기를 들을 수 있습니다.',
+          message: LocalizedStrings.TUTORIAL_MAIN_STEP_1,
         }, {
           icon: 'ic_next',
-          message: '위아래로 스크롤하거나, 버튼을 눌러\n다음 이야기로 이동할 수 있습니다.',
+          message: LocalizedStrings.TUTORIAL_MAIN_STEP_2,
         }, {
           icon: 'ic_chat_active',
-          message: '마음에 드는 이야기에는\n답장을 보내 보세요.',
+          message: LocalizedStrings.TUTORIAL_MAIN_STEP_3,
         }],
       }), 500);
     });

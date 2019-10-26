@@ -99,6 +99,15 @@ const TRANSLATIONS: {
     FREE_COIN_AVAILABLE: string;
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => string;
     TRANSACTION_DATE_FORMAT: string;
+    // 튜토리얼
+    TUTORIAL_MAIN_TITLE: string;
+    TUTORIAL_MAIN_DESCRIPTION: string;
+    TUTORIAL_MAIN_STEP_1: string;
+    TUTORIAL_MAIN_STEP_2: string;
+    TUTORIAL_MAIN_STEP_3: string;
+    TUTORIAL_AFTER_PLAY_TITLE: string;
+    TUTORIAL_AFTER_PLAY_DESCRIPTION: string;
+    TUTORIAL_AFTER_PLAY_STEP_1: string;
   };
 } = {
   ko: {
@@ -198,6 +207,15 @@ const TRANSLATIONS: {
     FREE_COIN_AVAILABLE: '무료 코인 1개 사용 가능!',
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `다음 무료 코인까지 ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY년 M월 D일 HH시',
+    // 튜토리얼
+    TUTORIAL_MAIN_TITLE: '환영합니다.',
+    TUTORIAL_MAIN_DESCRIPTION: '센치는 글이 아닌 목소리로 대화하는\n익명 커뮤니티입니다.',
+    TUTORIAL_MAIN_STEP_1: '재생 버튼을 눌러 다른 사람의\n이야기를 들을 수 있습니다.',
+    TUTORIAL_MAIN_STEP_2: '위아래로 스크롤하거나, 버튼을 눌러\n다음 이야기로 이동할 수 있습니다.',
+    TUTORIAL_MAIN_STEP_3: '마음에 드는 이야기에는\n답장을 보내 보세요.',
+    TUTORIAL_AFTER_PLAY_TITLE: '잘 하셨어요!',
+    TUTORIAL_AFTER_PLAY_DESCRIPTION: '이야기를 하나 들었으니,\n이번엔 내 목소리를 올려 볼까요?',
+    TUTORIAL_AFTER_PLAY_STEP_1: '추가 버튼을 눌러 목소리를 녹음하고,\n새로운 이야기를 올릴 수 있습니다.',
   },
   en: {
     // 일반
@@ -296,6 +314,15 @@ const TRANSLATIONS: {
     FREE_COIN_AVAILABLE: 'Use 1 coin for free!',
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `Free coin after: ${minutes}:${seconds}`,
     TRANSACTION_DATE_FORMAT: 'YYYY. MM. DD A h',
+    // 튜토리얼
+    TUTORIAL_MAIN_TITLE: 'Welcome!',
+    TUTORIAL_MAIN_DESCRIPTION: '',
+    TUTORIAL_MAIN_STEP_1: '',
+    TUTORIAL_MAIN_STEP_2: '',
+    TUTORIAL_MAIN_STEP_3: '',
+    TUTORIAL_AFTER_PLAY_TITLE: 'Well done!',
+    TUTORIAL_AFTER_PLAY_DESCRIPTION: '',
+    TUTORIAL_AFTER_PLAY_STEP_1: '',
   },
 };
 
