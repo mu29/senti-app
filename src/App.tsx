@@ -18,6 +18,7 @@ import 'dayjs/locale/en';
 import 'dayjs/locale/ko';
 
 import {
+  Portal,
   Toast,
   PushNotification,
 } from 'components';
@@ -63,8 +64,6 @@ const App: React.FunctionComponent<{}> = () => {
 
   const [user, setUser] = useState<RNFirebase.User | null>(null);
 
-  const [height, setHeight] = useState(0);
-
   const setNavigationRef = useCallback((ref: any) => {
     NavigationService.setTopLevelNavigator(ref);
   }, []);
@@ -105,6 +104,7 @@ const App: React.FunctionComponent<{}> = () => {
       <ApolloProvider client={client}>
         <React.Fragment>
           <Navigator ref={setNavigationRef} />
+          <Portal ref={Portal.ref} />
           <Toast ref={Toast.ref} />
           <PushNotification ref={pushNotificationRef} />
           <AuthModal />
