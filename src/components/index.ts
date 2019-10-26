@@ -12,6 +12,7 @@ export { default as LoadingBar } from './common/LoadingBar';
 export { default as LoadingIndicator } from './common/LoadingIndicator';
 export { default as LoadingLayer } from './common/LoadingLayer';
 export { default as LoadingView } from './common/LoadingView';
+export { default as Portal } from './common/Portal';
 export { default as PushNotification } from './common/PushNotification';
 export { default as Toast } from './common/Toast';
 export { default as withSafeArea } from './common/withSafeArea';
@@ -58,3 +59,5 @@ export { default as StoryProgressBar } from './story/StoryProgressBar';
 export { default as SearchBar } from './search/SearchBar';
 export { default as TagItem } from './search/TagItem';
 export { default as TagList } from './search/TagList';
+
+export { default as MainTutorialLayer } from './tutorial/MainTutorialLayer';

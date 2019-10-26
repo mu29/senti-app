@@ -2,6 +2,7 @@ import React, {
   useRef,
   useState,
   useCallback,
+  useEffect,
 } from 'react';
 import {
   View,
@@ -15,7 +16,9 @@ import {
 } from 'react-navigation';
 import {
   LoadingBar,
+  Portal,
   StoryItem,
+  MainTutorialLayer,
 } from 'components';
 import { StoryController } from 'containers';
 import { AudioService } from 'services';
@@ -90,6 +93,10 @@ const StoryList: React.FunctionComponent<Props> = ({
       });
     }
   }, [current, items.length]);
+
+  useEffect(() => {
+    setTimeout(() => Portal.show(MainTutorialLayer), 500);
+  }, []);
 
   return (
     <React.Fragment>
