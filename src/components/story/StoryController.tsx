@@ -21,7 +21,7 @@ import {
   Button,
   LoadingLayer,
   StoryProgressBar,
-  AfterPlayTutorialLayer,
+  TutorialLayer,
   Portal,
 } from 'components';
 import { useAudio } from 'containers';
@@ -151,7 +151,14 @@ const StoryController: React.FunctionComponent<Props> = ({
         }
 
         AsyncStorage.setItem('@AfterPlayTutorialFinished', 'true');
-        setTimeout(() => Portal.show(AfterPlayTutorialLayer), 500);
+        setTimeout(() => Portal.show(TutorialLayer, {
+          title: '잘 하셨어요!',
+          description: '이야기를 하나 들었으니,\n이번엔 내 목소리를 올려 볼까요?',
+          steps: [{
+            icon: 'ic_add_active',
+            message: '추가 버튼을 눌러 목소리를 녹음하고,\n새로운 이야기를 올릴 수 있습니다.',
+          }],
+        }), 500);
       });
       notifyPlayStory();
     });

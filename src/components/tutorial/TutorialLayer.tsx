@@ -36,33 +36,53 @@ const PLAY_ICON = { uri: 'ic_play_active' };
 const NEXT_ICON = { uri: 'ic_next' };
 const CHAT_ICON = { uri: 'ic_chat_active' };
 
-const DONE_INDEX = 2;
+interface Props {
+  title: string;
+  description: string;
+  steps: Array<{
+    icon: string;
+    message: string;
+  }>;
+}
 
 interface State {
   index: number;
+  maxIndex: number;
 }
 
-class MainTutorialLayer extends React.PureComponent<{}, State> {
-  public static NAME = 'MainTutorialLayer';
-
-  public state = {
-    index: 0,
-  };
+class TutorialLayer extends React.PureComponent<Props, State> {
+  public static NAME = 'TutorialLayer';
 
   private pagerRef = React.createRef<ViewPager>();
 
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      index: 0,
+      maxIndex: props.steps.length - 1,
+    };
+  }
+
   public render() {
-    const { index } = this.state;
+    const {
+      title,
+      description,
+      steps,
+    } = this.props;
+    const {
+      index,
+      maxIndex,
+    } = this.state;
 
     return (
       <SafeAreaView forceInset={SAFE_AREA_INSET} style={styles.container}>
         <View style={styles.header}>
           <Image source={LOGO_ICON} style={styles.logo} />
           <Text style={styles.title}>
-            환영합니다.
+            {title}
           </Text>
           <Text style={styles.description}>
-            센치는 글이 아닌 목소리로 대화하는{'\n'}익명 커뮤니티입니다.
+            {description}
           </Text>
         </View>
         <ViewPager
@@ -72,28 +92,18 @@ class MainTutorialLayer extends React.PureComponent<{}, State> {
           scrollEnabled={false}
           pointerEvents="none"
         >
-          <View style={styles.page}>
-            <Image source={PLAY_ICON} style={styles.icon} />
-            <Text style={styles.description}>
-              재생 버튼을 눌러 다른 사람의{'\n'}이야기를 들을 수 있습니다.
-            </Text>
-          </View>
-          <View style={styles.page}>
-            <Image source={NEXT_ICON} style={styles.icon} />
-            <Text style={styles.description}>
-              위아래로 스크롤하거나, 버튼을 눌러{'\n'}다음 이야기로 이동할 수 있습니다.
-            </Text>
-          </View>
-          <View style={styles.page}>
-            <Image source={CHAT_ICON} style={styles.icon} />
-            <Text style={styles.description}>
-              마음에 드는 이야기에는{'\n'}답장을 보내 보세요.
-            </Text>
-          </View>
+          {steps.map(({ icon, message }) => (
+            <View key={icon} style={styles.page}>
+              <Image source={{ uri: icon }} style={styles.icon} />
+              <Text style={styles.description}>
+                {message}
+              </Text>
+            </View>
+          ))}
         </ViewPager>
-        <Button onPress={this.showNext} style={[styles.button, index === DONE_INDEX && styles.doneButton]}>
-          <Text style={[typography.heading3, index === DONE_INDEX && styles.doneText]}>
-            {index === DONE_INDEX ? '시작하기' : '다음'}
+        <Button onPress={this.showNext} style={[styles.button, index === maxIndex && styles.doneButton]}>
+          <Text style={[typography.heading3, index === maxIndex && styles.doneText]}>
+            {index === maxIndex ? '시작하기' : '다음'}
           </Text>
         </Button>
       </SafeAreaView>
@@ -101,22 +111,23 @@ class MainTutorialLayer extends React.PureComponent<{}, State> {
   }
 
   private showNext = () => {
-    const { index } = this.state;
+    const {
+      index,
+      maxIndex,
+    } = this.state;
 
-    if (index < DONE_INDEX) {
+    if (index < maxIndex) {
       this.pagerRef.current && this.pagerRef.current.setPage(index + 1);
       return;
     }
 
-    Portal.hide(MainTutorialLayer);
+    Portal.hide(TutorialLayer);
   }
 
   private onPageSelected = ({ nativeEvent }: NativeSyntheticEvent<ViewPagerOnPageSelectedEventData>) => {
     this.setState({ index: nativeEvent.position });
   }
 }
-
-MainTutorialLayer.NAME = 'MainTutorialLayer';
 
 const styles = StyleSheet.create({
   container: {
@@ -177,4 +188,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainTutorialLayer;
+export default TutorialLayer;

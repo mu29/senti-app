@@ -18,7 +18,7 @@ import {
   LoadingBar,
   Portal,
   StoryItem,
-  MainTutorialLayer,
+  TutorialLayer,
 } from 'components';
 import { StoryController } from 'containers';
 import { AudioService } from 'services';
@@ -102,7 +102,20 @@ const StoryList: React.FunctionComponent<Props> = ({
       }
 
       AsyncStorage.setItem('@MainTutorialFinished', 'true');
-      setTimeout(() => Portal.show(MainTutorialLayer), 500);
+      setTimeout(() => Portal.show(TutorialLayer, {
+        title: '환영합니다.',
+        description: '센치는 글이 아닌 목소리로 대화하는\n익명 커뮤니티입니다.',
+        steps: [{
+          icon: 'ic_play_active',
+          message: '재생 버튼을 눌러 다른 사람의\n이야기를 들을 수 있습니다.',
+        }, {
+          icon: 'ic_next',
+          message: '위아래로 스크롤하거나, 버튼을 눌러\n다음 이야기로 이동할 수 있습니다.',
+        }, {
+          icon: 'ic_chat_active',
+          message: '마음에 드는 이야기에는\n답장을 보내 보세요.',
+        }],
+      }), 500);
     });
   }, []);
 
