@@ -108,6 +108,10 @@ const TRANSLATIONS: {
     TUTORIAL_AFTER_PLAY_TITLE: string;
     TUTORIAL_AFTER_PLAY_DESCRIPTION: string;
     TUTORIAL_AFTER_PLAY_STEP_1: string;
+    TUTORIAL_CREATE_STORY_TITLE: string;
+    TUTORIAL_CREATE_STORY_DESCRIPTION: string;
+    TUTORIAL_CREATE_STORY_STEP_1: string;
+    TUTORIAL_CREATE_STORY_STEP_2: string;
   };
 } = {
   ko: {
@@ -216,6 +220,10 @@ const TRANSLATIONS: {
     TUTORIAL_AFTER_PLAY_TITLE: '잘 하셨어요!',
     TUTORIAL_AFTER_PLAY_DESCRIPTION: '이야기를 하나 들었으니,\n이번엔 내 목소리를 올려 볼까요?',
     TUTORIAL_AFTER_PLAY_STEP_1: '추가 버튼을 눌러 목소리를 녹음하고,\n새로운 이야기를 올릴 수 있습니다.',
+    TUTORIAL_CREATE_STORY_TITLE: '새로운 이야기',
+    TUTORIAL_CREATE_STORY_DESCRIPTION: '연애, 꿈, 인간관계, 성적, 일상 등\n어떤 주제라도 상관 없어요.\n지금 하고 있는 그 생각을 말해 주세요.',
+    TUTORIAL_CREATE_STORY_STEP_1: '앨범 버튼을 눌러\n배경 사진을 변경할 수 있습니다.',
+    TUTORIAL_CREATE_STORY_STEP_2: '태그를 달아 이야기를 구분해 주세요.\n텍스트를 입력하고 엔터를 누르면 된답니다.',
   },
   en: {
     // 일반
@@ -323,6 +331,10 @@ const TRANSLATIONS: {
     TUTORIAL_AFTER_PLAY_TITLE: 'Well done!',
     TUTORIAL_AFTER_PLAY_DESCRIPTION: '',
     TUTORIAL_AFTER_PLAY_STEP_1: '',
+    TUTORIAL_CREATE_STORY_TITLE: 'New Story',
+    TUTORIAL_CREATE_STORY_DESCRIPTION: '',
+    TUTORIAL_CREATE_STORY_STEP_1: '',
+    TUTORIAL_CREATE_STORY_STEP_2: '',
   },
 };
 

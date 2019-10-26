@@ -12,9 +12,30 @@ import {
   CreateStoryController,
 } from 'containers';
 import { AnalyticsService } from 'services';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Portal, TutorialLayer } from 'components';
+import { LocalizedStrings } from 'constants/translations';
 
 const CreateStoryScreen: React.FunctionComponent<{}> = () => {
   const onDidFocus = useCallback(() => {
+    AsyncStorage.getItem('@CreateStoryTutorialFinished').then((finished) => {
+      if (finished) {
+        return;
+      }
+
+      AsyncStorage.setItem('@CreateStoryTutorialFinished', 'true');
+      setTimeout(() => Portal.show(TutorialLayer, {
+        title: LocalizedStrings.TUTORIAL_CREATE_STORY_TITLE,
+        description: LocalizedStrings.TUTORIAL_CREATE_STORY_DESCRIPTION,
+        steps: [{
+          icon: 'ic_grid',
+          message: LocalizedStrings.TUTORIAL_CREATE_STORY_STEP_1,
+        }, {
+          icon: 'ic_tag',
+          message: LocalizedStrings.TUTORIAL_CREATE_STORY_STEP_2,
+        }],
+      }), 500);
+    });
     AnalyticsService.setScreen('CreateStoryScreen');
   }, []);
 
