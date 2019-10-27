@@ -32,9 +32,6 @@ const SAFE_AREA_INSET: {
 };
 
 const LOGO_ICON = { uri: 'ic_splash' };
-const PLAY_ICON = { uri: 'ic_play_active' };
-const NEXT_ICON = { uri: 'ic_next' };
-const CHAT_ICON = { uri: 'ic_chat_active' };
 
 interface Props {
   title: string;
@@ -145,6 +142,7 @@ const styles = StyleSheet.create({
   },
   page: {
     flex: 1,
+    paddingHorizontal: 48,
     justifyContent: 'center',
     alignItems: 'center',
   },
