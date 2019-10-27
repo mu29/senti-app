@@ -1,5 +1,6 @@
 import firebase from 'react-native-firebase';
 import {
+  LANGUAGE,
   WEBSITE_URL,
   DYNAMIC_LINK_HOST,
   PACKAGE_NAME,
@@ -14,7 +15,7 @@ class DynamicLinkService {
       .ios.setAppStoreId('1483156767')
       .social.setTitle(LocalizedStrings.COMMON_APP_NAME)
       .social.setDescriptionText(LocalizedStrings.COMMON_APP_DESCRIPTION)
-      .social.setImageUrl(`${WEBSITE_URL}/assets/opengraph.png`);
+      .social.setImageUrl(`${WEBSITE_URL}/assets/${LANGUAGE}/opengraph.png`);
 
     return firebase.links().createShortDynamicLink(link, 'SHORT');
   }

@@ -15,7 +15,10 @@ import {
   typography,
 } from 'constants/style';
 import { LocalizedStrings } from 'constants/translations';
-import { WEBSITE_URL } from 'constants/config';
+import {
+  LANGUAGE,
+  WEBSITE_URL,
+} from 'constants/config';
 
 interface Props {
   isVisible: boolean;
@@ -33,7 +36,7 @@ const AuthModal: React.FunctionComponent<Props> = ({
   hide,
 }) => {
   const openPrivacy = useCallback(() => {
-    const url = `${WEBSITE_URL}/terms.html`;
+    const url = `${WEBSITE_URL}/${LANGUAGE}/terms.html`;
     NavigationService.navigate('WebView', { url });
     hide();
   }, [hide]);

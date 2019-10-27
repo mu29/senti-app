@@ -24,7 +24,10 @@ import {
 } from 'constants/style';
 import { AnalyticsService } from 'services';
 import { LocalizedStrings } from 'constants/translations';
-import { WEBSITE_URL } from 'constants/config';
+import {
+  LANGUAGE,
+  WEBSITE_URL,
+} from 'constants/config';
 
 const GENDERS = {
   male: LocalizedStrings.GENDER_MALE,
@@ -77,7 +80,7 @@ const EditProfileInfo: React.FunctionComponent<Props> = ({
   }, []);
 
   const openPrivacy = useCallback(() => {
-    const url = `${WEBSITE_URL}/terms.html`;
+    const url = `${WEBSITE_URL}/${LANGUAGE}/terms.html`;
     navigation.navigate('WebView', { url });
   }, [navigation]);
 

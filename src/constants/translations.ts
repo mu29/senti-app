@@ -236,7 +236,7 @@ const TRANSLATIONS: {
   en: {
     // 일반
     COMMON_APP_NAME: 'Senti',
-    COMMON_APP_DESCRIPTION: 'Anonymous community with your voice',
+    COMMON_APP_DESCRIPTION: 'Communicate anonymously, with your voice',
     COMMON_ERROR: 'Error',
     COMMON_LOADING: 'Now Loading..',
     COMMON_YES: 'Yes',
@@ -332,7 +332,7 @@ const TRANSLATIONS: {
     TRANSACTION_DATE_FORMAT: 'YYYY. MM. DD A h',
     // 튜토리얼
     TUTORIAL_MAIN_TITLE: 'Welcome!',
-    TUTORIAL_MAIN_DESCRIPTION: 'Senti is an anonymous community\ncommunicating orally, not literally',
+    TUTORIAL_MAIN_DESCRIPTION: 'Senti is an anonymous community\ninteract orally, not literally',
     TUTORIAL_MAIN_STEP_1: 'By pressing the play button,\nyou can listen to other stories.',
     TUTORIAL_MAIN_STEP_2: 'You can move to another story.\nScroll up and down or press the next button.',
     TUTORIAL_MAIN_STEP_3: 'What about replying to other story?',
