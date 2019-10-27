@@ -18,7 +18,7 @@ export const WEBSITE_URL = ConfigModule.websiteUrl;
 
 export const FIREBASE_WEB_CLIENT_ID = ConfigModule.webClientId;
 
-export const LANGUAGE = ['ko'].includes(ConfigModule.language) ? ConfigModule.language : 'ko';
+export const LANGUAGE = ['ko', 'en'].includes(ConfigModule.language) ? ConfigModule.language : 'en';
 
 export const SCREEN_WIDTH = Platform.select({
   android: ConfigModule.screenWidth / PixelRatio.get(),
