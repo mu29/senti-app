@@ -26,7 +26,7 @@ const TabBar: React.FunctionComponent<Props> = ({
     route: Route;
     focused: boolean;
   }) => (
-    <Text style={[typography.body2, focused && styles.focused]}>{route.title}</Text>
+    <Text style={[styles.title, focused && styles.focused]}>{route.title}</Text>
   ), []);
 
   return (
@@ -51,6 +51,11 @@ const styles = StyleSheet.create({
   },
   indicator: {
     backgroundColor: palette.yellow.default,
+  },
+  title: {
+    ...typography.body2,
+    width: 80,
+    textAlign: 'center',
   },
 });
 

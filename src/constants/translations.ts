@@ -319,7 +319,7 @@ const TRANSLATIONS: {
     COIN_COUNT: (amount) => `${amount} Coin${amount > 1 ? 's' : ''}`,
     COIN_CHARGE_BUTTON: 'Charge',
     COIN_DISCOUNT_RATE: (percent) => `${percent}% discount!`,
-    COIN_PRICE: (price) => `USD ${withComma(price)}`,
+    COIN_PRICE: (price) => `USD ${price}`,
     COIN_REFERRAL: 'Invite Friends',
     COIN_CHARGE_TAB: 'Charge',
     COIN_HISTORY_TAB: 'History',
@@ -329,7 +329,7 @@ const TRANSLATIONS: {
     COIN_RESTORE_MESSAGE: 'Restore your previous purchases.',
     FREE_COIN_AVAILABLE: 'Use 1 coin for free!',
     FREE_COIN_TIME_LEFT: (minutes: string, seconds: string) => `Free coin after: ${minutes}:${seconds}`,
-    TRANSACTION_DATE_FORMAT: 'YYYY. MM. DD A h',
+    TRANSACTION_DATE_FORMAT: 'DD. MM. YYYY (at HH)',
     // 튜토리얼
     TUTORIAL_MAIN_TITLE: 'Welcome!',
     TUTORIAL_MAIN_DESCRIPTION: 'Senti is an anonymous community\ninteract orally, not literally',
