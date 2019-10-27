@@ -74,6 +74,7 @@ const CreateStoryTags: React.FunctionComponent<Props> = ({
       <TextInput
         spellCheck={false}
         autoCorrect={false}
+        autoCapitalize="none"
         numberOfLines={1}
         multiline
         placeholder={LocalizedStrings.ADD_TAG_PLACEHOLDER}

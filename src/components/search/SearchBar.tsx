@@ -28,6 +28,7 @@ const SearchBar: React.FunctionComponent<Props> = ({
         onChangeText={updateQuery}
         spellCheck={false}
         autoCorrect={false}
+        autoCapitalize="none"
         dataDetectorTypes="none"
         keyboardType="default"
         returnKeyType="search"
