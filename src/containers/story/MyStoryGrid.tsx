@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NetworkStatus } from 'apollo-client';
 import { useQuery } from '@apollo/react-hooks';
+import uniqBy from 'lodash/uniqBy';
 import {
   ErrorView,
   LoadingView,
@@ -86,13 +87,14 @@ const Container: React.FunctionComponent<{}> = () => {
             return original;
           }
 
-          return Object.assign(original, {
+          return {
+            ...original,
             myStoryFeed: {
               ...original.myStoryFeed,
-              stories: original.myStoryFeed.stories.concat(nextStories),
+              stories: uniqBy([...original.myStoryFeed.stories, ...nextStories], 'id'),
               cursor: nextCursor,
             },
-          });
+          };
         },
       }).catch(console.error)}
     />
