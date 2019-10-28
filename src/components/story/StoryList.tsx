@@ -156,7 +156,13 @@ const StoryList: React.FunctionComponent<Props> = ({
           <LoadingBar isVisible={isLoading} />
         </View>
       )}
-      <StoryController item={items[current]} onPressNext={onPressNext} hasBottom={hasBottom} />
+      {items[current] && (
+        <StoryController
+          item={items[current]}
+          onPressNext={onPressNext}
+          hasBottom={hasBottom}
+        />
+      )}
     </React.Fragment>
   );
 };
