@@ -14,6 +14,7 @@ import {
   withSafeArea,
 } from 'components';
 import { palette } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 const WebViewScreen: React.FunctionComponent<NavigationScreenProps> = ({
   navigation,
@@ -33,7 +34,7 @@ const WebViewScreen: React.FunctionComponent<NavigationScreenProps> = ({
       <Button onPress={goBack}>
         <View style={styles.button}>
           <Text style={styles.text}>
-            닫기
+            {LocalizedStrings.COMMON_CLOSE}
           </Text>
         </View>
       </Button>

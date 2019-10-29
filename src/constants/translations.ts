@@ -12,9 +12,12 @@ const TRANSLATIONS: {
     COMMON_NO: string;
     COMMON_CONFIRM: string;
     COMMON_CANCEL: string;
+    COMMON_START: string;
+    COMMON_NEXT: string;
     COMMON_SAVE: string;
     COMMON_DELETE: string;
     COMMON_NOTICE: string;
+    COMMON_CLOSE: string;
     // 화면 이름
     SCREEN_CHATTING: string;
     SCREEN_PROFILE: string;
@@ -128,9 +131,12 @@ const TRANSLATIONS: {
     COMMON_NO: '아니오',
     COMMON_CONFIRM: '확인',
     COMMON_CANCEL: '취소',
+    COMMON_START: '시작하기',
+    COMMON_NEXT: '다음',
     COMMON_SAVE: '저장',
     COMMON_DELETE: '삭제',
     COMMON_NOTICE: '알림',
+    COMMON_CLOSE: '닫기',
     // 화면 이름
     SCREEN_CHATTING: '대화',
     SCREEN_PROFILE: '프로필',
@@ -243,9 +249,12 @@ const TRANSLATIONS: {
     COMMON_NO: 'No',
     COMMON_CONFIRM: 'Confirm',
     COMMON_CANCEL: 'Cancel',
+    COMMON_START: 'Start',
+    COMMON_NEXT: 'Next',
     COMMON_SAVE: 'Save',
     COMMON_DELETE: 'Delete',
     COMMON_NOTICE: 'Notice',
+    COMMON_CLOSE: 'Close',
     // 화면 이름
     SCREEN_CHATTING: 'Chatting',
     SCREEN_PROFILE: 'Profile',

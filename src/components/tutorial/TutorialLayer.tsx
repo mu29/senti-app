@@ -22,6 +22,7 @@ import {
   palette,
   typography,
 } from 'constants/style';
+import { LocalizedStrings } from 'constants/translations';
 
 const SAFE_AREA_INSET: {
   top: SafeAreaViewForceInsetValue;
@@ -100,7 +101,7 @@ class TutorialLayer extends React.PureComponent<Props, State> {
         </ViewPager>
         <Button onPress={this.showNext} style={[styles.button, index === maxIndex && styles.doneButton]}>
           <Text style={[typography.heading3, index === maxIndex && styles.doneText]}>
-            {index === maxIndex ? '시작하기' : '다음'}
+            {index === maxIndex ? LocalizedStrings.COMMON_START : LocalizedStrings.COMMON_NEXT}
           </Text>
         </Button>
       </SafeAreaView>
