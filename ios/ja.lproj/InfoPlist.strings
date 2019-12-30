@@ -1,0 +1,4 @@
+CFBundleDisplayName = "センチ";
+CFBundleName="センチ";
+NSMicrophoneUsageDescription="声の録音";
+NSPhotoLibraryUsageDescription="プロフィールイメージ編集";

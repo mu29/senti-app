@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name_debug">センチ (D)</string>
+    <string name="app_name_staging">センチ (S)</string>
+    <string name="app_name_release">センチ</string>
+</resources>
